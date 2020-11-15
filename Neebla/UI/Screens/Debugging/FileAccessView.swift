@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if false
 // https://www.hackingwithswift.com/quick-start/swiftui/how-to-dismiss-the-keyboard-for-a-textfield
 #if canImport(UIKit)
 extension View {
@@ -215,10 +215,5 @@ struct SyncView: View {
     }
 }
 
-// See https://stackoverflow.com/questions/57021722/swiftui-optional-textfield
-func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
-    Binding(
-        get: { lhs.wrappedValue ?? rhs },
-        set: { lhs.wrappedValue = $0 }
-    )
-}
+#endif
+

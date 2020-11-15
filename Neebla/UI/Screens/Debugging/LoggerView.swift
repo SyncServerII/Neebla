@@ -5,6 +5,7 @@
 //  Created by Christopher G Prince on 10/3/20.
 //
 
+#if false
 import Foundation
 import SwiftUI
 import MobileCoreServices
@@ -29,3 +30,4 @@ struct LoggerView: View {
         }
     }
 }
+#endif

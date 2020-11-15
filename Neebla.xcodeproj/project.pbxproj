@@ -75,6 +75,7 @@
 		8331F4CE2561168B0063A67D /* ServerFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F46C2560BE8A0063A67D /* ServerFileModel.swift */; };
 		8331F4D1256116920063A67D /* UUID+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C8256113230063A67D /* UUID+Extras.swift */; };
 		8331F4D92561B1D50063A67D /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4B32560F5B90063A67D /* ItemType.swift */; };
+		8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4DC2561EDA50063A67D /* Binding+Extras.swift */; };
 		835AC8D5255B82AD00375084 /* iOSDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8D4255B82AD00375084 /* iOSDropbox */; };
 		835AC8D9255B831800375084 /* iOSFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8D8255B831800375084 /* iOSFacebook */; };
 		835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8DC255B833A00375084 /* SFSafeSymbols */; };
@@ -174,6 +175,7 @@
 		8331F4C02560FFC70063A67D /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		8331F4C4256110520063A67D /* FileInfo+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileInfo+Extras.swift"; sourceTree = "<group>"; };
 		8331F4C8256113230063A67D /* UUID+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Extras.swift"; sourceTree = "<group>"; };
+		8331F4DC2561EDA50063A67D /* Binding+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extras.swift"; sourceTree = "<group>"; };
 		835AC8E4255B842E00375084 /* Services+Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+Invitation.swift"; sourceTree = "<group>"; };
 		835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+LoggingHelpers.swift"; sourceTree = "<group>"; };
 		835AC8E6255B842E00375084 /* Services+Open.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+Open.swift"; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 		8331F44E255FB13C0063A67D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				8331F4DC2561EDA50063A67D /* Binding+Extras.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -684,6 +687,7 @@
 				8331F4B42560F5B90063A67D /* ItemType.swift in Sources */,
 				8331F4672560BE0E0063A67D /* AlbumItemsViewModel.swift in Sources */,
 				8331F4BA2560F7300063A67D /* ImageObjectType.swift in Sources */,
+				8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */,
 				835AC8EA255B842E00375084 /* Services+LoggingHelpers.swift in Sources */,
 				8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */,
 				8331F335255B8AFD0063A67D /* LoggerView.swift in Sources */,
