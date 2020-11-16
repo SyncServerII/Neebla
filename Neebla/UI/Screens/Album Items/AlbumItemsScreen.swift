@@ -1,20 +1,19 @@
 
 import Foundation
 import SwiftUI
-import SwiftUIRefresh
 import SFSafeSymbols
 import CustomModalView
 
 struct AlbumItemsScreen: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
-
+    let gridItemLayout = [GridItem(.adaptive(minimum: 50))]
+    
     var body: some View {
-        List(viewModel.objects, id: \.fileGroupUUID) { item in
-            AlbumItemsScreenRow(object: item, viewModel: viewModel)
-        }
-        .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                viewModel.sync()
+        RefreshableScrollView(refreshing: $viewModel.loading) {
+            LazyVGrid(columns: gridItemLayout) {
+                ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
+                    AlbumItemsScreenRow(object: item)
+                }
             }
         }
         .alert(isPresented: $viewModel.presentAlert, content: {
@@ -41,22 +40,13 @@ struct AlbumItemsScreen: View {
 
 private struct AlbumItemsScreenRow: View {
     @ObservedObject var object:ServerObjectModel
-    @ObservedObject var viewModel:AlbumItemsViewModel
-    private let filesForObject: [ServerFileModel]
     
-    init(object:ServerObjectModel, viewModel:AlbumItemsViewModel) {
+    init(object:ServerObjectModel) {
         self.object = object
-        self.viewModel = viewModel
-        filesForObject = viewModel.filesFor(fileGroupUUID: object.fileGroupUUID)
     }
 
     var body: some View {
-        VStack {
-            Text("\(object.fileGroupUUID.uuidString); files: \(filesForObject.count)")
-            //ImageIcon(imageFile: <#URL?#>)
-            
-            // Want to map from an object type (from a ServerObjectModel) to a SwiftUI View, an icon to represent that object type.
-        }
+        AnyIcon(object: object)
     }
 }
 

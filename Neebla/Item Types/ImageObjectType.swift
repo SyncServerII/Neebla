@@ -52,7 +52,6 @@ class ImageObjectType: ItemType, DeclarableObject {
         let commentFile = CommentFile()
         let commentFileData = try commentFile.getData()
         
-        
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)
         
@@ -65,10 +64,10 @@ class ImageObjectType: ItemType, DeclarableObject {
         let objectModel = try ServerObjectModel(db: Services.session.db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: objectType)
         try objectModel.insert()
         
-        let imageFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: imageFileUUID, url: imageFileURL)
+        let imageFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: imageFileUUID, fileLabel: imageDeclaration.fileLabel, url: imageFileURL)
         try imageFileModel.insert()
         
-        let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, url: commentFileURL)
+        let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, url: commentFileURL)
         try commentFileModel.insert()
         
         let commentUpload = FileUpload(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)

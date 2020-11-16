@@ -5,10 +5,6 @@ import Combine
 import iOSShared
 import iOSBasics
 
-protocol AlertMessage: AnyObject {
-    var alertMessage: String! { get set }
-}
-
 extension AlertMessage {
     func showMessage(for errorEvent: ErrorEvent?) {
         switch errorEvent {
@@ -31,10 +27,19 @@ extension AlertMessage {
 }
 
 class AlbumItemsViewModel: ObservableObject, AlertMessage {
+    @Published var loading: Bool = false {
+        didSet {
+            if oldValue == false && loading == true {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.sync()
+                }
+            }
+        }
+    }
+    
     @Published var objects = [ServerObjectModel]()
     let sharingGroupUUID: UUID
 
-    @Published var isShowingRefresh = false
     @Published var presentAlert = false
 
     var alertMessage: String! {
@@ -53,7 +58,7 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             
-            self.isShowingRefresh = false
+            self.loading = false
             self.getItemsForAlbum(album: sharingGroupUUID)
         }
         
@@ -79,23 +84,12 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
             try Services.session.syncServer.sync(sharingGroupUUID: sharingGroupUUID)
         } catch let error {
             logger.error("\(error)")
-            isShowingRefresh = false
+            loading = false
             alertMessage = "Failed to sync."
         }
     }
     
     func startNewAddItem() {
         addNewItem = true
-    }
-    
-    func filesFor(fileGroupUUID: UUID) -> [ServerFileModel] {
-        do {
-            let fileModels = try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
-            return fileModels
-        } catch let error {
-            logger.error("\(error)")
-            alertMessage = "Failed to get files for object."
-            return []
-        }
     }
 }

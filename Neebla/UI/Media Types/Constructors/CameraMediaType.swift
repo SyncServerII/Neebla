@@ -2,7 +2,7 @@
 import Foundation
 import SwiftUI
 
-struct CameraMediaType: MediaConstructorType {
+struct CameraMediaType: MediaConstructorBasics, View {
     let uiDisplayName = "Camera"
     let sharingGroupUUID: UUID
     let alertMessage: AlertMessage

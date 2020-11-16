@@ -18,6 +18,9 @@ class ServerFileModel: DatabaseModel {
     static let fileUUIDField = Field("fileUUID", \M.fileUUID)
     var fileUUID: UUID
     
+    static let fileLabelField = Field("fileLabel", \M.fileLabel)
+    var fileLabel: String
+    
     // If this is true, then the url field should not be used (it should be nil). The file was reported as `gone` on the server. If it is false, then the url may be nil if it hasn't yet been populated into this record.
     static let goneField = Field("gone", \M.gone)
     var gone: Bool
@@ -29,6 +32,7 @@ class ServerFileModel: DatabaseModel {
         id: Int64! = nil,
         fileGroupUUID: UUID,
         fileUUID: UUID,
+        fileLabel: String,
         gone: Bool = false,
         url: URL? = nil) throws {
 
@@ -36,6 +40,7 @@ class ServerFileModel: DatabaseModel {
         self.id = id
         self.fileGroupUUID = fileGroupUUID
         self.fileUUID = fileUUID
+        self.fileLabel = fileLabel
         self.gone = gone
         self.url = url
     }
@@ -47,6 +52,7 @@ class ServerFileModel: DatabaseModel {
             t.column(idField.description, primaryKey: true)
             t.column(fileGroupUUIDField.description)
             t.column(fileUUIDField.description, unique: true)
+            t.column(fileLabelField.description)
             t.column(goneField.description)
             t.column(urlField.description)
         }
@@ -57,6 +63,7 @@ class ServerFileModel: DatabaseModel {
             id: row[Self.idField.description],
             fileGroupUUID: row[Self.fileGroupUUIDField.description],
             fileUUID: row[Self.fileUUIDField.description],
+            fileLabel: row[Self.fileLabelField.description],
             gone: row[Self.goneField.description],
             url: row[Self.urlField.description]
         )
@@ -66,6 +73,7 @@ class ServerFileModel: DatabaseModel {
         try doInsertRow(db: db, values:
             Self.fileGroupUUIDField.description <- fileGroupUUID,
             Self.fileUUIDField.description <- fileUUID,
+            Self.fileLabelField.description <- fileLabel,
             Self.goneField.description <- gone,
             Self.urlField.description <- url
         )
@@ -76,6 +84,7 @@ extension ServerFileModel {
     enum ServerFileModelError: Error {
         case noFileUUID
         case noFileGroupUUID
+        case noFileLabel
     }
     
     static func upsert(db: Connection, fileInfo: FileInfo) throws {
@@ -87,11 +96,15 @@ extension ServerFileModel {
             throw ServerFileModelError.noFileGroupUUID
         }
         
+        guard let fileLabel = fileInfo.fileLabel else {
+            throw ServerFileModelError.noFileLabel
+        }
+        
         if let _ = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == fileUUID) {
             // Nothing yet.
         }
         else {
-            let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: fileUUID)
+            let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: fileUUID, fileLabel: fileLabel)
             try model.insert()
         }
     }
@@ -116,7 +129,7 @@ extension DownloadedFile {
                 gone = true
             }
 
-            let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: uuid, gone: gone, url: contentsURL)
+            let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: uuid, fileLabel: fileLabel, gone: gone, url: contentsURL)
             try model.insert()
         }
     }

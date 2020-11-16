@@ -2,9 +2,13 @@
 import Foundation
 import SwiftUI
 
-protocol MediaConstructorType: View {
+protocol MediaConstructorBasics {
     var uiDisplayName: String {get}
     init(album sharingGroupUUID: UUID, alertMessage: AlertMessage)
+}
+
+protocol MediaConstructorView: MediaConstructorBasics {
+    var constructor: AnyView {get}
 }
 
 struct MediaTypeListView: View {
