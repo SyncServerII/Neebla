@@ -2,7 +2,7 @@
 import Foundation
 import SwiftUI
 
-struct WebLinkMediaType: MediaType {
+struct WebLinkMediaType: MediaConstructorType {
     let uiDisplayName = "Web link (URL)"
     let sharingGroupUUID: UUID
     let alertMessage: AlertMessage

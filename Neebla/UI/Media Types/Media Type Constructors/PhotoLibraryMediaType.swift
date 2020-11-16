@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 import iOSShared
 
-struct PhotoLibraryMediaType: MediaType {
+struct PhotoLibraryMediaType: MediaConstructorType {
     let uiDisplayName = "Photo Library"
     let sharingGroupUUID: UUID
     let alertMessage: AlertMessage

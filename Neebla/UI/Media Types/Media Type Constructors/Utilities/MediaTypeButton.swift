@@ -2,7 +2,7 @@
 import Foundation
 import SwiftUI
 
-struct MediaTypeButton<M: MediaType>: View {
+struct MediaTypeButton<M: MediaConstructorType>: View {
     let mediaType: M
     let action:()->()
     
