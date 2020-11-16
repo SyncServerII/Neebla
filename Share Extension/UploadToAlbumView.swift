@@ -10,7 +10,7 @@ import SwiftUI
 import iOSSignIn
 
 struct UploadToAlbumView: View {
-    @ObservedObject var viewModel:ViewModel
+    @ObservedObject var viewModel:ShareViewModel
     
     var body: some View {
         VStack {
@@ -29,7 +29,7 @@ struct UploadToAlbumView: View {
 }
 
 struct UploadToAlbumView_Previews: PreviewProvider {
-    static let viewModel = ViewModel()
+    static let viewModel = ShareViewModel()
     static var previews: some View {
         viewModel.width = 250
         viewModel.height = 400

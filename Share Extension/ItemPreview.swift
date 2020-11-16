@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct ItemPreview: View {
-    @ObservedObject var viewModel:ViewModel
+    @ObservedObject var viewModel:ShareViewModel
 
     var body: some View {
         if let sharingItem = viewModel.sharingItem {
@@ -23,7 +23,7 @@ struct ItemPreview: View {
 }
 
 struct ItemPreview_Previews: PreviewProvider {
-    static let viewModel = ViewModel()
+    static let viewModel = ShareViewModel()
     static var previews: some View {
         ItemPreview(viewModel: viewModel)
     }

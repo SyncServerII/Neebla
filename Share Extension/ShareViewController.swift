@@ -27,10 +27,9 @@ struct ShowAlert {
 // To make a custom UI: https://stackoverflow.com/questions/25922118 (The original superclass for ShareViewController was `SLComposeServiceViewController`).
 
 class ShareViewController: UIViewController {
-    let viewModel = ViewModel()
-    var serverInterface:ServerInterface!
     var hostingController:UIHostingController<SharingView>!
     var showAlert: ShowAlert?
+    let viewModel = ShareViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,23 +149,6 @@ extension ShareViewController {
             logger.error("Services.session.setupState: \(Services.setupState)")
             showAlert = ShowAlert(title: "Alert!", message: "Problem with setting up sharing.")
             return false
-        }
-        
-        serverInterface = Services.session.serverInterface
-
-        serverInterface.syncCompleted = { [weak self] error in
-            guard error == nil else {
-                return
-            }
-            
-            guard let self = self else { return }
-            if let sharingGroups = try? self.serverInterface.syncServer.sharingGroups() {
-                self.viewModel.sharingGroups = sharingGroups.enumerated().map { index, group in
-                    return SharingGroupData(id: group.sharingGroupUUID, name: group.sharingGroupName ?? "Album \(index)")
-                }
-            }
-            
-            self.serverInterface.syncCompleted = nil
         }
         
         do {

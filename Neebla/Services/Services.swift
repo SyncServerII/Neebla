@@ -45,6 +45,10 @@ class Services {
         }
     }
     
+    var syncServer: SyncServer {
+        return serverInterface.syncServer
+    }
+    
     var configuration:UIConfiguration!
     var signInServices: SignInServices!
     var serverInterface:ServerInterface!

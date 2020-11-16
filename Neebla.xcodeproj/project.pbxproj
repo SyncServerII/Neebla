@@ -26,7 +26,7 @@
 		8331F367255B8DD10063A67D /* ItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F35C255B8DD10063A67D /* ItemProvider.swift */; };
 		8331F368255B8DD10063A67D /* ImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F35D255B8DD10063A67D /* ImageItemProvider.swift */; };
 		8331F369255B8DD10063A67D /* UploadToAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F35E255B8DD10063A67D /* UploadToAlbumView.swift */; };
-		8331F36A255B8DD10063A67D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F360255B8DD10063A67D /* ViewModel.swift */; };
+		8331F36A255B8DD10063A67D /* SharingGroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F360255B8DD10063A67D /* SharingGroupData.swift */; };
 		8331F36B255B8DD10063A67D /* SharingGroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F361255B8DD10063A67D /* SharingGroupsView.swift */; };
 		8331F36C255B8DD10063A67D /* SharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F362255B8DD10063A67D /* SharingView.swift */; };
 		8331F36D255B8DD10063A67D /* ItemPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F363255B8DD10063A67D /* ItemPreview.swift */; };
@@ -76,6 +76,9 @@
 		8331F4D1256116920063A67D /* UUID+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C8256113230063A67D /* UUID+Extras.swift */; };
 		8331F4D92561B1D50063A67D /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4B32560F5B90063A67D /* ItemType.swift */; };
 		8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4DC2561EDA50063A67D /* Binding+Extras.swift */; };
+		8331F4E02561F8160063A67D /* ServerInterface+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */; };
+		8331F4E32561F9250063A67D /* FileInfo+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C4256110520063A67D /* FileInfo+Extras.swift */; };
+		8331F4E72561FAEF0063A67D /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4E62561FAEF0063A67D /* ShareViewModel.swift */; };
 		835AC8D5255B82AD00375084 /* iOSDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8D4255B82AD00375084 /* iOSDropbox */; };
 		835AC8D9255B831800375084 /* iOSFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8D8255B831800375084 /* iOSFacebook */; };
 		835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8DC255B833A00375084 /* SFSafeSymbols */; };
@@ -142,7 +145,7 @@
 		8331F35D255B8DD10063A67D /* ImageItemProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageItemProvider.swift; sourceTree = "<group>"; };
 		8331F35E255B8DD10063A67D /* UploadToAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadToAlbumView.swift; sourceTree = "<group>"; };
 		8331F35F255B8DD10063A67D /* Share.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
-		8331F360255B8DD10063A67D /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		8331F360255B8DD10063A67D /* SharingGroupData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharingGroupData.swift; sourceTree = "<group>"; };
 		8331F361255B8DD10063A67D /* SharingGroupsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharingGroupsView.swift; sourceTree = "<group>"; };
 		8331F362255B8DD10063A67D /* SharingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharingView.swift; sourceTree = "<group>"; };
 		8331F363255B8DD10063A67D /* ItemPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemPreview.swift; sourceTree = "<group>"; };
@@ -176,6 +179,7 @@
 		8331F4C4256110520063A67D /* FileInfo+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileInfo+Extras.swift"; sourceTree = "<group>"; };
 		8331F4C8256113230063A67D /* UUID+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Extras.swift"; sourceTree = "<group>"; };
 		8331F4DC2561EDA50063A67D /* Binding+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extras.swift"; sourceTree = "<group>"; };
+		8331F4E62561FAEF0063A67D /* ShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
 		835AC8E4255B842E00375084 /* Services+Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+Invitation.swift"; sourceTree = "<group>"; };
 		835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+LoggingHelpers.swift"; sourceTree = "<group>"; };
 		835AC8E6255B842E00375084 /* Services+Open.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+Open.swift"; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 			children = (
 				8331F38C255B91600063A67D /* Share Extension.entitlements */,
 				8331F349255B8CC50063A67D /* ShareViewController.swift */,
+				8331F4E62561FAEF0063A67D /* ShareViewModel.swift */,
 				8331F34B255B8CC50063A67D /* MainInterface.storyboard */,
 				8331F34E255B8CC50063A67D /* Info.plist */,
 				8331F358255B8DD00063A67D /* ButtonBar.swift */,
@@ -239,7 +244,7 @@
 				8331F361255B8DD10063A67D /* SharingGroupsView.swift */,
 				8331F362255B8DD10063A67D /* SharingView.swift */,
 				8331F35E255B8DD10063A67D /* UploadToAlbumView.swift */,
-				8331F360255B8DD10063A67D /* ViewModel.swift */,
+				8331F360255B8DD10063A67D /* SharingGroupData.swift */,
 			);
 			path = "Share Extension";
 			sourceTree = "<group>";
@@ -656,10 +661,13 @@
 				8331F366255B8DD10063A67D /* ItemProviderFactory.swift in Sources */,
 				8331F37E255B8F790063A67D /* Services+SignInServices.swift in Sources */,
 				8331F364255B8DD10063A67D /* ButtonBar.swift in Sources */,
+				8331F4E32561F9250063A67D /* FileInfo+Extras.swift in Sources */,
 				8331F369255B8DD10063A67D /* UploadToAlbumView.swift in Sources */,
 				8331F441255F9C8E0063A67D /* AlbumModel.swift in Sources */,
 				8331F367255B8DD10063A67D /* ItemProvider.swift in Sources */,
-				8331F36A255B8DD10063A67D /* ViewModel.swift in Sources */,
+				8331F4E72561FAEF0063A67D /* ShareViewModel.swift in Sources */,
+				8331F36A255B8DD10063A67D /* SharingGroupData.swift in Sources */,
+				8331F4E02561F8160063A67D /* ServerInterface+Helpers.swift in Sources */,
 				8331F444255F9C920063A67D /* ServerObjectModel.swift in Sources */,
 				8331F381255B8F820063A67D /* Services+LoggingHelpers.swift in Sources */,
 				8331F4D1256116920063A67D /* UUID+Extras.swift in Sources */,

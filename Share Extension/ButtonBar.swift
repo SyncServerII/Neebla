@@ -10,7 +10,7 @@ import SwiftUI
 import iOSSignIn
 
 struct ButtonBar: View {
-    @ObservedObject var viewModel:ViewModel
+    @ObservedObject var viewModel:ShareViewModel
     
     var body: some View {
         HStack {
@@ -31,7 +31,7 @@ struct ButtonBar: View {
 }
 
 struct ButtonBar_Previews: PreviewProvider {
-    static let viewModel = ViewModel()
+    static let viewModel = ShareViewModel()
     static var previews: some View {
         viewModel.width = 150
         viewModel.height = 300

@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Combine
+import iOSShared
 
-class AlbumsViewModel: ObservableObject {
+class AlbumsViewModel: ObservableObject, AlertMessage {
     @Published var isShowingRefresh = false
     @Published var albums = [AlbumModel]()
     
@@ -22,6 +24,8 @@ class AlbumsViewModel: ObservableObject {
     @Published var textInputTitle: String?
     var textInputAction: (()->())?
     static let untitledAlbumName = "Untitled Album"
+    private var syncSubscription:AnyCancellable!
+    private var errorSubscription:AnyCancellable!
     
     var alertMessage: String! {
         didSet {
@@ -30,6 +34,18 @@ class AlbumsViewModel: ObservableObject {
     }
     
     init() {
+        syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
+            guard let self = self else { return }
+            
+            self.isShowingRefresh = false
+            self.getCurrentAlbums()
+        }
+        
+        errorSubscription = Services.session.serverInterface.$error.sink { [weak self] errorEvent in
+            guard let self = self else { return }
+            self.showMessage(for: errorEvent)
+        }
+        
         getCurrentAlbums()
     }
 
@@ -80,17 +96,12 @@ class AlbumsViewModel: ObservableObject {
     }
     
     func sync() {
-        Services.session.serverInterface.sync() { [weak self] error in
-            guard let self = self else { return }
-            
-            self.isShowingRefresh = false
-
-            guard error == nil else {
-                self.alertMessage = "Failed to sync."
-                return
-            }
-            
-            self.getCurrentAlbums()
+        do {
+            try Services.session.syncServer.sync()
+        } catch let error {
+            logger.error("\(error)")
+            isShowingRefresh = false
+            alertMessage = "Failed to sync."
         }
     }
     

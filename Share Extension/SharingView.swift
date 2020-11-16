@@ -3,7 +3,7 @@ import SwiftUI
 import iOSSignIn
 
 struct SharingView: View {
-    @ObservedObject var viewModel:ViewModel
+    @ObservedObject var viewModel:ShareViewModel
     let insideViewOffset: CGFloat = 30
     
     var body: some View {
@@ -28,7 +28,7 @@ struct SharingView: View {
 }
 
 struct Container: View {
-    @ObservedObject var viewModel:ViewModel
+    @ObservedObject var viewModel:ShareViewModel
     
     var body: some View {
         VStack {
@@ -44,7 +44,7 @@ struct Container: View {
 }
 
 struct SharingView_Previews: PreviewProvider {
-    static let viewModel = ViewModel()
+    static let viewModel = ShareViewModel()
     static var previews: some View {
         viewModel.width = 250
         viewModel.height = 450

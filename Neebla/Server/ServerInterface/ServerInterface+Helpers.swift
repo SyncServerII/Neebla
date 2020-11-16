@@ -11,50 +11,16 @@ import ServerShared
 import iOSBasics
 
 extension ServerInterface {
-    func sync(sharingGroupUUID: UUID? = nil, completion: ((Error?)->())? = nil) {
-        self.syncCompleted = { [weak self] result in
-            guard let self = self else { return }
-        
-            switch result {
-            case .success(let syncResult):
-                switch syncResult {
-                case .noIndex:
-                    break
-                case .index(sharingGroupUUID: _, index: let index):
-                    do {
-                        try index.upsert(db: Services.session.db)
-                    } catch let error {
-                        logger.error("\(error)")
-                        self.syncCompleted = nil
-                        completion?(error)
-                        return
-                    }
-                }
-                
-                do {
-                    let sharingGroups = try self.syncServer.sharingGroups()
-                    try AlbumModel.upsertSharingGroups(db: Services.session.db, sharingGroups: sharingGroups)
-                    self.syncCompleted = nil
-                    completion?(nil)
-                } catch let error {
-                    self.syncCompleted = nil
-                    completion?(error)
-                }
-                
-            case .failure(let error):
-                self.syncCompleted = nil
-                completion?(error)
-                return
-            }
+    func syncHelper(result: SyncResult) throws {
+        switch result {
+        case .noIndex:
+            break
+        case .index(sharingGroupUUID: _, index: let index):
+            try index.upsert(db: Services.session.db)
         }
-        
-        do {
-            try syncServer.sync(sharingGroupUUID: sharingGroupUUID)
-        } catch let error {
-            logger.error("\(error)")
-            self.syncCompleted = nil
-            completion?(error)
-        }
+
+        let sharingGroups = try self.syncServer.sharingGroups()
+        try AlbumModel.upsertSharingGroups(db: Services.session.db, sharingGroups: sharingGroups)
     }
     
     func sharingGroups() {

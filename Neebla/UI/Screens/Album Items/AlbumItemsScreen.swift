@@ -10,7 +10,7 @@ struct AlbumItemsScreen: View {
 
     var body: some View {
         List(viewModel.objects, id: \.fileGroupUUID) { item in
-            AlbumItemsScreenRow(object: item)
+            AlbumItemsScreenRow(object: item, viewModel: viewModel)
         }
         .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -41,10 +41,23 @@ struct AlbumItemsScreen: View {
 
 private struct AlbumItemsScreenRow: View {
     @ObservedObject var object:ServerObjectModel
+    @ObservedObject var viewModel:AlbumItemsViewModel
+    private let filesForObject: [ServerFileModel]
+    
+    init(object:ServerObjectModel, viewModel:AlbumItemsViewModel) {
+        self.object = object
+        self.viewModel = viewModel
+        filesForObject = viewModel.filesFor(fileGroupUUID: object.fileGroupUUID)
+    }
 
     var body: some View {
         VStack {
-            Text(object.fileGroupUUID.uuidString)
+            Text("\(object.fileGroupUUID.uuidString); files: \(filesForObject.count)")
+            ForEach(filesForObject, id: \.fileUUID) { file in
+                if let url = file.url {
+                    Text("\(url)")
+                }
+            }
         }
     }
 }

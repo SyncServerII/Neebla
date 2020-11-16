@@ -11,7 +11,7 @@ import iOSSignIn
 // Adapted from https://stackoverflow.com/questions/59141688/swiftui-change-list-row-highlight-colour-when-tapped
 
 struct SharingGroupsView: View {
-    @ObservedObject var viewModel:ViewModel
+    @ObservedObject var viewModel:ShareViewModel
     @Environment(\.colorScheme) var colorScheme
 
     var selectedColor: Color {
@@ -46,7 +46,7 @@ struct SharingGroupsView: View {
 }
 
 struct SharingGroups_Previews: PreviewProvider {
-    static let viewModel = ViewModel()
+    static let viewModel = ShareViewModel()
     static var previews: some View {
         viewModel.width = 150
         viewModel.height = 300

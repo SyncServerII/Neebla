@@ -27,8 +27,12 @@ class ServerInterface {
     
     let hashingManager = HashingManager()
     let syncServer:SyncServer
+        
+    // Subscribe to this to get sync completions.
+    @Published var sync: SyncResult?
     
-    var syncCompleted:((Swift.Result<SyncResult, Error>)->())?
+    // Subscribe to this to get error completions.
+    @Published var error: ErrorEvent?
 
     init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String) throws {
         if deviceUUIDString.value == nil {
@@ -70,29 +74,18 @@ class ServerInterface {
 extension ServerInterface: SyncServerDelegate {
     func error(_ syncServer: SyncServer, error: ErrorEvent) {
         logger.error("\(String(describing: error))")
-
-        switch error {
-        case .error:
-            break
-        case .showAlert(let title, let message):
-            Alert.show(withTitle: title, message:message)
-        }
+        self.error = error
     }
     
     func syncCompleted(_ syncServer: SyncServer, result: SyncResult) {
         logger.info("syncCompleted: \(result)")
-        syncCompleted?(.success(result))
-        syncCompleted = nil
-        
-        switch result {
-        case .index(sharingGroupUUID: _, index: let fileIndex):
-            for file in fileIndex {
-                logger.info("\(file)")
-            }
-
-        case .noIndex:
-            break
+        do {
+            try syncHelper(result: result)
+        } catch let error {
+            self.error = .error(error)
         }
+        
+        self.sync = result
     }
 
     func uuidCollision(_ syncServer: SyncServer, type: UUIDCollisionType, from: UUID, to: UUID) {
