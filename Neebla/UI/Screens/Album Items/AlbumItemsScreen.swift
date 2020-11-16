@@ -53,11 +53,9 @@ private struct AlbumItemsScreenRow: View {
     var body: some View {
         VStack {
             Text("\(object.fileGroupUUID.uuidString); files: \(filesForObject.count)")
-            ForEach(filesForObject, id: \.fileUUID) { file in
-                if let url = file.url {
-                    Text("\(url)")
-                }
-            }
+            //ImageIcon(imageFile: <#URL?#>)
+            
+            // Want to map from an object type (from a ServerObjectModel) to a SwiftUI View, an icon to represent that object type.
         }
     }
 }

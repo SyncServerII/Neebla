@@ -79,6 +79,7 @@
 		8331F4E02561F8160063A67D /* ServerInterface+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */; };
 		8331F4E32561F9250063A67D /* FileInfo+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C4256110520063A67D /* FileInfo+Extras.swift */; };
 		8331F4E72561FAEF0063A67D /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4E62561FAEF0063A67D /* ShareViewModel.swift */; };
+		8331F4F3256208320063A67D /* ImageIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4F2256208320063A67D /* ImageIcon.swift */; };
 		835AC8D5255B82AD00375084 /* iOSDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8D4255B82AD00375084 /* iOSDropbox */; };
 		835AC8D9255B831800375084 /* iOSFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8D8255B831800375084 /* iOSFacebook */; };
 		835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8DC255B833A00375084 /* SFSafeSymbols */; };
@@ -180,6 +181,7 @@
 		8331F4C8256113230063A67D /* UUID+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Extras.swift"; sourceTree = "<group>"; };
 		8331F4DC2561EDA50063A67D /* Binding+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extras.swift"; sourceTree = "<group>"; };
 		8331F4E62561FAEF0063A67D /* ShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
+		8331F4F2256208320063A67D /* ImageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageIcon.swift; sourceTree = "<group>"; };
 		835AC8E4255B842E00375084 /* Services+Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+Invitation.swift"; sourceTree = "<group>"; };
 		835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+LoggingHelpers.swift"; sourceTree = "<group>"; };
 		835AC8E6255B842E00375084 /* Services+Open.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+Open.swift"; sourceTree = "<group>"; };
@@ -391,25 +393,23 @@
 			path = "Album Items";
 			sourceTree = "<group>";
 		};
-		8331F4782560CC610063A67D /* Items */ = {
+		8331F4782560CC610063A67D /* Item Types */ = {
 			isa = PBXGroup;
 			children = (
 				8331F4B32560F5B90063A67D /* ItemType.swift */,
 				8331F4B92560F7300063A67D /* ImageObjectType.swift */,
 				8331F47D2560CE540063A67D /* ItemTypeManager.swift */,
 			);
-			path = Items;
+			path = "Item Types";
 			sourceTree = "<group>";
 		};
 		8331F4832560D6E80063A67D /* Media Types */ = {
 			isa = PBXGroup;
 			children = (
 				8331F4942560D8360063A67D /* README.txt */,
+				8331F4F1256208040063A67D /* Icons */,
 				8331F4AE2560F5050063A67D /* Utilities */,
-				8331F4842560D7100063A67D /* MediaTypeListView.swift */,
-				8331F48E2560D7FB0063A67D /* CameraMediaType.swift */,
-				8331F49A2560D96D0063A67D /* PhotoLibraryMediaType.swift */,
-				8331F4992560D96D0063A67D /* WebLinkMediaType.swift */,
+				8331F4EE256207D00063A67D /* Media Type List */,
 			);
 			path = "Media Types";
 			sourceTree = "<group>";
@@ -440,6 +440,25 @@
 				8331F414255F857E0063A67D /* AlbumModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8331F4EE256207D00063A67D /* Media Type List */ = {
+			isa = PBXGroup;
+			children = (
+				8331F4842560D7100063A67D /* MediaTypeListView.swift */,
+				8331F48E2560D7FB0063A67D /* CameraMediaType.swift */,
+				8331F49A2560D96D0063A67D /* PhotoLibraryMediaType.swift */,
+				8331F4992560D96D0063A67D /* WebLinkMediaType.swift */,
+			);
+			path = "Media Type List";
+			sourceTree = "<group>";
+		};
+		8331F4F1256208040063A67D /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				8331F4F2256208320063A67D /* ImageIcon.swift */,
+			);
+			path = Icons;
 			sourceTree = "<group>";
 		};
 		835AC8E3255B83D100375084 /* Services */ = {
@@ -494,7 +513,7 @@
 				8331F3C2255E45550063A67D /* Server */,
 				835AC8E3255B83D100375084 /* Services */,
 				8331F3B7255E428C0063A67D /* UI */,
-				8331F4782560CC610063A67D /* Items */,
+				8331F4782560CC610063A67D /* Item Types */,
 				83B657DE255B81330041B9DF /* Assets.xcassets */,
 				83B657E3255B81330041B9DF /* LaunchScreen.storyboard */,
 				8331F38F255B925E0063A67D /* Resources */,
@@ -698,6 +717,7 @@
 				8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */,
 				835AC8EA255B842E00375084 /* Services+LoggingHelpers.swift in Sources */,
 				8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */,
+				8331F4F3256208320063A67D /* ImageIcon.swift in Sources */,
 				8331F335255B8AFD0063A67D /* LoggerView.swift in Sources */,
 				8331F334255B8AFD0063A67D /* Screens.swift in Sources */,
 				835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */,
