@@ -7,14 +7,16 @@ struct PhotoLibraryMediaType: MediaConstructorBasics, View {
     let uiDisplayName = "Photo Library"
     let sharingGroupUUID: UUID
     let alertMessage: AlertMessage
-    
+    let dismisser:MediaTypeListDismisser
+
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State var selectedImage: UIImage?
     @State private var isImagePickerDisplay = false
-
-    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage) {
+    
+    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser) {
         self.sharingGroupUUID = sharingGroupUUID
         self.alertMessage = alertMessage
+        self.dismisser = dismisser
     }
     
     var body: some View {
@@ -35,6 +37,7 @@ struct PhotoLibraryMediaType: MediaConstructorBasics, View {
     
     func uploadImage(image: UIImage?) {
         if let selectedImage = selectedImage {
+            dismisser.dismiss(acquiredNewItem: true)
             do {
                 try ImageObjectType.uploadNewObjectInstance(image: selectedImage, sharingGroupUUID: sharingGroupUUID)
             } catch let error {

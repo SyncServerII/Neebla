@@ -12,7 +12,7 @@ struct CameraMediaType: MediaConstructorBasics, View {
     @State private var selectedImage: UIImage?
     @State private var isImagePickerDisplay = false
     
-    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage) {
+    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser) {
         self.sharingGroupUUID = sharingGroupUUID
         cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
         self.alertMessage = alertMessage

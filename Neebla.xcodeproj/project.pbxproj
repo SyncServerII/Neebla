@@ -8,11 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */; };
-		8331F331255B8AFD0063A67D /* FileAccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F328255B8AFD0063A67D /* FileAccessView.swift */; };
 		8331F332255B8AFD0063A67D /* MenuNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F329255B8AFD0063A67D /* MenuNavBar.swift */; };
 		8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32A255B8AFD0063A67D /* SignInScreen.swift */; };
 		8331F334255B8AFD0063A67D /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32B255B8AFD0063A67D /* Screens.swift */; };
-		8331F335255B8AFD0063A67D /* LoggerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32C255B8AFD0063A67D /* LoggerView.swift */; };
 		8331F336255B8AFD0063A67D /* LeftMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32E255B8AFD0063A67D /* LeftMenuView.swift */; };
 		8331F337255B8AFD0063A67D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32F255B8AFD0063A67D /* MainView.swift */; };
 		8331F33C255B8B4E0063A67D /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 8331F33B255B8B4E0063A67D /* SideMenu */; };
@@ -132,11 +130,9 @@
 
 /* Begin PBXFileReference section */
 		8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendInvitationScreen.swift; sourceTree = "<group>"; };
-		8331F328255B8AFD0063A67D /* FileAccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileAccessView.swift; sourceTree = "<group>"; };
 		8331F329255B8AFD0063A67D /* MenuNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuNavBar.swift; sourceTree = "<group>"; };
 		8331F32A255B8AFD0063A67D /* SignInScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		8331F32B255B8AFD0063A67D /* Screens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screens.swift; sourceTree = "<group>"; };
-		8331F32C255B8AFD0063A67D /* LoggerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerView.swift; sourceTree = "<group>"; };
 		8331F32E255B8AFD0063A67D /* LeftMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuView.swift; sourceTree = "<group>"; };
 		8331F32F255B8AFD0063A67D /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8331F33E255B8B8F0063A67D /* SignInViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -322,11 +318,11 @@
 			children = (
 				8331F32B255B8AFD0063A67D /* Screens.swift */,
 				8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */,
-				8331F4BD2560FFA80063A67D /* Settings */,
 				8331F32A255B8AFD0063A67D /* SignInScreen.swift */,
+				8331F4BD2560FFA80063A67D /* Settings */,
 				8331F447255FA7A40063A67D /* Albums */,
 				8331F45F2560B7F40063A67D /* Album Items */,
-				8331F409255F83D00063A67D /* Debugging */,
+				8331F53B2562409A0063A67D /* Large Images */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -348,15 +344,6 @@
 				8331F4D4256117CB0063A67D /* Models */,
 			);
 			path = Database;
-			sourceTree = "<group>";
-		};
-		8331F409255F83D00063A67D /* Debugging */ = {
-			isa = PBXGroup;
-			children = (
-				8331F328255B8AFD0063A67D /* FileAccessView.swift */,
-				8331F32C255B8AFD0063A67D /* LoggerView.swift */,
-			);
-			path = Debugging;
 			sourceTree = "<group>";
 		};
 		8331F40C255F84820063A67D /* App Launch */ = {
@@ -482,6 +469,13 @@
 				8331F517256220670063A67D /* ImageIconModel.swift */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		8331F53B2562409A0063A67D /* Large Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Large Images";
 			sourceTree = "<group>";
 		};
 		835AC8E3255B83D100375084 /* Services */ = {
@@ -722,7 +716,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8331F502256215910063A67D /* IconTypeView.swift in Sources */,
-				8331F331255B8AFD0063A67D /* FileAccessView.swift in Sources */,
 				8331F42F255F96AB0063A67D /* LocalFiles.swift in Sources */,
 				8331F53025623A170063A67D /* RefreshableScrollView.swift in Sources */,
 				8331F337255B8AFD0063A67D /* MainView.swift in Sources */,
@@ -743,7 +736,6 @@
 				835AC8EA255B842E00375084 /* Services+LoggingHelpers.swift in Sources */,
 				8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */,
 				8331F4F3256208320063A67D /* ImageIcon.swift in Sources */,
-				8331F335255B8AFD0063A67D /* LoggerView.swift in Sources */,
 				8331F334255B8AFD0063A67D /* Screens.swift in Sources */,
 				835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */,
 				8331F47E2560CE540063A67D /* ItemTypeManager.swift in Sources */,

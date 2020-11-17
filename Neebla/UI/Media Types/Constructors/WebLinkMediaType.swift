@@ -11,7 +11,7 @@ struct WebLinkMediaType: MediaConstructorView, View {
         return AnyView(body)
     }
     
-    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage) {
+    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser) {
         self.sharingGroupUUID = sharingGroupUUID
         self.alertMessage = alertMessage
     }
