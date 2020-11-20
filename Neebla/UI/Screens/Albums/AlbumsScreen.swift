@@ -41,7 +41,9 @@ struct AlbumsScreen: View {
                 }
             }
             .alert(isPresented: $viewModel.presentAlert, content: {
-                Alert(title: Text(viewModel.alertMessage))
+                let message:String = viewModel.alertMessage
+                viewModel.alertMessage = nil
+                return Alert(title: Text(message))
             })
             // Using this both for creating an album and for changing an existing album's name.
             .modal(isPresented: $viewModel.presentTextInput) {

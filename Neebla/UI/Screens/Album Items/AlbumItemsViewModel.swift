@@ -51,7 +51,8 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
     @Published var addNewItem = false
     private var syncSubscription:AnyCancellable!
     private var errorSubscription:AnyCancellable!
-
+    private var markAsDownloadedSubscription:AnyCancellable!
+    
     init(album sharingGroupUUID: UUID) {
         self.sharingGroupUUID = sharingGroupUUID
         
@@ -60,6 +61,9 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
             
             self.loading = false
             self.getItemsForAlbum(album: sharingGroupUUID)
+            logger.debug("Sync done")
+            
+            Downloader.session.start(sharingGroupUUID: self.sharingGroupUUID)
         }
         
         errorSubscription = Services.session.serverInterface.$error.sink { [weak self] errorEvent in
@@ -67,7 +71,14 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
             self.showMessage(for: errorEvent)
         }
         
-        getItemsForAlbum(album: sharingGroupUUID)
+        // Once files are downloaded, update our list. Debounce to avoid too many updates too quickly.
+        markAsDownloadedSubscription = Services.session.serverInterface.$objectMarkedAsDownloaded
+                .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+                .sink { [weak self] fileGroupUUID in
+            guard let self = self else { return }
+            self.getItemsForAlbum(album: sharingGroupUUID)
+        }
+        
     }
     
     private func getItemsForAlbum(album sharingGroupUUID: UUID) {
@@ -87,6 +98,15 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
             loading = false
             alertMessage = "Failed to sync."
         }
+    }
+    
+    func updateAfterAddingItem() {
+        // Don't rely on only a sync to update the view with the new media item. If there isn't a network connection, a sync won't do what we want.
+        
+        // This more directly updates the view from the local file that was added.
+        getItemsForAlbum(album: sharingGroupUUID)
+        
+        sync()
     }
     
     func startNewAddItem() {

@@ -111,24 +111,27 @@ extension ServerFileModel {
 }
 
 extension DownloadedFile {
-    // If `DownloadFile.Contents` gives a URL, this moves the file to a permanent Neebla directory.
+    // If itemType `DownloadFile.Contents` gives a URL, this moves the file to a permanent Neebla directory and saves it into the relevant `ServerFileModel`.
     func upsert(db: Connection, fileGroupUUID: UUID, itemType: ItemType.Type) throws {
-        if let _ = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == uuid) {
-            // Nothing yet.
+        var contentsURL: URL?
+        var gone = false
+
+        switch contents {
+        case .download(let url):
+            let permanentURL = try itemType.createNewFile(for: fileLabel)
+            _ = try FileManager.default.replaceItemAt(permanentURL, withItemAt: url)
+            logger.debug("permanentURL: \(permanentURL)")
+            contentsURL = permanentURL
+        case .gone:
+            gone = true
+        }
+            
+        if let fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == uuid) {
+            try fileModel.update(setters:
+                ServerFileModel.goneField.description <- gone,
+                ServerFileModel.urlField.description <- contentsURL)
         }
         else {
-            var contentsURL: URL?
-            var gone = false
-            
-            switch contents {
-            case .download(let url):
-                let permanentURL = try itemType.createNewFile(for: fileLabel)
-                _ = try FileManager.default.replaceItemAt(permanentURL, withItemAt: url)
-                contentsURL = permanentURL
-            case .gone:
-                gone = true
-            }
-
             let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: uuid, fileLabel: fileLabel, gone: gone, url: contentsURL)
             try model.insert()
         }

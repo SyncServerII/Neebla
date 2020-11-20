@@ -85,5 +85,9 @@ class ImageObjectType: ItemType, DeclarableObject {
 extension ImageObjectType: ObjectDownloadHandler {    
     func objectWasDownloaded(object: DownloadedObject) throws {
         try object.upsert(db: Services.session.db, itemType: Self.self)
+        
+        let files = object.downloads.map { FileToDownload(uuid: $0.uuid, fileVersion: $0.fileVersion) }
+        let downloadObject = ObjectToDownload(fileGroupUUID: object.fileGroupUUID, downloads: files)
+        try Services.session.syncServer.markAsDownloaded(object: downloadObject)
     }
 }

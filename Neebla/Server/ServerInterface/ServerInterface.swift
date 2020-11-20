@@ -33,6 +33,9 @@ class ServerInterface {
     
     // Subscribe to this to get error completions.
     @Published var error: ErrorEvent?
+    
+    // Subscribe to this to get fileGroupUUID's of objects marked as downloaded.
+    @Published var objectMarkedAsDownloaded: UUID?
 
     init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String) throws {
         if deviceUUIDString.value == nil {
@@ -99,6 +102,10 @@ extension ServerInterface: SyncServerDelegate {
     
     func downloadQueue(_ syncServer: SyncServer, event: DownloadEvent) {
         logger.info("downloadQueue: \(event)")
+    }
+    
+    func objectMarkedAsDownloaded(_ syncServer: SyncServer, fileGroupUUID: UUID) {
+        self.objectMarkedAsDownloaded = fileGroupUUID
     }
 
     // Request to server for upload deletion completed successfully.

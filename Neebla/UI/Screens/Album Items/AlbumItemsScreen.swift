@@ -12,13 +12,15 @@ struct AlbumItemsScreen: View {
         RefreshableScrollView(refreshing: $viewModel.loading) {
             LazyVGrid(columns: gridItemLayout) {
                 ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
-                    AlbumItemsScreenRow(object: item)
+                    AlbumItemsScreenCell(object: item)
                 }
             }
             .padding(10)
         }
         .alert(isPresented: $viewModel.presentAlert, content: {
-            Alert(title: Text(viewModel.alertMessage))
+            let message:String = viewModel.alertMessage
+            viewModel.alertMessage = nil
+            return Alert(title: Text(message))
         })
         .modal(isPresented: $viewModel.addNewItem) {
             AddItemModal(viewModel: viewModel)
@@ -27,19 +29,36 @@ struct AlbumItemsScreen: View {
         .modalStyle(DefaultModalStyle())
         .navigationBarTitle("Album Images")
         .navigationBarItems(trailing:
-            Button(
-                action: {
-                    viewModel.startNewAddItem()
-                },
-                label: {
-                    Image(systemName: SFSymbol.plusCircle.rawValue)
-                }
-            )
+            HStack(spacing: 0) {
+                Button(
+                    action: {
+                        viewModel.sync()
+                    },
+                    label: {
+                        Image(systemName: SFSymbol.goforward.rawValue)
+                            .imageScale(.large)
+                            // The tappable area is too small; fat fingering. Trying to make it larger.
+                            .frame(width: 50, height: 50)
+                    }
+                )
+                
+                Button(
+                    action: {
+                        viewModel.startNewAddItem()
+                    },
+                    label: {
+                        Image(systemName: SFSymbol.plusCircle.rawValue)
+                            .imageScale(.large)
+                            // The tappable area is too small; fat fingering. Trying to make it larger.
+                            .frame(width: 50, height: 50)
+                    }
+                )
+            }
         )
     }
 }
 
-private struct AlbumItemsScreenRow: View {
+private struct AlbumItemsScreenCell: View {
     @ObservedObject var object:ServerObjectModel
     
     init(object:ServerObjectModel) {
@@ -63,8 +82,8 @@ private struct AddItemModal: View {
     var body: some View {
         dimisser.didDismiss = { acquiredNewMediaItem in
             if acquiredNewMediaItem {
-                // Do a sync to update the view with the new media item.
-                viewModel.sync()
+                // Update the view with the new media item.
+                viewModel.updateAfterAddingItem()
                 
                 modalPresentationMode.wrappedValue.dismiss()
             }

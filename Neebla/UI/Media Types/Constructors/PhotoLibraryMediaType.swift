@@ -24,7 +24,9 @@ struct PhotoLibraryMediaType: MediaConstructorBasics, View {
             selectedImage
         }, set: {
             selectedImage = $0
-            uploadImage(image: $0)
+            if let selectedImage = selectedImage {
+                UploadImage.upload(image: selectedImage, sharingGroupUUID: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+            }
         })
         
         return MediaTypeButton(mediaType: self) {
@@ -32,18 +34,6 @@ struct PhotoLibraryMediaType: MediaConstructorBasics, View {
         }
         .sheet(isPresented: $isImagePickerDisplay) {
             ImagePickerView(selectedImage: selectedImageBinding, sourceType: sourceType)
-        }
-    }
-    
-    func uploadImage(image: UIImage?) {
-        if let selectedImage = selectedImage {
-            dismisser.dismiss(acquiredNewItem: true)
-            do {
-                try ImageObjectType.uploadNewObjectInstance(image: selectedImage, sharingGroupUUID: sharingGroupUUID)
-            } catch let error {
-                logger.error("\(error)")
-                alertMessage.alertMessage = "Could not upload new image!"
-            }
         }
     }
 }

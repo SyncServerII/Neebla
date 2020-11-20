@@ -6,6 +6,7 @@ struct CameraMediaType: MediaConstructorBasics, View {
     let uiDisplayName = "Camera"
     let sharingGroupUUID: UUID
     let alertMessage: AlertMessage
+    let dismisser:MediaTypeListDismisser
     
     let cameraAvailable:Bool
     @State private var sourceType: UIImagePickerController.SourceType = .camera
@@ -16,15 +17,25 @@ struct CameraMediaType: MediaConstructorBasics, View {
         self.sharingGroupUUID = sharingGroupUUID
         cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
         self.alertMessage = alertMessage
+        self.dismisser = dismisser
     }
 
     var body: some View {
+        let selectedImageBinding = Binding<UIImage?>(get: {
+            selectedImage
+        }, set: {
+            selectedImage = $0
+            if let selectedImage = selectedImage {
+                UploadImage.upload(image: selectedImage, sharingGroupUUID: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+            }
+        })
+        
         MediaTypeButton(mediaType: self) {
             isImagePickerDisplay = true
         }
         .enabled(cameraAvailable)
         .sheet(isPresented: $isImagePickerDisplay) {
-            ImagePickerView(selectedImage: $selectedImage, sourceType: sourceType)
+            ImagePickerView(selectedImage: selectedImageBinding, sourceType: sourceType)
         }
     }
 }
