@@ -37,7 +37,9 @@ class URLPreviewGenerator {
     func getPreview(for url: URL, completion: @escaping (LinkData?)->()) {
         // I'm going to require that the linkData have at least some content
         PreviewManager.session.linkDataFilter = { linkData in
-            return linkData.description != nil || linkData.icon != nil || linkData.image != nil
+            return linkData.description != nil ||
+                linkData.icon != nil ||
+                linkData.image != nil
         }
         
         PreviewManager.session.getLinkData(url: url) { linkData in

@@ -5,9 +5,13 @@ import SwiftUI
 struct ImageIcon: View {
     let imageFileLabel = ImageObjectType.imageDeclaration.fileLabel
     let object: ServerObjectModel
-    @State var unusedShowingImage: Bool = false
+    @State var unused: GenericImageIcon.ImageStatus = .loading
+    
+    init(object: ServerObjectModel) {
+        self.object = object
+    }
     
     var body: some View {
-        return GenericImageIcon(fileLabel: imageFileLabel, object: object, showingImage: $unusedShowingImage)
+        return GenericImageIcon(fileLabel: imageFileLabel, object: object, imageStatus: $unused)
     }
 }

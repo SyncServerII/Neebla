@@ -8,13 +8,9 @@ struct URLPickerView: View {
     @Binding private var resultURL: LinkMedia?
     @ObservedObject var model = URLPickerModel()
     
-    // The URL that the user is entering-- not yet confirmed to add.
-    @Binding private var searchText: String?
-    
     let placeholderText: String = "Enter your website (web link/URL)"
     
     init(resultURL: Binding<LinkMedia?>) {
-        _searchText = .constant("")
         _resultURL = resultURL
     }
     
@@ -42,7 +38,10 @@ struct URLPickerView: View {
                 Spacer()
                 
                 Button(action: {
-                    resultURL = model.getResult()
+                    if let result = model.getResult() {
+                        resultURL = result
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }, label: {
                     Text("Add")
                 })

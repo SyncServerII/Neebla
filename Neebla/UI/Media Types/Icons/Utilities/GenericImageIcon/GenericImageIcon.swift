@@ -13,49 +13,72 @@ struct GenericImageIcon: View {
     static let defaultImageName = "ImageLoading" // From Asset catalog
 
     @State var fileImage: UIImage? = nil
-    @Binding var showingImage: Bool
     
-    let dimension: CGFloat = 75
+    enum ImageStatus {
+        case none
+        case loading
+        case loaded
+    }
     
-    init(fileLabel: String, object: ServerObjectModel, showingImage: Binding<Bool>) {
+    @Binding var imageStatus: ImageStatus
+    
+    static let dimension: CGFloat = 75
+
+    init(fileLabel: String, object: ServerObjectModel, imageStatus: Binding<ImageStatus>) {
         self.object = object
         self.fileLabel = fileLabel
         self.model = GenericImageIconModel(fileLabel: fileLabel)
-        self._showingImage = showingImage
+        self._imageStatus = imageStatus
     }
     
     var body: some View {
         model.loadImage(fileGroupUUID: object.fileGroupUUID) { image in
-            fileImage = image
+            if let image = image {
+                fileImage = image
+                DispatchQueue.main.async {
+                    if imageStatus != .loaded {
+                        imageStatus = .loaded
+                    }
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    if imageStatus != .none {
+                        imageStatus = .none
+                    }
+                }
+            }
         }
 
         return VStack {
-            image(uiImage:fileImage)
-                .resizable()
-                .squareImage()
-                .cornerRadius(4.0)
-            }.frame(width:dimension, height:dimension)
-    }
-    
-    func image(uiImage:UIImage?, default imageName: String = "ImageLoading") -> Image {
-        if let uiImage = uiImage {
-            // Get rid of warning
-            DispatchQueue.main.async {
-                if showingImage != true {
-                    showingImage = true
-                }
+            if let fileImage = fileImage, imageStatus == .loaded {
+                ImageSizer(
+                    image: Image(uiImage: fileImage)
+                )
             }
-            return Image(uiImage: uiImage)
-        }
-        else {
-            // Get rid of warning
-            DispatchQueue.main.async {
-                if showingImage != false {
-                    showingImage = false
-                }
+            else if imageStatus == .loading {
+                ImageSizer(
+                    image: Image(Self.defaultImageName)
+                )
             }
-            return Image(Self.defaultImageName)
-        }
+            else { // imageStatus == .none
+                Rectangle()
+                    .fill(Color.white)
+                    .border(Color.black, width: 1)
+                    .cornerRadius(ImageSizer.cornerRadius)
+            }
+        }.frame(width:Self.dimension, height:Self.dimension)
     }
 }
 
+struct ImageSizer: View {
+    static let cornerRadius: CGFloat = 4
+    let image:Image
+    
+    var body: some View {
+        image
+            .resizable()
+            .squareImage()
+            .cornerRadius(Self.cornerRadius)
+    }
+}
