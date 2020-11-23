@@ -7,8 +7,13 @@ struct AnyIcon: View {
     
     var body: some View {
         switch object.objectType {
+        
         case ImageObjectType.objectType:
             ImageIcon(object: object)
+        
+        case URLObjectType.objectType:
+            URLIcon(object: object)
+        
         default:
             EmptyView()
         }

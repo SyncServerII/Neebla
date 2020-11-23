@@ -26,7 +26,7 @@ struct CameraMediaType: MediaConstructorBasics, View {
         }, set: {
             selectedImage = $0
             if let selectedImage = selectedImage {
-                UploadImage.upload(image: selectedImage, sharingGroupUUID: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+                UploadImageObject.upload(image: selectedImage, sharingGroupUUID: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
             }
         })
         

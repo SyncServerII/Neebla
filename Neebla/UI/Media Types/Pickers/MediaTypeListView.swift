@@ -17,10 +17,6 @@ protocol MediaConstructorBasics {
     init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser)
 }
 
-protocol MediaConstructorView: MediaConstructorBasics {
-    var constructor: AnyView {get}
-}
-
 struct MediaTypeListView: View {
     let sharingGroupUUID: UUID
     let alertMessage: AlertMessage

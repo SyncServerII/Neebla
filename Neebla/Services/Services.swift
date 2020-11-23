@@ -6,6 +6,8 @@ import iOSBasics
 import PersistentValue
 import SQLite
 
+// These services are shared with the Share Extension
+
 enum ServicesError: Error {
     case noDocumentDirectory
 }

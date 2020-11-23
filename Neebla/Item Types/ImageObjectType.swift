@@ -38,10 +38,6 @@ class ImageObjectType: ItemType, DeclarableObject {
     
     let declaredFiles: [DeclarableFile]
 
-    func getFileLabel(appMetaData: String) -> String? {
-        return nil
-    }
-
     static func uploadNewObjectInstance(image: UIImage, sharingGroupUUID: UUID) throws {
         // Need to first save these files locally. And reference them by ServerFileModel's.
 
@@ -82,7 +78,11 @@ class ImageObjectType: ItemType, DeclarableObject {
     }
 }
 
-extension ImageObjectType: ObjectDownloadHandler {    
+extension ImageObjectType: ObjectDownloadHandler {
+    func getFileLabel(appMetaData: String) -> String? {
+        return nil
+    }
+    
     func objectWasDownloaded(object: DownloadedObject) throws {
         try object.upsert(db: Services.session.db, itemType: Self.self)
         

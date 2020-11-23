@@ -27,7 +27,7 @@ struct AlbumItemsScreen: View {
                 .padding(20)
         }
         .modalStyle(DefaultModalStyle())
-        .navigationBarTitle("Album Images")
+        .navigationBarTitle("Album Contents")
         .navigationBarItems(trailing:
             HStack(spacing: 0) {
                 Button(

@@ -13,7 +13,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Services.setup()
         Services.session.appLaunch(options: launchOptions)
-        ItemTypeManager.session.setup()
+        
+        do {
+            try LocalServices.setup()
+        }
+        catch let error {
+            logger.error("LocalServices: \(error)")
+            return false
+        }
+        
         return Services.setupState.isComplete
     }
     

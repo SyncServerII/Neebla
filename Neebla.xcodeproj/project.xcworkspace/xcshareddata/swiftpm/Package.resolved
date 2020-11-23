@@ -83,15 +83,6 @@
         }
       },
       {
-        "package": "iOSBasics",
-        "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
-        "state": {
-          "branch": "master",
-          "revision": "7afd3bb3fc5ed75636769727595ad891070b55d7",
-          "version": null
-        }
-      },
-      {
         "package": "iOSDropbox",
         "repositoryURL": "http://github.com/SyncServerII/iOSDropbox.git",
         "state": {
@@ -114,7 +105,7 @@
         "repositoryURL": "https://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": "master",
-          "revision": "d027baff36b06b273eaf38ff0f846146821f7e95",
+          "revision": "3fde7515dc895f5ae5e53612c84837746f3e4b99",
           "version": null
         }
       },
@@ -232,6 +223,15 @@
         "state": {
           "branch": "master",
           "revision": "c5f34a11a61ab82d23a12ec0f81c1b19ebbedd30",
+          "version": null
+        }
+      },
+      {
+        "package": "SMLinkPreview",
+        "repositoryURL": "https://github.com/crspybits/SMLinkPreview",
+        "state": {
+          "branch": "master",
+          "revision": "841dfaeabc879392f0d311485e3e81b1aeee1051",
           "version": null
         }
       },
