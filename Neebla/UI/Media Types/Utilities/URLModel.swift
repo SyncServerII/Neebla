@@ -4,37 +4,52 @@ import SwiftUI
 import SQLite
 import iOSShared
 
-class URLIconModel: ObservableObject {
+class URLModel: ObservableObject {
+    let fileLabel = URLObjectType.urlDeclaration.fileLabel
     let maxLengthTitle = 10
     @Published var description: String?
+    @Published var contents: URLFile.URLFileContents?
     let object: ServerObjectModel
     
-    init(object: ServerObjectModel) {
-        self.object = object
+    init(urlObject: ServerObjectModel) {
+        self.object = urlObject
     }
     
     private func getFilesFor(fileGroupUUID: UUID) throws -> [ServerFileModel] {
         return try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
     }
     
-    func getDescriptionText() {
+    func getContents() {
         DispatchQueue.global().async {
-            let description = self.getDescriptionTextHelper()
+            let contents = self.getContentsHelper()
             DispatchQueue.main.async {
-                self.description = description
+                self.contents = contents
             }
         }
     }
     
-    func getDescriptionTextHelper() -> String? {
+    func getDescriptionText() {
+        DispatchQueue.global().async {
+            let contents = self.getContentsHelper()
+
+            DispatchQueue.main.async {
+                if let prefix = contents?.title?.prefix(self.maxLengthTitle) {
+                    self.description = String(prefix)
+                }
+                else {
+                    self.description = nil
+                }
+            }
+        }
+    }
+    
+    private func getContentsHelper() -> URLFile.URLFileContents? {
         guard let fileModels = try? getFilesFor(fileGroupUUID: object.fileGroupUUID) else {
             logger.error("Could not get file models!")
             return nil
         }
         
-        let filter = fileModels.filter {
-            $0.fileLabel == URLObjectType.urlDeclaration.fileLabel
-        }
+        let filter = fileModels.filter { $0.fileLabel == fileLabel }
         
         guard filter.count == 1 else {
             logger.error("Not exactly one url file!")
@@ -51,11 +66,6 @@ class URLIconModel: ObservableObject {
             return nil
         }
         
-        if let prefix = contents.title?.prefix(maxLengthTitle) {
-            return String(prefix)
-        }
-        else {
-            return nil
-        }
+        return contents
     }
 }

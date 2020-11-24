@@ -6,11 +6,11 @@ struct URLIcon: View {
     let urlFileLabel = URLObjectType.previewImageDeclaration.fileLabel
     @State var imageStatus: GenericImageIcon.ImageStatus = .loading
     let object: ServerObjectModel
-    @ObservedObject var model:URLIconModel
+    @ObservedObject var model:URLModel
     
     init(object: ServerObjectModel) {
         self.object = object
-        model = URLIconModel(object: object)
+        model = URLModel(urlObject: object)
         model.getDescriptionText()
     }
     
@@ -46,7 +46,7 @@ struct URLTextInLowerRight: View {
             Spacer()
             HStack {
                 Spacer()
-                Text(" url ")
+                Text("url")
                     .foregroundColor(Color.black)
                     // To get leading & trailing white-colored space
                     .padding([.leading, .trailing], 5)

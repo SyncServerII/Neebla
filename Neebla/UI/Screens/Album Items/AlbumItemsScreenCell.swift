@@ -14,9 +14,9 @@ struct AlbumItemsScreenCell: View {
 
     var body: some View {
         AnyIcon(object: object)
-        .onTapGesture {
-            self.cellTapped = object
-            self.showCellDetails = true
-        }
+            .onTapGesture {
+                self.cellTapped = object
+                self.showCellDetails = true
+            }
     }
 }

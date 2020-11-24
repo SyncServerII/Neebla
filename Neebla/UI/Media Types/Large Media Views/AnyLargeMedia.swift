@@ -9,7 +9,10 @@ struct AnyLargeMedia: View {
         switch object.objectType {
         case ImageObjectType.objectType:
             ImageLargeMedia(object: object)
-        
+
+        case URLObjectType.objectType:
+            URLLargeMedia(object: object)
+            
         default:
             EmptyView()
         }
