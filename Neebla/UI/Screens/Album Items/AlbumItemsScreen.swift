@@ -7,12 +7,14 @@ import CustomModalView
 struct AlbumItemsScreen: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     let gridItemLayout = [GridItem(.adaptive(minimum: 50), spacing: 20)]
-
+    @State var objectTapped:ServerObjectModel?
+    @State var showCellDetails = false
+    
     var body: some View {
         RefreshableScrollView(refreshing: $viewModel.loading) {
             LazyVGrid(columns: gridItemLayout) {
                 ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
-                    AlbumItemsScreenCell(object: item)
+                    AlbumItemsScreenCell(object: item, showCellDetails: $showCellDetails, cellTapped: $objectTapped)
                 }
             }
             .padding(10)
@@ -22,11 +24,6 @@ struct AlbumItemsScreen: View {
             viewModel.alertMessage = nil
             return Alert(title: Text(message))
         })
-        .modal(isPresented: $viewModel.addNewItem) {
-            AddItemModal(viewModel: viewModel)
-                .padding(20)
-        }
-        .modalStyle(DefaultModalStyle())
         .navigationBarTitle("Album Contents")
         .navigationBarItems(trailing:
             HStack(spacing: 0) {
@@ -55,50 +52,21 @@ struct AlbumItemsScreen: View {
                 )
             }
         )
-    }
-}
-
-private struct AlbumItemsScreenCell: View {
-    @ObservedObject var object:ServerObjectModel
-    
-    init(object:ServerObjectModel) {
-        self.object = object
-    }
-
-    var body: some View {
-        AnyIcon(object: object)
-    }
-}
-
-private struct AddItemModal: View {
-    @Environment(\.modalPresentationMode) var modalPresentationMode: Binding<ModalPresentationMode>
-    @ObservedObject var viewModel:AlbumItemsViewModel
-    let dimisser = MediaTypeListDismisser()
-    
-    init(viewModel:AlbumItemsViewModel) {
-        self.viewModel = viewModel
-    }
-    
-    var body: some View {
-        dimisser.didDismiss = { acquiredNewMediaItem in
-            if acquiredNewMediaItem {
-                // Update the view with the new media item.
-                viewModel.updateAfterAddingItem()
-                
-                modalPresentationMode.wrappedValue.dismiss()
-            }
+        .disabled(viewModel.addNewItem)
+        .modal(isPresented: $viewModel.addNewItem) {
+            AddItemModal(viewModel: viewModel)
+                .padding(20)
         }
-        
-        return VStack(spacing: 32) {
-            Text("Add new:")
-
-            MediaTypeListView(album: viewModel.sharingGroupUUID, alertMessage: viewModel, dismisser: dimisser)
-
-            Button(action: {
-                modalPresentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Cancel")
+        .modalStyle(DefaultModalStyle())
+        .sheet(isPresented: $showCellDetails) {
+            ObjectDetailsView(object: $objectTapped)
+        }
+        .onDisappear {
+            // I'm having a problem with the modal possibly being presented, the user navigating away, coming back and the modal still being present.
+            if viewModel.addNewItem == true {
+                viewModel.addNewItem = false
             }
         }
     }
 }
+

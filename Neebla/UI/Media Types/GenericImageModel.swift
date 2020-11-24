@@ -3,7 +3,7 @@ import Foundation
 import SQLite
 import UIKit
 
-class GenericImageIconModel {
+class GenericImageModel {
     let fileLabel: String
     
     init(fileLabel: String) {

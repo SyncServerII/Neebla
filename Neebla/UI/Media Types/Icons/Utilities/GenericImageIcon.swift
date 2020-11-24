@@ -5,7 +5,7 @@ import SFSafeSymbols
 import iOSShared
 
 struct GenericImageIcon: View {
-    let model:GenericImageIconModel
+    let model:GenericImageModel
     let object: ServerObjectModel
     let fileLabel: String
     
@@ -27,7 +27,7 @@ struct GenericImageIcon: View {
     init(fileLabel: String, object: ServerObjectModel, imageStatus: Binding<ImageStatus>) {
         self.object = object
         self.fileLabel = fileLabel
-        self.model = GenericImageIconModel(fileLabel: fileLabel)
+        self.model = GenericImageModel(fileLabel: fileLabel)
         self._imageStatus = imageStatus
     }
     
