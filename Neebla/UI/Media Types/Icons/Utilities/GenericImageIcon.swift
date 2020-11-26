@@ -32,23 +32,23 @@ struct GenericImageIcon: View {
     }
     
     var body: some View {
-        model.loadImage(fileGroupUUID: object.fileGroupUUID) { image in
-            if let image = image {
-                fileImage = image
-                DispatchQueue.main.async {
-                    if imageStatus != .loaded {
-                        imageStatus = .loaded
-                    }
-                }
-            }
-            else {
-                DispatchQueue.main.async {
-                    if imageStatus != .none {
-                        imageStatus = .none
-                    }
-                }
-            }
-        }
+//        model.loadImage(fileGroupUUID: object.fileGroupUUID) { image in
+//            if let image = image {
+//                fileImage = image
+//                DispatchQueue.main.async {
+//                    if imageStatus != .loaded {
+//                        imageStatus = .loaded
+//                    }
+//                }
+//            }
+//            else {
+//                DispatchQueue.main.async {
+//                    if imageStatus != .none {
+//                        imageStatus = .none
+//                    }
+//                }
+//            }
+//        }
 
         return VStack {
             if let fileImage = fileImage, imageStatus == .loaded {

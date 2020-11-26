@@ -58,6 +58,12 @@ struct AlbumItemsScreen: View {
                 .padding(20)
         }
         .modalStyle(DefaultModalStyle())
+//        .modal(isPresented: $showCellDetails) {
+//            ItemOptionsModal()
+//                .padding(20)
+//        }
+//        .modalStyle(DefaultModalStyle())
+
         .sheet(isPresented: $showCellDetails) {
             ObjectDetailsView(object: $objectTapped)
         }

@@ -26,6 +26,13 @@
 		8320A6EC256CB56800819377 /* AnyLargeMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A6EB256CB56800819377 /* AnyLargeMedia.swift */; };
 		8320A6F2256CB59700819377 /* ImageLargeMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A6F1256CB59700819377 /* ImageLargeMedia.swift */; };
 		8320A6FA256CC64700819377 /* URLLargeMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A6F9256CC64700819377 /* URLLargeMedia.swift */; };
+		8320A70E256DF07E00819377 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8320A70D256DF07E00819377 /* MessageKit */; };
+		8320A71A256E0E0500819377 /* ObjectDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A719256E0E0500819377 /* ObjectDetailsModel.swift */; };
+		8320A71E256E0ED500819377 /* FileLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A71D256E0ED500819377 /* FileLabels.swift */; };
+		8320A738256E164500819377 /* CommentsView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A737256E164500819377 /* CommentsView2.swift */; };
+		8320A73C256E170900819377 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A73B256E170900819377 /* MessagesView.swift */; };
+		8320A748256E1CE000819377 /* ItemOptionsModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A747256E1CE000819377 /* ItemOptionsModal.swift */; };
+		8320A74F256F3EF900819377 /* DefaultModalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A74E256F3EF900819377 /* DefaultModalStyle.swift */; };
 		8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */; };
 		8331F332255B8AFD0063A67D /* MenuNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F329255B8AFD0063A67D /* MenuNavBar.swift */; };
 		8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32A255B8AFD0063A67D /* SignInScreen.swift */; };
@@ -169,6 +176,16 @@
 		8320A6EB256CB56800819377 /* AnyLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyLargeMedia.swift; sourceTree = "<group>"; };
 		8320A6F1256CB59700819377 /* ImageLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLargeMedia.swift; sourceTree = "<group>"; };
 		8320A6F9256CC64700819377 /* URLLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLLargeMedia.swift; sourceTree = "<group>"; };
+		8320A708256DEF7900819377 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
+		8320A711256DF0FE00819377 /* DiscussionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscussionVC.swift; sourceTree = "<group>"; };
+		8320A712256DF0FE00819377 /* DiscussionKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscussionKeys.swift; sourceTree = "<group>"; };
+		8320A713256DF0FE00819377 /* DiscussionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscussionMessage.swift; sourceTree = "<group>"; };
+		8320A719256E0E0500819377 /* ObjectDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsModel.swift; sourceTree = "<group>"; };
+		8320A71D256E0ED500819377 /* FileLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLabels.swift; sourceTree = "<group>"; };
+		8320A737256E164500819377 /* CommentsView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView2.swift; sourceTree = "<group>"; };
+		8320A73B256E170900819377 /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		8320A747256E1CE000819377 /* ItemOptionsModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemOptionsModal.swift; sourceTree = "<group>"; };
+		8320A74E256F3EF900819377 /* DefaultModalStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultModalStyle.swift; sourceTree = "<group>"; };
 		8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendInvitationScreen.swift; sourceTree = "<group>"; };
 		8331F329255B8AFD0063A67D /* MenuNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuNavBar.swift; sourceTree = "<group>"; };
 		8331F32A255B8AFD0063A67D /* SignInScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
@@ -266,6 +283,7 @@
 				835AC8E1255B835D00375084 /* FileLogging in Frameworks */,
 				835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */,
 				8331F33C255B8B4E0063A67D /* SideMenu in Frameworks */,
+				8320A70E256DF07E00819377 /* MessageKit in Frameworks */,
 				835AC8D9255B831800375084 /* iOSFacebook in Frameworks */,
 				8331F457255FB5790063A67D /* CustomModalView in Frameworks */,
 				835AC8D5255B82AD00375084 /* iOSDropbox in Frameworks */,
@@ -310,6 +328,12 @@
 		8308B731256B57C9007F0CEB /* Comments */ = {
 			isa = PBXGroup;
 			children = (
+				8320A708256DEF7900819377 /* CommentsView.swift */,
+				8320A737256E164500819377 /* CommentsView2.swift */,
+				8320A73B256E170900819377 /* MessagesView.swift */,
+				8320A712256DF0FE00819377 /* DiscussionKeys.swift */,
+				8320A713256DF0FE00819377 /* DiscussionMessage.swift */,
+				8320A711256DF0FE00819377 /* DiscussionVC.swift */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -329,6 +353,14 @@
 			children = (
 				8331F517256220670063A67D /* GenericImageModel.swift */,
 				8308B737256B6EF6007F0CEB /* URLModel.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		8320A74D256F3EBD00819377 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8320A74E256F3EF900819377 /* DefaultModalStyle.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -414,6 +446,7 @@
 		8331F3BD255E43470063A67D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				8320A74D256F3EBD00819377 /* Utilities */,
 				8331F32B255B8AFD0063A67D /* Screens.swift */,
 				8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */,
 				8331F32A255B8AFD0063A67D /* SignInScreen.swift */,
@@ -488,6 +521,7 @@
 				8331F4602560BD7D0063A67D /* AlbumItemsScreen.swift */,
 				8320A6D8256CA0DE00819377 /* AlbumItemsScreenCell.swift */,
 				8320A6DE256CA11A00819377 /* AddItemModal.swift */,
+				8320A747256E1CE000819377 /* ItemOptionsModal.swift */,
 				8331F4662560BE0E0063A67D /* AlbumItemsViewModel.swift */,
 			);
 			path = "Album Items";
@@ -497,6 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				8331F4B32560F5B90063A67D /* ItemType.swift */,
+				8320A71D256E0ED500819377 /* FileLabels.swift */,
 				8331F47D2560CE540063A67D /* ItemTypeManager.swift */,
 				8331F4B92560F7300063A67D /* ImageObjectType.swift */,
 				8308B702256A3A34007F0CEB /* URLObjectType */,
@@ -573,6 +608,7 @@
 			isa = PBXGroup;
 			children = (
 				8320A6E2256CB2F400819377 /* ObjectDetailsView.swift */,
+				8320A719256E0E0500819377 /* ObjectDetailsModel.swift */,
 				8308B731256B57C9007F0CEB /* Comments */,
 			);
 			path = "Object Details";
@@ -713,6 +749,7 @@
 				8331F424255F8C6D0063A67D /* SwiftUIRefresh */,
 				8331F456255FB5790063A67D /* CustomModalView */,
 				8308B6D82569F595007F0CEB /* SMLinkPreview */,
+				8320A70D256DF07E00819377 /* MessageKit */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -756,6 +793,7 @@
 				8331F423255F8C6D0063A67D /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
 				8331F455255FB5790063A67D /* XCRemoteSwiftPackageReference "CustomModalView" */,
 				8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */,
+				8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -847,10 +885,12 @@
 				8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */,
 				835AC8E9255B842E00375084 /* Services+Invitation.swift in Sources */,
 				8331F4852560D7100063A67D /* MediaTypeListView.swift in Sources */,
+				8320A73C256E170900819377 /* MessagesView.swift in Sources */,
 				8320A6D9256CA0DE00819377 /* AlbumItemsScreenCell.swift in Sources */,
 				8331F3FC255F82ED0063A67D /* SettingsScreen.swift in Sources */,
 				8331F336255B8AFD0063A67D /* LeftMenuView.swift in Sources */,
 				8331F4C12560FFC70063A67D /* SettingsModel.swift in Sources */,
+				8320A74F256F3EF900819377 /* DefaultModalStyle.swift in Sources */,
 				8331F4B42560F5B90063A67D /* ItemType.swift in Sources */,
 				8308B738256B6EF6007F0CEB /* URLModel.swift in Sources */,
 				8331F4672560BE0E0063A67D /* AlbumItemsViewModel.swift in Sources */,
@@ -858,11 +898,14 @@
 				8320A6FA256CC64700819377 /* URLLargeMedia.swift in Sources */,
 				8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */,
 				8308B724256B4B73007F0CEB /* ImageIcon.swift in Sources */,
+				8320A738256E164500819377 /* CommentsView2.swift in Sources */,
 				835AC8EA255B842E00375084 /* Services+LoggingHelpers.swift in Sources */,
 				8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */,
 				8331F4F3256208320063A67D /* GenericImageIcon.swift in Sources */,
+				8320A71E256E0ED500819377 /* FileLabels.swift in Sources */,
 				8331F334255B8AFD0063A67D /* Screens.swift in Sources */,
 				8320A6DF256CA11A00819377 /* AddItemModal.swift in Sources */,
+				8320A748256E1CE000819377 /* ItemOptionsModal.swift in Sources */,
 				83D5CF392564C2520018DE7C /* Downloader.swift in Sources */,
 				835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */,
 				8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */,
@@ -879,6 +922,7 @@
 				835AC8EB255B842E00375084 /* Services+Open.swift in Sources */,
 				835AC8F3255B848300375084 /* ServerInterface.swift in Sources */,
 				8331F44B255FA7BA0063A67D /* AlbumsViewModel.swift in Sources */,
+				8320A71A256E0E0500819377 /* ObjectDetailsModel.swift in Sources */,
 				8308B716256B4995007F0CEB /* RatioModifier.swift in Sources */,
 				8331F402255F83790063A67D /* AlbumsScreen.swift in Sources */,
 				8331F4A92560F1C20063A67D /* MediaTypeButton.swift in Sources */,
@@ -1173,6 +1217,14 @@
 				kind = branch;
 			};
 		};
+		8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MessageKit/MessageKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.4.2;
+			};
+		};
 		8331F33A255B8B4E0063A67D /* XCRemoteSwiftPackageReference "SideMenu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SyncServerII/SideMenu.git";
@@ -1260,6 +1312,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */;
 			productName = SMLinkPreview;
+		};
+		8320A70D256DF07E00819377 /* MessageKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */;
+			productName = MessageKit;
 		};
 		8331F33B255B8B4E0063A67D /* SideMenu */ = {
 			isa = XCSwiftPackageProductDependency;

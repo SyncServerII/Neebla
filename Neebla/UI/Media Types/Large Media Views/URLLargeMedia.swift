@@ -17,7 +17,9 @@ struct URLLargeMedia: View {
     
     var body: some View {
         model.loadImage(fileGroupUUID: object.fileGroupUUID) { image in
-            self.image = image
+            DispatchQueue.main.async {
+                self.image = image
+            }
         }
         
         return VStack {

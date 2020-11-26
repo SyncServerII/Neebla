@@ -42,7 +42,7 @@
         "repositoryURL": "https://github.com/SyncServerII/ChangeResolvers.git",
         "state": {
           "branch": "master",
-          "revision": "b26ffad4ef058870f5007bbb7395f7abfd141487",
+          "revision": "30b73253204a79e036f133465005d5f16f923b9a",
           "version": null
         }
       },
@@ -80,6 +80,15 @@
           "branch": null,
           "revision": "55fd2f0b70793017acee853c53cfcf8da0bd8d8d",
           "version": "1.9.200"
+        }
+      },
+      {
+        "package": "InputBarAccessoryView",
+        "repositoryURL": "https://github.com/nathantannar4/InputBarAccessoryView",
+        "state": {
+          "branch": null,
+          "revision": "9ad2fa50fdc19a48317aad5ddecbf8a388ca62ea",
+          "version": "5.2.2"
         }
       },
       {
@@ -182,6 +191,15 @@
         }
       },
       {
+        "package": "MessageKit",
+        "repositoryURL": "https://github.com/MessageKit/MessageKit",
+        "state": {
+          "branch": null,
+          "revision": "1e4b93c27c179bf755a22c964a46262ca0961560",
+          "version": "3.4.2"
+        }
+      },
+      {
         "package": "PersistentValue",
         "repositoryURL": "http://github.com/crspybits/PersistentValue.git",
         "state": {
@@ -213,8 +231,8 @@
         "repositoryURL": "https://github.com/piknotech/SFSafeSymbols.git",
         "state": {
           "branch": null,
-          "revision": "a4c071b303cc3643b332c7cd34aac9171f5294a6",
-          "version": "2.0.2"
+          "revision": "c5d2ebcc773782b625f287ce517a252bd115db6b",
+          "version": "2.1.0"
         }
       },
       {

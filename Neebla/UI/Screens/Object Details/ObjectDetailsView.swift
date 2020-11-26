@@ -33,8 +33,16 @@ struct ObjectDetailsView: View {
                 Rectangle()
                 .fill(Color.white)
             }
-            
+
             Spacer()
+                
+//                SwiftUIExampleView()
+                
+//                if let object = object,
+//                    let fileModel = ObjectDetailsModel(object: object).getCommentFileModel() {
+//                    CommentsView(commentFile: fileModel)
+//                        .border(Color.black)
+//                }
         }
     }
 }

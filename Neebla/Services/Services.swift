@@ -13,6 +13,26 @@ enum ServicesError: Error {
 }
 
 class Services {
+    // Not really confidential, but it's a key for the server, so storing it in the keychain. Storing as a string because I don't have Int64's in PersistentValue's. :(.
+    static let userIdString = try! PersistentValue<String>(name: "Services.userIdString", storage: .keyChain)
+    var syncServerUserId: Int64? {
+        get {
+            if let str = Self.userIdString.value {
+                return Int64(str)
+            }
+            return nil
+        }
+        
+        set {
+            if let newValue = newValue {
+                Self.userIdString.value = "\(newValue)"
+            }
+            else {
+                Self.userIdString.value = nil
+            }
+        }
+    }
+    
     // You must use the App Groups Entitlement and setup a applicationGroupIdentifier https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_application-groups
     let applicationGroupIdentifier = "group.biz.SpasticMuffin.SharedImages"
     
@@ -183,6 +203,16 @@ extension Services: SignInServicesHelper {
     
     public var cloudStorageType: CloudStorageType? {
         return signInServices.manager.currentSignIn?.cloudStorageType
+    }
+    
+    public var userId: UserId? {
+        get {
+            return syncServerUserId
+        }
+        
+        set(newValue) {
+            syncServerUserId = newValue
+        }
     }
     
     public var userType: UserType? {

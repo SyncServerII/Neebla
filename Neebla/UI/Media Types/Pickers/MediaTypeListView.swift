@@ -29,9 +29,11 @@ struct MediaTypeListView: View {
     }
     
     var body: some View {
-        List {
+        VStack {
             CameraMediaType(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+            Spacer().frame(height: 10)
             PhotoLibraryMediaType(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+            Spacer().frame(height: 10)
             WebLinkMediaType(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
         }
     }
