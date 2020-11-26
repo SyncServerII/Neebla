@@ -5,25 +5,19 @@ import SwiftUI
 struct URLLargeMedia: View {
     let object: ServerObjectModel
     static let imageFileLabel = URLObjectType.previewImageDeclaration.fileLabel
-    let model = GenericImageModel(fileLabel: Self.imageFileLabel)
-    @State var image: UIImage?
+    @ObservedObject var model:GenericImageModel
     @ObservedObject var urlModel:URLModel
 
     init(object: ServerObjectModel) {
         self.object = object
+        model = GenericImageModel(fileLabel: Self.imageFileLabel, fileGroupUUID: object.fileGroupUUID)
         urlModel = URLModel(urlObject: object)
         urlModel.getContents()
     }
     
     var body: some View {
-        model.loadImage(fileGroupUUID: object.fileGroupUUID) { image in
-            DispatchQueue.main.async {
-                self.image = image
-            }
-        }
-        
-        return VStack {
-            if let image = image {
+        VStack {
+            if let image = model.image {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)

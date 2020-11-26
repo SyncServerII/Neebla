@@ -3,60 +3,39 @@ import Foundation
 import SwiftUI
 import SFSafeSymbols
 import iOSShared
+import Toucan
 
 struct GenericImageIcon: View {
-    let model:GenericImageModel
+    // Image icons are square.
+    static let dimension: CGFloat = 75
+    
+    @ObservedObject var model:GenericImageModel
     let object: ServerObjectModel
     let fileLabel: String
     
     // The default image must be square.
     static let defaultImageName = "ImageLoading" // From Asset catalog
-
-    @State var fileImage: UIImage? = nil
-    
-    enum ImageStatus {
-        case none
-        case loading
-        case loaded
-    }
-    
-    @Binding var imageStatus: ImageStatus
-    
-    static let dimension: CGFloat = 75
-
-    init(fileLabel: String, object: ServerObjectModel, imageStatus: Binding<ImageStatus>) {
+        
+    init(fileLabel: String, object: ServerObjectModel, model:GenericImageModel? = nil) {
         self.object = object
         self.fileLabel = fileLabel
-        self.model = GenericImageModel(fileLabel: fileLabel)
-        self._imageStatus = imageStatus
+        
+        if let model = model {
+            self.model = model
+        }
+        else {
+            self.model = GenericImageModel(fileLabel: fileLabel, fileGroupUUID: object.fileGroupUUID, imageScale: CGSize(width: Self.dimension, height: Self.dimension))
+        }
     }
     
     var body: some View {
-//        model.loadImage(fileGroupUUID: object.fileGroupUUID) { image in
-//            if let image = image {
-//                fileImage = image
-//                DispatchQueue.main.async {
-//                    if imageStatus != .loaded {
-//                        imageStatus = .loaded
-//                    }
-//                }
-//            }
-//            else {
-//                DispatchQueue.main.async {
-//                    if imageStatus != .none {
-//                        imageStatus = .none
-//                    }
-//                }
-//            }
-//        }
-
-        return VStack {
-            if let fileImage = fileImage, imageStatus == .loaded {
+        VStack {
+            if let fileImage = model.image, model.imageStatus == .loaded {
                 ImageSizer(
                     image: Image(uiImage: fileImage)
                 )
             }
-            else if imageStatus == .loading {
+            else if model.imageStatus == .loading {
                 ImageSizer(
                     image: Image(Self.defaultImageName)
                 )

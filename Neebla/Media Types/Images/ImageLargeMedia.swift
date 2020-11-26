@@ -5,16 +5,16 @@ import SwiftUI
 struct ImageLargeMedia: View {
     let object: ServerObjectModel
     static let imageFileLabel = ImageObjectType.imageDeclaration.fileLabel
-    let model = GenericImageModel(fileLabel: Self.imageFileLabel)
-    @State var image: UIImage?
+    @ObservedObject var model:GenericImageModel
+    
+    init(object: ServerObjectModel) {
+        self.object = object
+        model = GenericImageModel(fileLabel: Self.imageFileLabel, fileGroupUUID: object.fileGroupUUID)
+    }
     
     var body: some View {
-        model.loadImage(fileGroupUUID: object.fileGroupUUID) { image in
-            self.image = image
-        }
-        
-        return VStack {
-            if let image = image {
+        VStack {
+            if let image = model.image {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)

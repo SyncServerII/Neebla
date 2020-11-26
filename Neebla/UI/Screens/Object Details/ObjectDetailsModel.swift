@@ -9,7 +9,6 @@ import Foundation
 import SQLite
 
 class ObjectDetailsModel: ObservableObject {
-    let commentFileLabel = FileLabels.comments
     let object: ServerObjectModel
     
     init(object: ServerObjectModel) {
@@ -17,14 +16,6 @@ class ObjectDetailsModel: ObservableObject {
     }
     
     func getCommentFileModel() -> ServerFileModel? {
-        guard let fileModels = try? ServerFileModel.getFilesFor(fileGroupUUID: object.fileGroupUUID, withFileLabel: commentFileLabel) else {
-            return nil
-        }
-        
-        guard fileModels.count == 1 else {
-            return nil
-        }
-        
-        return fileModels[0]
+        return try? ServerFileModel.getFileFor(fileLabel: FileLabels.comments, withFileGroupUUID: object.fileGroupUUID)
     }
 }

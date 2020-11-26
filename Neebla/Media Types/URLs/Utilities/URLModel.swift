@@ -40,17 +40,12 @@ class URLModel: ObservableObject {
     }
     
     private func getContentsHelper() -> URLFile.URLFileContents? {
-        guard let fileModels = try? ServerFileModel.getFilesFor(fileGroupUUID: object.fileGroupUUID, withFileLabel: fileLabel) else {
+        guard let urlFileModel = try? ServerFileModel.getFileFor(fileLabel: fileLabel, withFileGroupUUID: object.fileGroupUUID) else {
             logger.error("Could not get file models!")
             return nil
         }
-                
-        guard fileModels.count == 1 else {
-            logger.error("Not exactly one url file!")
-            return nil
-        }
         
-        guard let urlFile = fileModels[0].url else {
+        guard let urlFile = urlFileModel.url else {
             logger.error("No url with url file!")
             return nil
         }

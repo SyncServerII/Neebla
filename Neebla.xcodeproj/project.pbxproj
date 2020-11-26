@@ -31,10 +31,10 @@
 		8320A71E256E0ED500819377 /* FileLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A71D256E0ED500819377 /* FileLabels.swift */; };
 		8320A738256E164500819377 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A737256E164500819377 /* CommentsView.swift */; };
 		8320A73C256E170900819377 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A73B256E170900819377 /* MessagesView.swift */; };
-		8320A748256E1CE000819377 /* ItemOptionsModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A747256E1CE000819377 /* ItemOptionsModal.swift */; };
 		8320A74F256F3EF900819377 /* DefaultModalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A74E256F3EF900819377 /* DefaultModalStyle.swift */; };
 		8320A755256F530C00819377 /* SFSymbolImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A754256F530C00819377 /* SFSymbolImage.swift */; };
 		8320A759256F568400819377 /* View+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A758256F568400819377 /* View+Extras.swift */; };
+		8320A772256F62D800819377 /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8320A771256F62D800819377 /* Toucan */; };
 		8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */; };
 		8331F332255B8AFD0063A67D /* MenuNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F329255B8AFD0063A67D /* MenuNavBar.swift */; };
 		8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32A255B8AFD0063A67D /* SignInScreen.swift */; };
@@ -185,7 +185,6 @@
 		8320A71D256E0ED500819377 /* FileLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLabels.swift; sourceTree = "<group>"; };
 		8320A737256E164500819377 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		8320A73B256E170900819377 /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
-		8320A747256E1CE000819377 /* ItemOptionsModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemOptionsModal.swift; sourceTree = "<group>"; };
 		8320A74E256F3EF900819377 /* DefaultModalStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultModalStyle.swift; sourceTree = "<group>"; };
 		8320A754256F530C00819377 /* SFSymbolImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolImage.swift; sourceTree = "<group>"; };
 		8320A758256F568400819377 /* View+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extras.swift"; sourceTree = "<group>"; };
@@ -282,6 +281,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8320A772256F62D800819377 /* Toucan in Frameworks */,
 				835AC8E1255B835D00375084 /* FileLogging in Frameworks */,
 				835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */,
 				8331F33C255B8B4E0063A67D /* SideMenu in Frameworks */,
@@ -313,10 +313,10 @@
 			isa = PBXGroup;
 			children = (
 				8331F4782560CC610063A67D /* Item Types */,
+				8331F517256220670063A67D /* GenericImageModel.swift */,
 				8331F4F2256208320063A67D /* GenericImageIcon.swift */,
 				8308B715256B4995007F0CEB /* RatioModifier.swift */,
 				8331F4A82560F1C20063A67D /* MediaTypeButton.swift */,
-				8331F517256220670063A67D /* GenericImageModel.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -580,7 +580,6 @@
 				8331F4602560BD7D0063A67D /* AlbumItemsScreen.swift */,
 				8320A6D8256CA0DE00819377 /* AlbumItemsScreenCell.swift */,
 				8320A6DE256CA11A00819377 /* AddItemModal.swift */,
-				8320A747256E1CE000819377 /* ItemOptionsModal.swift */,
 				8331F4662560BE0E0063A67D /* AlbumItemsViewModel.swift */,
 			);
 			path = "Album Items";
@@ -760,6 +759,7 @@
 				8331F456255FB5790063A67D /* CustomModalView */,
 				8308B6D82569F595007F0CEB /* SMLinkPreview */,
 				8320A70D256DF07E00819377 /* MessageKit */,
+				8320A771256F62D800819377 /* Toucan */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -804,6 +804,7 @@
 				8331F455255FB5790063A67D /* XCRemoteSwiftPackageReference "CustomModalView" */,
 				8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */,
 				8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */,
+				8320A770256F62D800819377 /* XCRemoteSwiftPackageReference "Toucan" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -916,7 +917,6 @@
 				8320A71E256E0ED500819377 /* FileLabels.swift in Sources */,
 				8331F334255B8AFD0063A67D /* Screens.swift in Sources */,
 				8320A6DF256CA11A00819377 /* AddItemModal.swift in Sources */,
-				8320A748256E1CE000819377 /* ItemOptionsModal.swift in Sources */,
 				83D5CF392564C2520018DE7C /* Downloader.swift in Sources */,
 				835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */,
 				8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */,
@@ -1237,6 +1237,14 @@
 				minimumVersion = 3.4.2;
 			};
 		};
+		8320A770256F62D800819377 /* XCRemoteSwiftPackageReference "Toucan" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/petrpavlik/Toucan";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
 		8331F33A255B8B4E0063A67D /* XCRemoteSwiftPackageReference "SideMenu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SyncServerII/SideMenu.git";
@@ -1329,6 +1337,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */;
 			productName = MessageKit;
+		};
+		8320A771256F62D800819377 /* Toucan */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8320A770256F62D800819377 /* XCRemoteSwiftPackageReference "Toucan" */;
+			productName = Toucan;
 		};
 		8331F33B255B8B4E0063A67D /* SideMenu */ = {
 			isa = XCSwiftPackageProductDependency;

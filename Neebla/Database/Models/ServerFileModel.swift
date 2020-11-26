@@ -85,6 +85,7 @@ extension ServerFileModel {
         case noFileUUID
         case noFileGroupUUID
         case noFileLabel
+        case noFileForFileLabel
     }
     
     static func upsert(db: Connection, fileInfo: FileInfo) throws {
@@ -113,8 +114,15 @@ extension ServerFileModel {
         return try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
     }
     
-    static func getFilesFor(fileGroupUUID: UUID, withFileLabel fileLabel: String) throws -> [ServerFileModel] {
-        return try getFilesFor(fileGroupUUID: fileGroupUUID).filter {$0.fileLabel == fileLabel}
+    static func getFileFor(fileLabel: String, withFileGroupUUID fileGroupUUID: UUID) throws -> ServerFileModel {
+    
+        let fileModels = try getFilesFor(fileGroupUUID: fileGroupUUID).filter {$0.fileLabel == fileLabel}
+        
+        guard fileModels.count == 1 else {
+            throw ServerFileModelError.noFileForFileLabel
+        }
+        
+        return fileModels[0]
     }
 }
 

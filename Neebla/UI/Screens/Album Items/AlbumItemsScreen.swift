@@ -7,6 +7,7 @@ import CustomModalView
 struct AlbumItemsScreen: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     let gridItemLayout = [GridItem(.adaptive(minimum: 50), spacing: 20)]
+    @State var object: ServerObjectModel?
     
     var body: some View {        
         RefreshableScrollView(refreshing: $viewModel.loading) {
@@ -14,15 +15,17 @@ struct AlbumItemsScreen: View {
                 ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
                     AlbumItemsScreenCell(object: item)
                         .onTapGesture {
+                            object = item
                             viewModel.showCellDetails = true
                         }
 
                     // Without this conditional, "spacer" cells show up in the grid.
-                    if viewModel.showCellDetails {
+                    if viewModel.showCellDetails, let object = object {
                         // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
                         NavigationLink(
                             destination:
-                                ObjectDetailsView(object: item),
+                                // If I just use `item` directly in this-- oddly, it doesn't reference the same object as for `AlbumItemsScreenCell` above.
+                                ObjectDetailsView(object: object),
                             isActive:
                                 $viewModel.showCellDetails) {
                         }
@@ -46,15 +49,6 @@ struct AlbumItemsScreen: View {
                 .padding(20)
         }
         .modalStyle(DefaultModalStyle())
-//        .modal(isPresented: $showCellDetails) {
-//            ItemOptionsModal()
-//                .padding(20)
-//        }
-//        .modalStyle(DefaultModalStyle())
-
-//        .sheet(isPresented: $showCellDetails) {
-//            ObjectDetailsView(object: $objectTapped)
-//        }
         .onDisappear {
             // I'm having a problem with the modal possibly being presented, the user navigating away, coming back and the modal still being present.
             if viewModel.addNewItem == true {
