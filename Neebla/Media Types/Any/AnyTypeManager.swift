@@ -3,12 +3,12 @@ import Foundation
 import iOSBasics
 import iOSShared
 
-class ItemTypeManager {
+class AnyTypeManager {
     enum ItemTypeManagerError: Error {
         case duplicateObjectType
     }
     
-    static let session = ItemTypeManager()
+    static let session = AnyTypeManager()
     let objectTypes:[DeclarableObject & ObjectDownloadHandler] = [
         ImageObjectType(),
         URLObjectType()

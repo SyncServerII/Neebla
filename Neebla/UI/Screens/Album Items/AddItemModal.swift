@@ -25,7 +25,7 @@ struct AddItemModal: View {
         return VStack(spacing: 32) {
             Text("Add new:")
 
-            MediaTypeListView(album: viewModel.sharingGroupUUID, alertMessage: viewModel, dismisser: dimisser)
+            AnyPicker(album: viewModel.sharingGroupUUID, alertMessage: viewModel, dismisser: dimisser)
 
             Button(action: {
                 modalPresentationMode.wrappedValue.dismiss()

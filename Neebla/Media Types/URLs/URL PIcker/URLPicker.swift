@@ -8,7 +8,7 @@ struct LinkMedia {
     let image: LinkPreview.LoadedImage?
 }
 
-struct WebLinkMediaType: MediaConstructorBasics, View {
+struct URLPicker: MediaConstructorBasics, View {
     let uiDisplayName = "Web link (URL)"
     let sharingGroupUUID: UUID
     let alertMessage: AlertMessage

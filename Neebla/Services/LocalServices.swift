@@ -11,7 +11,7 @@ class LocalServices {
     
     init() throws {
         previewGenerator = try URLPreviewGenerator()
-        try ItemTypeManager.session.setup()
+        try AnyTypeManager.session.setup()
     }
     
     static func setup() throws {

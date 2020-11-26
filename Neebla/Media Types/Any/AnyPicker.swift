@@ -17,7 +17,7 @@ protocol MediaConstructorBasics {
     init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser)
 }
 
-struct MediaTypeListView: View {
+struct AnyPicker: View {
     let sharingGroupUUID: UUID
     let alertMessage: AlertMessage
     let dismisser:MediaTypeListDismisser
@@ -34,7 +34,7 @@ struct MediaTypeListView: View {
             Spacer().frame(height: 10)
             PhotoLibraryMediaType(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
             Spacer().frame(height: 10)
-            WebLinkMediaType(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+            URLPicker(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
         }
     }
 }
