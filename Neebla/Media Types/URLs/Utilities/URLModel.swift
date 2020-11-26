@@ -15,10 +15,6 @@ class URLModel: ObservableObject {
         self.object = urlObject
     }
     
-    private func getFilesFor(fileGroupUUID: UUID) throws -> [ServerFileModel] {
-        return try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
-    }
-    
     func getContents() {
         DispatchQueue.global().async {
             let contents = self.getContentsHelper()
@@ -44,19 +40,17 @@ class URLModel: ObservableObject {
     }
     
     private func getContentsHelper() -> URLFile.URLFileContents? {
-        guard let fileModels = try? getFilesFor(fileGroupUUID: object.fileGroupUUID) else {
+        guard let fileModels = try? ServerFileModel.getFilesFor(fileGroupUUID: object.fileGroupUUID, withFileLabel: fileLabel) else {
             logger.error("Could not get file models!")
             return nil
         }
-        
-        let filter = fileModels.filter { $0.fileLabel == fileLabel }
-        
-        guard filter.count == 1 else {
+                
+        guard fileModels.count == 1 else {
             logger.error("Not exactly one url file!")
             return nil
         }
         
-        guard let urlFile = filter[0].url else {
+        guard let urlFile = fileModels[0].url else {
             logger.error("No url with url file!")
             return nil
         }

@@ -108,6 +108,14 @@ extension ServerFileModel {
             try model.insert()
         }
     }
+    
+    static func getFilesFor(fileGroupUUID: UUID) throws -> [ServerFileModel] {
+        return try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
+    }
+    
+    static func getFilesFor(fileGroupUUID: UUID, withFileLabel fileLabel: String) throws -> [ServerFileModel] {
+        return try getFilesFor(fileGroupUUID: fileGroupUUID).filter {$0.fileLabel == fileLabel}
+    }
 }
 
 extension DownloadedFile {

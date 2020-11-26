@@ -9,24 +9,19 @@ class GenericImageModel {
     init(fileLabel: String) {
         self.fileLabel = fileLabel
     }
-
-    private func getFilesFor(fileGroupUUID: UUID) throws -> [ServerFileModel] {
-        return try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
-    }
     
     // Completion handler called async on the main thread.
     func loadImage(fileGroupUUID: UUID, completion:@escaping (UIImage?)->()) {
-        guard let fileModels = try? getFilesFor(fileGroupUUID: fileGroupUUID) else {
+        guard let fileModels = try? ServerFileModel.getFilesFor(fileGroupUUID: fileGroupUUID, withFileLabel: fileLabel) else {
             return
         }
         
-        let filter = fileModels.filter { $0.fileLabel == fileLabel}
-        guard filter.count == 1 else {
+        guard fileModels.count == 1 else {
             completion(nil)
             return
         }
         
-        let imageFileModel = filter[0]
+        let imageFileModel = fileModels[0]
         
         guard let imageURL = imageFileModel.url else {
             completion(nil)

@@ -16,19 +16,15 @@ class ObjectDetailsModel: ObservableObject {
         self.object = object
     }
     
-    private func getFilesFor(fileGroupUUID: UUID) throws -> [ServerFileModel] {
-        return try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
-    }
-    
     func getCommentFileModel() -> ServerFileModel? {
-        guard let filter = (try? getFilesFor(fileGroupUUID: object.fileGroupUUID).filter {$0.fileLabel == commentFileLabel}) else {
+        guard let fileModels = try? ServerFileModel.getFilesFor(fileGroupUUID: object.fileGroupUUID, withFileLabel: commentFileLabel) else {
             return nil
         }
         
-        guard filter.count == 1 else {
+        guard fileModels.count == 1 else {
             return nil
         }
         
-        return filter[0]
+        return fileModels[0]
     }
 }
