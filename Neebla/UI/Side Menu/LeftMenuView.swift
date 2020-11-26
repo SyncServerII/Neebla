@@ -10,7 +10,7 @@ struct LeftMenuView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            MenuButtonView(viewModel: viewModel, menuItemName: "Images", imageSystemName: "person", topPadding: 30, menuChoice: Screens.images, canDisable: false)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Albums", imageSystemName: "person", topPadding: 30, menuChoice: Screens.albums, canDisable: false)
             MenuButtonView(viewModel: viewModel, menuItemName: "Album Sharing", imageSystemName: "pencil.circle", topPadding: 30, menuChoice: Screens.albumSharing)
             MenuButtonView(viewModel: viewModel, menuItemName: "Settings", imageSystemName: "envelope", topPadding: 30, menuChoice: Screens.settings)
             MenuButtonView(viewModel: viewModel, menuItemName: "SignIn/Out", imageSystemName: "gear", topPadding: 30, menuChoice: Screens.signIn, canDisable: false)
