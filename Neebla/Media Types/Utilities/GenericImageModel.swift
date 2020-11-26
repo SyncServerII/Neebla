@@ -2,6 +2,8 @@
 import Foundation
 import SQLite
 import UIKit
+import iOSShared
+import Toucan
 
 class GenericImageModel: ObservableObject {
     private let fileLabel: String
@@ -20,61 +22,112 @@ class GenericImageModel: ObservableObject {
         self.fileLabel = fileLabel
         loadImage(fileGroupUUID: fileGroupUUID, scale: imageScale)
     }
-
+        
     private func loadImage(fileGroupUUID: UUID, scale: CGSize? = nil) {
         imageStatus = .loading
-        
-        func noImage() {
-            DispatchQueue.main.async {
-                self.imageStatus = .none
-            }
-        }
-        
-        // Toucan(image: image).resize(CGSize(width: Self.dimension, height: Self.dimension), fitMode: Toucan.Resize.FitMode.crop).image
-        
+                
         guard let imageFileModel = try? ServerFileModel.getFileFor(fileLabel: fileLabel, withFileGroupUUID: fileGroupUUID) else {
-            noImage()
+            noImageHelper()
             return
         }
         
-        guard let imageURL = imageFileModel.url else {
-            noImage()
+        guard let fullSizeImageURL = imageFileModel.url else {
+            noImageHelper()
             return
         }
-        
-        // Example file name: Neebla.F7936567-A93E-4EA8-B4B5-F5D2A6ED653C.jpeg
-        
+                
         // Are we scaling?
         if let scale = scale {
-            
-        }
-        
-        DispatchQueue.global(qos: .background).async {
-            if let imageData = try? Data(contentsOf: imageURL),
-                let image = UIImage(data: imageData) {
-                self.urlWithScaling(scale: CGSize(width: 50, height: 75), url: imageURL)
-                DispatchQueue.main.async {
-                    self.image = image
-                    self.imageStatus = .loaded
+            let iconURL = self.iconURLWithScaling(scale: scale, url: fullSizeImageURL)
+            if FileManager.default.fileExists(atPath: iconURL.path) {
+                DispatchQueue.global(qos: .background).async {
+                    self.loadImageFrom(url: iconURL)
                 }
             }
             else {
-                noImage()
+                // Need to load full-sized image, scale, save, and return scaled image.
+                DispatchQueue.global(qos: .background).async {
+                    guard let imageData = try? Data(contentsOf: fullSizeImageURL),
+                        let image = UIImage(data: imageData) else {
+                        logger.error("Could not load full sized image.")
+                        self.noImageHelper()
+                        return
+                    }
+                    
+                    guard let scaledImage = Toucan(image: image).resize(scale, fitMode: Toucan.Resize.FitMode.crop).image else {
+                        logger.error("Could not scale full sized image.")
+                        self.noImageHelper()
+                        return
+                    }
+                        
+                    guard let data = scaledImage.jpegData(compressionQuality: SettingsModel.jpegQuality) else {
+                        logger.error("Could not get jpeg data for scaled image.")
+                        self.noImageHelper()
+                        return
+                    }
+                    
+                    do {
+                        try data.write(to: iconURL)
+                    } catch let error {
+                        logger.error("Could not write icon file: \(error)")
+                        self.noImageHelper()
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.image = scaledImage
+                        self.imageStatus = .loaded
+                    }
+                }
             }
+        }
+        else {
+            // Not scaling.
+            DispatchQueue.global(qos: .background).async {
+                self.loadImageFrom(url: fullSizeImageURL)
+            }
+        }
+    }
+    
+    private func loadImageFrom(url: URL) {
+        if let imageData = try? Data(contentsOf: url),
+            let image = UIImage(data: imageData) {
+            
+            DispatchQueue.main.async {
+                self.image = image
+                self.imageStatus = .loaded
+            }
+        }
+        else {
+            self.noImageHelper()
+        }
+    }
+    
+    private func noImageHelper() {
+        DispatchQueue.main.async {
+            self.imageStatus = .none
         }
     }
     
     // Example url: //Users/chris/Library/Developer/CoreSimulator/Devices/42DA56B4-C598-4F0C-ACA2-8B5A525CAEA6/data/Containers/Shared/AppGroup/2721EFA3-A9A5-422D-8F08-64F41C619D4F/Documents/objects/Neebla.F7936567-A93E-4EA8-B4B5-F5D2A6ED653C.jpeg
     // 50x75 scale (width x height), renamed with scaling: //Users/chris/Library/Developer/CoreSimulator/Devices/42DA56B4-C598-4F0C-ACA2-8B5A525CAEA6/data/Containers/Shared/AppGroup/2721EFA3-A9A5-422D-8F08-64F41C619D4F/Documents/objects/Neebla.F7936567-A93E-4EA8-B4B5-F5D2A6ED653C.50x75.jpeg
     // Removes any fractional component from width/height in scale
-    func urlWithScaling(scale: CGSize, url: URL) {
+    // Also-- new url is in the icons directory.
+    func iconURLWithScaling(scale: CGSize, url: URL) -> URL {
+        let iconsDir = Files.getDocumentsDirectory().appendingPathComponent(
+            LocalFiles.icons)
+
         let oldExtension = url.pathExtension
         let urlWithoutExtension = url.deletingPathExtension()
         
+        let filename = urlWithoutExtension.lastPathComponent
+
         let width = Int(scale.width)
         let height = Int(scale.height)
         let newExtension = "\(width)x\(height).\(oldExtension)"
-        let newURL = urlWithoutExtension.appendingPathExtension(newExtension)
-        print("newURL: \(newURL)")
+        
+        let newFilename = filename + "." + newExtension
+        
+        return iconsDir.appendingPathComponent(newFilename)
     }
 }

@@ -101,6 +101,14 @@ class Services {
             Self.setupState = .failure
             return
         }
+        
+        do {
+            try LocalFiles.setup()
+        } catch let error {
+            logger.error("\(error)")
+            Self.setupState = .failure
+            return
+        }
 
         do {
             try connectToLocalDatabase()
