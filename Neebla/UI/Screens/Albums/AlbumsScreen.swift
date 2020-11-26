@@ -17,7 +17,7 @@ struct AlbumsScreen: View {
                             viewModel.startCreateNewAlbum()
                         },
                         label: {
-                            Image(systemName: SFSymbol.plusCircle.rawValue)
+                            SFSymbolNavBar(symbol: .plusCircle)
                         }
                     )
                 )
@@ -51,7 +51,7 @@ struct AlbumsScreen: View {
                 TextInputModal(viewModel: viewModel)
                     .padding(20)
             }
-            .modalStyle(DefaultModalStyle())
+            .modalStyle(DefaultModalStyle(padding: 20))
         }
     }
 }
@@ -119,9 +119,4 @@ private struct TextInputModal: View {
     }
 }
 
-extension View {
-    public func enabled(_ enabled: Bool) -> some View {
-        return self.disabled(!enabled)
-    }
-}
 

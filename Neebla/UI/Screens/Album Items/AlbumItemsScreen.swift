@@ -7,14 +7,26 @@ import CustomModalView
 struct AlbumItemsScreen: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     let gridItemLayout = [GridItem(.adaptive(minimum: 50), spacing: 20)]
-    @State var objectTapped:ServerObjectModel?
-    @State var showCellDetails = false
     
-    var body: some View {
+    var body: some View {        
         RefreshableScrollView(refreshing: $viewModel.loading) {
             LazyVGrid(columns: gridItemLayout) {
                 ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
-                    AlbumItemsScreenCell(object: item, showCellDetails: $showCellDetails, cellTapped: $objectTapped)
+                    AlbumItemsScreenCell(object: item)
+                        .onTapGesture {
+                            viewModel.showCellDetails = true
+                        }
+
+                    // Without this conditional, "spacer" cells show up in the grid.
+                    if viewModel.showCellDetails {
+                        // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
+                        NavigationLink(
+                            destination:
+                                ObjectDetailsView(object: item),
+                            isActive:
+                                $viewModel.showCellDetails) {
+                        }
+                    }
                 }
             }
             .padding(10)
@@ -26,31 +38,7 @@ struct AlbumItemsScreen: View {
         })
         .navigationBarTitle("Album Contents")
         .navigationBarItems(trailing:
-            HStack(spacing: 0) {
-                Button(
-                    action: {
-                        viewModel.sync()
-                    },
-                    label: {
-                        Image(systemName: SFSymbol.goforward.rawValue)
-                            .imageScale(.large)
-                            // The tappable area is too small; fat fingering. Trying to make it larger.
-                            .frame(width: 50, height: 50)
-                    }
-                )
-                
-                Button(
-                    action: {
-                        viewModel.startNewAddItem()
-                    },
-                    label: {
-                        Image(systemName: SFSymbol.plusCircle.rawValue)
-                            .imageScale(.large)
-                            // The tappable area is too small; fat fingering. Trying to make it larger.
-                            .frame(width: 50, height: 50)
-                    }
-                )
-            }
+            AlbumItemsScreenNavButtons(viewModel: viewModel)
         )
         .disabled(viewModel.addNewItem)
         .modal(isPresented: $viewModel.addNewItem) {
@@ -64,9 +52,9 @@ struct AlbumItemsScreen: View {
 //        }
 //        .modalStyle(DefaultModalStyle())
 
-        .sheet(isPresented: $showCellDetails) {
-            ObjectDetailsView(object: $objectTapped)
-        }
+//        .sheet(isPresented: $showCellDetails) {
+//            ObjectDetailsView(object: $objectTapped)
+//        }
         .onDisappear {
             // I'm having a problem with the modal possibly being presented, the user navigating away, coming back and the modal still being present.
             if viewModel.addNewItem == true {
@@ -76,3 +64,28 @@ struct AlbumItemsScreen: View {
     }
 }
 
+private struct AlbumItemsScreenNavButtons: View {
+    @ObservedObject var viewModel:AlbumItemsViewModel
+    
+    var body: some View {
+        HStack(spacing: 0) {
+            Button(
+                action: {
+                    viewModel.sync()
+                },
+                label: {
+                    SFSymbolNavBar(symbol: .goforward)
+                }
+            )
+            
+            Button(
+                action: {
+                    viewModel.startNewAddItem()
+                },
+                label: {
+                    SFSymbolNavBar(symbol: .plusCircle)
+                }
+            )
+        }
+    }
+}

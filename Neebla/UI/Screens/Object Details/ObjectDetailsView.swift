@@ -1,48 +1,33 @@
 
 import Foundation
 import SwiftUI
+import SFSafeSymbols
 
 struct ObjectDetailsView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @Binding var object:ServerObjectModel?
-    
-    init(object:Binding<ServerObjectModel?>) {
-        self._object = object
-    }
+    let object:ServerObjectModel
+    @State var showComments = false
     
     var body: some View {
         VStack {
-            // Top buttons
-            HStack {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    Text("Cancel")
-                })
-                .padding(.leading, 10)
-                .padding(.top, 10)
+            AnyLargeMedia(object: object)
+                .onTapGesture {
+                    showComments = true
+                }
                 
-                Spacer()
-            }
-            .frame(height: 40)
-
-            if let object = object {
-                AnyLargeMedia(object: object)
-            }
-            else {
-                Rectangle()
-                .fill(Color.white)
-            }
-
             Spacer()
-                
-//                SwiftUIExampleView()
-                
-//                if let object = object,
-//                    let fileModel = ObjectDetailsModel(object: object).getCommentFileModel() {
-//                    CommentsView(commentFile: fileModel)
-//                        .border(Color.black)
-//                }
+        }
+        .navigationBarItems(trailing:
+            Button(
+                action: {
+                    showComments = true
+                },
+                label: {
+                    SFSymbolNavBar(symbol: .message)
+                }
+            )
+        )
+        .sheet(isPresented: $showComments) {
+            CommentsView()
         }
     }
 }

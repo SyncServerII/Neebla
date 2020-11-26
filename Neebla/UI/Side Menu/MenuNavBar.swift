@@ -59,11 +59,7 @@ struct MenuNavBar<Content: View>: View {
                                         self.sideMenuLeftPanel.wrappedValue = !self.sideMenuLeftPanel.wrappedValue
                                     }
                                 }, label: {
-                                    Image(systemName: SFSymbol.lineHorizontal3.rawValue)
-                                        .accentColor(.blue)
-                                        .imageScale(.large)
-                                        // The tappable area is too small; fat fingering. Trying to make it larger.
-                                        .frame(width: 75, height: 50)
+                                    SFSymbolNavBar(symbol: .lineHorizontal3)
                                 })
                             }
                             else {

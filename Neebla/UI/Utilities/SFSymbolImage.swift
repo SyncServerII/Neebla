@@ -1,0 +1,16 @@
+
+import Foundation
+import SwiftUI
+import SFSafeSymbols
+
+struct SFSymbolNavBar: View {
+    let symbol: SFSymbol
+    
+    var body: some View {
+        Image(systemName: symbol.rawValue)
+            .accentColor(.blue)
+            .imageScale(.large)
+            // The tappable area is too small; fat fingering. Trying to make it larger.
+            .frame(width: 50, height: 50)
+    }
+}

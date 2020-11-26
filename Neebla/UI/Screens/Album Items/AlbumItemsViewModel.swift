@@ -27,6 +27,7 @@ extension AlertMessage {
 }
 
 class AlbumItemsViewModel: ObservableObject, AlertMessage {
+    @Published var showCellDetails: Bool = false
     @Published var loading: Bool = false {
         didSet {
             if oldValue == false && loading == true {
