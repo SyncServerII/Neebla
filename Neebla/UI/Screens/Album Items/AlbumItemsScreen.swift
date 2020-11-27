@@ -51,6 +51,7 @@ struct AlbumItemsScreen: View {
         .modalStyle(DefaultModalStyle())
         .onDisappear {
             // I'm having a problem with the modal possibly being presented, the user navigating away, coming back and the modal still being present.
+            // See also https://github.com/jankaltoun/CustomModalView/issues/1
             if viewModel.addNewItem == true {
                 viewModel.addNewItem = false
             }

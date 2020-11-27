@@ -6,15 +6,20 @@ struct AnyLargeMedia: View {
     let object: ServerObjectModel
     
     var body: some View {
-        switch object.objectType {
-        case ImageObjectType.objectType:
-            ImageLargeMedia(object: object)
+        VStack {
+            switch object.objectType {
+            case ImageObjectType.objectType:
+                ImageLargeMedia(object: object)
 
-        case URLObjectType.objectType:
-            URLLargeMedia(object: object)
-            
-        default:
-            EmptyView()
+            case URLObjectType.objectType:
+                URLLargeMedia(object: object)
+                
+            default:
+                EmptyView()
+            }
+        }
+        .onAppear() {
+            Downloader.session.objectAccessed(object: object)
         }
     }
 }

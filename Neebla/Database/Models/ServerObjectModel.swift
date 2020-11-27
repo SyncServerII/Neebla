@@ -7,7 +7,7 @@ import iOSBasics
 
 // Each "object" represents an image, a URL, or other top-level entity in an album.
 
-class ServerObjectModel: DatabaseModel, ObservableObject {
+class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable {
     let db: Connection
     var id: Int64!
 
@@ -33,6 +33,12 @@ class ServerObjectModel: DatabaseModel, ObservableObject {
         self.fileGroupUUID = fileGroupUUID
         self.sharingGroupUUID = sharingGroupUUID
         self.objectType = objectType
+    }
+    
+    // MARK: BasicEquatable
+
+    func basicallyEqual(_ other: ServerObjectModel) -> Bool {
+        return fileGroupUUID == other.fileGroupUUID
     }
     
     // MARK: DatabaseModel

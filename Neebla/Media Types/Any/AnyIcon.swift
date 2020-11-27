@@ -6,16 +6,21 @@ struct AnyIcon: View {
     let object: ServerObjectModel
     
     var body: some View {
-        switch object.objectType {
-        
-        case ImageObjectType.objectType:
-            ImageIcon(object: object)
-        
-        case URLObjectType.objectType:
-            URLIcon(object: object)
-        
-        default:
-            EmptyView()
+        return VStack {
+            switch object.objectType {
+            
+            case ImageObjectType.objectType:
+                ImageIcon(object: object)
+            
+            case URLObjectType.objectType:
+                URLIcon(object: object)
+            
+            default:
+                EmptyView()
+            }
+        }
+        .onAppear() {
+            Downloader.session.objectAccessed(object: object)
         }
     }
 }

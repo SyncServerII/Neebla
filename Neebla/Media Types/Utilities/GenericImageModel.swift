@@ -3,6 +3,8 @@ import Foundation
 import SQLite
 import UIKit
 import iOSShared
+
+// Currently using: https://github.com/petrpavlik/Toucan because the main repo doesn't yet support SPM.
 import Toucan
 
 class GenericImageModel: ObservableObject {
@@ -17,7 +19,7 @@ class GenericImageModel: ObservableObject {
     
     @Published var imageStatus: ImageStatus = .none
 
-    // Starts loading image when initialized. Image loads asynchronously, but is assigned to `image` on the main thread.
+    // Starts loading image when initialized. Image loads asynchronously, but is assigned to `image` on the main thread when finished loading.
     init(fileLabel: String, fileGroupUUID: UUID, imageScale: CGSize? = nil) {
         self.fileLabel = fileLabel
         loadImage(fileGroupUUID: fileGroupUUID, scale: imageScale)

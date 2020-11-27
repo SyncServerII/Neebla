@@ -62,9 +62,7 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
             
             self.loading = false
             self.getItemsForAlbum(album: sharingGroupUUID)
-            logger.debug("Sync done")
-            
-            Downloader.session.start(sharingGroupUUID: self.sharingGroupUUID)
+            logger.debug("Sync done")            
         }
         
         errorSubscription = Services.session.serverInterface.$error.sink { [weak self] errorEvent in
