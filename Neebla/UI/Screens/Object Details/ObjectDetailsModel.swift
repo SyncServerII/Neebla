@@ -1,9 +1,3 @@
-//
-//  ObjectDetailsModel.swift
-//  Neebla
-//
-//  Created by Christopher G Prince on 11/24/20.
-//
 
 import Foundation
 import SQLite

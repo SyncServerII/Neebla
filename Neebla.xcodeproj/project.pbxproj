@@ -131,6 +131,10 @@
 		83B657E5255B81330041B9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B657E3255B81330041B9DF /* LaunchScreen.storyboard */; };
 		83B657F0255B81EC0041B9DF /* iOSBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 83B657EF255B81EC0041B9DF /* iOSBasics */; };
 		83B657F4255B820B0041B9DF /* iOSSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 83B657F3255B820B0041B9DF /* iOSSignIn */; };
+		83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FE025733B480016BA4C /* MessageKitTypes.swift */; };
+		83C43FE62573412D0016BA4C /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FE52573412D0016BA4C /* MessagesViewModel.swift */; };
+		83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A713256DF0FE00819377 /* DiscussionMessage.swift */; };
+		83C43FF92574371C0016BA4C /* CommentUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FF82574371C0016BA4C /* CommentUploader.swift */; };
 		83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EA625707E79004A418B /* PriorityQueue.swift */; };
 		83CE1EAD257080EE004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
 		83CE1EB2257081BC004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
@@ -272,6 +276,9 @@
 		83B657E1255B81330041B9DF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		83B657E4255B81330041B9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83B657E6255B81330041B9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83C43FE025733B480016BA4C /* MessageKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitTypes.swift; sourceTree = "<group>"; };
+		83C43FE52573412D0016BA4C /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
+		83C43FF82574371C0016BA4C /* CommentUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUploader.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		83CE1EAC257080EE004A418B /* BasicEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicEquatable.swift; sourceTree = "<group>"; };
 		83CE1EB9257088F0004A418B /* PriorityQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriorityQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -341,6 +348,7 @@
 				8331F4F2256208320063A67D /* GenericImageIcon.swift */,
 				8308B715256B4995007F0CEB /* RatioModifier.swift */,
 				8331F4A82560F1C20063A67D /* MediaTypeButton.swift */,
+				83C43FF82574371C0016BA4C /* CommentUploader.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -350,6 +358,8 @@
 			children = (
 				8320A737256E164500819377 /* CommentsView.swift */,
 				8320A73B256E170900819377 /* MessagesView.swift */,
+				83C43FE52573412D0016BA4C /* MessagesViewModel.swift */,
+				83C43FE025733B480016BA4C /* MessageKitTypes.swift */,
 				8320A712256DF0FE00819377 /* DiscussionKeys.swift */,
 				8320A713256DF0FE00819377 /* DiscussionMessage.swift */,
 				8320A711256DF0FE00819377 /* DiscussionVC.swift */,
@@ -969,6 +979,7 @@
 				835AC8EC255B842E00375084 /* Services+SignInServices.swift in Sources */,
 				8320A6F2256CB59700819377 /* ImageLargeMedia.swift in Sources */,
 				8331F48F2560D7FB0063A67D /* CameraMediaType.swift in Sources */,
+				83C43FF92574371C0016BA4C /* CommentUploader.swift in Sources */,
 				83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */,
 				8320A6E3256CB2F400819377 /* ObjectDetailsView.swift in Sources */,
 				8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */,
@@ -991,10 +1002,12 @@
 				8308B724256B4B73007F0CEB /* ImageIcon.swift in Sources */,
 				8320A738256E164500819377 /* CommentsView.swift in Sources */,
 				835AC8EA255B842E00375084 /* Services+LoggingHelpers.swift in Sources */,
+				83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */,
 				8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */,
 				8331F4F3256208320063A67D /* GenericImageIcon.swift in Sources */,
 				8320A71E256E0ED500819377 /* FileLabels.swift in Sources */,
 				8331F334255B8AFD0063A67D /* Screens.swift in Sources */,
+				83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */,
 				8320A6DF256CA11A00819377 /* AddItemModal.swift in Sources */,
 				83D5CF392564C2520018DE7C /* Downloader.swift in Sources */,
 				835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */,
@@ -1006,6 +1019,7 @@
 				8308B71C256B4A44007F0CEB /* URLIcon.swift in Sources */,
 				8308B6F9256A19DF007F0CEB /* URLPickerModel.swift in Sources */,
 				8320A759256F568400819377 /* View+Extras.swift in Sources */,
+				83C43FE62573412D0016BA4C /* MessagesViewModel.swift in Sources */,
 				8331F518256220670063A67D /* GenericImageModel.swift in Sources */,
 				8331F33F255B8B8F0063A67D /* SignInViewModel.swift in Sources */,
 				8331F51125621F7A0063A67D /* AlertMessage.swift in Sources */,

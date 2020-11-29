@@ -116,13 +116,14 @@ extension ServerFileModel {
     
     static func getFileFor(fileLabel: String, withFileGroupUUID fileGroupUUID: UUID) throws -> ServerFileModel {
     
-        let fileModels = try getFilesFor(fileGroupUUID: fileGroupUUID).filter {$0.fileLabel == fileLabel}
+        let fileModels = try getFilesFor(fileGroupUUID: fileGroupUUID)
+        let fileModelsWithLabel = fileModels.filter {$0.fileLabel == fileLabel}
         
-        guard fileModels.count == 1 else {
+        guard fileModelsWithLabel.count == 1 else {
             throw ServerFileModelError.noFileForFileLabel
         }
         
-        return fileModels[0]
+        return fileModelsWithLabel[0]
     }
 }
 

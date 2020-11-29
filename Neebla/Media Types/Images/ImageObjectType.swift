@@ -11,9 +11,10 @@ class ImageObjectType: ItemType, DeclarableObject {
         case invalidFileLabel
     }
     
-    static let objectType: String = "image"
     static let imageFilenameExtension = "jpeg"
-    
+
+    // Object declaration
+    static let objectType: String = "image"
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeType: .text, changeResolverName: CommentFile.changeResolverName)
     static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeType: .jpeg, changeResolverName: nil)
     
@@ -56,8 +57,8 @@ class ImageObjectType: ItemType, DeclarableObject {
         }
         let imageFileURL = try createNewFile(for: imageDeclaration.fileLabel)
         try jpegData.write(to: imageFileURL)
-        
-        let objectModel = try ServerObjectModel(db: Services.session.db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: objectType)
+                
+        let objectModel = try ServerObjectModel(db: Services.session.db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: objectType, creationDate: Date(), updateCreationDate: true)
         try objectModel.insert()
         
         let imageFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: imageFileUUID, fileLabel: imageDeclaration.fileLabel, url: imageFileURL)

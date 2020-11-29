@@ -11,11 +11,11 @@ class URLObjectType: ItemType, DeclarableObject {
         case couldNotGetJPEGData
     }
     
-    static var objectType = "url"
-    
     static let previewImageFilenameExtension = "jpeg"
     static let urlFilenameExtension = "url"
 
+    // Object declaration
+    static var objectType = "url"
     static let urlDeclaration = FileDeclaration(fileLabel: "url", mimeType: .url, changeResolverName: nil)
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeType: .text, changeResolverName: CommentFile.changeResolverName)
     static let previewImageDeclaration = FileDeclaration(fileLabel: "image", mimeType: .jpeg, changeResolverName: nil)
@@ -57,7 +57,7 @@ class URLObjectType: ItemType, DeclarableObject {
         let fileGroupUUID = UUID()
         var fileUploads = [FileUpload]()
         
-        let objectModel = try ServerObjectModel(db: Services.session.db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: objectType)
+        let objectModel = try ServerObjectModel(db: Services.session.db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: objectType, creationDate: Date(), updateCreationDate: true)
         try objectModel.insert()
 
         // Comment file

@@ -47,7 +47,7 @@ struct DiscussionMessage: MessageType {
             return nil
         }
         
-        let sender = Sender(id: senderId, displayName: senderDisplayName)
+        let sender = Sender(senderId: senderId, displayName: senderDisplayName)
         return DiscussionMessage(messageId: messageId, sender: sender, sentDate: sendDate, sentTimezone: sendTimezone, kind: .text(message))
     }
     

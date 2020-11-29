@@ -31,9 +31,9 @@ struct AnyPicker: View {
     var body: some View {
         VStack {
             CameraMediaType(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
-            Spacer().frame(height: 10)
+            Spacer().frame(height: 20)
             PhotoLibraryMediaType(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
-            Spacer().frame(height: 10)
+            Spacer().frame(height: 20)
             URLPicker(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
         }
     }

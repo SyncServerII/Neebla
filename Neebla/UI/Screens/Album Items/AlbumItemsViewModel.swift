@@ -77,12 +77,13 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
             guard let self = self else { return }
             self.getItemsForAlbum(album: sharingGroupUUID)
         }
-        
     }
     
     private func getItemsForAlbum(album sharingGroupUUID: UUID) {
         if let objects = try? ServerObjectModel.fetch(db: Services.session.db, where: ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID) {
-            self.objects = objects
+            self.objects = objects.sorted { (object1, object2) -> Bool in
+                return object1.creationDate < object2.creationDate
+            }
         }
         else {
             self.objects = []
