@@ -2,6 +2,7 @@
 // Adapted from https://github.com/BLCKBIRDS/Side-Menu--Hamburger-Menu--in-SwiftUI
 
 import SwiftUI
+import SFSafeSymbols
 
 struct LeftMenuView: View {
     @Environment(\.sideMenuLeftPanelKey) var sideMenuLeftPanel
@@ -10,10 +11,10 @@ struct LeftMenuView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            MenuButtonView(viewModel: viewModel, menuItemName: "Albums", imageSystemName: "person", topPadding: 30, menuChoice: Screens.albums, canDisable: false)
-            MenuButtonView(viewModel: viewModel, menuItemName: "Album Sharing", imageSystemName: "pencil.circle", topPadding: 30, menuChoice: Screens.albumSharing)
-            MenuButtonView(viewModel: viewModel, menuItemName: "Settings", imageSystemName: "envelope", topPadding: 30, menuChoice: Screens.settings)
-            MenuButtonView(viewModel: viewModel, menuItemName: "SignIn/Out", imageSystemName: "gear", topPadding: 30, menuChoice: Screens.signIn, canDisable: false)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Albums", image: .rectangleStack, topPadding: 30, menuChoice: Screens.albums, canDisable: false)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Album Sharing", image: .envelope, topPadding: 30, menuChoice: Screens.albumSharing)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Settings", image: .gear, topPadding: 30, menuChoice: Screens.settings)
+            MenuButtonView(viewModel: viewModel, menuItemName: "SignIn/Out", image: .person2, topPadding: 30, menuChoice: Screens.signIn, canDisable: false)
             Spacer()
         }
         .padding()
@@ -28,15 +29,15 @@ struct MenuButtonView: View {
     @Environment(\.sideMenuCenterViewKey) var sideMenuCenterView
     @ObservedObject var viewModel:SignInViewModel
     let menuItemName: String
-    let imageSystemName: String
+    let image: SFSymbol
     let topPadding: CGFloat
     let canDisable: Bool
     let menuChoice: AnyView
     
-    init(viewModel:SignInViewModel, menuItemName: String, imageSystemName: String, topPadding: CGFloat, menuChoice: AnyView, canDisable: Bool = true) {
+    init(viewModel:SignInViewModel, menuItemName: String, image: SFSymbol, topPadding: CGFloat, menuChoice: AnyView, canDisable: Bool = true) {
         self.viewModel = viewModel
         self.menuItemName = menuItemName
-        self.imageSystemName = imageSystemName
+        self.image = image
         self.topPadding = topPadding
         self.canDisable = canDisable
         self.menuChoice = menuChoice
@@ -49,7 +50,7 @@ struct MenuButtonView: View {
                 self.sideMenuLeftPanel.wrappedValue = false
             }
         }) {
-            Image(systemName: imageSystemName)
+            Image(systemName: image.rawValue)
                 .imageScale(.large)
             Text(menuItemName)
         }

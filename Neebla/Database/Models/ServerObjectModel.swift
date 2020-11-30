@@ -130,7 +130,6 @@ extension ServerObjectModel {
 
 extension DownloadedObject {
     func upsert(db: Connection, itemType: ItemType.Type) throws {
-        let objectModel: ServerObjectModel
         if let model = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) {
         
             if model.updateCreationDate {
@@ -138,14 +137,13 @@ extension DownloadedObject {
                     ServerObjectModel.creationDateField.description <- creationDate,
                     ServerObjectModel.updateCreationDateField.description <- false)
             }
- 
-            objectModel = model
         }
         else {
-            objectModel = try ServerObjectModel(db: db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: itemType.objectType, creationDate: creationDate, updateCreationDate: false)
+            let objectModel = try ServerObjectModel(db: db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: itemType.objectType, creationDate: creationDate, updateCreationDate: false)
             try objectModel.insert()
         }
         
+        // Independent of whether this was a new object or an existing object, do upsert for the files.
         for file in downloads {
             try file.upsert(db: db, fileGroupUUID: fileGroupUUID, itemType: itemType)
         }
