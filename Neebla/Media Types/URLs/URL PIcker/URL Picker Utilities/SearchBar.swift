@@ -23,7 +23,26 @@ struct SearchBar: UIViewRepresentable {
         }
         
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            // Without the http or https, the link data lookup doesn't work.
+            searchBar.text = addHttpIfNeeded(urlString: searchBar.text)
+            
             model.onSearchButtonTapped(text: searchBar.text)
+        }
+        
+        private func addHttpIfNeeded(urlString: String?) -> String? {
+            if var urlString = urlString {
+                // What if the initial part of the string has spaces? I'm going to also remove trailing spaces -- I think that won't alter the URL.
+                urlString = urlString.trimmingCharacters(in: .whitespaces)
+
+                if urlString.hasPrefix("http://") || urlString.hasPrefix("https://") {
+                    return urlString
+                }
+                
+                // Just picking one of https or http.
+                return "http://" + urlString
+            }
+            
+            return nil
         }
     }
 
