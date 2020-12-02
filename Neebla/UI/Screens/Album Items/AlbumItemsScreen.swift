@@ -8,6 +8,7 @@ struct AlbumItemsScreen: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     let gridItemLayout = [GridItem(.adaptive(minimum: 50), spacing: 20)]
     @State var object: ServerObjectModel?
+    @State var enableNavLink: Bool = false
     
     var body: some View {        
         RefreshableScrollView(refreshing: $viewModel.loading) {
@@ -29,9 +30,9 @@ struct AlbumItemsScreen: View {
                             isActive:
                                 $viewModel.showCellDetails) {
                         }
-                    }
-                }
-            }
+                    } // end if
+                } // end ForEach
+            } // end LazyVGrid
             .padding(10)
         }
         .alert(isPresented: $viewModel.presentAlert, content: {
