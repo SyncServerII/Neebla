@@ -7,9 +7,3 @@ struct Sender: SenderType {
     let displayName: String
 }
 
-struct MockMessage: MessageType {
-    let sender: SenderType
-    let messageId: String
-    var sentDate: Date
-    let kind: MessageKind
-}

@@ -193,7 +193,6 @@
 		8320A6EB256CB56800819377 /* AnyLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyLargeMedia.swift; sourceTree = "<group>"; };
 		8320A6F1256CB59700819377 /* ImageLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLargeMedia.swift; sourceTree = "<group>"; };
 		8320A6F9256CC64700819377 /* URLLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLLargeMedia.swift; sourceTree = "<group>"; };
-		8320A711256DF0FE00819377 /* DiscussionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscussionVC.swift; sourceTree = "<group>"; };
 		8320A712256DF0FE00819377 /* DiscussionKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscussionKeys.swift; sourceTree = "<group>"; };
 		8320A713256DF0FE00819377 /* DiscussionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscussionMessage.swift; sourceTree = "<group>"; };
 		8320A719256E0E0500819377 /* ObjectDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsModel.swift; sourceTree = "<group>"; };
@@ -362,7 +361,6 @@
 				83C43FE025733B480016BA4C /* MessageKitTypes.swift */,
 				8320A712256DF0FE00819377 /* DiscussionKeys.swift */,
 				8320A713256DF0FE00819377 /* DiscussionMessage.swift */,
-				8320A711256DF0FE00819377 /* DiscussionVC.swift */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
