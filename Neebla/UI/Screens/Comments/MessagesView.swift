@@ -23,12 +23,38 @@ final class MessageSwiftUIVC: MessagesViewController {
         messageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidAppear), name: UIResponder.keyboardDidShowNotification, object: nil)
+    }
+
+    @objc func keyboardDidAppear() {
+        // messagesCollectionView.scrollToLastItem(at: .top, animated: true)
+    }
+
+    @objc func keyboardWillDisappear() {
+        //Do something here
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // Because SwiftUI wont automatically make our controller the first responder, we need to do it on viewDidAppear
         becomeFirstResponder()
         messagesCollectionView.scrollToBottom(animated: true)
+        
+        // Without this, the scrolling contents appears on the top bar.
+        view.clipsToBounds = true
     }
+    
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//
+//        print("view.frame.size: \(view.frame.size)")
+//        print("messagesCollectionView.frame.size: \(messagesCollectionView.frame.size)")
+//        messagesCollectionView.frame.size = view.frame.size
+//        messagesCollectionView.contentSize = view.frame.size
+//    }
 }
 
 @available(iOS 13.0, *)
@@ -170,12 +196,13 @@ extension MessagesView.Coordinator: InputBarAccessoryViewDelegate {
                 let messageUUID = UUID().uuidString
                 let message = DiscussionMessage(messageId: messageUUID, sender: currentSender(), sentDate: Date(), sentTimezone: TimeZone.current.identifier, kind: .text(text))
                 success = model.addNewMessage(message)
+
                 if success {
                     messagesCollectionView.insertSections([model.messages.count - 1])
                 }
             }
         }
-        
+
         if success {
             inputBar.inputTextView.text = String()
             messagesCollectionView.scrollToBottom()

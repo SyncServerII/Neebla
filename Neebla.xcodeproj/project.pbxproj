@@ -546,6 +546,7 @@
 				8331F447255FA7A40063A67D /* Albums */,
 				8331F45F2560B7F40063A67D /* Album Items */,
 				8331F53B2562409A0063A67D /* Object Details */,
+				8308B731256B57C9007F0CEB /* Comments */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -654,7 +655,6 @@
 			children = (
 				8320A6E2256CB2F400819377 /* ObjectDetailsView.swift */,
 				8320A719256E0E0500819377 /* ObjectDetailsModel.swift */,
-				8308B731256B57C9007F0CEB /* Comments */,
 			);
 			path = "Object Details";
 			sourceTree = "<group>";

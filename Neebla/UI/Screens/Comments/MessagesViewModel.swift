@@ -4,6 +4,7 @@ import MessageKit
 import iOSShared
 import ChangeResolvers
 import iOSBasics
+import Combine
 
 class MessagesViewModel: ObservableObject {
     static let maxMessageLength = 1024
@@ -16,6 +17,7 @@ class MessagesViewModel: ObservableObject {
     @Published private(set) var messages: [MessageType]
     private(set) var senderUserId:String!
     private(set) var senderUserDisplayName:String!
+    private var listener: AnyCancellable!
     
     init?(object:ServerObjectModel) {
         self.object = object
@@ -38,6 +40,21 @@ class MessagesViewModel: ObservableObject {
         guard loadDiscussion() else {
             logger.error("Could not load discussion!")
             return nil
+        }
+        
+        // So if an object gets downloaded while we're on a screen using this model.
+        listener = Services.session.serverInterface.$objectMarkedAsDownloaded.sink { [weak self] downloadedFileGroupUUID in
+            guard let self = self else { return }
+            
+            guard downloadedFileGroupUUID == object.fileGroupUUID else {
+                return
+            }
+            
+            // Load the discussion again, with any changes.
+            guard self.loadDiscussion() else {
+                logger.error("Could not load discussion!")
+                return
+            }
         }
     }
     
@@ -62,6 +79,8 @@ class MessagesViewModel: ObservableObject {
             logger.error("Problem loading messages: \(error)")
             return false
         }
+        
+        messages = []
         
         for fixedObject in commentFile {
             guard let dict = fixedObject as? [String: String],
@@ -93,7 +112,7 @@ class MessagesViewModel: ObservableObject {
         guard let _ = commentFile else {
             return false
         }
-        
+
         guard let record:CommentFile.FixedObject = message.toDictionary() else {
             return false
         }
