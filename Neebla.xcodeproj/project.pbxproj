@@ -1388,8 +1388,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MessageKit/MessageKit";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.4.2;
+				branch = master;
+				kind = branch;
 			};
 		};
 		8320A770256F62D800819377 /* XCRemoteSwiftPackageReference "Toucan" */ = {

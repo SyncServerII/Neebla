@@ -6,6 +6,8 @@
 //  Copyright © 2020 MessageKit. All rights reserved.
 //
 
+// Having a problem with scrolling: https://github.com/MessageKit/MessageKit/issues/1503
+
 import SwiftUI
 import MessageKit
 import InputBarAccessoryView
@@ -31,17 +33,21 @@ final class MessageSwiftUIVC: MessagesViewController {
 
     @objc func keyboardDidAppear() {
         // messagesCollectionView.scrollToLastItem(at: .top, animated: true)
+        print("view.frame: \(view.frame)")
+        print("messagesCollectionView.frame: \(messagesCollectionView.frame)")
+        print("messagesCollectionView.contentSize: \(messagesCollectionView.contentSize)")
+        
+        //messagesCollectionView.contentSize = messagesCollectionView.frame.size
     }
 
     @objc func keyboardWillDisappear() {
-        //Do something here
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // Because SwiftUI wont automatically make our controller the first responder, we need to do it on viewDidAppear
         becomeFirstResponder()
-        messagesCollectionView.scrollToBottom(animated: true)
+        messagesCollectionView.scrollToLastItem(animated: true)
         
         // Without this, the scrolling contents appears on the top bar.
         view.clipsToBounds = true

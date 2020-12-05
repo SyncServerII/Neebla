@@ -110,15 +110,6 @@
         }
       },
       {
-        "package": "iOSShared",
-        "repositoryURL": "https://github.com/SyncServerII/iOSShared.git",
-        "state": {
-          "branch": "master",
-          "revision": "3fde7515dc895f5ae5e53612c84837746f3e4b99",
-          "version": null
-        }
-      },
-      {
         "package": "KeychainAccess",
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
         "state": {
@@ -194,9 +185,9 @@
         "package": "MessageKit",
         "repositoryURL": "https://github.com/MessageKit/MessageKit",
         "state": {
-          "branch": null,
-          "revision": "1e4b93c27c179bf755a22c964a46262ca0961560",
-          "version": "3.4.2"
+          "branch": "master",
+          "revision": "d9c277016c96781f9b34a138cdce062b5a79ce5e",
+          "version": null
         }
       },
       {
