@@ -132,7 +132,6 @@
 		83B657F0255B81EC0041B9DF /* iOSBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 83B657EF255B81EC0041B9DF /* iOSBasics */; };
 		83B657F4255B820B0041B9DF /* iOSSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 83B657F3255B820B0041B9DF /* iOSSignIn */; };
 		83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FE025733B480016BA4C /* MessageKitTypes.swift */; };
-		83C43FE62573412D0016BA4C /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FE52573412D0016BA4C /* MessagesViewModel.swift */; };
 		83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A713256DF0FE00819377 /* DiscussionMessage.swift */; };
 		83C43FF92574371C0016BA4C /* CommentUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FF82574371C0016BA4C /* CommentUploader.swift */; };
 		83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EA625707E79004A418B /* PriorityQueue.swift */; };
@@ -141,6 +140,7 @@
 		83CE1EBC257088F0004A418B /* PriorityQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EBB257088F0004A418B /* PriorityQueueTests.swift */; };
 		83D5CF392564C2520018DE7C /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5CF382564C2520018DE7C /* Downloader.swift */; };
 		83D5CF4325662B430018DE7C /* UploadImageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5CF4225662B430018DE7C /* UploadImageObject.swift */; };
+		83E7B2C7257B5741008EE363 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2C6257B5741008EE363 /* MessagesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -276,7 +276,6 @@
 		83B657E4255B81330041B9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83B657E6255B81330041B9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83C43FE025733B480016BA4C /* MessageKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitTypes.swift; sourceTree = "<group>"; };
-		83C43FE52573412D0016BA4C /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
 		83C43FF82574371C0016BA4C /* CommentUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUploader.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		83CE1EAC257080EE004A418B /* BasicEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicEquatable.swift; sourceTree = "<group>"; };
@@ -286,6 +285,7 @@
 		83CE1ECD25709405004A418B /* iOSShared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSShared; path = ../../iOSShared; sourceTree = "<group>"; };
 		83D5CF382564C2520018DE7C /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		83D5CF4225662B430018DE7C /* UploadImageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageObject.swift; sourceTree = "<group>"; };
+		83E7B2C6257B5741008EE363 /* MessagesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessagesViewModel.swift; path = "Neebla/UI/Screens/Object Details/MessagesViewModel.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -357,7 +357,7 @@
 			children = (
 				8320A737256E164500819377 /* CommentsView.swift */,
 				8320A73B256E170900819377 /* MessagesView.swift */,
-				83C43FE52573412D0016BA4C /* MessagesViewModel.swift */,
+				83E7B2C6257B5741008EE363 /* MessagesViewModel.swift */,
 				83C43FE025733B480016BA4C /* MessageKitTypes.swift */,
 				8320A712256DF0FE00819377 /* DiscussionKeys.swift */,
 				8320A713256DF0FE00819377 /* DiscussionMessage.swift */,
@@ -987,6 +987,7 @@
 				8331F4852560D7100063A67D /* AnyPicker.swift in Sources */,
 				8320A73C256E170900819377 /* MessagesView.swift in Sources */,
 				8320A6D9256CA0DE00819377 /* AlbumItemsScreenCell.swift in Sources */,
+				83E7B2C7257B5741008EE363 /* MessagesViewModel.swift in Sources */,
 				8331F3FC255F82ED0063A67D /* SettingsScreen.swift in Sources */,
 				8331F336255B8AFD0063A67D /* LeftMenuView.swift in Sources */,
 				8331F4C12560FFC70063A67D /* SettingsModel.swift in Sources */,
@@ -1017,7 +1018,6 @@
 				8308B71C256B4A44007F0CEB /* URLIcon.swift in Sources */,
 				8308B6F9256A19DF007F0CEB /* URLPickerModel.swift in Sources */,
 				8320A759256F568400819377 /* View+Extras.swift in Sources */,
-				83C43FE62573412D0016BA4C /* MessagesViewModel.swift in Sources */,
 				8331F518256220670063A67D /* GenericImageModel.swift in Sources */,
 				8331F33F255B8B8F0063A67D /* SignInViewModel.swift in Sources */,
 				8331F51125621F7A0063A67D /* AlertMessage.swift in Sources */,

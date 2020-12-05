@@ -47,6 +47,24 @@
         }
       },
       {
+        "package": "CustomModalView",
+        "repositoryURL": "https://github.com/jankaltoun/CustomModalView",
+        "state": {
+          "branch": null,
+          "revision": "672cc727956c7006888044ca3de35e03f4067f55",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Facebook",
+        "repositoryURL": "https://github.com/facebook/facebook-ios-sdk.git",
+        "state": {
+          "branch": null,
+          "revision": "cdb8c71fb7f22b4f1af05c21246c12c1aa49f89e",
+          "version": "6.5.2"
+        }
+      },
+      {
         "package": "FileMD5Hash",
         "repositoryURL": "https://github.com/crspybits/FileMD5Hash.git",
         "state": {
@@ -65,11 +83,29 @@
         }
       },
       {
+        "package": "InputBarAccessoryView",
+        "repositoryURL": "https://github.com/nathantannar4/InputBarAccessoryView",
+        "state": {
+          "branch": null,
+          "revision": "9ad2fa50fdc19a48317aad5ddecbf8a388ca62ea",
+          "version": "5.2.2"
+        }
+      },
+      {
         "package": "iOSDropbox",
-        "repositoryURL": "https://github.com/SyncServerII/iOSDropbox.git",
+        "repositoryURL": "http://github.com/SyncServerII/iOSDropbox.git",
         "state": {
           "branch": "master",
           "revision": "74c587f3ce233bc65b3ed4e6f82c3eff50d7d1b4",
+          "version": null
+        }
+      },
+      {
+        "package": "iOSFacebook",
+        "repositoryURL": "http://github.com/SyncServerII/iOSFacebook.git",
+        "state": {
+          "branch": "master",
+          "revision": "46a58128e1e74ac6b6d80cef67d6c67201ae38dd",
           "version": null
         }
       },
@@ -146,12 +182,21 @@
         }
       },
       {
-        "package": "PersistentValue",
-        "repositoryURL": "https://github.com/crspybits/PersistentValue.git",
+        "package": "MessageKit",
+        "repositoryURL": "https://github.com/MessageKit/MessageKit",
         "state": {
-          "branch": null,
-          "revision": "995657d86a2101abfc1bb72a2c631d8433707df0",
-          "version": "0.6.0"
+          "branch": "master",
+          "revision": "d9c277016c96781f9b34a138cdce062b5a79ce5e",
+          "version": null
+        }
+      },
+      {
+        "package": "PersistentValue",
+        "repositoryURL": "http://github.com/crspybits/PersistentValue.git",
+        "state": {
+          "branch": "master",
+          "revision": "67dfc448f848bf44d73b8271b6239863ebea1d93",
+          "version": null
         }
       },
       {
@@ -169,6 +214,33 @@
         "state": {
           "branch": "master",
           "revision": "d7bd3e3f3aea3e8ed3625859ed7472049be21c9a",
+          "version": null
+        }
+      },
+      {
+        "package": "SFSafeSymbols",
+        "repositoryURL": "https://github.com/piknotech/SFSafeSymbols.git",
+        "state": {
+          "branch": null,
+          "revision": "c5d2ebcc773782b625f287ce517a252bd115db6b",
+          "version": "2.1.0"
+        }
+      },
+      {
+        "package": "SideMenu",
+        "repositoryURL": "https://github.com/SyncServerII/SideMenu.git",
+        "state": {
+          "branch": "master",
+          "revision": "c5f34a11a61ab82d23a12ec0f81c1b19ebbedd30",
+          "version": null
+        }
+      },
+      {
+        "package": "SMLinkPreview",
+        "repositoryURL": "https://github.com/crspybits/SMLinkPreview",
+        "state": {
+          "branch": "master",
+          "revision": "841dfaeabc879392f0d311485e3e81b1aeee1051",
           "version": null
         }
       },
@@ -191,6 +263,33 @@
         }
       },
       {
+        "package": "swift-log-file",
+        "repositoryURL": "http://github.com/crspybits/swift-log-file.git",
+        "state": {
+          "branch": "main",
+          "revision": "7549e1247e0ea0dcd39b5a8713fbf8f7317fd30d",
+          "version": null
+        }
+      },
+      {
+        "package": "Introspect",
+        "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
+        "state": {
+          "branch": null,
+          "revision": "f1ec9da347a7fbe53c520d35434f6c2295650bd5",
+          "version": "0.1.1"
+        }
+      },
+      {
+        "package": "SwiftUIRefresh",
+        "repositoryURL": "https://github.com/timbersoftware/SwiftUIRefresh.git",
+        "state": {
+          "branch": null,
+          "revision": "fa8fac7b5eb5c729983a8bef65f094b5e0d12014",
+          "version": "0.0.3"
+        }
+      },
+      {
         "package": "SwiftyDropbox",
         "repositoryURL": "https://github.com/crspybits/SwiftyDropbox.git",
         "state": {
@@ -206,6 +305,15 @@
           "branch": null,
           "revision": "1930a81a299b074fd72eee09e88e452ad37dc34d",
           "version": "5.0.0"
+        }
+      },
+      {
+        "package": "Toucan",
+        "repositoryURL": "https://github.com/petrpavlik/Toucan",
+        "state": {
+          "branch": "develop",
+          "revision": "3755e969b0be377a62405c84d558a201e79bdacb",
+          "version": null
         }
       },
       {
