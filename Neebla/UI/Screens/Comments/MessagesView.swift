@@ -66,9 +66,9 @@ final class MessageSwiftUIVC: MessagesViewController {
 @available(iOS 13.0, *)
 struct MessagesView: UIViewControllerRepresentable {
     @State var initialized = false
-    @ObservedObject var model: MessagesViewModel
+    @ObservedObject var model: CommentsViewModel
     
-    init(model: MessagesViewModel){
+    init(model: CommentsViewModel){
         self.model = model
     }
     
@@ -114,9 +114,9 @@ struct MessagesView: UIViewControllerRepresentable {
             return formatter
         }()
         
-        @ObservedObject var model:MessagesViewModel
+        @ObservedObject var model:CommentsViewModel
         
-        init(model:MessagesViewModel) {
+        init(model:CommentsViewModel) {
             self.model = model
         }
     }
@@ -216,8 +216,8 @@ extension MessagesView.Coordinator: InputBarAccessoryViewDelegate {
     }
     
     func messageInputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
-        if text.count > MessagesViewModel.maxMessageLength {
-            let last = text.index(text.startIndex, offsetBy: MessagesViewModel.maxMessageLength)
+        if text.count > CommentsViewModel.maxMessageLength {
+            let last = text.index(text.startIndex, offsetBy: CommentsViewModel.maxMessageLength)
             inputBar.inputTextView.text = String(text[..<last])
         }
     }

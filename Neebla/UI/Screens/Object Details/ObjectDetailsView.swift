@@ -5,13 +5,13 @@ import SFSafeSymbols
 
 struct ObjectDetailsView: View {
     let object:ServerObjectModel
-    var model:MessagesViewModel?
+    var model:ObjectDetailsModel?
     @State var showComments = false
     @State var showDeletion = false
     
     init(object:ServerObjectModel) {
         self.object = object
-        model = MessagesViewModel(object: object)
+        model = ObjectDetailsModel(object: object)
     }
     
     var body: some View {
@@ -48,13 +48,7 @@ struct ObjectDetailsView: View {
             }.enabled(model != nil)
         )
         .sheet(isPresented: $showComments) {
-            if let model = model {
-                CommentsView(model: model)
-            }
-            else {
-                // Should never get here. Should never have showComments == true when model is nil.
-                EmptyView()
-            }
+            CommentsView(object: object)
         }
         .alert(isPresented: $showDeletion) {
             // Should never default to "item"

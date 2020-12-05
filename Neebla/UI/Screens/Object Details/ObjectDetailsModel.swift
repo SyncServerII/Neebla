@@ -1,15 +1,18 @@
 
 import Foundation
-import SQLite
+import iOSShared
 
-class ObjectDetailsModel: ObservableObject {
+class ObjectDetailsModel {
     let object: ServerObjectModel
-    
-    init(object: ServerObjectModel) {
+    private(set) var objectTypeDisplayName:String!
+
+    init?(object: ServerObjectModel) {
         self.object = object
-    }
-    
-    func getCommentFileModel() -> ServerFileModel? {
-        return try? ServerFileModel.getFileFor(fileLabel: FileLabels.comments, withFileGroupUUID: object.fileGroupUUID)
+        
+        guard let displayName = AnyTypeManager.session.displayName(forObjectType: object.objectType) else {
+            logger.error("Could not get display name for objectType: \(object.objectType)")
+            return nil
+        }
+        objectTypeDisplayName = displayName
     }
 }

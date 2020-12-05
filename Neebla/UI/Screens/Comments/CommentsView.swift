@@ -4,11 +4,11 @@ import MessageKit
 
 struct CommentsView: View {
     static let buttonBarHeight: CGFloat = 45
-    let model: MessagesViewModel
+    var model: CommentsViewModel?
     @Environment(\.presentationMode) var isPresented
     
-    init(model:MessagesViewModel) {
-        self.model = model
+    init(object:ServerObjectModel) {
+        model = CommentsViewModel(object: object)
     }
     
     var body: some View {
@@ -31,7 +31,12 @@ struct CommentsView: View {
                 }
             }
         
-            MessagesView(model: model)
+            if let model = model {
+                MessagesView(model: model)
+            }
+            else {
+                Text("No comments available")
+            }
         }
     }
 }
