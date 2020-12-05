@@ -7,6 +7,7 @@ struct ObjectDetailsView: View {
     let object:ServerObjectModel
     var model:MessagesViewModel?
     @State var showComments = false
+    @State var showDeletion = false
     
     init(object:ServerObjectModel) {
         self.object = object
@@ -21,19 +22,30 @@ struct ObjectDetailsView: View {
                         showComments = true
                     }
                 }
-                
+            
+            // To push the `AnyLargeMedia` to the top.
             Spacer()
         }
         .navigationBarItems(trailing:
-            Button(
-                action: {
-                    showComments = true
-                },
-                label: {
-                    SFSymbolNavBar(symbol: .message)
-                }
-            )
-            .enabled(model != nil)
+            HStack(spacing: 0) {
+                Button(
+                    action: {
+                        showDeletion = true
+                    },
+                    label: {
+                        SFSymbolNavBar(symbol: .trash)
+                    }
+                )
+                
+                Button(
+                    action: {
+                        showComments = true
+                    },
+                    label: {
+                        SFSymbolNavBar(symbol: .message)
+                    }
+                )
+            }.enabled(model != nil)
         )
         .sheet(isPresented: $showComments) {
             if let model = model {
@@ -43,6 +55,22 @@ struct ObjectDetailsView: View {
                 // Should never get here. Should never have showComments == true when model is nil.
                 EmptyView()
             }
+        }
+        .alert(isPresented: $showDeletion) {
+            // Should never default to "item"
+            let displayName = model?.objectTypeDisplayName ?? "item"
+            return Alert(
+                title:
+                    Text("Really delete this \(displayName)?"),
+                primaryButton: .cancel(),
+                secondaryButton:
+                    .destructive(
+                        Text("Delete"),
+                        action: {
+                
+                        }
+                    )
+                )
         }
     }
 }

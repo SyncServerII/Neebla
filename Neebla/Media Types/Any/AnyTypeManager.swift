@@ -9,7 +9,7 @@ class AnyTypeManager {
     }
     
     static let session = AnyTypeManager()
-    let objectTypes:[DeclarableObject & ObjectDownloadHandler] = [
+    let objectTypes:[DeclarableObject & ObjectDownloadHandler & ItemType] = [
         ImageObjectType(),
         URLObjectType()
     ]
@@ -28,5 +28,15 @@ class AnyTypeManager {
         } catch let error {
             logger.error("\(error)")
         }
+    }
+    
+    func displayName(forObjectType objectType: String) -> String? {
+        for type in objectTypes {
+            if type.objectType == objectType {
+                return type.displayName
+            }
+        }
+        
+        return nil
     }
 }

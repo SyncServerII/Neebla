@@ -12,6 +12,8 @@ class ImageObjectType: ItemType, DeclarableObject {
     }
     
     static let imageFilenameExtension = "jpeg"
+    
+    let displayName = "image"
 
     // Object declaration
     static let objectType: String = "image"

@@ -18,23 +18,28 @@ class MessagesViewModel: ObservableObject {
     private(set) var senderUserId:String!
     private(set) var senderUserDisplayName:String!
     private var listener: AnyCancellable!
+    private(set) var objectTypeDisplayName:String!
     
     init?(object:ServerObjectModel) {
         self.object = object
         messages = []
         
+        guard let displayName = AnyTypeManager.session.displayName(forObjectType: object.objectType) else {
+            logger.error("Could not get display name for objectType: \(object.objectType)")
+            return nil
+        }
+        objectTypeDisplayName = displayName
+        
         guard let username = Services.session.signInServices.manager.currentSignIn?.credentials?.username else {
             logger.error("No user name for messages!")
             return nil
         }
-        
         senderUserDisplayName = username
 
         guard let userId = Services.session.userId else {
             logger.error("No user id for messages!")
             return nil
         }
-        
         senderUserId = "\(userId)"
 
         guard loadDiscussion() else {

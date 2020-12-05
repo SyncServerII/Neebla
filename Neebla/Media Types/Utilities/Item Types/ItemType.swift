@@ -6,6 +6,9 @@ protocol ItemType {
     static var objectType: String {get}
     var objectType: String {get}
     
+    // For this object type, to display in the UI.
+    var displayName: String {get}
+    
     static func createNewFile(for fileLabel: String) throws -> URL
 }
 

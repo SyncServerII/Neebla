@@ -14,6 +14,8 @@ class URLObjectType: ItemType, DeclarableObject {
     static let previewImageFilenameExtension = "jpeg"
     static let urlFilenameExtension = "url"
 
+    let displayName = "URL"
+
     // Object declaration
     static var objectType = "url"
     static let urlDeclaration = FileDeclaration(fileLabel: "url", mimeType: .url, changeResolverName: nil)
