@@ -1,22 +1,19 @@
 
 import Foundation
-import ServerShared
-import SQLite
+ import SQLite
+import iOSBasics
 
-extension Array where Element == FileInfo {
+extension Array where Element == IndexObject {
     func upsert(db: Connection) throws {
         guard count > 0 else {
             return
         }
         
-        let fileGroups = Partition.array(self, using: \.fileGroupUUID)
-        
-        for fileGroup in fileGroups {
-            let firstFile = fileGroup[0]
-            try ServerObjectModel.upsert(db: db, fileInfo: firstFile)
+        for object in self {
+            try ServerObjectModel.upsert(db: db, indexObject: object)
             
-            for file in fileGroup {
-                try ServerFileModel.upsert(db: db, fileInfo: file)
+            for file in object.downloads {
+                try ServerFileModel.upsert(db: db, file: file, object: object)
             }
         }
     }

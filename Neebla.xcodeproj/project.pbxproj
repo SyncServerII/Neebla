@@ -97,9 +97,7 @@
 		8331F4BA2560F7300063A67D /* ImageObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4B92560F7300063A67D /* ImageObjectType.swift */; };
 		8331F4C12560FFC70063A67D /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C02560FFC70063A67D /* SettingsModel.swift */; };
 		8331F4C5256110520063A67D /* FileInfo+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C4256110520063A67D /* FileInfo+Extras.swift */; };
-		8331F4C9256113230063A67D /* UUID+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C8256113230063A67D /* UUID+Extras.swift */; };
 		8331F4CE2561168B0063A67D /* ServerFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F46C2560BE8A0063A67D /* ServerFileModel.swift */; };
-		8331F4D1256116920063A67D /* UUID+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C8256113230063A67D /* UUID+Extras.swift */; };
 		8331F4D92561B1D50063A67D /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4B32560F5B90063A67D /* ItemType.swift */; };
 		8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4DC2561EDA50063A67D /* Binding+Extras.swift */; };
 		8331F4E02561F8160063A67D /* ServerInterface+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */; };
@@ -251,7 +249,6 @@
 		8331F4B92560F7300063A67D /* ImageObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageObjectType.swift; sourceTree = "<group>"; };
 		8331F4C02560FFC70063A67D /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		8331F4C4256110520063A67D /* FileInfo+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileInfo+Extras.swift"; sourceTree = "<group>"; };
-		8331F4C8256113230063A67D /* UUID+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Extras.swift"; sourceTree = "<group>"; };
 		8331F4DC2561EDA50063A67D /* Binding+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extras.swift"; sourceTree = "<group>"; };
 		8331F4E62561FAEF0063A67D /* ShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
 		8331F4F2256208320063A67D /* GenericImageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericImageIcon.swift; sourceTree = "<group>"; };
@@ -561,7 +558,6 @@
 		8331F3C5255E4CE30063A67D /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				8331F4C8256113230063A67D /* UUID+Extras.swift */,
 				8331F42A255F95E80063A67D /* SetupLocalDatabase.swift */,
 				8331F4C4256110520063A67D /* FileInfo+Extras.swift */,
 				8331F4D4256117CB0063A67D /* Models */,
@@ -956,7 +952,6 @@
 				8331F4E02561F8160063A67D /* ServerInterface+Helpers.swift in Sources */,
 				8331F444255F9C920063A67D /* ServerObjectModel.swift in Sources */,
 				8331F381255B8F820063A67D /* Services+LoggingHelpers.swift in Sources */,
-				8331F4D1256116920063A67D /* UUID+Extras.swift in Sources */,
 				8331F43E255F9C8B0063A67D /* SetupLocalDatabase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1035,7 +1030,6 @@
 				8331F49B2560D96D0063A67D /* URLPicker.swift in Sources */,
 				835AC8ED255B842E00375084 /* Services.swift in Sources */,
 				83B657DB255B81320041B9DF /* SceneDelegate.swift in Sources */,
-				8331F4C9256113230063A67D /* UUID+Extras.swift in Sources */,
 				8331F415255F857E0063A67D /* AlbumModel.swift in Sources */,
 				8331F4A32560F0A90063A67D /* ImagePickerView.swift in Sources */,
 				8331F4612560BD7D0063A67D /* AlbumItemsScreen.swift in Sources */,

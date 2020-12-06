@@ -88,24 +88,12 @@ extension ServerFileModel {
         case noFileForFileLabel
     }
     
-    static func upsert(db: Connection, fileInfo: FileInfo) throws {
-        guard let fileUUID = try UUID.from(fileInfo.fileUUID) else {
-            throw ServerFileModelError.noFileUUID
-        }
-        
-        guard let fileGroupUUID = try UUID.from(fileInfo.fileGroupUUID) else {
-            throw ServerFileModelError.noFileGroupUUID
-        }
-        
-        guard let fileLabel = fileInfo.fileLabel else {
-            throw ServerFileModelError.noFileLabel
-        }
-        
-        if let _ = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == fileUUID) {
+    static func upsert(db: Connection, file: DownloadFile, object: IndexObject) throws {
+        if let _ = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == file.uuid) {
             // Nothing yet.
         }
         else {
-            let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: fileUUID, fileLabel: fileLabel)
+            let model = try ServerFileModel(db: db, fileGroupUUID: object.fileGroupUUID, fileUUID: file.uuid, fileLabel: file.fileLabel)
             try model.insert()
         }
     }

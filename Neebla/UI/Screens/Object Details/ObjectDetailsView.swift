@@ -4,6 +4,7 @@ import SwiftUI
 import SFSafeSymbols
 
 struct ObjectDetailsView: View {
+    @Environment(\.presentationMode) var isPresented
     let object:ServerObjectModel
     var model:ObjectDetailsModel?
     @State var showComments = false
@@ -61,7 +62,11 @@ struct ObjectDetailsView: View {
                     .destructive(
                         Text("Delete"),
                         action: {
-                
+                            if let model = model {
+                                if model.deleteObject() {
+                                    isPresented.wrappedValue.dismiss()
+                                }
+                            }
                         }
                     )
                 )

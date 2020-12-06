@@ -1,6 +1,7 @@
 
 import Foundation
 import iOSShared
+import SQLite
 
 class ObjectDetailsModel {
     let object: ServerObjectModel
@@ -14,5 +15,18 @@ class ObjectDetailsModel {
             return nil
         }
         objectTypeDisplayName = displayName
+    }
+    
+    func deleteObject() -> Bool {
+        do {
+            // Do the SyncServer call first; it's the most likely to fail of these two.
+            try Services.session.syncServer.queue(objectDeletion: object.fileGroupUUID)
+            try object.update(setters: ServerObjectModel.deletedField.description <- true)
+        } catch let error {
+            logger.error("\(error)")
+            return false
+        }
+        
+        return true
     }
 }

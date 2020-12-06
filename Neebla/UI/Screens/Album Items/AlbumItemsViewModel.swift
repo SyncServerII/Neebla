@@ -53,7 +53,8 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
     private var syncSubscription:AnyCancellable!
     private var errorSubscription:AnyCancellable!
     private var markAsDownloadedSubscription:AnyCancellable!
-    
+    private var objectDeletedSubscription:AnyCancellable!
+
     init(album sharingGroupUUID: UUID) {
         self.sharingGroupUUID = sharingGroupUUID
         
@@ -77,10 +78,26 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
             guard let self = self else { return }
             self.getItemsForAlbum(album: sharingGroupUUID)
         }
+        
+        // If an object is deleted that we're displaying, update the UI. Want to listen to both (a) a queue/deletion completing, and (b) a download deletion completing.
+        objectDeletedSubscription = Services.session.serverInterface.$deletionCompleted.sink { [weak self] fileGroupUUID in
+            guard let self = self else { return }
+
+            guard let fileGroupUUID = fileGroupUUID else {
+                return
+            }
+            
+            // Is this an object we care about on this screen?
+            
+            if let _ = try? ServerObjectModel.fetchSingleRow(db: Services.session.db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) {
+                self.getItemsForAlbum(album: sharingGroupUUID)
+            }
+        }
     }
     
     private func getItemsForAlbum(album sharingGroupUUID: UUID) {
-        if let objects = try? ServerObjectModel.fetch(db: Services.session.db, where: ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID) {
+        if let objects = try? ServerObjectModel.fetch(db: Services.session.db, where: ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
+            ServerObjectModel.deletedField.description == false) {
             self.objects = objects.sorted { (object1, object2) -> Bool in
                 return object1.creationDate < object2.creationDate
             }

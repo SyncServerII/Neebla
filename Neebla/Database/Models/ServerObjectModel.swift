@@ -30,13 +30,17 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable {
     static let updateCreationDateField = Field("updateCreationDate", \M.updateCreationDate)
     var updateCreationDate: Bool
     
+    static let deletedField = Field("deleted", \M.deleted)
+    var deleted: Bool
+    
     init(db: Connection,
         id: Int64! = nil,
         sharingGroupUUID: UUID,
         fileGroupUUID: UUID,
         objectType: String,
         creationDate: Date,
-        updateCreationDate: Bool) throws {
+        updateCreationDate: Bool,
+        deleted: Bool = false) throws {
 
         self.db = db
         self.id = id
@@ -45,6 +49,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable {
         self.objectType = objectType
         self.creationDate = creationDate
         self.updateCreationDate = updateCreationDate
+        self.deleted = deleted
     }
     
     // MARK: BasicEquatable
@@ -63,6 +68,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable {
             t.column(objectTypeField.description)
             t.column(creationDateField.description)
             t.column(updateCreationDateField.description)
+            t.column(deletedField.description)
         }
     }
     
@@ -73,7 +79,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable {
             fileGroupUUID: row[Self.fileGroupUUIDField.description],
             objectType: row[Self.objectTypeField.description],
             creationDate: row[Self.creationDateField.description],
-            updateCreationDate: row[Self.updateCreationDateField.description]
+            updateCreationDate: row[Self.updateCreationDateField.description],
+            deleted: row[Self.deletedField.description]
         )
     }
     
@@ -83,7 +90,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable {
             Self.sharingGroupUUIDField.description <- sharingGroupUUID,
             Self.objectTypeField.description <- objectType,
             Self.creationDateField.description <- creationDate,
-            Self.updateCreationDateField.description <- updateCreationDate
+            Self.updateCreationDateField.description <- updateCreationDate,
+            Self.deletedField.description <- deleted
         )
     }
 }
@@ -96,33 +104,20 @@ extension ServerObjectModel {
         case noCreationDate
     }
     
-    static func upsert(db: Connection, fileInfo: FileInfo) throws {
-        guard let fileGroupUUID = try UUID.from(fileInfo.fileGroupUUID) else {
-            throw ServerObjectModelError.noFileGroupUUID
-        }
-        
-        guard let sharingGroupUUID = try UUID.from(fileInfo.sharingGroupUUID) else {
-            throw ServerObjectModelError.noSharingGroupUUID
-        }
-        
-        guard let objectType = fileInfo.objectType else {
-            throw ServerObjectModelError.noObjectType
-        }
-        
-        guard let creationDate = fileInfo.creationDate else {
-            throw ServerObjectModelError.noCreationDate
-        }
-        
-        if let model = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) {
+    static func upsert(db: Connection, indexObject: IndexObject) throws {
+        if let model = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == indexObject.fileGroupUUID) {
             
             if model.updateCreationDate {
                 try model.update(setters:
-                    ServerObjectModel.creationDateField.description <- creationDate,
+                    ServerObjectModel.creationDateField.description <- indexObject.creationDate,
                     ServerObjectModel.updateCreationDateField.description <- false)
             }
+            
+            try model.update(setters:
+                ServerObjectModel.deletedField.description <- indexObject.deleted)
         }
         else {
-            let model = try ServerObjectModel(db: db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: objectType, creationDate: creationDate, updateCreationDate: false)
+            let model = try ServerObjectModel(db: db, sharingGroupUUID: indexObject.sharingGroupUUID, fileGroupUUID: indexObject.fileGroupUUID, objectType: indexObject.objectType, creationDate: indexObject.creationDate, updateCreationDate: false, deleted: indexObject.deleted)
             try model.insert()
         }
     }

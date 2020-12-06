@@ -36,6 +36,9 @@ class ServerInterface {
     
     // Subscribe to this to get fileGroupUUID's of objects marked as downloaded.
     @Published var objectMarkedAsDownloaded: UUID?
+    
+    // Subscribe to this to get fileGroupUUID's of objects deleted.
+    @Published var deletionCompleted:UUID?
 
     init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String) throws {
         if deviceUUIDString.value == nil {
@@ -109,8 +112,9 @@ extension ServerInterface: SyncServerDelegate {
     }
 
     // Request to server for upload deletion completed successfully.
-    func deletionCompleted(_ syncServer: SyncServer) {
+    func deletionCompleted(_ syncServer: SyncServer, forObjectWith fileGroupUUID: UUID) {
         logger.info("deletionCompleted")
+        self.deletionCompleted = fileGroupUUID
     }
 
     // Called when vN deferred upload(s), or deferred deletions, successfully completed, is/are detected.
