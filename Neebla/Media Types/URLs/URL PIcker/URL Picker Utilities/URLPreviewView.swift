@@ -5,9 +5,9 @@ import SMLinkPreview
 
 struct URLPreviewView: UIViewRepresentable {
     let linkData:LinkData
-    @ObservedObject var model:URLPickerModel
+    @ObservedObject var model:URLPickerViewModel
     
-    init(linkData:LinkData, model:URLPickerModel) {
+    init(linkData:LinkData, model:URLPickerViewModel) {
         self.linkData = linkData
         self.model = model
     }

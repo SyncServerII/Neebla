@@ -5,13 +5,12 @@ import iOSShared
 
 struct URLPickerView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding private var resultURL: LinkMedia?
-    @ObservedObject var model = URLPickerModel()
-    
+    @ObservedObject var model = URLPickerViewModel()
     let placeholderText: String = "Enter your website (web link/URL)"
+    let picked: (URLObjectTypeAssets)->()
     
-    init(resultURL: Binding<LinkMedia?>) {
-        _resultURL = resultURL
+    init(picked: @escaping (URLObjectTypeAssets)->()) {
+        self.picked = picked
     }
     
     var body: some View {
@@ -39,7 +38,7 @@ struct URLPickerView: View {
                 
                 Button(action: {
                     if let result = model.getResult() {
-                        resultURL = result
+                        picked(result)
                         presentationMode.wrappedValue.dismiss()
                     }
                 }, label: {

@@ -6,10 +6,11 @@ import iOSShared
 class AnyTypeManager {
     enum ItemTypeManagerError: Error {
         case duplicateObjectType
+        case couldNotUploadWithAssets
     }
     
     static let session = AnyTypeManager()
-    let objectTypes:[DeclarableObject & ObjectDownloadHandler & ItemType] = [
+    let objectTypes:[DeclarableObject & ObjectDownloadHandler & ItemType & UploadableMediaType] = [
         ImageObjectType(),
         URLObjectType()
     ]
@@ -21,12 +22,8 @@ class AnyTypeManager {
             throw ItemTypeManagerError.duplicateObjectType
         }
         
-        do {
-            for objectType in objectTypes {
-                try Services.session.serverInterface.syncServer.register(object: objectType)
-            }
-        } catch let error {
-            logger.error("\(error)")
+        for objectType in objectTypes {
+            try Services.session.serverInterface.syncServer.register(object: objectType)
         }
     }
     
@@ -38,5 +35,16 @@ class AnyTypeManager {
         }
         
         return nil
+    }
+    
+    func uploadNewObject(assets: UploadableMediaAssets, sharingGroupUUID: UUID) throws {
+        for type in objectTypes {
+            if type.canUpload(assets: assets)  {
+                 try type.uploadNewObjectInstance(assets: assets, sharingGroupUUID: sharingGroupUUID)
+                 return
+            }
+        }
+        
+        throw ItemTypeManagerError.couldNotUploadWithAssets
     }
 }

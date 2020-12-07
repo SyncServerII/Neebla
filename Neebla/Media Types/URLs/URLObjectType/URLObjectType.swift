@@ -9,6 +9,7 @@ class URLObjectType: ItemType, DeclarableObject {
     enum URLObjectTypeError: Error {
         case invalidFileLabel
         case couldNotGetJPEGData
+        case badAssetType
     }
     
     static let previewImageFilenameExtension = "jpeg"
@@ -52,7 +53,7 @@ class URLObjectType: ItemType, DeclarableObject {
         return try Files.createTemporary(withPrefix: Self.filenamePrefix, andExtension: fileExtension, inDirectory: localObjectsDir)
     }
     
-    static func uploadNewObjectInstance(linkMedia: LinkMedia, sharingGroupUUID: UUID) throws {
+    static func uploadNewObjectInstance(asset: URLObjectTypeAssets, sharingGroupUUID: UUID) throws {
         let imageFileUUID = UUID() // This file is optional; may not use it.
         let commentFileUUID = UUID()
         let urlFileUUID = UUID()
@@ -76,8 +77,8 @@ class URLObjectType: ItemType, DeclarableObject {
         
         // URL file
         let urlFileURL = try createNewFile(for: urlDeclaration.fileLabel)
-        let imageType = linkMedia.image?.imageType
-        let urlFileContents = URLFile.URLFileContents(url: linkMedia.linkData.url, title: linkMedia.linkData.title, imageType: imageType)
+        let imageType = asset.image?.imageType
+        let urlFileContents = URLFile.URLFileContents(url: asset.linkData.url, title: asset.linkData.title, imageType: imageType)
         try URLFile.create(contents: urlFileContents, localFile: urlFileURL)
         
         let urlFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: urlFileUUID, fileLabel: urlDeclaration.fileLabel, url: urlFileURL)
@@ -87,7 +88,7 @@ class URLObjectType: ItemType, DeclarableObject {
         fileUploads += [urlFileUpload]
             
         // Optional image file
-        if let loadedImage = linkMedia.image {
+        if let loadedImage = asset.image {
             guard let jpegData = loadedImage.image.jpegData(compressionQuality: SettingsModel.jpegQuality) else {
                 throw URLObjectTypeError.couldNotGetJPEGData
             }

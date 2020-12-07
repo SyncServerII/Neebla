@@ -59,7 +59,9 @@ class ShareViewController: UIViewController {
                 }
 
             case .failure(let error):
-                self?.showAlert = ShowAlert(title: "Alert!", message: "Could not load item!")
+                DispatchQueue.main.async {
+                    self?.showAlert = ShowAlert(title: "Alert!", message: "Could not load item!")
+                }
                 logger.error("\(error)")
             }
         }
@@ -147,7 +149,9 @@ extension ShareViewController {
         
         guard Services.setupState.isComplete else {
             logger.error("Services.session.setupState: \(Services.setupState)")
-            showAlert = ShowAlert(title: "Alert!", message: "Problem with setting up sharing.")
+            DispatchQueue.main.async { [weak self] in
+                self?.showAlert = ShowAlert(title: "Alert!", message: "Problem with setting up sharing.")
+            }
             return false
         }
         

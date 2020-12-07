@@ -9,6 +9,7 @@ class ImageObjectType: ItemType, DeclarableObject {
     enum ImageObjectTypeError: Error {
         case couldNotGetJPEGData
         case invalidFileLabel
+        case badAssetType
     }
     
     static let imageFilenameExtension = "jpeg"
@@ -40,7 +41,7 @@ class ImageObjectType: ItemType, DeclarableObject {
     }
     
     let declaredFiles: [DeclarableFile]
-
+    
     static func uploadNewObjectInstance(image: UIImage, sharingGroupUUID: UUID) throws {
         // Need to first save these files locally. And reference them by ServerFileModel's.
 

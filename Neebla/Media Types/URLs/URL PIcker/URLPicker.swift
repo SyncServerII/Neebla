@@ -3,40 +3,24 @@ import Foundation
 import SwiftUI
 import SMLinkPreview
 
-struct LinkMedia {
-    let linkData: LinkData
-    let image: LinkPreview.LoadedImage?
-}
-
 struct URLPicker: MediaConstructorBasics, View {
     let uiDisplayName = "Web link (URL)"
-    let sharingGroupUUID: UUID
-    let alertMessage: AlertMessage
-    let dismisser:MediaTypeListDismisser
     @State private var isPickerDisplay = false
-    @State var linkMedia: LinkMedia?
-
+    @State var linkMedia: URLObjectTypeAssets?
+    let model: URLPickerModel
+    
     init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser) {
-        self.sharingGroupUUID = sharingGroupUUID
-        self.alertMessage = alertMessage
-        self.dismisser = dismisser
+        model = URLPickerModel(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
     }
     
     var body: some View {
-        let selectedURLBinding = Binding<LinkMedia?>(get: {
-            linkMedia
-        }, set: {
-            linkMedia = $0
-            if let linkMedia = linkMedia {
-                UploadURLObject.upload(linkMedia: linkMedia, sharingGroupUUID: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
-            }
-        })
-        
-        return MediaTypeButton(mediaType: self) {
+        MediaTypeButton(mediaType: self) {
             isPickerDisplay = true
         }
         .sheet(isPresented: $isPickerDisplay) {
-            URLPickerView(resultURL: selectedURLBinding)
+            URLPickerView() { pickedURL in
+                model.upload(assets: pickedURL)
+            }
         }
     }
 }

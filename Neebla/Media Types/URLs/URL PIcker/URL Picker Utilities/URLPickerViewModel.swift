@@ -3,7 +3,7 @@ import Foundation
 import SMLinkPreview
 import UIKit
 
-class URLPickerModel: ObservableObject {
+class URLPickerViewModel: ObservableObject {
     @Published var addButtonEnabled: Bool = false
     @Published var linkData: LinkData?
     @Published var loadedImage: LinkPreview.LoadedImage?
@@ -32,11 +32,11 @@ class URLPickerModel: ObservableObject {
         }
     }
     
-    func getResult() -> LinkMedia? {
+    func getResult() -> URLObjectTypeAssets? {
         guard let linkData = linkData else {
             return nil
         }
         
-        return LinkMedia(linkData: linkData, image: loadedImage)
+        return URLObjectTypeAssets(linkData: linkData, image: loadedImage)
     }
 }

@@ -4,17 +4,17 @@ import SwiftUI
 // From: https://axelhodler.medium.com/creating-a-search-bar-for-swiftui-e216fe8c8c7f
 struct SearchBar: UIViewRepresentable {
     let placeholderText: String
-    let model: URLPickerModel
+    let model: URLPickerViewModel
     
-    init(placeholderText: String, model: URLPickerModel) {
+    init(placeholderText: String, model: URLPickerViewModel) {
         self.model = model
         self.placeholderText = placeholderText
     }
 
     class Coordinator: NSObject, UISearchBarDelegate {
-        let model: URLPickerModel
+        let model: URLPickerViewModel
         
-        init(model: URLPickerModel) {
+        init(model: URLPickerViewModel) {
             self.model = model
         }
 

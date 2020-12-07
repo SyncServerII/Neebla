@@ -14,9 +14,16 @@ struct LocalFiles {
     // Created at app launch if it doesn't exist.
     static let icons = "icons"
     
+    // Temporary directory for image picker and other purposes. Files are not removed automatically so far.
+    static let temporary = "temp"
+    
     static func setup() throws {
         let iconsDir = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.icons)
         try Files.createDirectoryIfNeeded(iconsDir)
+        
+        let tempDir = Files.getDocumentsDirectory().appendingPathComponent(
+            LocalFiles.temporary)
+        try Files.createDirectoryIfNeeded(tempDir)
     }
 }
