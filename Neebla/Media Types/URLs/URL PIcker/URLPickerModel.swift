@@ -16,6 +16,7 @@ class URLPickerModel {
     func upload(assets: UploadableMediaAssets) {
         do {
             try AnyTypeManager.session.uploadNewObject(assets: assets, sharingGroupUUID: sharingGroupUUID)
+            dismisser.dismiss(acquiredNewItem: true)
         }
         catch let error {
             logger.error("error: \(error)")

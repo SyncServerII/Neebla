@@ -25,6 +25,7 @@ class PhotoLibraryPickerModel {
             do {
                 let asset = try pickedImage.toUploadAssets()
                 try AnyTypeManager.session.uploadNewObject(assets: asset, sharingGroupUUID: sharingGroupUUID)
+                dismisser.dismiss(acquiredNewItem: true)
             }
             catch let error {
                 logger.error("error: \(error)")

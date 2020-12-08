@@ -16,6 +16,7 @@ class CameraMediaTypeModel {
     func uploadImage(asset: ImageObjectTypeAssets) {
         do {
             try AnyTypeManager.session.uploadNewObject(assets: asset, sharingGroupUUID: sharingGroupUUID)
+            dismisser.dismiss(acquiredNewItem: true)
         } catch let error {
             logger.error("\(error)")
         }
