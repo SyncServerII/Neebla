@@ -50,7 +50,7 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
         
         let tempImageFile: URL
         do {
-            tempImageFile = try Files.createTemporary(withPrefix: "temp", andExtension: ImageObjectType.imageFilenameExtension, inDirectory: tempDir, create: false)
+            tempImageFile = try Files.createTemporary(withPrefix: "temp", andExtension: FilenameExtensions.jpegImageFilename, inDirectory: tempDir, create: false)
         } catch let error {
             logger.error("Could not create new file for image: \(error)")
             return

@@ -11,9 +11,7 @@ class ImageObjectType: ItemType, DeclarableObject {
         case invalidFileLabel
         case badAssetType
     }
-    
-    static let imageFilenameExtension = "jpeg"
-    
+        
     let displayName = "image"
 
     // Object declaration
@@ -30,7 +28,7 @@ class ImageObjectType: ItemType, DeclarableObject {
         case Self.commentDeclaration.fileLabel:
             fileExtension = Self.commentFilenameExtension
         case Self.imageDeclaration.fileLabel:
-            fileExtension = Self.imageFilenameExtension
+            fileExtension = Self.jpegImageFilenameExtension
         default:
             throw ImageObjectTypeError.invalidFileLabel
         }

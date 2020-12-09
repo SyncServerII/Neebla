@@ -15,9 +15,6 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         case couldNotGetJPEGData
     }
     
-    static let imageFilenameExtension = "jpeg"
-    static let movieFilenameExtension = "mov"
-
     let displayName = "live image"
 
     // Object declaration
@@ -42,9 +39,9 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         case Self.commentDeclaration.fileLabel:
             fileExtension = Self.commentFilenameExtension
         case Self.imageDeclaration.fileLabel:
-            fileExtension = Self.imageFilenameExtension
+            fileExtension = Self.jpegImageFilenameExtension
         case Self.movieDeclaration.fileLabel:
-            fileExtension = Self.movieFilenameExtension
+            fileExtension = Self.quicktimeMovieFilenameExtension
             
         default:
             throw LiveImageObjectTypeError.invalidFileLabel

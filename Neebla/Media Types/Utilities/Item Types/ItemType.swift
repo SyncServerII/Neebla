@@ -12,6 +12,12 @@ protocol ItemType {
     static func createNewFile(for fileLabel: String) throws -> URL
 }
 
+enum FilenameExtensions {
+    static var jpegImageFilename: String {
+        return "jpeg"
+    }
+}
+
 extension ItemType {
     var objectType: String {
         return Self.objectType
@@ -23,6 +29,14 @@ extension ItemType {
     
     static var commentFilenameExtension: String {
         return "json"
+    }
+    
+    static var jpegImageFilenameExtension: String {
+        return FilenameExtensions.jpegImageFilename
+    }
+    
+    static var quicktimeMovieFilenameExtension: String {
+        return "mov"
     }
 }
 

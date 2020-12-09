@@ -12,7 +12,6 @@ class URLObjectType: ItemType, DeclarableObject {
         case badAssetType
     }
     
-    static let previewImageFilenameExtension = "jpeg"
     static let urlFilenameExtension = "url"
 
     let displayName = "URL"
@@ -43,7 +42,7 @@ class URLObjectType: ItemType, DeclarableObject {
             fileExtension = Self.urlFilenameExtension
             
         case Self.previewImageDeclaration.fileLabel:
-            fileExtension = Self.previewImageFilenameExtension
+            fileExtension = Self.jpegImageFilenameExtension
             
         default:
             throw URLObjectTypeError.invalidFileLabel
@@ -53,7 +52,10 @@ class URLObjectType: ItemType, DeclarableObject {
     }
     
     static func uploadNewObjectInstance(asset: URLObjectTypeAssets, sharingGroupUUID: UUID) throws {
-        let imageFileUUID = UUID() // This file is optional; may not use it.
+    
+        // Optional. Unused if no image preview.
+        let imageFileUUID = UUID()
+        
         let commentFileUUID = UUID()
         let urlFileUUID = UUID()
         let fileGroupUUID = UUID()
@@ -86,7 +88,7 @@ class URLObjectType: ItemType, DeclarableObject {
         let urlFileUpload = FileUpload(fileLabel: urlDeclaration.fileLabel, dataSource: .immutable(urlFileURL), uuid: urlFileUUID)
         fileUploads += [urlFileUpload]
             
-        // Optional image file
+        // Optional image preview file
         if let loadedImage = asset.image {
             guard let jpegData = loadedImage.image.jpegData(compressionQuality: SettingsModel.jpegQuality) else {
                 throw URLObjectTypeError.couldNotGetJPEGData
