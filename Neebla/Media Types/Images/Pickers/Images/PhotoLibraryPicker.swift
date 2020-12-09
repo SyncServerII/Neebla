@@ -11,8 +11,8 @@ struct PhotoLibraryPicker: MediaConstructorBasics, View {
     @State var selectedImage: UIImage?
     @State private var isImagePickerDisplay = false
     
-    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser) {
-        self.model = PhotoLibraryPickerModel(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+    init(album sharingGroupUUID: UUID, dismisser:MediaTypeListDismisser) {
+        self.model = PhotoLibraryPickerModel(album: sharingGroupUUID, dismisser: dismisser)
     }
     
     var body: some View {

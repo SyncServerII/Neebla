@@ -4,6 +4,7 @@ import AVFoundation
 import Foundation
 import PhotosUI
 import MobileCoreServices
+import iOSShared
 
 // Using this only for camera.
 // Adapted from https://medium.com/swlh/how-to-open-the-camera-and-photo-library-in-swiftui-9693f9d4586b
@@ -44,7 +45,30 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
-        let asset = ImageObjectTypeAssets(image: selectedImage)
+        
+        let tempDir = Files.getDocumentsDirectory().appendingPathComponent( LocalFiles.temporary)
+        
+        let tempImageFile: URL
+        do {
+            tempImageFile = try Files.createTemporary(withPrefix: "temp", andExtension: ImageObjectType.imageFilenameExtension, inDirectory: tempDir, create: false)
+        } catch let error {
+            logger.error("Could not create new file for image: \(error)")
+            return
+        }
+        
+        guard let data = selectedImage.jpegData(compressionQuality: SettingsModel.jpegQuality) else {
+            logger.error("Could not get jpeg data for image.")
+            return
+        }
+        
+        do {
+            try data.write(to: tempImageFile)
+        } catch let error {
+            logger.error("Could not write image file: \(error)")
+            return
+        }
+                
+        let asset = ImageObjectTypeAssets(jpegFile: tempImageFile)
         self.picker.picked(asset)
         self.picker.isPresented.wrappedValue.dismiss()
     }

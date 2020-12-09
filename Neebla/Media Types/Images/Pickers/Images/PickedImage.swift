@@ -9,30 +9,16 @@ enum PickedImage {
         case couldNotCreateUIImage
     }
     
-    case jpeg(URL)
-
-    // These are also used for file name extensions.
-    enum ImageType: String {
-        case heic
-        case jpeg
-    }
-    
-    case liveImage(movie: URL, imageURL:URL, imageType: ImageType)
+    case jpeg(assets: ImageObjectTypeAssets)
+    case liveImage(assets: LiveImageObjectTypeAssets)
     
     func toUploadAssets() throws -> UploadableMediaAssets {
         switch self {
-        case .jpeg(let url):
-            let imageData = try Data(contentsOf: url)
-
-            if let image = UIImage(data: imageData) {
-                return ImageObjectTypeAssets(image: image)
-            }
-            else {
-                throw PickedImageError.couldNotCreateUIImage
-            }
+        case .jpeg(let assets):
+            return assets
             
-        case .liveImage:
-            throw PickedImageError.noLiveImageSupportYet
+        case .liveImage(let assets):
+            return assets
         }
     }
 }

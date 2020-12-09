@@ -18,9 +18,11 @@ struct URLIcon: View {
     var body: some View {
         ZStack {
             GenericImageIcon(fileLabel: urlFileLabel, object: object, model: imageModel)
+            
             if imageModel.imageStatus == .none || imageModel.imageStatus == .loaded {
-                URLTextInLowerRight()
+                TextInLowerRight(text: "url")
             }
+            
             if imageModel.imageStatus == .none {
                 // If there is no image, put some text from the .url file into the icon.
                 DescriptionText(description: model.description ?? "")
@@ -40,21 +42,3 @@ struct DescriptionText: View {
     }
 }
 
-// Put "url" text in the lower right of the icon.
-struct URLTextInLowerRight: View {
-    var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Text("url")
-                    .foregroundColor(Color.black)
-                    // To get leading & trailing white-colored space
-                    .padding([.leading, .trailing], 5)
-                    .background(Color.white.opacity(0.7))
-                    // To get leading & trailing clear space
-                    .padding([.trailing, .bottom], 4)
-            }
-        }
-    }
-}

@@ -4,12 +4,10 @@ import iOSShared
 
 class URLPickerModel {
     let sharingGroupUUID: UUID
-    let alertMessage: AlertMessage
     let dismisser:MediaTypeListDismisser
 
-    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser) {
+    init(album sharingGroupUUID: UUID, dismisser:MediaTypeListDismisser) {
         self.sharingGroupUUID = sharingGroupUUID
-        self.alertMessage = alertMessage
         self.dismisser = dismisser
     }
     

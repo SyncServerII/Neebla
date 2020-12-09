@@ -14,6 +14,9 @@ struct AnyIcon: View {
             
             case URLObjectType.objectType:
                 URLIcon(object: object)
+                
+            case LiveImageObjectType.objectType:
+                LiveImageIcon(object:object)
             
             default:
                 EmptyView()

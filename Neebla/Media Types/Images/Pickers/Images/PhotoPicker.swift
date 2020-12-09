@@ -113,7 +113,8 @@ struct PhotoPicker: UIViewControllerRepresentable {
                 }
                 
                 if let url = url {
-                    completion(.success(.jpeg(url)))
+                    let assets = ImageObjectTypeAssets(jpegFile: url)
+                    completion(.success(.jpeg(assets: assets)))
                     return
                 }
                 
@@ -154,7 +155,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
                         }
                         let image: PHAssetResource = filteredForOther[0]
                         
-                        let pickedImageType: PickedImage.ImageType
+                        let pickedImageType: LiveImageObjectTypeAssets.ImageType
                         
                         switch image.uniformTypeIdentifier {
                         case heicUTI:
@@ -201,7 +202,9 @@ struct PhotoPicker: UIViewControllerRepresentable {
                                     return
                                 }
                                 
-                                completion(.success(.liveImage(movie: movieFile, imageURL: imageFile, imageType: pickedImageType)))
+                                let assets = LiveImageObjectTypeAssets(imageFile: imageFile, imageType: pickedImageType, movieFile: movieFile)
+                                
+                                completion(.success(.liveImage(assets: assets)))
                             }
                         }
                     } else {

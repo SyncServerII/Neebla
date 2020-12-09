@@ -6,6 +6,7 @@ import CustomModalView
 
 struct AlbumItemsScreen: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
+    @ObservedObject var userAlertModel:UserAlertModel
     
     /* It seems hard to get the spacing to work out reasonably. At first, it looked OK on iPhone 11 but not on iPhone 8-- on iPhone 8 there was no spacing. In this case I was using:
     
@@ -20,6 +21,12 @@ struct AlbumItemsScreen: View {
     ]
     
     @State var object: ServerObjectModel?
+    
+    init(album sharingGroupUUID: UUID) {
+        let userAlertModel = UserAlertModel()
+        self.viewModel = AlbumItemsViewModel(album: sharingGroupUUID, userAlertModel: userAlertModel)
+        self.userAlertModel = userAlertModel
+    }
     
     var body: some View {
         VStack {
@@ -50,11 +57,7 @@ struct AlbumItemsScreen: View {
                 .disabled(true)
             } // end if
         }
-        .alert(isPresented: $viewModel.presentAlert, content: {
-            let message:String = viewModel.alertMessage
-            viewModel.alertMessage = nil
-            return Alert(title: Text(message))
-        })
+        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
         .navigationBarTitle("Album Contents")
         .navigationBarItems(trailing:
             AlbumItemsScreenNavButtons(viewModel: viewModel)

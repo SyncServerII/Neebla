@@ -29,7 +29,7 @@ struct AlbumsScreen: View {
                 // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
                 // Some hurdles here to get rid of the disclosure button at end of row: https://stackoverflow.com/questions/56516333
                 NavigationLink(destination:
-                    AlbumItemsScreen(viewModel: AlbumItemsViewModel(album: album.sharingGroupUUID))) {
+                    AlbumItemsScreen(album: album.sharingGroupUUID)) {
                     EmptyView()
                 }
                 .frame(width: 0)
@@ -41,7 +41,7 @@ struct AlbumsScreen: View {
                 }
             }
             .alert(isPresented: $viewModel.presentAlert, content: {
-                let message:String = viewModel.alertMessage
+                let message:String = viewModel.alertMessage ?? "Error"
                 viewModel.alertMessage = nil
                 return Alert(title: Text(message))
             })

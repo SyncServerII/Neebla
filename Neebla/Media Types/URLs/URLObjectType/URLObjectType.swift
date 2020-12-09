@@ -32,7 +32,6 @@ class URLObjectType: ItemType, DeclarableObject {
     static func createNewFile(for fileLabel: String) throws -> URL {
         let localObjectsDir = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.objectsDir)
-        try Files.createDirectoryIfNeeded(localObjectsDir)
 
         let fileExtension: String
         

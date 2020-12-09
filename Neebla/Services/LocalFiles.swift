@@ -25,5 +25,9 @@ struct LocalFiles {
         let tempDir = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.temporary)
         try Files.createDirectoryIfNeeded(tempDir)
+        
+        let localObjectsDir = Files.getDocumentsDirectory().appendingPathComponent(
+            LocalFiles.objectsDir)
+        try Files.createDirectoryIfNeeded(localObjectsDir)
     }
 }

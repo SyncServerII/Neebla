@@ -14,17 +14,15 @@ class MediaTypeListDismisser {
 
 protocol MediaConstructorBasics {
     var uiDisplayName: String {get}
-    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser)
+    init(album sharingGroupUUID: UUID, dismisser:MediaTypeListDismisser)
 }
 
 struct AnyPicker: View {
     let sharingGroupUUID: UUID
-    let alertMessage: AlertMessage
     let dismisser:MediaTypeListDismisser
     
-    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser: MediaTypeListDismisser) {
+    init(album sharingGroupUUID: UUID, dismisser: MediaTypeListDismisser) {
         self.sharingGroupUUID = sharingGroupUUID
-        self.alertMessage = alertMessage
         self.dismisser = dismisser
     }
     
@@ -34,11 +32,11 @@ struct AnyPicker: View {
             // Some pickers allow upload of more than one media type. E.g., still images and live images by the PhotoLibraryPicker.
             // Multiple pickers are needed for some media types. E.g., PhotoLibraryPicker and CameraMediaType both support still images.
             
-            CameraMediaType(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+            CameraMediaType(album: sharingGroupUUID, dismisser: dismisser)
             Spacer().frame(height: 20)
-            PhotoLibraryPicker(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+            PhotoLibraryPicker(album: sharingGroupUUID, dismisser: dismisser)
             Spacer().frame(height: 20)
-            URLPicker(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+            URLPicker(album: sharingGroupUUID, dismisser: dismisser)
         }
     }
 }

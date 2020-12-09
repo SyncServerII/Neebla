@@ -11,9 +11,9 @@ struct CameraMediaType: MediaConstructorBasics, View {
     let cameraAvailable:Bool
     @State private var isImagePickerDisplay = false
     
-    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser) {
+    init(album sharingGroupUUID: UUID, dismisser:MediaTypeListDismisser) {
         cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
-        model = CameraMediaTypeModel(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+        model = CameraMediaTypeModel(album: sharingGroupUUID, dismisser: dismisser)
     }
 
     var body: some View {

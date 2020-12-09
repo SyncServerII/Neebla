@@ -5,6 +5,7 @@ import Combine
 import iOSShared
 import iOSBasics
 
+#warning("DEPRECATED")
 extension AlertMessage {
     func showMessage(for errorEvent: ErrorEvent?) {
         switch errorEvent {
@@ -26,7 +27,8 @@ extension AlertMessage {
     }
 }
 
-class AlbumItemsViewModel: ObservableObject, AlertMessage {
+class AlbumItemsViewModel: ObservableObject {
+    let userAlertModel: UserAlertModel
     @Published var showCellDetails: Bool = false
     @Published var loading: Bool = false {
         didSet {
@@ -40,14 +42,6 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
     
     @Published var objects = [ServerObjectModel]()
     let sharingGroupUUID: UUID
-
-    @Published var presentAlert = false
-
-    var alertMessage: String! {
-        didSet {
-            presentAlert = alertMessage != nil
-        }
-    }
     
     @Published var addNewItem = false
     private var syncSubscription:AnyCancellable!
@@ -55,7 +49,8 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
     private var markAsDownloadedSubscription:AnyCancellable!
     private var objectDeletedSubscription:AnyCancellable!
 
-    init(album sharingGroupUUID: UUID) {
+    init(album sharingGroupUUID: UUID, userAlertModel: UserAlertModel) {
+        self.userAlertModel = userAlertModel
         self.sharingGroupUUID = sharingGroupUUID
         
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
@@ -68,7 +63,7 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
         
         errorSubscription = Services.session.serverInterface.$error.sink { [weak self] errorEvent in
             guard let self = self else { return }
-            self.showMessage(for: errorEvent)
+            self.userAlertModel.showMessage(for: errorEvent)
         }
         
         // Once files are downloaded, update our list. Debounce to avoid too many updates too quickly.
@@ -113,7 +108,7 @@ class AlbumItemsViewModel: ObservableObject, AlertMessage {
         } catch let error {
             logger.error("\(error)")
             loading = false
-            alertMessage = "Failed to sync."
+            userAlertModel.userAlert = .error(message: "Failed to sync.")
         }
     }
     

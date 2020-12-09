@@ -14,6 +14,9 @@ struct AnyLargeMedia: View {
             case URLObjectType.objectType:
                 URLLargeMedia(object: object)
                 
+            case LiveImageObjectType.objectType:
+                LiveImageLargeMedia(object: object)
+                
             default:
                 EmptyView()
             }

@@ -27,7 +27,7 @@ class AlbumsViewModel: ObservableObject, AlertMessage {
     private var syncSubscription:AnyCancellable!
     private var errorSubscription:AnyCancellable!
     
-    var alertMessage: String! {
+    var alertMessage: String? {
         didSet {
             presentAlert = alertMessage != nil
         }

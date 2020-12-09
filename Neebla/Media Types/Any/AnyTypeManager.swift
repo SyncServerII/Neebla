@@ -12,7 +12,8 @@ class AnyTypeManager {
     static let session = AnyTypeManager()
     let objectTypes:[DeclarableObject & ObjectDownloadHandler & ItemType & UploadableMediaType] = [
         ImageObjectType(),
-        URLObjectType()
+        URLObjectType(),
+        LiveImageObjectType()
     ]
     
     // Call this at app launch, only once.

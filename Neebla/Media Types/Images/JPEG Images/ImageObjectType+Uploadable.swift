@@ -3,7 +3,8 @@ import Foundation
 import UIKit
 
 struct ImageObjectTypeAssets: UploadableMediaAssets {
-    let image: UIImage
+    // File reference to a JPEG image. This needs to be movied/copied to a permanent location in the app.
+    let jpegFile: URL
 }
 
 extension ImageObjectType: UploadableMediaType {
@@ -20,6 +21,6 @@ extension ImageObjectType: UploadableMediaType {
             throw ImageObjectTypeError.badAssetType
         }
         
-        try ImageObjectType.uploadNewObjectInstance(image: assets.image, sharingGroupUUID: sharingGroupUUID)
+        try ImageObjectType.uploadNewObjectInstance(assets: assets, sharingGroupUUID: sharingGroupUUID)
     }
 }

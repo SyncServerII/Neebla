@@ -9,8 +9,8 @@ struct URLPicker: MediaConstructorBasics, View {
     @State var linkMedia: URLObjectTypeAssets?
     let model: URLPickerModel
     
-    init(album sharingGroupUUID: UUID, alertMessage: AlertMessage, dismisser:MediaTypeListDismisser) {
-        model = URLPickerModel(album: sharingGroupUUID, alertMessage: alertMessage, dismisser: dismisser)
+    init(album sharingGroupUUID: UUID, dismisser:MediaTypeListDismisser) {
+        model = URLPickerModel(album: sharingGroupUUID, dismisser: dismisser)
     }
     
     var body: some View {
