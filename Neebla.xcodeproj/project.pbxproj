@@ -140,6 +140,8 @@
 		83BF7867258077F1000E0B37 /* LiveImageIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7866258077F1000E0B37 /* LiveImageIcon.swift */; };
 		83BF786C25807826000E0B37 /* LiveImageLargeMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF786B25807826000E0B37 /* LiveImageLargeMedia.swift */; };
 		83BF78712580789A000E0B37 /* TextInLowerRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF78702580789A000E0B37 /* TextInLowerRight.swift */; };
+		83BF7C632581E474000E0B37 /* ImageIOUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 83BF7C622581E474000E0B37 /* ImageIOUIKit */; };
+		83BF7C652581E474000E0B37 /* ImageIOSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83BF7C642581E474000E0B37 /* ImageIOSwift */; };
 		83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FE025733B480016BA4C /* MessageKitTypes.swift */; };
 		83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A713256DF0FE00819377 /* DiscussionMessage.swift */; };
 		83C43FF92574371C0016BA4C /* CommentUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FF82574371C0016BA4C /* CommentUploader.swift */; };
@@ -330,6 +332,8 @@
 				8320A70E256DF07E00819377 /* MessageKit in Frameworks */,
 				835AC8D9255B831800375084 /* iOSFacebook in Frameworks */,
 				8331F457255FB5790063A67D /* CustomModalView in Frameworks */,
+				83BF7C652581E474000E0B37 /* ImageIOSwift in Frameworks */,
+				83BF7C632581E474000E0B37 /* ImageIOUIKit in Frameworks */,
 				835AC8D5255B82AD00375084 /* iOSDropbox in Frameworks */,
 				83B657F4255B820B0041B9DF /* iOSSignIn in Frameworks */,
 				8331F425255F8C6D0063A67D /* SwiftUIRefresh in Frameworks */,
@@ -867,6 +871,8 @@
 				8308B6D82569F595007F0CEB /* SMLinkPreview */,
 				8320A70D256DF07E00819377 /* MessageKit */,
 				8320A771256F62D800819377 /* Toucan */,
+				83BF7C622581E474000E0B37 /* ImageIOUIKit */,
+				83BF7C642581E474000E0B37 /* ImageIOSwift */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -934,6 +940,7 @@
 				8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */,
 				8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */,
 				8320A770256F62D800819377 /* XCRemoteSwiftPackageReference "Toucan" */,
+				83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -1542,6 +1549,14 @@
 				kind = branch;
 			};
 		};
+		83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/davbeck/ImageIOSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1629,6 +1644,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83B657F2255B820B0041B9DF /* XCRemoteSwiftPackageReference "iOSSIgnIn" */;
 			productName = iOSSignIn;
+		};
+		83BF7C622581E474000E0B37 /* ImageIOUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */;
+			productName = ImageIOUIKit;
+		};
+		83BF7C642581E474000E0B37 /* ImageIOSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */;
+			productName = ImageIOSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

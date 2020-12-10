@@ -44,6 +44,7 @@ extension SignInViewModel: SignInManagerDelegate {
     }
     
     func userIsSignedOut(_ manager: SignInManager, signIn: GenericSignIn) {
+        #warning("Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates.")
         userSignedIn = false
     }
 }

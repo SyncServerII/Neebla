@@ -4,6 +4,8 @@ import iOSBasics
 import ChangeResolvers
 import iOSShared
 import UIKit
+import ImageIOSwift
+import ImageIOUIKit
 
 class LiveImageObjectType: ItemType, DeclarableObject {
     let declaredFiles: [DeclarableFile]
@@ -71,7 +73,16 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         switch assets.imageType {
         case .heic:
             // Load the file data, and convert it to jpeg.
-            let image = try loadHEIC(url: assets.imageFile)
+            // I started off using a method from here: https://stackoverflow.com/questions/46440308 but I wasn't preserving image orientation. So have shifted to using https://github.com/davbeck/ImageIOSwift
+            
+            guard let imageSource = ImageSource(url:assets.imageFile),
+                let image = imageSource.image(at:0) else {
+                throw LiveImageObjectTypeError.couldNotLoadHEIC
+            }
+            
+            // I'm assuming this will always be 1 for our HEIC files, but want to get some data on this.
+            logger.debug("Success: imageSource.count: \(imageSource.count)")
+
             guard let jpegData = image.jpegData(compressionQuality: SettingsModel.jpegQuality) else {
                 throw LiveImageObjectTypeError.couldNotGetJPEGData
             }
@@ -102,20 +113,6 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, uploads: [commentUpload, imageUpload, movieUpload])
 
         try Services.session.serverInterface.syncServer.queue(upload:upload)
-    }
-    
-    // https://stackoverflow.com/questions/46440308/is-heic-heif-supported-by-uiimage
-    // Apparently doesn't work on the simulator.
-    static func loadHEIC(url: URL) throws -> UIImage {
-        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil) else {
-            throw LiveImageObjectTypeError.couldNotLoadHEIC
-        }
-        
-        guard let cgImage = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
-            throw LiveImageObjectTypeError.couldNotLoadHEIC
-        }
-        
-        return UIImage(cgImage: cgImage)
     }
 }
 
