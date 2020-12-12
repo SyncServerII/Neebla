@@ -53,6 +53,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
     
     // Use a Coordinator to act as your PHPickerViewControllerDelegate
     class Coordinator: PHPickerViewControllerDelegate {
+        let tempDir = Files.getDocumentsDirectory().appendingPathComponent(LocalFiles.temporary)
         var progress:Progress?
       
         private let parent: PhotoPicker
@@ -106,19 +107,32 @@ struct PhotoPicker: UIViewControllerRepresentable {
         
         func tryToGetImage(result: PHPickerResult, completion:@escaping (Result<PickedImage, Error>)->()) {
             let imageIdentifier = "public.jpeg"
-            result.itemProvider.loadFileRepresentation(forTypeIdentifier: imageIdentifier) { (url, error) in
+            result.itemProvider.loadFileRepresentation(forTypeIdentifier: imageIdentifier) { [weak self] (url, error) in
+                guard let self = self else { return }
                 if let error = error {
                     completion(.failure(error))
                     return
                 }
                 
-                if let url = url {
-                    let assets = ImageObjectTypeAssets(jpegFile: url)
-                    completion(.success(.jpeg(assets: assets)))
+                guard let url = url else {
+                    completion(.failure(PhotoPickerError.couldNotGetImage))
                     return
                 }
                 
-                completion(.failure(PhotoPickerError.couldNotGetImage))
+                // The file we get back isn't one we can do just anything with. E.g., we can't use the FileManager replaceItemAt method with it. Copy it.
+                
+                let imageFileCopy:URL
+                do {
+                    imageFileCopy = try Files.createTemporary(withPrefix: "image", andExtension: FilenameExtensions.jpegImage, inDirectory: self.tempDir, create: false)
+                    try FileManager.default.copyItem(at: url, to: imageFileCopy)
+                } catch let error {
+                    logger.error("\(error)")
+                    completion(.failure(PhotoPickerError.couldNotGetImage))
+                    return
+                }
+                    
+                let assets = ImageObjectTypeAssets(jpegFile: imageFileCopy)
+                completion(.success(.jpeg(assets: assets)))
             }
         }
         
@@ -129,7 +143,9 @@ struct PhotoPicker: UIViewControllerRepresentable {
             
             let itemProvider = result.itemProvider
             if itemProvider.canLoadObject(ofClass: PHLivePhoto.self) {
-                itemProvider.loadObject(ofClass: PHLivePhoto.self) { livePhoto, error in
+                itemProvider.loadObject(ofClass: PHLivePhoto.self) { [weak self] livePhoto, error in
+                    guard let self = self else { return }
+                    
                     if let livePhoto = livePhoto as? PHLivePhoto {
                         let assetResources = PHAssetResource.assetResources(for: livePhoto)
                         guard assetResources.count == 2 else {
@@ -171,16 +187,15 @@ struct PhotoPicker: UIViewControllerRepresentable {
                         
                         logger.debug("assetResources: \(assetResources.count)")
                         
-                        let tempDir = Files.getDocumentsDirectory().appendingPathComponent(
-                            LocalFiles.temporary)
+
                             
                         let movieFile:URL
                         let imageFile:URL
                         let filePrefix = "live"
                         
                         do {
-                            movieFile = try Files.createTemporary(withPrefix: filePrefix, andExtension: "mov", inDirectory: tempDir, create: false)
-                            imageFile = try Files.createTemporary(withPrefix: filePrefix, andExtension: pickedImageType.rawValue, inDirectory: tempDir, create: false)
+                            movieFile = try Files.createTemporary(withPrefix: filePrefix, andExtension: "mov", inDirectory: self.tempDir, create: false)
+                            imageFile = try Files.createTemporary(withPrefix: filePrefix, andExtension: pickedImageType.rawValue, inDirectory: self.tempDir, create: false)
                         } catch let error {
                             logger.error("Could not create url: error: \(error)")
                             completion(.failure(PhotoPickerError.failedCreatingURL))

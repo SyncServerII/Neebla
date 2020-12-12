@@ -143,6 +143,8 @@
 		83BF7C632581E474000E0B37 /* ImageIOUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 83BF7C622581E474000E0B37 /* ImageIOUIKit */; };
 		83BF7C652581E474000E0B37 /* ImageIOSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83BF7C642581E474000E0B37 /* ImageIOSwift */; };
 		83BF7C6A2584595C000E0B37 /* LiveImageObjectType+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7C692584595B000E0B37 /* LiveImageObjectType+Image.swift */; };
+		83BF7C7A25846A46000E0B37 /* LiveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7C7925846A46000E0B37 /* LiveImageView.swift */; };
+		83BF7C7F25846B66000E0B37 /* LiveImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7C7E25846B66000E0B37 /* LiveImageViewModel.swift */; };
 		83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FE025733B480016BA4C /* MessageKitTypes.swift */; };
 		83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A713256DF0FE00819377 /* DiscussionMessage.swift */; };
 		83C43FF92574371C0016BA4C /* CommentUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FF82574371C0016BA4C /* CommentUploader.swift */; };
@@ -298,6 +300,8 @@
 		83BF786B25807826000E0B37 /* LiveImageLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageLargeMedia.swift; sourceTree = "<group>"; };
 		83BF78702580789A000E0B37 /* TextInLowerRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInLowerRight.swift; sourceTree = "<group>"; };
 		83BF7C692584595B000E0B37 /* LiveImageObjectType+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveImageObjectType+Image.swift"; sourceTree = "<group>"; };
+		83BF7C7925846A46000E0B37 /* LiveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageView.swift; sourceTree = "<group>"; };
+		83BF7C7E25846B66000E0B37 /* LiveImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageViewModel.swift; sourceTree = "<group>"; };
 		83C43FE025733B480016BA4C /* MessageKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitTypes.swift; sourceTree = "<group>"; };
 		83C43FF82574371C0016BA4C /* CommentUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUploader.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
@@ -779,6 +783,26 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		83BF7C6E258469C7000E0B37 /* LiveImageObjectType */ = {
+			isa = PBXGroup;
+			children = (
+				83BF7859258061DF000E0B37 /* LiveImageObjectType.swift */,
+				83BF7C692584595B000E0B37 /* LiveImageObjectType+Image.swift */,
+				83BF785E258066BC000E0B37 /* LiveImageObjectType+Uploadable.swift */,
+			);
+			path = LiveImageObjectType;
+			sourceTree = "<group>";
+		};
+		83BF7C7525846A28000E0B37 /* LiveImageLargeMedia */ = {
+			isa = PBXGroup;
+			children = (
+				83BF786B25807826000E0B37 /* LiveImageLargeMedia.swift */,
+				83BF7C7925846A46000E0B37 /* LiveImageView.swift */,
+				83BF7C7E25846B66000E0B37 /* LiveImageViewModel.swift */,
+			);
+			path = LiveImageLargeMedia;
+			sourceTree = "<group>";
+		};
 		83CE1EA325702E0D004A418B /* Download Management */ = {
 			isa = PBXGroup;
 			children = (
@@ -810,11 +834,9 @@
 		83E7B2DB257CA7EB008EE363 /* Live Images */ = {
 			isa = PBXGroup;
 			children = (
-				83BF7859258061DF000E0B37 /* LiveImageObjectType.swift */,
-				83BF7C692584595B000E0B37 /* LiveImageObjectType+Image.swift */,
-				83BF785E258066BC000E0B37 /* LiveImageObjectType+Uploadable.swift */,
+				83BF7C6E258469C7000E0B37 /* LiveImageObjectType */,
 				83BF7866258077F1000E0B37 /* LiveImageIcon.swift */,
-				83BF786B25807826000E0B37 /* LiveImageLargeMedia.swift */,
+				83BF7C7525846A28000E0B37 /* LiveImageLargeMedia */,
 			);
 			path = "Live Images";
 			sourceTree = "<group>";
@@ -1050,8 +1072,10 @@
 				8331F4852560D7100063A67D /* AnyPicker.swift in Sources */,
 				8320A73C256E170900819377 /* MessagesView.swift in Sources */,
 				83BF7824257DCFBD000E0B37 /* URLObjectType+Uploadable.swift in Sources */,
+				83BF7C7A25846A46000E0B37 /* LiveImageView.swift in Sources */,
 				8320A6D9256CA0DE00819377 /* AlbumItemsScreenCell.swift in Sources */,
 				83E7B2C7257B5741008EE363 /* CommentsViewModel.swift in Sources */,
+				83BF7C7F25846B66000E0B37 /* LiveImageViewModel.swift in Sources */,
 				8331F3FC255F82ED0063A67D /* SettingsScreen.swift in Sources */,
 				8331F336255B8AFD0063A67D /* LeftMenuView.swift in Sources */,
 				8331F4C12560FFC70063A67D /* SettingsModel.swift in Sources */,

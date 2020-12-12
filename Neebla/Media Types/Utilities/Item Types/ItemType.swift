@@ -13,7 +13,7 @@ protocol ItemType {
 }
 
 enum FilenameExtensions {
-    static var jpegImageFilename: String {
+    static var jpegImage: String {
         return "jpeg"
     }
 }
@@ -32,7 +32,7 @@ extension ItemType {
     }
     
     static var jpegImageFilenameExtension: String {
-        return FilenameExtensions.jpegImageFilename
+        return FilenameExtensions.jpegImage
     }
     
     static var quicktimeMovieFilenameExtension: String {
