@@ -15,6 +15,9 @@ struct LeftMenuView: View {
             MenuButtonView(viewModel: viewModel, menuItemName: "Album Sharing", image: .envelope, topPadding: 30, menuChoice: Screens.albumSharing)
             MenuButtonView(viewModel: viewModel, menuItemName: "Settings", image: .gear, topPadding: 30, menuChoice: Screens.settings)
             MenuButtonView(viewModel: viewModel, menuItemName: "SignIn/Out", image: .person2, topPadding: 30, menuChoice: Screens.signIn, canDisable: false)
+#if DEBUG
+            MenuButtonView(viewModel: viewModel, menuItemName: "Developer", image: .eyeglasses, topPadding: 30, menuChoice: Screens.developer, canDisable: false)
+#endif
             Spacer()
         }
         .padding()

@@ -149,6 +149,8 @@
 		83BF7CA6258543B4000E0B37 /* Comments+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A712256DF0FE00819377 /* Comments+Keys.swift */; };
 		83BF7CB025854448000E0B37 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FF82574371C0016BA4C /* Comments.swift */; };
 		83BF7CB425854484000E0B37 /* FileLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A71D256E0ED500819377 /* FileLabels.swift */; };
+		83BF7CBD25854D91000E0B37 /* DeveloperScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CBC25854D91000E0B37 /* DeveloperScreen.swift */; };
+		83BF7CC225854ECE000E0B37 /* DeveloperScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CC125854ECE000E0B37 /* DeveloperScreenModel.swift */; };
 		83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FE025733B480016BA4C /* MessageKitTypes.swift */; };
 		83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A713256DF0FE00819377 /* DiscussionMessage.swift */; };
 		83C43FF92574371C0016BA4C /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FF82574371C0016BA4C /* Comments.swift */; };
@@ -307,6 +309,8 @@
 		83BF7C7925846A46000E0B37 /* LiveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageView.swift; sourceTree = "<group>"; };
 		83BF7C7E25846B66000E0B37 /* LiveImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageViewModel.swift; sourceTree = "<group>"; };
 		83BF7C9B2585436C000E0B37 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		83BF7CBC25854D91000E0B37 /* DeveloperScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperScreen.swift; sourceTree = "<group>"; };
+		83BF7CC125854ECE000E0B37 /* DeveloperScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperScreenModel.swift; sourceTree = "<group>"; };
 		83C43FE025733B480016BA4C /* MessageKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitTypes.swift; sourceTree = "<group>"; };
 		83C43FF82574371C0016BA4C /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
@@ -565,6 +569,7 @@
 				8331F32B255B8AFD0063A67D /* Screens.swift */,
 				8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */,
 				8331F32A255B8AFD0063A67D /* SignInScreen.swift */,
+				83BF7CBB25854D60000E0B37 /* Developer */,
 				8331F4BD2560FFA80063A67D /* Settings */,
 				8331F447255FA7A40063A67D /* Albums */,
 				8331F45F2560B7F40063A67D /* Album Items */,
@@ -825,6 +830,15 @@
 			path = Comments;
 			sourceTree = "<group>";
 		};
+		83BF7CBB25854D60000E0B37 /* Developer */ = {
+			isa = PBXGroup;
+			children = (
+				83BF7CBC25854D91000E0B37 /* DeveloperScreen.swift */,
+				83BF7CC125854ECE000E0B37 /* DeveloperScreenModel.swift */,
+			);
+			path = Developer;
+			sourceTree = "<group>";
+		};
 		83CE1EA325702E0D004A418B /* Download Management */ = {
 			isa = PBXGroup;
 			children = (
@@ -1074,6 +1088,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83BF7CBD25854D91000E0B37 /* DeveloperScreen.swift in Sources */,
 				8320A755256F530C00819377 /* SFSymbolImage.swift in Sources */,
 				83CE1EAD257080EE004A418B /* BasicEquatable.swift in Sources */,
 				8331F42F255F96AB0063A67D /* LocalFiles.swift in Sources */,
@@ -1091,6 +1106,7 @@
 				83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */,
 				8320A6E3256CB2F400819377 /* ObjectDetailsView.swift in Sources */,
 				83BF7847257DDD71000E0B37 /* CameraMediaTypeModel.swift in Sources */,
+				83BF7CC225854ECE000E0B37 /* DeveloperScreenModel.swift in Sources */,
 				8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */,
 				8308B706256A3A53007F0CEB /* URLFile.swift in Sources */,
 				8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */,

@@ -13,4 +13,8 @@ enum Screens {
     static let albumSharing = AnyView(SendInvitationScreen())
     static let settings = AnyView(SettingsScreen())
     static let signIn = AnyView(SignInScreen())
+    
+#if DEBUG
+    static let developer = AnyView(DeveloperScreen())
+#endif
 }

@@ -89,8 +89,13 @@ extension ServerFileModel {
     }
     
     static func upsert(db: Connection, file: DownloadFile, object: IndexObject) throws {
-        if let _ = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == file.uuid) {
-            // Nothing yet.
+        if let model = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == file.uuid) {
+            // This handles both the case of a download deletion (another client has deleted an object/file(s)) and the case of a local deletion. In the local deletion-- the deletion request gets uploaded, and later an index request will occur. This later index request is now driving this upsert.
+            if object.deleted, let fileURL = model.url {
+                try FileManager.default.removeItem(at: fileURL)
+                try model.update(setters: ServerFileModel.urlField.description <- nil)
+                logger.info("Removed file: \(fileURL)")
+            }
         }
         else {
             let model = try ServerFileModel(db: db, fileGroupUUID: object.fileGroupUUID, fileUUID: file.uuid, fileLabel: file.fileLabel)
