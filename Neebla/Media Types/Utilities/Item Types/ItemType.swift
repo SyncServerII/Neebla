@@ -1,5 +1,6 @@
 
 import Foundation
+import ChangeResolvers
 
 protocol ItemType {
     // SyncServer objectType

@@ -17,6 +17,11 @@ struct ObjectDetailsView: View {
     
     var body: some View {
         VStack {
+            if let title = model?.mediaTitle {
+                Text(title)
+                    .padding(.top, 10)
+            }
+            
             AnyLargeMedia(object: object)
                 .onTapGesture {
                     if let _ = model {

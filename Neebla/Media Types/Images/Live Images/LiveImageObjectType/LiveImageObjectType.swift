@@ -58,9 +58,11 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         let movieFileUUID = UUID()
         let commentFileUUID = UUID()
         let fileGroupUUID = UUID()
-
-        let commentFile = CommentFile()
-        let commentFileData = try commentFile.getData()
+        
+        let commentFileData = try Comments.createInitialFile(mediaTitle: Services.session.username, reconstructionDictionary: [
+            Comments.Keys.mediaUUIDKey: imageFileUUID.uuidString,
+            Comments.Keys.movieUUIDKey: movieFileUUID.uuidString
+        ])
         
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)

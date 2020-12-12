@@ -6,8 +6,15 @@ import SFSafeSymbols
 import CustomModalView
 
 struct AlbumsScreen: View {
-    @ObservedObject var viewModel = AlbumsViewModel()
+    @ObservedObject var viewModel:AlbumsViewModel
+    @ObservedObject var userAlertModel:UserAlertModel
     
+    init() {
+        let userAlertModel = UserAlertModel()
+        self.viewModel = AlbumsViewModel(userAlertModel: userAlertModel)
+        self.userAlertModel = userAlertModel
+    }
+
     var body: some View {
         MenuNavBar(title: "Albums",
             rightNavbarButton:
@@ -40,11 +47,7 @@ struct AlbumsScreen: View {
                     viewModel.sync()
                 }
             }
-            .alert(isPresented: $viewModel.presentAlert, content: {
-                let message:String = viewModel.alertMessage ?? "Error"
-                viewModel.alertMessage = nil
-                return Alert(title: Text(message))
-            })
+            .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
             .disabled(viewModel.presentTextInput)
             // Using this both for creating an album and for changing an existing album's name.
             .modal(isPresented: $viewModel.presentTextInput) {

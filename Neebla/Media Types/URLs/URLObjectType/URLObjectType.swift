@@ -65,8 +65,14 @@ class URLObjectType: ItemType, DeclarableObject {
         try objectModel.insert()
 
         // Comment file
-        let commentFile = CommentFile()
-        let commentFileData = try commentFile.getData()
+        
+        // Using `mediaUUIDKey` to reference the UUID for the .url file is a bit odd. (See its definition in Comments.Keys). But, to be consistent with historical usage, I'm keeping it this way.
+        var reconstructionDictionary = [Comments.Keys.mediaUUIDKey: urlFileUUID.uuidString]
+        if let _ = asset.image {
+            reconstructionDictionary[Comments.Keys.urlPreviewImageUUIDKey] = imageFileUUID.uuidString
+        }
+        
+        let commentFileData = try Comments.createInitialFile(mediaTitle: Services.session.username, reconstructionDictionary: reconstructionDictionary)
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)
         

@@ -133,7 +133,7 @@ class CommentsViewModel: ObservableObject {
         
         // Succeeded in simulated server addition. Now upload the comment.
         do {
-            try CommentUploader.queueUpload(fileUUID: commentFileModel.fileUUID, comment: data, object: object)
+            try Comments.queueUpload(fileUUID: commentFileModel.fileUUID, comment: data, object: object)
         } catch let error {
             logger.error("Could not queue the comment for upload: \(error)")
             return false

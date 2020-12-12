@@ -6,6 +6,7 @@ import SQLite
 class ObjectDetailsModel {
     let object: ServerObjectModel
     private(set) var objectTypeDisplayName:String!
+    let mediaTitle: String?
 
     init?(object: ServerObjectModel) {
         self.object = object
@@ -15,6 +16,13 @@ class ObjectDetailsModel {
             return nil
         }
         objectTypeDisplayName = displayName
+        
+        do {
+            mediaTitle = try Comments.displayableMediaTitle(for: object)
+        } catch let error {
+            logger.error("\(error)")
+            return nil
+        }
     }
     
     func deleteObject() -> Bool {

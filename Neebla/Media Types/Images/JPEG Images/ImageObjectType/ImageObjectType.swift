@@ -44,9 +44,10 @@ class ImageObjectType: ItemType, DeclarableObject {
         let imageFileUUID = UUID()
         let commentFileUUID = UUID()
         let fileGroupUUID = UUID()
-
-        let commentFile = CommentFile()
-        let commentFileData = try commentFile.getData()
+        
+        let commentFileData = try Comments.createInitialFile(mediaTitle: Services.session.username, reconstructionDictionary: [
+            Comments.Keys.mediaUUIDKey:imageFileUUID.uuidString
+        ])
         
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)

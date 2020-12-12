@@ -1,20 +1,12 @@
-//
-//  AlbumsViewModel.swift
-//  Neebla
-//
-//  Created by Christopher G Prince on 11/13/20.
-//
 
 import Foundation
 import Combine
 import iOSShared
 
-class AlbumsViewModel: ObservableObject, AlertMessage {
+class AlbumsViewModel: ObservableObject {
     @Published var isShowingRefresh = false
     @Published var albums = [AlbumModel]()
-    
-    @Published var presentAlert = false
-    
+        
     @Published var presentTextInput = false
     @Published var textInputAlbumName: String?
     @Published var textInputInitialAlbumName: String?
@@ -26,14 +18,11 @@ class AlbumsViewModel: ObservableObject, AlertMessage {
     static let untitledAlbumName = "Untitled Album"
     private var syncSubscription:AnyCancellable!
     private var errorSubscription:AnyCancellable!
+    private let userAlertModel:UserAlertModel
     
-    var alertMessage: String? {
-        didSet {
-            presentAlert = alertMessage != nil
-        }
-    }
-    
-    init() {
+    init(userAlertModel:UserAlertModel) {
+        self.userAlertModel = userAlertModel
+        
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             
@@ -43,7 +32,7 @@ class AlbumsViewModel: ObservableObject, AlertMessage {
         
         errorSubscription = Services.session.serverInterface.$error.sink { [weak self] errorEvent in
             guard let self = self else { return }
-            self.showMessage(for: errorEvent)
+            self.userAlertModel.showMessage(for: errorEvent)
         }
         
         getCurrentAlbums()
@@ -70,7 +59,7 @@ class AlbumsViewModel: ObservableObject, AlertMessage {
             guard let self = self else { return }
 
             guard error == nil else {
-                self.alertMessage = "Failed to create album."
+                self.userAlertModel.userAlert = .error(message: "Failed to create album.")
                 return
             }
             
@@ -87,7 +76,7 @@ class AlbumsViewModel: ObservableObject, AlertMessage {
         
         Services.session.serverInterface.syncServer.updateSharingGroup(sharingGroupUUID: sharingGroupUUID, newSharingGroupName: changedAlbumName) { error in
             guard error == nil else {
-                self.alertMessage = "Failed to change album name."
+                self.userAlertModel.userAlert = .error(message: "Failed to change album name.")
                 return
             }
             
@@ -101,7 +90,7 @@ class AlbumsViewModel: ObservableObject, AlertMessage {
         } catch let error {
             logger.error("\(error)")
             isShowingRefresh = false
-            alertMessage = "Failed to sync."
+            userAlertModel.userAlert = .error(message: "Failed to sync.")
         }
     }
     

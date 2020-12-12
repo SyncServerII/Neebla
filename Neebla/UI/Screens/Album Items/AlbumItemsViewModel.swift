@@ -5,28 +5,6 @@ import Combine
 import iOSShared
 import iOSBasics
 
-#warning("DEPRECATED")
-extension AlertMessage {
-    func showMessage(for errorEvent: ErrorEvent?) {
-        switch errorEvent {
-        case .error(let error):
-            if let error = error {
-                alertMessage = "Error: \(error)"
-            }
-            else {
-                alertMessage = "Error!"
-            }
-            
-        case .showAlert(title: let title, message: let message):
-            alertMessage = "\(title): \(message)"
-
-        case .none:
-            // This isn't an error
-            break
-        }
-    }
-}
-
 class AlbumItemsViewModel: ObservableObject {
     let userAlertModel: UserAlertModel
     @Published var showCellDetails: Bool = false

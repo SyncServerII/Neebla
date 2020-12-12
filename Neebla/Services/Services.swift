@@ -33,6 +33,10 @@ class Services {
         }
     }
     
+    var username: String? {
+        return signInServices.manager.currentSignIn?.credentials?.username
+    }
+    
     // You must use the App Groups Entitlement and setup a applicationGroupIdentifier https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_application-groups
     let applicationGroupIdentifier = "group.biz.SpasticMuffin.SharedImages"
     
