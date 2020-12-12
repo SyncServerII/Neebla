@@ -146,6 +146,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
                         }
                         
                         let movie:PHAssetResource = filteredForMovie[0]
+                        
                         let filteredForOther = assetResources.filter {$0 !== movie}
                         
                         guard filteredForOther.count == 1 else {
@@ -154,7 +155,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
                             return
                         }
                         let image: PHAssetResource = filteredForOther[0]
-                        
+
                         let pickedImageType: LiveImageObjectTypeAssets.ImageType
                         
                         switch image.uniformTypeIdentifier {
