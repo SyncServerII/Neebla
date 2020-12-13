@@ -86,10 +86,17 @@ struct AlbumsScreen: View {
             }
             .sheet(isPresented: $viewModel.presentAlbumSharingModal) {
                 if let album = viewModel.albumToShare {
-                    AlbumSharingModal(album: album)
-                        .padding(20)
+                    AlbumSharingModal(album: album) { invitationCode in
+                        viewModel.emailMessageBody = invitationCode.uuidString
+                        viewModel.presentEmailInvitation = true
+                    }.padding(20)
                 }
             }
+//            .sheet(isPresented: $viewModel.presentEmailInvitation) {
+//                if let messageBody = viewModel.emailMessageBody {
+//                    MailView(messageBody: messageBody, result: $viewModel.sendMailResult)
+//                }
+//            }
             .modalStyle(DefaultModalStyle(padding: 20))
             .onDisappear() {
                 viewModel.sharingMode = false
@@ -116,7 +123,9 @@ private struct RightNavBarIcons: View {
                             $0.accentColor(.blue)
                         }
                 }
-            ).frame(width: NavBarIcon.dimension, height: NavBarIcon.dimension)
+            )
+            .frame(width: NavBarIcon.dimension, height: NavBarIcon.dimension)
+            .enabled(viewModel.canSendMail)
                                     
             Button(
                 action: {

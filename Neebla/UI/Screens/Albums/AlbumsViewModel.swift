@@ -2,14 +2,29 @@
 import Foundation
 import Combine
 import iOSShared
+import MessageUI
+
+enum AlbumsScreenActiveSheet: Identifiable {
+    case albumSharing
+    case email
+    
+    var id: Int {
+        hashValue
+    }
+}
 
 class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var isShowingRefresh = false
     
+    //@Published var activeSheet:
     @Published var sharingMode = false
     @Published var presentAlbumSharingModal = false
     @Published var albumToShare: AlbumModel?
-    
+    @Published var presentEmailInvitation = false
+    @Published var canSendMail: Bool = MFMailComposeViewController.canSendMail()
+    @Published var sendMailResult: Result<MFMailComposeResult, Error>? = nil
+    @Published var emailMessageBody: String?
+
     @Published var albums = [AlbumModel]()
         
     @Published var presentTextInput = false

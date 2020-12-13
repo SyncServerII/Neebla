@@ -38,7 +38,7 @@
 		832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D341C258680B100FEF094 /* AlbumSharingModal.swift */; };
 		832D342D25869E2D00FEF094 /* RadioGroup in Frameworks */ = {isa = PBXBuildFile; productRef = 832D342C25869E2D00FEF094 /* RadioGroup */; };
 		832D34322586B0B100FEF094 /* SharingInvitationHelp.html in Resources */ = {isa = PBXBuildFile; fileRef = 832D34312586B0B000FEF094 /* SharingInvitationHelp.html */; };
-		8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */; };
+		8331F330255B8AFD0063A67D /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F327255B8AFD0063A67D /* MailView.swift */; };
 		8331F332255B8AFD0063A67D /* MenuNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F329255B8AFD0063A67D /* MenuNavBar.swift */; };
 		8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32A255B8AFD0063A67D /* SignInScreen.swift */; };
 		8331F334255B8AFD0063A67D /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32B255B8AFD0063A67D /* Screens.swift */; };
@@ -238,7 +238,8 @@
 		832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSharingModalModel.swift; sourceTree = "<group>"; };
 		832D341C258680B100FEF094 /* AlbumSharingModal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSharingModal.swift; sourceTree = "<group>"; };
 		832D34312586B0B000FEF094 /* SharingInvitationHelp.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SharingInvitationHelp.html; sourceTree = "<group>"; };
-		8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendInvitationScreen.swift; sourceTree = "<group>"; };
+		832D34362586CBBB00FEF094 /* ServerShared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ServerShared; path = ../../ServerShared; sourceTree = "<group>"; };
+		8331F327255B8AFD0063A67D /* MailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		8331F329255B8AFD0063A67D /* MenuNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuNavBar.swift; sourceTree = "<group>"; };
 		8331F32A255B8AFD0063A67D /* SignInScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		8331F32B255B8AFD0063A67D /* Screens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screens.swift; sourceTree = "<group>"; };
@@ -512,6 +513,7 @@
 			children = (
 				832D341C258680B100FEF094 /* AlbumSharingModal.swift */,
 				832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */,
+				8331F327255B8AFD0063A67D /* MailView.swift */,
 			);
 			path = "Album sharing modal";
 			sourceTree = "<group>";
@@ -568,6 +570,7 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				832D34362586CBBB00FEF094 /* ServerShared */,
 				83CE1ECD25709405004A418B /* iOSShared */,
 				8331F45C2560A64C0063A67D /* iOSBasics */,
 				8331F3AE255BADF10063A67D /* iOSSignIn */,
@@ -877,7 +880,6 @@
 		83BF7CE22585B73A000E0B37 /* Album Sharing */ = {
 			isa = PBXGroup;
 			children = (
-				8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */,
 				83BF7CE32585B915000E0B37 /* AlbumSharingScreen.swift */,
 				83BF7CE82585B99F000E0B37 /* AlbumSharingScreenModel.swift */,
 			);
@@ -1199,7 +1201,7 @@
 				8320A738256E164500819377 /* CommentsView.swift in Sources */,
 				835AC8EA255B842E00375084 /* Services+LoggingHelpers.swift in Sources */,
 				83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */,
-				8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */,
+				8331F330255B8AFD0063A67D /* MailView.swift in Sources */,
 				8331F4F3256208320063A67D /* GenericImageIcon.swift in Sources */,
 				83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */,
 				8320A71E256E0ED500819377 /* FileLabels.swift in Sources */,

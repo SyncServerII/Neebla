@@ -11,38 +11,26 @@ import MessageUI
 
 // Adapted from https://stackoverflow.com/questions/56784722/swiftui-send-email
 
-struct SendInvitationScreen: View {
-   @State var result: Result<MFMailComposeResult, Error>? = nil
-   @State var isShowingMailView = false
-
-    var body: some View {
-        MenuNavBar(title: "Send Invitation")  {
-            Button(action: {
-                self.isShowingMailView.toggle()
-            }) {
-                Text("Tap Me")
-            }
-            .disabled(!MFMailComposeViewController.canSendMail())
-            .sheet(isPresented: $isShowingMailView) {
-                MailView(result: self.$result)
-            }
-        }
-    }
-}
-
 struct MailView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentation
     @Binding var result: Result<MFMailComposeResult, Error>?
-
+    let messageBody: String
+    
+    init(messageBody: String, result: Binding<Result<MFMailComposeResult, Error>?>) {
+        self.messageBody = messageBody
+        self._result = result
+    }
+    
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
-
+        let messageBody: String
         @Binding var presentation: PresentationMode
         @Binding var result: Result<MFMailComposeResult, Error>?
 
         init(presentation: Binding<PresentationMode>,
-             result: Binding<Result<MFMailComposeResult, Error>?>) {
+             result: Binding<Result<MFMailComposeResult, Error>?>, messageBody: String) {
             _presentation = presentation
             _result = result
+            self.messageBody = messageBody
         }
 
         func mailComposeController(_ controller: MFMailComposeViewController,
@@ -60,12 +48,14 @@ struct MailView: UIViewControllerRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        return Coordinator(presentation: presentation, result: $result)
+        return Coordinator(presentation: presentation, result: $result, messageBody: messageBody)
     }
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailView>) -> MFMailComposeViewController {
         let vc = MFMailComposeViewController()
+        
         vc.mailComposeDelegate = context.coordinator
+        vc.setMessageBody(messageBody, isHTML: false)
         return vc
     }
 

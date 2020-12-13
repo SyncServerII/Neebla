@@ -10,10 +10,11 @@ struct AlbumSharingModal: View {
     @ObservedObject var viewModel: AlbumSharingModalModel
     let albumName: String
     
-    init(album: AlbumModel) {
+    // The completion is only called on a successful creation of an invitaton code. This is why a nil invitation code cannot passed.
+    init(album: AlbumModel, completion:@escaping (_ invitationCode: UUID)->()) {
         let userAlertModel = UserAlertModel()
         self.userAlertModel = userAlertModel
-        self.viewModel = AlbumSharingModalModel(album: album, userAlertModel: userAlertModel)
+        self.viewModel = AlbumSharingModalModel(album: album, userAlertModel: userAlertModel, completion: completion)
         albumName = album.albumName ?? AlbumsViewModel.untitledAlbumName
     }
     
@@ -107,16 +108,13 @@ private struct PermissionPicker: View {
             Text("Permissions for people invited")
             Spacer()
         }
-        
+
         HStack {
             RadioGroupPicker(
                 selectedIndex: $viewModel.permissionSelection,
-                titles: [
-                    "Read-only",
-                    "Read & Change",
-                    "Read, Change, and Invite"
-                ]
+                titles: viewModel.displayablePermissionText
             ).spacing(5)
+            
             .fixedSize()
             .padding(.leading, 20)
             
@@ -126,12 +124,13 @@ private struct PermissionPicker: View {
 }
 
 private struct ScreenButtons: View {
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: AlbumSharingModalModel
     
     var body: some View {
         HStack {
             Button(action: {
-            
+                presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Cancel")
             })
@@ -139,7 +138,7 @@ private struct ScreenButtons: View {
             Spacer()
             
             Button(action: {
-            
+                viewModel.createInvitation()
             }, label: {
                 Text("Invite")
             })

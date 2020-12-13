@@ -4,6 +4,7 @@ import SwiftUI
 import Combine
 import SQLite
 import iOSShared
+import ServerShared
 
 class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
     var errorSubscription: AnyCancellable!
@@ -11,6 +12,7 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
     let album:AlbumModel
     let helpDocs = ("SharingInvitationHelp", "html")
     @Published var helpString: String?
+    let completion:(_ invitationCode: UUID)->()
     
     // Actually only UInt values allowed.
     @Published var numberOfPeopleToInviteRaw:Float = 1 {
@@ -27,10 +29,20 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
             logger.debug("permissionSelection: \(permissionSelection)")
         }
     }
+    
+    let displayablePermissionText: [String]
 
-    init(album:AlbumModel, userAlertModel: UserAlertModel) {
+    init(album:AlbumModel, userAlertModel: UserAlertModel, completion:@escaping (_ invitationCode: UUID)->()) {
         self.userAlertModel = userAlertModel
         self.album = album
+        displayablePermissionText = Permission.allCases.map {$0.displayableText}
+        
+        if let writeIndex = displayablePermissionText.firstIndex(of: Permission.write.displayableText) {
+            permissionSelection = writeIndex
+        }
+        
+        self.completion = completion
+
         setupHandleErrors()
         
         guard let helpFileURL = Bundle.main.url(forResource: helpDocs.0, withExtension: helpDocs.1) else {
@@ -45,5 +57,28 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
         
         helpString = String(data: helpData, encoding: .utf8)
         logger.debug("help string: \(String(describing: helpString))")
+    }
+    
+    func createInvitation() {
+        guard permissionSelection < displayablePermissionText.count,
+            permissionSelection >= 0,
+            let permission = Permission.from(displayablePermissionText[permissionSelection]) else {
+            logger.error("Could not get permission!!")
+            return
+        }
+
+        Services.session.syncServer.createSharingInvitation(withPermission: permission, sharingGroupUUID: album.sharingGroupUUID, numberAcceptors: UInt(numberOfPeopleToInvite), allowSocialAcceptance: allowSocialAcceptance) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let invitationCode):
+                logger.debug("invitationCode: \(invitationCode)")
+                self.completion(invitationCode)
+                
+            case .failure(let error):
+                logger.error("\(error)")
+                self.userAlertModel.userAlert = .full(title: "Alert!", message: "Failed to create sharing invitation!")
+            }
+        }
     }
 }
