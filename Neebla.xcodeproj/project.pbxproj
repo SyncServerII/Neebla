@@ -151,6 +151,14 @@
 		83BF7CB425854484000E0B37 /* FileLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A71D256E0ED500819377 /* FileLabels.swift */; };
 		83BF7CBD25854D91000E0B37 /* DeveloperScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CBC25854D91000E0B37 /* DeveloperScreen.swift */; };
 		83BF7CC225854ECE000E0B37 /* DeveloperScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CC125854ECE000E0B37 /* DeveloperScreenModel.swift */; };
+		83BF7CC6258575DD000E0B37 /* URLObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6FE256A318E007F0CEB /* URLObjectType.swift */; };
+		83BF7CCA258575F3000E0B37 /* URLObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7823257DCFBD000E0B37 /* URLObjectType+Uploadable.swift */; };
+		83BF7CCE258575FE000E0B37 /* UploadableMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */; };
+		83BF7CD225857611000E0B37 /* URLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B705256A3A53007F0CEB /* URLFile.swift */; };
+		83BF7CD625857627000E0B37 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C02560FFC70063A67D /* SettingsModel.swift */; };
+		83BF7CDE25857752000E0B37 /* SMLinkPreview in Frameworks */ = {isa = PBXBuildFile; productRef = 83BF7CDD25857752000E0B37 /* SMLinkPreview */; };
+		83BF7CE42585B915000E0B37 /* AlbumSharingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CE32585B915000E0B37 /* AlbumSharingScreen.swift */; };
+		83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CE82585B99F000E0B37 /* AlbumSharingScreenModel.swift */; };
 		83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FE025733B480016BA4C /* MessageKitTypes.swift */; };
 		83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A713256DF0FE00819377 /* DiscussionMessage.swift */; };
 		83C43FF92574371C0016BA4C /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FF82574371C0016BA4C /* Comments.swift */; };
@@ -311,6 +319,8 @@
 		83BF7C9B2585436C000E0B37 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		83BF7CBC25854D91000E0B37 /* DeveloperScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperScreen.swift; sourceTree = "<group>"; };
 		83BF7CC125854ECE000E0B37 /* DeveloperScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperScreenModel.swift; sourceTree = "<group>"; };
+		83BF7CE32585B915000E0B37 /* AlbumSharingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSharingScreen.swift; sourceTree = "<group>"; };
+		83BF7CE82585B99F000E0B37 /* AlbumSharingScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSharingScreenModel.swift; sourceTree = "<group>"; };
 		83C43FE025733B480016BA4C /* MessageKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitTypes.swift; sourceTree = "<group>"; };
 		83C43FF82574371C0016BA4C /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
@@ -331,6 +341,7 @@
 			files = (
 				8331F378255B8F2A0063A67D /* iOSFacebook in Frameworks */,
 				8331F376255B8F1C0063A67D /* iOSDropbox in Frameworks */,
+				83BF7CDE25857752000E0B37 /* SMLinkPreview in Frameworks */,
 				8331F374255B8F110063A67D /* FileLogging in Frameworks */,
 				8331F372255B8F060063A67D /* iOSBasics in Frameworks */,
 			);
@@ -567,14 +578,14 @@
 			children = (
 				8320A74D256F3EBD00819377 /* Utilities */,
 				8331F32B255B8AFD0063A67D /* Screens.swift */,
-				8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */,
 				8331F32A255B8AFD0063A67D /* SignInScreen.swift */,
-				83BF7CBB25854D60000E0B37 /* Developer */,
-				8331F4BD2560FFA80063A67D /* Settings */,
+				83BF7CE22585B73A000E0B37 /* Album Sharing */,
 				8331F447255FA7A40063A67D /* Albums */,
 				8331F45F2560B7F40063A67D /* Album Items */,
 				8331F53B2562409A0063A67D /* Object Details */,
 				8308B731256B57C9007F0CEB /* Comments */,
+				8331F4BD2560FFA80063A67D /* Settings */,
+				83BF7CBB25854D60000E0B37 /* Developer */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -839,6 +850,16 @@
 			path = Developer;
 			sourceTree = "<group>";
 		};
+		83BF7CE22585B73A000E0B37 /* Album Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */,
+				83BF7CE32585B915000E0B37 /* AlbumSharingScreen.swift */,
+				83BF7CE82585B99F000E0B37 /* AlbumSharingScreenModel.swift */,
+			);
+			path = "Album Sharing";
+			sourceTree = "<group>";
+		};
 		83CE1EA325702E0D004A418B /* Download Management */ = {
 			isa = PBXGroup;
 			children = (
@@ -898,6 +919,7 @@
 				8331F373255B8F110063A67D /* FileLogging */,
 				8331F375255B8F1C0063A67D /* iOSDropbox */,
 				8331F377255B8F2A0063A67D /* iOSFacebook */,
+				83BF7CDD25857752000E0B37 /* SMLinkPreview */,
 			);
 			productName = "Share Extension";
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
@@ -1054,6 +1076,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8331F384255B8FA20063A67D /* ServerInterface.swift in Sources */,
+				83BF7CCE258575FE000E0B37 /* UploadableMediaType.swift in Sources */,
 				8331F34A255B8CC50063A67D /* ShareViewController.swift in Sources */,
 				8331F36B255B8DD10063A67D /* SharingGroupsView.swift in Sources */,
 				8331F368255B8DD10063A67D /* ImageItemProvider.swift in Sources */,
@@ -1063,20 +1086,24 @@
 				8331F4D92561B1D50063A67D /* ItemType.swift in Sources */,
 				8331F36D255B8DD10063A67D /* ItemPreview.swift in Sources */,
 				8331F439255F9AF70063A67D /* Services+LocalDatabase.swift in Sources */,
+				83BF7CC6258575DD000E0B37 /* URLObjectType.swift in Sources */,
 				8331F36C255B8DD10063A67D /* SharingView.swift in Sources */,
 				8331F436255F99560063A67D /* LocalFiles.swift in Sources */,
 				83BF7CB025854448000E0B37 /* Comments.swift in Sources */,
 				8331F366255B8DD10063A67D /* ItemProviderFactory.swift in Sources */,
 				8331F37E255B8F790063A67D /* Services+SignInServices.swift in Sources */,
 				8331F364255B8DD10063A67D /* ButtonBar.swift in Sources */,
+				83BF7CCA258575F3000E0B37 /* URLObjectType+Uploadable.swift in Sources */,
 				8331F4E32561F9250063A67D /* FileInfo+Extras.swift in Sources */,
 				83CE1EB2257081BC004A418B /* BasicEquatable.swift in Sources */,
 				8331F369255B8DD10063A67D /* UploadToAlbumView.swift in Sources */,
 				8331F441255F9C8E0063A67D /* AlbumModel.swift in Sources */,
 				8331F367255B8DD10063A67D /* ItemProvider.swift in Sources */,
+				83BF7CD625857627000E0B37 /* SettingsModel.swift in Sources */,
 				8331F4E72561FAEF0063A67D /* ShareViewModel.swift in Sources */,
 				8331F36A255B8DD10063A67D /* SharingGroupData.swift in Sources */,
 				8331F4E02561F8160063A67D /* ServerInterface+Helpers.swift in Sources */,
+				83BF7CD225857611000E0B37 /* URLFile.swift in Sources */,
 				8331F444255F9C920063A67D /* ServerObjectModel.swift in Sources */,
 				83BF7CA6258543B4000E0B37 /* Comments+Keys.swift in Sources */,
 				8331F381255B8F820063A67D /* Services+LoggingHelpers.swift in Sources */,
@@ -1137,6 +1164,7 @@
 				83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */,
 				8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */,
 				8331F4F3256208320063A67D /* GenericImageIcon.swift in Sources */,
+				83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */,
 				8320A71E256E0ED500819377 /* FileLabels.swift in Sources */,
 				8331F334255B8AFD0063A67D /* Screens.swift in Sources */,
 				83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */,
@@ -1168,6 +1196,7 @@
 				8308B716256B4995007F0CEB /* RatioModifier.swift in Sources */,
 				8331F402255F83790063A67D /* AlbumsScreen.swift in Sources */,
 				8331F4A92560F1C20063A67D /* MediaTypeButton.swift in Sources */,
+				83BF7CE42585B915000E0B37 /* AlbumSharingScreen.swift in Sources */,
 				8331F42B255F95E80063A67D /* SetupLocalDatabase.swift in Sources */,
 				8333E19F2567AE0200A5F79E /* URLPickerView.swift in Sources */,
 				8331F5262562301F0063A67D /* AnyIcon.swift in Sources */,
@@ -1724,6 +1753,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */;
 			productName = ImageIOSwift;
+		};
+		83BF7CDD25857752000E0B37 /* SMLinkPreview */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */;
+			productName = SMLinkPreview;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

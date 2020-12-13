@@ -79,6 +79,7 @@ private struct AlbumsScreenRow: View {
             }, label: {
                 Image(systemName: SFSymbol.pencil.rawValue)
             }).buttonStyle(PlainButtonStyle())
+            .enabled(album.permission.hasMinimumPermission(.admin))
             // I'm using the .buttonStyle above b/c otherwise, I'm not getting the button tap. See https://www.hackingwithswift.com/forums/swiftui/is-it-possible-to-have-a-button-action-in-a-list-foreach-view/1153
             // See also https://stackoverflow.com/questions/56845670
         }

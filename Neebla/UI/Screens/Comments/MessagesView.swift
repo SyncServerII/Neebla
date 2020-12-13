@@ -80,7 +80,8 @@ struct MessagesView: UIViewControllerRepresentable {
         messagesVC.messagesCollectionView.messagesDataSource = context.coordinator
         messagesVC.messagesCollectionView.messageCellDelegate = context.coordinator
         messagesVC.messageInputBar.delegate = context.coordinator
-        messagesVC.scrollsToBottomOnKeyboardBeginsEditing = true // default false
+        //messagesVC.scrollsToBottomOnKeyboardBeginsEditing = true // default false
+        messagesVC.scrollsToLastItemOnKeyboardBeginsEditing = true
         messagesVC.maintainPositionOnKeyboardFrameChanged = true // default false
         messagesVC.showMessageTimestampOnSwipeLeft = true // default false
         context.coordinator.messagesCollectionView = messagesVC.messagesCollectionView
@@ -96,7 +97,7 @@ struct MessagesView: UIViewControllerRepresentable {
     private func scrollToBottom(_ uiViewController: MessagesViewController) {
         DispatchQueue.main.async {
             // The initialized state variable allows us to start at the bottom with the initial messages without seeing the inital scroll flash by
-            uiViewController.messagesCollectionView.scrollToBottom(animated: self.initialized)
+            uiViewController.messagesCollectionView.scrollToLastItem(animated: self.initialized)
             self.initialized = true
         }
     }
@@ -211,7 +212,7 @@ extension MessagesView.Coordinator: InputBarAccessoryViewDelegate {
 
         if success {
             inputBar.inputTextView.text = String()
-            messagesCollectionView.scrollToBottom()
+            messagesCollectionView.scrollToLastItem()
         }
     }
     

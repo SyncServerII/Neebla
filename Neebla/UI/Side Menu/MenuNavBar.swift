@@ -57,6 +57,12 @@ struct MenuNavBar<Content: View>: View {
                                 Button(action: {
                                     withAnimation {
                                         self.sideMenuLeftPanel.wrappedValue = !self.sideMenuLeftPanel.wrappedValue
+                                        let open = self.sideMenuLeftPanel.wrappedValue
+                                        
+                                        // Sometimes keyboard is displayed when the user opens the menu. Best to hide the keyboard because it looks odd to have he keyboard there with the menu present.
+                                        if open {
+                                            hideKeyboard()
+                                        }
                                     }
                                 }, label: {
                                     SFSymbolNavBar(symbol: .lineHorizontal3)
@@ -70,6 +76,12 @@ struct MenuNavBar<Content: View>: View {
                         rightNavbarButton
             )
         }
+    }
+}
+
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

@@ -15,15 +15,20 @@ class AlbumModel: DatabaseModel, ObservableObject {
     static let albumNameField = Field("albumName", \M.albumName)
     @Published var albumName: String?
     
+    static let permissionField = Field("permission", \M.permission)
+    var permission: Permission
+    
     init(db: Connection,
         id: Int64! = nil,
         sharingGroupUUID: UUID,
-        albumName: String?) throws {
+        albumName: String?,
+        permission: Permission) throws {
 
         self.db = db
         self.id = id
         self.sharingGroupUUID = sharingGroupUUID
         self.albumName = albumName
+        self.permission = permission
     }
     
     // MARK: DatabaseModel
@@ -33,6 +38,7 @@ class AlbumModel: DatabaseModel, ObservableObject {
             t.column(idField.description, primaryKey: true)
             t.column(sharingGroupUUIDField.description, unique: true)
             t.column(albumNameField.description)
+            t.column(permissionField.description)
         }
     }
     
@@ -40,14 +46,16 @@ class AlbumModel: DatabaseModel, ObservableObject {
         return try AlbumModel(db: db,
             id: row[Self.idField.description],
             sharingGroupUUID: row[Self.sharingGroupUUIDField.description],
-            albumName: row[Self.albumNameField.description]
+            albumName: row[Self.albumNameField.description],
+            permission: row[Self.permissionField.description]
         )
     }
     
     func insert() throws {
         try doInsertRow(db: db, values:
             Self.sharingGroupUUIDField.description <- sharingGroupUUID,
-            Self.albumNameField.description <- albumName
+            Self.albumNameField.description <- albumName,
+            Self.permissionField.description <- permission
         )
     }
 }
@@ -60,7 +68,7 @@ extension AlbumModel {
             }
         }
         else {
-            let model = try AlbumModel(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID, albumName: sharingGroup.sharingGroupName)
+            let model = try AlbumModel(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID, albumName: sharingGroup.sharingGroupName, permission: sharingGroup.permission)
             try model.insert()
         }
     }

@@ -2,6 +2,7 @@
 import Foundation
 import iOSBasics
 import ChangeResolvers
+import SQLite
 
 class Comments {    
     // Create an initial comment file.
@@ -24,6 +25,20 @@ class Comments {
         let file = FileUpload(fileLabel: FileLabels.comments, dataSource: .data(comment), uuid: fileUUID)
         let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: object.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, uploads: [file])
         try Services.session.syncServer.queue(upload: upload)
+    }
+    
+    static func save(commentFile: CommentFile, commentFileModel:ServerFileModel) throws {
+        let commentFileURL: URL
+        
+        if let url = commentFileModel.url {
+            commentFileURL = url
+        }
+        else {
+            commentFileURL = try URLObjectType.createNewFile(for: URLObjectType.commentDeclaration.fileLabel)
+            try commentFileModel.update(setters: ServerFileModel.urlField.description <- commentFileURL)
+        }
+        
+        try commentFile.save(toFile: commentFileURL)
     }
     
     // The UI-displayable title of media objects are stored in their associated comment file.

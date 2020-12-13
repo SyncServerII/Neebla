@@ -10,7 +10,7 @@ import SwiftUI
 
 enum Screens {
     static let albums = AnyView(AlbumsScreen())
-    static let albumSharing = AnyView(SendInvitationScreen())
+    static let albumSharing = AnyView(AlbumSharingScreen())
     static let settings = AnyView(SettingsScreen())
     static let signIn = AnyView(SignInScreen())
     

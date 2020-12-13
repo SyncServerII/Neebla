@@ -114,34 +114,30 @@ class CommentsViewModel: ObservableObject {
         guard let record:CommentFile.FixedObject = message.toDictionary() else {
             return false
         }
-        
-        let data: Data
+
         do {
-            data = try JSONSerialization.data(withJSONObject: record)
+            try addNewMessageHelper(record: record)
         } catch let error {
-            logger.error("Could not convert record to data: \(error)")
+            logger.error("\(error)")
             return false
         }
         
-        do {
-            // Add using the `WholeFileReplacer` method. Not necessary to add it this way, but I want to simulate what happens on the server-- to avoid issues on the server. Plus, we need the `Data` to queue the upload anyways.
-            try commentFile.add(newRecord: data)
-        } catch let error {
-            logger.error("Could not add record: \(error)")
-            return false
-        }
-        
-        // Succeeded in simulated server addition. Now upload the comment.
-        do {
-            try Comments.queueUpload(fileUUID: commentFileModel.fileUUID, comment: data, object: object)
-        } catch let error {
-            logger.error("Could not queue the comment for upload: \(error)")
-            return false
-        }
-                
         // Finally, make the new message show up on the UI.
         messages.append(message)
 
         return true
+    }
+    
+    private func addNewMessageHelper(record:CommentFile.FixedObject) throws {
+        let data = try JSONSerialization.data(withJSONObject: record)
+
+        // Add using the `WholeFileReplacer` method. Not necessary to add it this way, but I want to simulate what happens on the server-- to avoid issues on the server. Plus, we need the `Data` to queue the upload anyways.
+        try commentFile.add(newRecord: data)
+
+        // Succeeded in simulated server addition. Now upload the comment.
+        try Comments.queueUpload(fileUUID: commentFileModel.fileUUID, comment: data, object: object)
+
+        // Also going to update local file. This file will get replaced in a download from the server next time downloads happen for this object, but without this update we won't have the new comment in the file locally until that download.
+        try Comments.save(commentFile: commentFile, commentFileModel: commentFileModel)
     }
 }
