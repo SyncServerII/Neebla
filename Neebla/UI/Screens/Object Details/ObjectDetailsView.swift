@@ -6,25 +6,28 @@ import SFSafeSymbols
 struct ObjectDetailsView: View {
     @Environment(\.presentationMode) var isPresented
     let object:ServerObjectModel
-    var model:ObjectDetailsModel?
+    @ObservedObject var model:ObjectDetailsModel
     @State var showComments = false
     @State var showDeletion = false
-    
+    @ObservedObject var userAlertModel:UserAlertModel
+
     init(object:ServerObjectModel) {
         self.object = object
-        model = ObjectDetailsModel(object: object)
+        let userAlertModel = UserAlertModel()
+        model = ObjectDetailsModel(object: object, userAlertModel: userAlertModel)
+        self.userAlertModel = userAlertModel
     }
     
     var body: some View {
         VStack {
-            if let title = model?.mediaTitle {
+            if let title = model.mediaTitle {
                 Text(title)
                     .padding(.top, 10)
             }
             
             AnyLargeMedia(object: object)
                 .onTapGesture {
-                    if let _ = model {
+                    if model.modelInitialized {
                         showComments = true
                     }
                 }
@@ -51,14 +54,15 @@ struct ObjectDetailsView: View {
                         SFSymbolNavBar(symbol: .message)
                     }
                 )
-            }.enabled(model != nil)
+            }.enabled(model.modelInitialized)
         )
         .sheet(isPresented: $showComments) {
             CommentsView(object: object)
         }
+        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
         .alert(isPresented: $showDeletion) {
             // Should never default to "item"
-            let displayName = model?.objectTypeDisplayName ?? "item"
+            let displayName = model.objectTypeDisplayName ?? "item"
             return Alert(
                 title:
                     Text("Really delete this \(displayName)?"),
@@ -67,7 +71,7 @@ struct ObjectDetailsView: View {
                     .destructive(
                         Text("Delete"),
                         action: {
-                            if let model = model {
+                            if model.modelInitialized {
                                 if model.deleteObject() {
                                     isPresented.wrappedValue.dismiss()
                                 }

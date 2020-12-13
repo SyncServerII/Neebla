@@ -2,8 +2,10 @@
 import Foundation
 import SwiftUI
 import iOSShared
+import Combine
 
-class AlbumSharingScreenModel: ObservableObject {
+class AlbumSharingScreenModel: ObservableObject, ModelAlertDisplaying {
+    var errorSubscription: AnyCancellable!
     @ObservedObject var userAlertModel:UserAlertModel
 
     @Published var sharingCode: String? {
@@ -24,6 +26,7 @@ class AlbumSharingScreenModel: ObservableObject {
     
     init(userAlertModel:UserAlertModel) {
         self.userAlertModel = userAlertModel
+        setupHandleErrors()
     }
     
     func acceptSharingInvitation() {

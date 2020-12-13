@@ -19,14 +19,7 @@ struct AlbumsScreen: View {
         MenuNavBar(title: "Albums",
             rightNavbarButton:
                 AnyView(
-                    Button(
-                        action: {
-                            viewModel.startCreateNewAlbum()
-                        },
-                        label: {
-                            SFSymbolNavBar(symbol: .plusCircle)
-                        }
-                    )
+                    RightNavBarIcons(viewModel: viewModel)
                 )
             ) {
             
@@ -59,6 +52,32 @@ struct AlbumsScreen: View {
     }
 }
 
+private struct RightNavBarIcons: View {
+    @ObservedObject var viewModel:AlbumsViewModel
+    
+    var body: some View {
+        HStack(spacing: 0) {
+            Button(
+                action: {
+                    
+                },
+                label: {
+                    NavBarIcon(imageName: "Share", size: CGSize(width: 25, height: 25))
+                }
+            ).frame(width: NavBarIcon.dimension, height: NavBarIcon.dimension)
+                                    
+            Button(
+                action: {
+                    viewModel.startCreateNewAlbum()
+                },
+                label: {
+                    SFSymbolNavBar(symbol: .plusCircle)
+                }
+            )
+        }
+    }
+}
+
 private struct AlbumsScreenRow: View {
     @ObservedObject var album:AlbumModel
     @ObservedObject var viewModel:AlbumsViewModel
@@ -74,12 +93,13 @@ private struct AlbumsScreenRow: View {
 
             Spacer()
             
-            Button(action: {
-                viewModel.startChangeExistingAlbumName(sharingGroupUUID: album.sharingGroupUUID, currentAlbumName: album.albumName)
-            }, label: {
-                Image(systemName: SFSymbol.pencil.rawValue)
-            }).buttonStyle(PlainButtonStyle())
-            .enabled(album.permission.hasMinimumPermission(.admin))
+            if album.permission.hasMinimumPermission(.admin) {
+                Button(action: {
+                    viewModel.startChangeExistingAlbumName(sharingGroupUUID: album.sharingGroupUUID, currentAlbumName: album.albumName)
+                }, label: {
+                    Image(systemName: SFSymbol.pencil.rawValue)
+                }).buttonStyle(PlainButtonStyle())
+            }
             // I'm using the .buttonStyle above b/c otherwise, I'm not getting the button tap. See https://www.hackingwithswift.com/forums/swiftui/is-it-possible-to-have-a-button-action-in-a-list-foreach-view/1153
             // See also https://stackoverflow.com/questions/56845670
         }

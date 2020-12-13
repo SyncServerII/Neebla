@@ -5,7 +5,7 @@ import Combine
 import iOSShared
 import iOSBasics
 
-class AlbumItemsViewModel: ObservableObject {
+class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     let userAlertModel: UserAlertModel
     @Published var showCellDetails: Bool = false
     @Published var loading: Bool = false {
@@ -23,13 +23,14 @@ class AlbumItemsViewModel: ObservableObject {
     
     @Published var addNewItem = false
     private var syncSubscription:AnyCancellable!
-    private var errorSubscription:AnyCancellable!
+    var errorSubscription:AnyCancellable!
     private var markAsDownloadedSubscription:AnyCancellable!
     private var objectDeletedSubscription:AnyCancellable!
 
     init(album sharingGroupUUID: UUID, userAlertModel: UserAlertModel) {
         self.userAlertModel = userAlertModel
         self.sharingGroupUUID = sharingGroupUUID
+        setupHandleErrors()
         
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }
@@ -38,12 +39,7 @@ class AlbumItemsViewModel: ObservableObject {
             self.getItemsForAlbum(album: sharingGroupUUID)
             logger.debug("Sync done")            
         }
-        
-        errorSubscription = Services.session.serverInterface.$error.sink { [weak self] errorEvent in
-            guard let self = self else { return }
-            self.userAlertModel.showMessage(for: errorEvent)
-        }
-        
+
         // Once files are downloaded, update our list. Debounce to avoid too many updates too quickly.
         markAsDownloadedSubscription = Services.session.serverInterface.$objectMarkedAsDownloaded
                 .debounce(for: .milliseconds(500), scheduler: RunLoop.main)

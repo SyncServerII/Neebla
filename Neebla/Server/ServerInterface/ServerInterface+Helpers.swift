@@ -37,8 +37,8 @@ extension ServerInterface {
         }
     }
     
-    func createSharingInvitation(permission: Permission, sharingGroupUUID: UUID, numberAcceptors: UInt, allowSharingAcceptance: Bool) {
-        syncServer.createSharingInvitation(withPermission: permission, sharingGroupUUID: sharingGroupUUID, numberAcceptors: numberAcceptors, allowSharingAcceptance: allowSharingAcceptance) { result in
+    func createSharingInvitation(permission: Permission, sharingGroupUUID: UUID, numberAcceptors: UInt, allowSocialAcceptance: Bool) {
+        syncServer.createSharingInvitation(withPermission: permission, sharingGroupUUID: sharingGroupUUID, numberAcceptors: numberAcceptors, allowSocialAcceptance: allowSocialAcceptance) { result in
             switch result {
             case .failure(let error):
                 logger.error("\(error)")

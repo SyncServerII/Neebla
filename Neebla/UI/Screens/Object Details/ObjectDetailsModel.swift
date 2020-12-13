@@ -2,27 +2,40 @@
 import Foundation
 import iOSShared
 import SQLite
+import Combine
 
-class ObjectDetailsModel {
+class ObjectDetailsModel: ObservableObject, ModelAlertDisplaying {
+    var errorSubscription: AnyCancellable!
     let object: ServerObjectModel
-    private(set) var objectTypeDisplayName:String!
-    let mediaTitle: String?
-
-    init?(object: ServerObjectModel) {
+    private(set) var objectTypeDisplayName:String?
+    var mediaTitle: String?
+    @Published var userAlertModel: UserAlertModel
+    @Published var modelInitialized: Bool
+    
+    init(object: ServerObjectModel, userAlertModel: UserAlertModel) {
         self.object = object
+        self.userAlertModel = userAlertModel
         
-        guard let displayName = AnyTypeManager.session.displayName(forObjectType: object.objectType) else {
+        var success = true
+        
+        if let displayName = AnyTypeManager.session.displayName(forObjectType: object.objectType) {
             logger.error("Could not get display name for objectType: \(object.objectType)")
-            return nil
+            objectTypeDisplayName = displayName
         }
-        objectTypeDisplayName = displayName
+        else {
+            success = false
+        }
         
         do {
             mediaTitle = try Comments.displayableMediaTitle(for: object)
         } catch let error {
             logger.error("\(error)")
-            return nil
+            success = false
         }
+        
+        modelInitialized = success
+        
+        setupHandleErrors()
     }
     
     func deleteObject() -> Bool {

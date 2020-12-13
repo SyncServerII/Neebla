@@ -31,7 +31,7 @@
 		8320A738256E164500819377 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A737256E164500819377 /* CommentsView.swift */; };
 		8320A73C256E170900819377 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A73B256E170900819377 /* MessagesView.swift */; };
 		8320A74F256F3EF900819377 /* DefaultModalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A74E256F3EF900819377 /* DefaultModalStyle.swift */; };
-		8320A755256F530C00819377 /* SFSymbolImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A754256F530C00819377 /* SFSymbolImage.swift */; };
+		8320A755256F530C00819377 /* SFSymbolNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A754256F530C00819377 /* SFSymbolNavBar.swift */; };
 		8320A759256F568400819377 /* View+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A758256F568400819377 /* View+Extras.swift */; };
 		8320A772256F62D800819377 /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8320A771256F62D800819377 /* Toucan */; };
 		8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */; };
@@ -160,6 +160,7 @@
 		83BF7CE42585B915000E0B37 /* AlbumSharingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CE32585B915000E0B37 /* AlbumSharingScreen.swift */; };
 		83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CE82585B99F000E0B37 /* AlbumSharingScreenModel.swift */; };
 		83BF80772585D8DA000E0B37 /* SignInScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF80762585D8DA000E0B37 /* SignInScreenModel.swift */; };
+		83BF80822585F9D3000E0B37 /* NavBarIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF80812585F9D3000E0B37 /* NavBarIcon.swift */; };
 		83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FE025733B480016BA4C /* MessageKitTypes.swift */; };
 		83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A713256DF0FE00819377 /* DiscussionMessage.swift */; };
 		83C43FF92574371C0016BA4C /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FF82574371C0016BA4C /* Comments.swift */; };
@@ -228,7 +229,7 @@
 		8320A737256E164500819377 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		8320A73B256E170900819377 /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		8320A74E256F3EF900819377 /* DefaultModalStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultModalStyle.swift; sourceTree = "<group>"; };
-		8320A754256F530C00819377 /* SFSymbolImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolImage.swift; sourceTree = "<group>"; };
+		8320A754256F530C00819377 /* SFSymbolNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolNavBar.swift; sourceTree = "<group>"; };
 		8320A758256F568400819377 /* View+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extras.swift"; sourceTree = "<group>"; };
 		8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendInvitationScreen.swift; sourceTree = "<group>"; };
 		8331F329255B8AFD0063A67D /* MenuNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuNavBar.swift; sourceTree = "<group>"; };
@@ -323,6 +324,7 @@
 		83BF7CE32585B915000E0B37 /* AlbumSharingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSharingScreen.swift; sourceTree = "<group>"; };
 		83BF7CE82585B99F000E0B37 /* AlbumSharingScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSharingScreenModel.swift; sourceTree = "<group>"; };
 		83BF80762585D8DA000E0B37 /* SignInScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenModel.swift; sourceTree = "<group>"; };
+		83BF80812585F9D3000E0B37 /* NavBarIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarIcon.swift; sourceTree = "<group>"; };
 		83C43FE025733B480016BA4C /* MessageKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitTypes.swift; sourceTree = "<group>"; };
 		83C43FF82574371C0016BA4C /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
@@ -644,7 +646,8 @@
 				8331F51025621F7A0063A67D /* AlertMessage.swift */,
 				8331F4DC2561EDA50063A67D /* Binding+Extras.swift */,
 				8331F52F25623A170063A67D /* RefreshableScrollView.swift */,
-				8320A754256F530C00819377 /* SFSymbolImage.swift */,
+				8320A754256F530C00819377 /* SFSymbolNavBar.swift */,
+				83BF80812585F9D3000E0B37 /* NavBarIcon.swift */,
 				8320A758256F568400819377 /* View+Extras.swift */,
 			);
 			path = Utilities;
@@ -1127,7 +1130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83BF7CBD25854D91000E0B37 /* DeveloperScreen.swift in Sources */,
-				8320A755256F530C00819377 /* SFSymbolImage.swift in Sources */,
+				8320A755256F530C00819377 /* SFSymbolNavBar.swift in Sources */,
 				83CE1EAD257080EE004A418B /* BasicEquatable.swift in Sources */,
 				8331F42F255F96AB0063A67D /* LocalFiles.swift in Sources */,
 				8331F53025623A170063A67D /* RefreshableScrollView.swift in Sources */,
@@ -1195,6 +1198,7 @@
 				83BF786C25807826000E0B37 /* LiveImageLargeMedia.swift in Sources */,
 				8320A759256F568400819377 /* View+Extras.swift in Sources */,
 				8331F518256220670063A67D /* GenericImageModel.swift in Sources */,
+				83BF80822585F9D3000E0B37 /* NavBarIcon.swift in Sources */,
 				8331F33F255B8B8F0063A67D /* SignInViewModel.swift in Sources */,
 				83BF781F257DCE9B000E0B37 /* UploadableMediaType.swift in Sources */,
 				8331F51125621F7A0063A67D /* AlertMessage.swift in Sources */,

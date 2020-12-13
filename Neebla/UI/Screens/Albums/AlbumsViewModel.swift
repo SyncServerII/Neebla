@@ -3,7 +3,7 @@ import Foundation
 import Combine
 import iOSShared
 
-class AlbumsViewModel: ObservableObject {
+class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var isShowingRefresh = false
     @Published var albums = [AlbumModel]()
         
@@ -17,11 +17,12 @@ class AlbumsViewModel: ObservableObject {
     var textInputAction: (()->())?
     static let untitledAlbumName = "Untitled Album"
     private var syncSubscription:AnyCancellable!
-    private var errorSubscription:AnyCancellable!
-    private let userAlertModel:UserAlertModel
+    var errorSubscription:AnyCancellable!
+    let userAlertModel:UserAlertModel
     
     init(userAlertModel:UserAlertModel) {
         self.userAlertModel = userAlertModel
+        setupHandleErrors()
         
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }
@@ -30,21 +31,15 @@ class AlbumsViewModel: ObservableObject {
             self.getCurrentAlbums()
         }
         
-        errorSubscription = Services.session.serverInterface.$error.sink { [weak self] errorEvent in
-            guard let self = self else { return }
-            self.userAlertModel.showMessage(for: errorEvent)
-        }
-        
         getCurrentAlbums()
     }
 
     func getCurrentAlbums() {
         if let albums = try? AlbumModel.fetch(db: Services.session.db) {
             self.albums = albums.sorted(by: { (a1, a2) -> Bool in
-                if let name1 = a1.albumName, let name2 = a2.albumName {
-                    return name1 < name2
-                }
-                return false
+                let name1 = a1.albumName ?? Self.untitledAlbumName
+                let name2 = a2.albumName ?? Self.untitledAlbumName
+                return name1 < name2
             })
         }
         else {

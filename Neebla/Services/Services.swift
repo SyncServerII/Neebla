@@ -202,6 +202,10 @@ extension Services: SharingInvitationHelper {
     func getSharingInvitationInfo(sharingInvitationUUID: UUID, completion: @escaping (Swift.Result<SharingInvitationInfo, Error>) -> ()) {
         serverInterface.syncServer.getSharingInvitationInfo(sharingInvitationUUID: sharingInvitationUUID, completion: completion)
     }
+    
+    func sharingInvitationUserAlert(_ sharingInvitation: SharingInvitation, title: String, message: String) {
+        serverInterface.error = .showAlert(title: title, message: message)
+    }
 }
 
 extension Services: SignInServicesHelper {

@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class SignInScreenModel: ObservableObject, HandleErrors {
+class SignInScreenModel: ObservableObject, ModelAlertDisplaying {
     @Published var userAlertModel:UserAlertModel
     var errorSubscription:AnyCancellable!
 

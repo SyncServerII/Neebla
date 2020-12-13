@@ -4,10 +4,6 @@ import SwiftUI
 import iOSBasics
 import Combine
 
-protocol AlertMessage: AnyObject {
-    var alertMessage: String? { get set }
-}
-
 // User Alert Messages are intended to be informational, and not require a decision on the part of the user. They can be positive (e.g., "A user was created." or negative (e.g. "A server request failed.").
 
 enum UserAlertContents {
@@ -20,6 +16,7 @@ enum UserAlertContents {
 
 protocol UserAlertMessage: AnyObject {
     var userAlert: UserAlertContents? { get set }
+    var screenDisplayed: Bool { get set }
 }
 
 extension UserAlertMessage {
@@ -44,20 +41,23 @@ extension UserAlertMessage {
 }
 
 class UserAlertModel: ObservableObject, UserAlertMessage {
+    var screenDisplayed: Bool = false
     @Published var show: Bool = false
+    
     var userAlert: UserAlertContents? {
         didSet {
-            show = userAlert != nil
+            // If we don't constrain this by whether or not the screen is displayed, when we navigate to other screens, we get the same error, once per screen-- because each screen model has an `errorSubscription`. I don't know if having these models remain allocated is standard behavior for SwiftUI, but currently it is the case.
+            show = userAlert != nil && screenDisplayed
         }
     }
 }
 
-protocol HandleErrors: AnyObject {
+protocol ModelAlertDisplaying: AnyObject {
     var errorSubscription:AnyCancellable! {get set}
-    var userAlertModel:UserAlertModel {get set}
+    var userAlertModel:UserAlertModel {get}
 }
 
-extension HandleErrors {
+extension ModelAlertDisplaying {
     func setupHandleErrors() {
         errorSubscription = Services.session.serverInterface.$error.sink { [weak self] errorEvent in
             guard let self = self else { return }
@@ -66,7 +66,7 @@ extension HandleErrors {
     }
 }
 
-extension View{
+extension View {
     func showUserAlert(show: Binding<Bool>, message:UserAlertMessage) -> some View {
         self.alert(isPresented: show, content: {
             switch message.userAlert {
@@ -80,5 +80,11 @@ extension View{
                 return Alert(title: Text("Error!"))
             }
         })
+        .onAppear() {
+            message.screenDisplayed = true
+        }
+        .onDisappear() {
+            message.screenDisplayed = false
+        }
     }
 }
