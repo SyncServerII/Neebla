@@ -34,6 +34,8 @@
 		8320A755256F530C00819377 /* SFSymbolNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A754256F530C00819377 /* SFSymbolNavBar.swift */; };
 		8320A759256F568400819377 /* View+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A758256F568400819377 /* View+Extras.swift */; };
 		8320A772256F62D800819377 /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8320A771256F62D800819377 /* Toucan */; };
+		832D341D258680B100FEF094 /* AlbumSharingModalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */; };
+		832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D341C258680B100FEF094 /* AlbumSharingModal.swift */; };
 		8331F330255B8AFD0063A67D /* SendInvitationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */; };
 		8331F332255B8AFD0063A67D /* MenuNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F329255B8AFD0063A67D /* MenuNavBar.swift */; };
 		8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32A255B8AFD0063A67D /* SignInScreen.swift */; };
@@ -231,6 +233,8 @@
 		8320A74E256F3EF900819377 /* DefaultModalStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultModalStyle.swift; sourceTree = "<group>"; };
 		8320A754256F530C00819377 /* SFSymbolNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolNavBar.swift; sourceTree = "<group>"; };
 		8320A758256F568400819377 /* View+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extras.swift"; sourceTree = "<group>"; };
+		832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSharingModalModel.swift; sourceTree = "<group>"; };
+		832D341C258680B100FEF094 /* AlbumSharingModal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSharingModal.swift; sourceTree = "<group>"; };
 		8331F327255B8AFD0063A67D /* SendInvitationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendInvitationScreen.swift; sourceTree = "<group>"; };
 		8331F329255B8AFD0063A67D /* MenuNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuNavBar.swift; sourceTree = "<group>"; };
 		8331F32A255B8AFD0063A67D /* SignInScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
@@ -499,6 +503,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		832D341A258680B100FEF094 /* Album sharing modal */ = {
+			isa = PBXGroup;
+			children = (
+				832D341C258680B100FEF094 /* AlbumSharingModal.swift */,
+				832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */,
+			);
+			path = "Album sharing modal";
+			sourceTree = "<group>";
+		};
 		8331F348255B8CC50063A67D /* Share Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +599,7 @@
 				83BF7CE22585B73A000E0B37 /* Album Sharing */,
 				8331F447255FA7A40063A67D /* Albums */,
 				8331F45F2560B7F40063A67D /* Album Items */,
+				832D341A258680B100FEF094 /* Album sharing modal */,
 				8331F53B2562409A0063A67D /* Object Details */,
 				8308B731256B57C9007F0CEB /* Comments */,
 				8331F4BD2560FFA80063A67D /* Settings */,
@@ -1151,6 +1165,7 @@
 				8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */,
 				8308B706256A3A53007F0CEB /* URLFile.swift in Sources */,
 				8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */,
+				832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */,
 				835AC8E9255B842E00375084 /* Services+Invitation.swift in Sources */,
 				8331F4852560D7100063A67D /* AnyPicker.swift in Sources */,
 				8320A73C256E170900819377 /* MessagesView.swift in Sources */,
@@ -1215,6 +1230,7 @@
 				8331F42B255F95E80063A67D /* SetupLocalDatabase.swift in Sources */,
 				8333E19F2567AE0200A5F79E /* URLPickerView.swift in Sources */,
 				8331F5262562301F0063A67D /* AnyIcon.swift in Sources */,
+				832D341D258680B100FEF094 /* AlbumSharingModalModel.swift in Sources */,
 				8331F49B2560D96D0063A67D /* URLPicker.swift in Sources */,
 				835AC8ED255B842E00375084 /* Services.swift in Sources */,
 				83B657DB255B81320041B9DF /* SceneDelegate.swift in Sources */,

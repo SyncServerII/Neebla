@@ -23,17 +23,30 @@ struct AlbumsScreen: View {
                 )
             ) {
             
-            List(viewModel.albums, id: \.sharingGroupUUID) { album in
-                AlbumsScreenRow(album: album, viewModel: viewModel)
-                
-                // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
-                // Some hurdles here to get rid of the disclosure button at end of row: https://stackoverflow.com/questions/56516333
-                NavigationLink(destination:
-                    AlbumItemsScreen(album: album.sharingGroupUUID)) {
-                    EmptyView()
+            List {
+                // The `ForEach` appears needed to use the `listRowBackground`-- See https://stackoverflow.com/questions/56517904
+                ForEach(viewModel.albums, id: \.sharingGroupUUID) { album in
+                    VStack {
+                        Button(action: {
+                            if viewModel.sharingMode {
+                                viewModel.albumToShare = album.sharingGroupUUID
+                                viewModel.presentAlbumSharingModal = true
+                            }
+                        }, label: {
+                            AlbumsScreenRow(album: album, viewModel: viewModel)
+                        })
+
+                        // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
+                        // Some hurdles here to get rid of the disclosure button at end of row: https://stackoverflow.com/questions/56516333
+                        NavigationLink(destination:
+                            AlbumItemsScreen(album: album.sharingGroupUUID)) {
+                            EmptyView()
+                        }
+                        .frame(width: 0)
+                        .opacity(0)
+                        .enabled(!viewModel.sharingMode)
+                    }
                 }
-                .frame(width: 0)
-                .opacity(0)
             }
             .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -47,7 +60,16 @@ struct AlbumsScreen: View {
                 TextInputModal(viewModel: viewModel)
                     .padding(20)
             }
+            .modal(isPresented: $viewModel.presentAlbumSharingModal) {
+                if let album = viewModel.albumToShare {
+                    AlbumSharingModal(album: album)
+                        .padding(20)
+                }
+            }
             .modalStyle(DefaultModalStyle(padding: 20))
+            .onDisappear() {
+                viewModel.sharingMode = false
+            }
         }
     }
 }
@@ -59,10 +81,16 @@ private struct RightNavBarIcons: View {
         HStack(spacing: 0) {
             Button(
                 action: {
-                    
+                    viewModel.sharingMode.toggle()
                 },
                 label: {
-                    NavBarIcon(imageName: "Share", size: CGSize(width: 25, height: 25))
+                    NavBarIcon(imageName: "Share", size: CGSize(width: 25, height: 25), blueAccent: false)
+                        .if(viewModel.sharingMode) {
+                            $0.accentColor(.gray)
+                        }
+                        .if(!viewModel.sharingMode) {
+                            $0.accentColor(.blue)
+                        }
                 }
             ).frame(width: NavBarIcon.dimension, height: NavBarIcon.dimension)
                                     
@@ -93,13 +121,21 @@ private struct AlbumsScreenRow: View {
 
             Spacer()
             
-            if album.permission.hasMinimumPermission(.admin) {
+            if album.permission.hasMinimumPermission(.admin), !viewModel.sharingMode {
                 Button(action: {
                     viewModel.startChangeExistingAlbumName(sharingGroupUUID: album.sharingGroupUUID, currentAlbumName: album.albumName)
                 }, label: {
                     Image(systemName: SFSymbol.pencil.rawValue)
                 }).buttonStyle(PlainButtonStyle())
             }
+            else if viewModel.sharingMode {
+                Button(action: {
+                    viewModel.albumToShare = album.sharingGroupUUID
+                }, label: {
+                    Image(systemName: SFSymbol.square.rawValue)
+                }).buttonStyle(PlainButtonStyle())
+            }
+
             // I'm using the .buttonStyle above b/c otherwise, I'm not getting the button tap. See https://www.hackingwithswift.com/forums/swiftui/is-it-possible-to-have-a-button-action-in-a-list-foreach-view/1153
             // See also https://stackoverflow.com/questions/56845670
         }

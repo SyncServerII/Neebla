@@ -5,6 +5,11 @@ import iOSShared
 
 class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var isShowingRefresh = false
+    
+    @Published var sharingMode = false
+    @Published var presentAlbumSharingModal = false
+    @Published var albumToShare: UUID?
+    
     @Published var albums = [AlbumModel]()
         
     @Published var presentTextInput = false
@@ -15,6 +20,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var textInputNewAlbum: Bool = false
     @Published var textInputTitle: String?
     var textInputAction: (()->())?
+    
     static let untitledAlbumName = "Untitled Album"
     private var syncSubscription:AnyCancellable!
     var errorSubscription:AnyCancellable!
