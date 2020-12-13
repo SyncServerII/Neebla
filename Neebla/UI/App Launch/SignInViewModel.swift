@@ -32,7 +32,7 @@ extension SignInViewModel: SignInManagerDelegate {
     func sharingInvitationForSignedInUser(_ manager: SignInManager, invitation: Invitation) {
         guard let invitationCodeUUID = UUID(uuidString: invitation.code) else {
             DispatchQueue.main.async {
-                Alert.show(withTitle: "Alert!", message: "Bad invitation code")
+                Services.session.serverInterface.error = .showAlert(title: "Alert!", message: "Bad invitation code")
             }
             return
         }
@@ -44,7 +44,8 @@ extension SignInViewModel: SignInManagerDelegate {
     }
     
     func userIsSignedOut(_ manager: SignInManager, signIn: GenericSignIn) {
-        #warning("Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates.")
-        userSignedIn = false
+        DispatchQueue.main.async {
+            self.userSignedIn = false
+        }
     }
 }

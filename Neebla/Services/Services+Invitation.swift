@@ -43,7 +43,7 @@ extension Services {
             
             if let message = message {
                 DispatchQueue.main.async {
-                    Alert.show(withTitle: "Alert!", message: message)
+                    self.serverInterface.error = .showAlert(title: "Alert!", message: message)
                 }
             }
         }
