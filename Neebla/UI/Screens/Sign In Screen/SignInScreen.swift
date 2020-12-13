@@ -5,6 +5,15 @@
 import SwiftUI
 
 struct SignInScreen: View {
+    @ObservedObject var userAlertModel:UserAlertModel
+    @ObservedObject var model:SignInScreenModel
+    
+    init() {
+        let userAlertModel = UserAlertModel()
+        model = SignInScreenModel(userAlertModel: userAlertModel)
+        self.userAlertModel = userAlertModel
+    }
+    
     var body: some View {
         MenuNavBar(title: "Sign In") {
             VStack {
@@ -15,6 +24,7 @@ struct SignInScreen: View {
 
                 Services.session.signInServices.signInView
             }
+            .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
         }
     }
 }

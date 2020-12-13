@@ -2,6 +2,7 @@
 import Foundation
 import SwiftUI
 import iOSBasics
+import Combine
 
 protocol AlertMessage: AnyObject {
     var alertMessage: String? { get set }
@@ -47,6 +48,20 @@ class UserAlertModel: ObservableObject, UserAlertMessage {
     var userAlert: UserAlertContents? {
         didSet {
             show = userAlert != nil
+        }
+    }
+}
+
+protocol HandleErrors: AnyObject {
+    var errorSubscription:AnyCancellable! {get set}
+    var userAlertModel:UserAlertModel {get set}
+}
+
+extension HandleErrors {
+    func setupHandleErrors() {
+        errorSubscription = Services.session.serverInterface.$error.sink { [weak self] errorEvent in
+            guard let self = self else { return }
+            self.userAlertModel.showMessage(for: errorEvent)
         }
     }
 }

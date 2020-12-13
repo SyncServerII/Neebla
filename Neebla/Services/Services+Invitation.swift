@@ -50,15 +50,18 @@ extension Services {
     }
     
     func redeemForCurrentUser(invitationCode: UUID) {
-        serverInterface.syncServer.redeemSharingInvitation(sharingInvitationUUID: invitationCode) { result in
+        serverInterface.syncServer.redeemSharingInvitation(sharingInvitationUUID: invitationCode) { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
             case .success:
                 DispatchQueue.main.async {
-                    Alert.show(withTitle: "Success!", message: "You are now in another sharing group!")
+                    self.serverInterface.error = .showAlert(title: "Success!", message: "You are now in another sharing group!")
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    Alert.show(withTitle: "Alert!", message: "\(error)")
+                    self.serverInterface.error = .showAlert(title: "Alert!", message: "Failed redeeming sharing invitation. Has it expired? Have you redeemded it already?")
+                    logger.error("\(error)")
                 }
             }
         }
