@@ -23,18 +23,42 @@ struct AlbumsScreen: View {
                 )
             ) {
             
+            /* Action states per row:
+            1) Non-sharing mode.
+                A tap on the main part of the row navigates to the album contents. Button blinks.
+                If the user has .admin permissions, the pencil icon shows to the right. And a tap on the pencil brings up dialog to change the album name.
+            2) Sharing mode.
+                If the user has .admin permissions:
+                    Shows rectangle to the right.
+                    Tapping on the row anywhere, blinks button and brings up sharing modal.
+                Otherwise:
+                    No rectangle shown.
+                    Taps have no effect.
+             */
+             
             List {
                 // The `ForEach` appears needed to use the `listRowBackground`-- See https://stackoverflow.com/questions/56517904
                 ForEach(viewModel.albums, id: \.sharingGroupUUID) { album in
                     VStack {
-                        Button(action: {
-                            if viewModel.sharingMode {
-                                viewModel.albumToShare = album.sharingGroupUUID
-                                viewModel.presentAlbumSharingModal = true
+                        if viewModel.sharingMode {
+                            if album.permission.hasMinimumPermission(.admin) {
+                                Button(action: {
+                                    viewModel.albumToShare = album
+                                    viewModel.presentAlbumSharingModal = true
+                                }, label: {
+                                    AlbumsScreenRow(album: album, viewModel: viewModel)
+                                })
                             }
-                        }, label: {
-                            AlbumsScreenRow(album: album, viewModel: viewModel)
-                        })
+                            else {
+                                AlbumsScreenRow(album: album, viewModel: viewModel)
+                            }
+                        }
+                        else {
+                            Button(action: {
+                            }, label: {
+                                AlbumsScreenRow(album: album, viewModel: viewModel)
+                            })
+                        }
 
                         // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
                         // Some hurdles here to get rid of the disclosure button at end of row: https://stackoverflow.com/questions/56516333
@@ -60,7 +84,7 @@ struct AlbumsScreen: View {
                 TextInputModal(viewModel: viewModel)
                     .padding(20)
             }
-            .modal(isPresented: $viewModel.presentAlbumSharingModal) {
+            .sheet(isPresented: $viewModel.presentAlbumSharingModal) {
                 if let album = viewModel.albumToShare {
                     AlbumSharingModal(album: album)
                         .padding(20)
@@ -121,19 +145,18 @@ private struct AlbumsScreenRow: View {
 
             Spacer()
             
-            if album.permission.hasMinimumPermission(.admin), !viewModel.sharingMode {
-                Button(action: {
-                    viewModel.startChangeExistingAlbumName(sharingGroupUUID: album.sharingGroupUUID, currentAlbumName: album.albumName)
-                }, label: {
-                    Image(systemName: SFSymbol.pencil.rawValue)
-                }).buttonStyle(PlainButtonStyle())
-            }
-            else if viewModel.sharingMode {
-                Button(action: {
-                    viewModel.albumToShare = album.sharingGroupUUID
-                }, label: {
+            // To change an album name and to share an album, you must have .admin permissions.
+            if album.permission.hasMinimumPermission(.admin) {
+                if viewModel.sharingMode {
                     Image(systemName: SFSymbol.square.rawValue)
-                }).buttonStyle(PlainButtonStyle())
+                }
+                else {
+                    Button(action: {
+                        viewModel.startChangeExistingAlbumName(sharingGroupUUID: album.sharingGroupUUID, currentAlbumName: album.albumName)
+                    }, label: {
+                        Image(systemName: SFSymbol.pencil.rawValue)
+                    }).buttonStyle(PlainButtonStyle())
+                }
             }
 
             // I'm using the .buttonStyle above b/c otherwise, I'm not getting the button tap. See https://www.hackingwithswift.com/forums/swiftui/is-it-possible-to-have-a-button-action-in-a-list-foreach-view/1153

@@ -209,6 +209,15 @@
         }
       },
       {
+        "package": "RadioGroup",
+        "repositoryURL": "https://github.com/yonat/RadioGroup.git",
+        "state": {
+          "branch": null,
+          "revision": "eea29f4acca1dcea7c32065c3b2b2379caefeda4",
+          "version": "1.4.2"
+        }
+      },
+      {
         "package": "ServerAccount",
         "repositoryURL": "https://github.com/SyncServerII/ServerAccount.git",
         "state": {
@@ -260,6 +269,15 @@
           "branch": null,
           "revision": "0a9893ec030501a3956bee572d6b4fdd3ae158a1",
           "version": "0.12.2"
+        }
+      },
+      {
+        "package": "SweeterSwift",
+        "repositoryURL": "https://github.com/yonat/SweeterSwift",
+        "state": {
+          "branch": null,
+          "revision": "783afac9c3492e905ab3f5afea4069a737edfc40",
+          "version": "1.1.4"
         }
       },
       {

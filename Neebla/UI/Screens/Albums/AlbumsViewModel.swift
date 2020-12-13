@@ -8,7 +8,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     
     @Published var sharingMode = false
     @Published var presentAlbumSharingModal = false
-    @Published var albumToShare: UUID?
+    @Published var albumToShare: AlbumModel?
     
     @Published var albums = [AlbumModel]()
         
