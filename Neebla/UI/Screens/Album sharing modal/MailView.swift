@@ -14,23 +14,23 @@ import MessageUI
 struct MailView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentation
     @Binding var result: Result<MFMailComposeResult, Error>?
-    let messageBody: String
+    let emailContents: SharingEmailContents
     
-    init(messageBody: String, result: Binding<Result<MFMailComposeResult, Error>?>) {
-        self.messageBody = messageBody
+    init(emailContents: SharingEmailContents, result: Binding<Result<MFMailComposeResult, Error>?>) {
+        self.emailContents = emailContents
         self._result = result
     }
     
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
-        let messageBody: String
+        let emailContents: SharingEmailContents
         @Binding var presentation: PresentationMode
         @Binding var result: Result<MFMailComposeResult, Error>?
 
         init(presentation: Binding<PresentationMode>,
-             result: Binding<Result<MFMailComposeResult, Error>?>, messageBody: String) {
+             result: Binding<Result<MFMailComposeResult, Error>?>, emailContents: SharingEmailContents) {
             _presentation = presentation
             _result = result
-            self.messageBody = messageBody
+            self.emailContents = emailContents
         }
 
         func mailComposeController(_ controller: MFMailComposeViewController,
@@ -48,14 +48,15 @@ struct MailView: UIViewControllerRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        return Coordinator(presentation: presentation, result: $result, messageBody: messageBody)
+        return Coordinator(presentation: presentation, result: $result, emailContents: emailContents)
     }
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailView>) -> MFMailComposeViewController {
         let vc = MFMailComposeViewController()
         
         vc.mailComposeDelegate = context.coordinator
-        vc.setMessageBody(messageBody, isHTML: false)
+        vc.setMessageBody(emailContents.body, isHTML: false)
+        vc.setSubject(emailContents.subject)
         return vc
     }
 

@@ -5,13 +5,20 @@ import ServerShared
 import RadioGroup
 import WebKit
 
+struct AlbumSharingParameters {
+    let invitationCode: UUID
+    let sharingGroupName: String?
+    let allowSocialAcceptance: Bool
+    let permission: Permission
+}
+
 struct AlbumSharingModal: View {
     @ObservedObject var userAlertModel: UserAlertModel
     @ObservedObject var viewModel: AlbumSharingModalModel
     let albumName: String
     
     // The completion is only called on a successful creation of an invitaton code. This is why a nil invitation code cannot passed.
-    init(album: AlbumModel, completion:@escaping (_ invitationCode: UUID)->()) {
+    init(album: AlbumModel, completion:@escaping (_ parameters: AlbumSharingParameters)->()) {
         let userAlertModel = UserAlertModel()
         self.userAlertModel = userAlertModel
         self.viewModel = AlbumSharingModalModel(album: album, userAlertModel: userAlertModel, completion: completion)

@@ -3,6 +3,7 @@ import Foundation
 import Combine
 import iOSShared
 import MessageUI
+import ServerShared
 
 enum AlbumsScreenActiveSheet: Identifiable {
     case albumSharing
@@ -13,17 +14,20 @@ enum AlbumsScreenActiveSheet: Identifiable {
     }
 }
 
+struct SharingEmailContents {
+    let subject: String
+    let body: String
+}
+
 class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var isShowingRefresh = false
     
-    //@Published var activeSheet:
+    @Published var activeSheet:AlbumsScreenActiveSheet?
     @Published var sharingMode = false
-    @Published var presentAlbumSharingModal = false
     @Published var albumToShare: AlbumModel?
-    @Published var presentEmailInvitation = false
     @Published var canSendMail: Bool = MFMailComposeViewController.canSendMail()
     @Published var sendMailResult: Result<MFMailComposeResult, Error>? = nil
-    @Published var emailMessageBody: String?
+    @Published var emailMessage: SharingEmailContents?
 
     @Published var albums = [AlbumModel]()
         
@@ -141,5 +145,46 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
         textInputAlbumName = nil
         textInputNewAlbum = true
         presentTextInput = true
+    }
+    
+    private func createSharingInvitationLink(invitationCode: UUID) -> String {
+        return Services.session.signInServices.sharingInvitation.createSharingURL(invitationCode: invitationCode.uuidString)
+    }
+    
+    func emailContents(from parameters: AlbumSharingParameters) -> SharingEmailContents {
+        let sharingURLString = createSharingInvitationLink(invitationCode: parameters.invitationCode)
+        
+        var socialText = " "
+        if parameters.allowSocialAcceptance {
+            socialText = ", Facebook, "
+        }
+    
+        var albumName = "a media album"
+        var subjectAlbumName = ""
+        if let sharingGroupName = parameters.sharingGroupName {
+            albumName = "the media album '\(sharingGroupName)'"
+            subjectAlbumName = "\(sharingGroupName) "
+        }
+    
+        let message = """
+            I'd like to share \(albumName) with you through the Neebla app and your Dropbox\(socialText)or Google account. To share media, you need to:
+            
+            1) Download the Neebla iOS app onto your iPhone or iPad,
+            2) Tap the link below in the Apple Mail app, and
+            3) Follow the instructions within the app to sign in to your Dropbox\(socialText)or Google account.
+            You will have \(parameters.permission.displayableText) access to media.
+
+                \(sharingURLString)
+
+            If you can't tap the link above, then you can copy the sharing code below:
+
+            \t\(parameters.invitationCode.uuidString)
+
+            and paste it into the 'Album Sharing' screen of the Neebla app.
+        """
+        
+        let subject = "Share \(subjectAlbumName)media using the Neebla app"
+        
+        return SharingEmailContents(subject: subject, body: message)
     }
 }

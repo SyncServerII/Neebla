@@ -44,7 +44,7 @@ struct AlbumsScreen: View {
                             if album.permission.hasMinimumPermission(.admin) {
                                 Button(action: {
                                     viewModel.albumToShare = album
-                                    viewModel.presentAlbumSharingModal = true
+                                    viewModel.activeSheet = .albumSharing
                                 }, label: {
                                     AlbumsScreenRow(album: album, viewModel: viewModel)
                                 })
@@ -84,19 +84,24 @@ struct AlbumsScreen: View {
                 TextInputModal(viewModel: viewModel)
                     .padding(20)
             }
-            .sheet(isPresented: $viewModel.presentAlbumSharingModal) {
-                if let album = viewModel.albumToShare {
-                    AlbumSharingModal(album: album) { invitationCode in
-                        viewModel.emailMessageBody = invitationCode.uuidString
-                        viewModel.presentEmailInvitation = true
-                    }.padding(20)
+            // Fail to get the sheets displaying properly when there is more than one .sheet modifier. Working around this. See also https://stackoverflow.com/questions/58837007
+            .sheet(item: $viewModel.activeSheet) { item in
+                switch item {
+                case .albumSharing:
+                    if let album = viewModel.albumToShare {
+                        AlbumSharingModal(album: album) { parameters in
+                            viewModel.sharingMode = false
+                            let contents = viewModel.emailContents(from: parameters)
+                            viewModel.emailMessage = contents
+                            viewModel.activeSheet = .email
+                        }.padding(20)
+                    }
+                case .email:
+                    if let emailMessage = viewModel.emailMessage {
+                        MailView(emailContents: emailMessage, result: $viewModel.sendMailResult)
+                    }
                 }
             }
-//            .sheet(isPresented: $viewModel.presentEmailInvitation) {
-//                if let messageBody = viewModel.emailMessageBody {
-//                    MailView(messageBody: messageBody, result: $viewModel.sendMailResult)
-//                }
-//            }
             .modalStyle(DefaultModalStyle(padding: 20))
             .onDisappear() {
                 viewModel.sharingMode = false

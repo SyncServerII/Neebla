@@ -12,7 +12,7 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
     let album:AlbumModel
     let helpDocs = ("SharingInvitationHelp", "html")
     @Published var helpString: String?
-    let completion:(_ invitationCode: UUID)->()
+    let completion: (_ parameters: AlbumSharingParameters)->()
     
     // Actually only UInt values allowed.
     @Published var numberOfPeopleToInviteRaw:Float = 1 {
@@ -32,7 +32,7 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
     
     let displayablePermissionText: [String]
 
-    init(album:AlbumModel, userAlertModel: UserAlertModel, completion:@escaping (_ invitationCode: UUID)->()) {
+    init(album:AlbumModel, userAlertModel: UserAlertModel, completion:@escaping (_ parameters: AlbumSharingParameters)->()) {
         self.userAlertModel = userAlertModel
         self.album = album
         displayablePermissionText = Permission.allCases.map {$0.displayableText}
@@ -73,7 +73,8 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
             switch result {
             case .success(let invitationCode):
                 logger.debug("invitationCode: \(invitationCode)")
-                self.completion(invitationCode)
+                let parameters = AlbumSharingParameters(invitationCode: invitationCode, sharingGroupName: self.album.albumName, allowSocialAcceptance: self.allowSocialAcceptance, permission: permission)
+                self.completion(parameters)
                 
             case .failure(let error):
                 logger.error("\(error)")
