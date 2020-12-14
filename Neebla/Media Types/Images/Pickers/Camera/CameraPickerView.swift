@@ -56,7 +56,15 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
             return
         }
         
-        guard let data = selectedImage.jpegData(compressionQuality: SettingsModel.jpegQuality) else {
+        let settings: SettingsModel
+        do {
+            settings = try SettingsModel.getSingleton(db: Services.session.db)
+        } catch let error {
+            logger.error("Could not get settings: \(error)")
+            return
+        }
+        
+        guard let data = selectedImage.jpegData(compressionQuality: settings.jpegQuality) else {
             logger.error("Could not get jpeg data for image.")
             return
         }

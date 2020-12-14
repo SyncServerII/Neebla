@@ -96,7 +96,8 @@ class URLObjectType: ItemType, DeclarableObject {
             
         // Optional image preview file
         if let loadedImage = asset.image {
-            guard let jpegData = loadedImage.image.jpegData(compressionQuality: SettingsModel.jpegQuality) else {
+            let settings = try SettingsModel.getSingleton(db: Services.session.db)
+            guard let jpegData = loadedImage.image.jpegData(compressionQuality: settings.jpegQuality) else {
                 throw URLObjectTypeError.couldNotGetJPEGData
             }
             let imageFileURL = try createNewFile(for: previewImageDeclaration.fileLabel)

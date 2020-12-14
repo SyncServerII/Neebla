@@ -13,5 +13,8 @@ struct SetupLocalDatabase {
         try AlbumModel.createTable(db: db)
         try ServerObjectModel.createTable(db: db)
         try ServerFileModel.createTable(db: db)
+        
+        try SettingsModel.createTable(db: db)
+        try SettingsModel.initializeSingleton(db: db)
     }
 }

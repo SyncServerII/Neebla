@@ -61,8 +61,14 @@ class GenericImageModel: ObservableObject {
                         self.noImageHelper()
                         return
                     }
-                        
-                    guard let data = scaledImage.jpegData(compressionQuality: SettingsModel.jpegQuality) else {
+                    
+                    guard let settings = try? SettingsModel.getSingleton(db: Services.session.db) else {
+                        logger.error("Could not get settings.")
+                        self.noImageHelper()
+                        return
+                    }
+
+                    guard let data = scaledImage.jpegData(compressionQuality: settings.jpegQuality) else {
                         logger.error("Could not get jpeg data for scaled image.")
                         self.noImageHelper()
                         return

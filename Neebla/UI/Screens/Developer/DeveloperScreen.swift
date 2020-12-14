@@ -54,13 +54,21 @@ private struct DeveloperScreenAlbumModelRow: View {
     var albumName: String {
         return album.albumName ?? AlbumModel.untitledAlbumName
     }
+    var deleted: String {
+        if album.deleted {
+            return "(D) "
+        }
+        else {
+            return ""
+        }
+    }
     
     init(album:AlbumModel) {
         self.album = album
     }
     
     var body: some View {
-        Text(albumName + " / Permission: " + album.permission.displayableText)
+        Text(deleted + albumName + " / Permission: " + album.permission.displayableText)
     }
 }
 

@@ -4,6 +4,7 @@ import Combine
 import iOSShared
 import MessageUI
 import ServerShared
+import SQLite
 
 enum AlbumsScreenActiveSheet: Identifiable {
     case albumSharing
@@ -26,7 +27,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var sharingMode = false
     @Published var albumToShare: AlbumModel?
     @Published var canSendMail: Bool = MFMailComposeViewController.canSendMail()
-    @Published var sendMailResult: Result<MFMailComposeResult, Error>? = nil
+    @Published var sendMailResult: Swift.Result<MFMailComposeResult, Error>? = nil
     @Published var emailMessage: SharingEmailContents?
 
     @Published var albums = [AlbumModel]()
@@ -59,7 +60,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     }
 
     func getCurrentAlbums() {
-        if let albums = try? AlbumModel.fetch(db: Services.session.db) {
+        if let albums = try? AlbumModel.fetch(db: Services.session.db, where: AlbumModel.deletedField.description == false) {
             self.albums = albums.sorted(by: { (a1, a2) -> Bool in
                 let name1 = a1.albumName ?? AlbumModel.untitledAlbumName
                 let name2 = a2.albumName ?? AlbumModel.untitledAlbumName
