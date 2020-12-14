@@ -22,7 +22,7 @@ struct AlbumSharingModal: View {
         let userAlertModel = UserAlertModel()
         self.userAlertModel = userAlertModel
         self.viewModel = AlbumSharingModalModel(album: album, userAlertModel: userAlertModel, completion: completion)
-        albumName = album.albumName ?? AlbumsViewModel.untitledAlbumName
+        albumName = album.albumName ?? AlbumModel.untitledAlbumName
     }
     
     var body: some View {

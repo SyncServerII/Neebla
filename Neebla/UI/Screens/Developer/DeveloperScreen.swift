@@ -7,9 +7,21 @@ struct DeveloperScreen: View {
     var body: some View {
         MenuNavBar(title: "Developer") {
             List {
+                Section(header: Text("Albums")) {
+                    ForEach(model.albums, id: \.sharingGroupUUID) { album in
+                        DeveloperScreenAlbumModelRow(album: album)
+                    }
+                }
+                
                 Section(header: Text("ServerObjectModel's")) {
                     ForEach(model.objects, id: \.fileGroupUUID) { object in
-                        DeveloperScreenModelRow(object: object)
+                        DeveloperScreenObjectModelRow(object: object)
+                    }
+                }
+                
+                Section(header: Text("ServerFileModel's")) {
+                    ForEach(model.files, id: \.fileUUID) { file in
+                        DeveloperScreenFileModelRow(fileModel: file)
                     }
                 }
                                 
@@ -25,7 +37,34 @@ struct DeveloperScreen: View {
     }
 }
 
-private struct DeveloperScreenModelRow: View {
+private struct DeveloperScreenFileModelRow: View {
+    let fileModel:ServerFileModel
+    
+    init(fileModel:ServerFileModel) {
+        self.fileModel = fileModel
+    }
+    
+    var body: some View {
+        Text(fileModel.fileLabel)
+    }
+}
+
+private struct DeveloperScreenAlbumModelRow: View {
+    let album:AlbumModel
+    var albumName: String {
+        return album.albumName ?? AlbumModel.untitledAlbumName
+    }
+    
+    init(album:AlbumModel) {
+        self.album = album
+    }
+    
+    var body: some View {
+        Text(albumName + " / Permission: " + album.permission.displayableText)
+    }
+}
+
+private struct DeveloperScreenObjectModelRow: View {
     let object:ServerObjectModel
     let title: String?
     

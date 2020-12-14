@@ -12,6 +12,7 @@ class AlbumModel: DatabaseModel, ObservableObject {
     static let sharingGroupUUIDField = Field("sharingGroupUUID", \M.sharingGroupUUID)
     @Published var sharingGroupUUID: UUID
 
+    static let untitledAlbumName = "Untitled Album"
     static let albumNameField = Field("albumName", \M.albumName)
     @Published var albumName: String?
     

@@ -40,7 +40,6 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var textInputTitle: String?
     var textInputAction: (()->())?
     
-    static let untitledAlbumName = "Untitled Album"
     private var syncSubscription:AnyCancellable!
     var errorSubscription:AnyCancellable!
     let userAlertModel:UserAlertModel
@@ -62,8 +61,8 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     func getCurrentAlbums() {
         if let albums = try? AlbumModel.fetch(db: Services.session.db) {
             self.albums = albums.sorted(by: { (a1, a2) -> Bool in
-                let name1 = a1.albumName ?? Self.untitledAlbumName
-                let name2 = a2.albumName ?? Self.untitledAlbumName
+                let name1 = a1.albumName ?? AlbumModel.untitledAlbumName
+                let name2 = a2.albumName ?? AlbumModel.untitledAlbumName
                 return name1 < name2
             })
         }
@@ -120,11 +119,11 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
         
         textInputAction = { [weak self] in
             guard let self = self else { return }
-            let changedAlbumName = self.textInputAlbumName ?? Self.untitledAlbumName
+            let changedAlbumName = self.textInputAlbumName ?? AlbumModel.untitledAlbumName
             self.changeAlbumName(sharingGroupUUID: sharingGroupUUID, changedAlbumName: changedAlbumName)
         }
         
-        textInputInitialAlbumName = currentAlbumName ?? Self.untitledAlbumName
+        textInputInitialAlbumName = currentAlbumName ?? AlbumModel.untitledAlbumName
         textInputAlbumName = nil
         textInputPriorAlbumName = currentAlbumName
         textInputNewAlbum = false
@@ -137,11 +136,11 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
 
         textInputAction = { [weak self] in
             guard let self = self else { return }
-            let newAlbumName = self.textInputAlbumName ?? Self.untitledAlbumName
+            let newAlbumName = self.textInputAlbumName ?? AlbumModel.untitledAlbumName
             self.createNewAlbum(newAlbumName: newAlbumName)
         }
         
-        textInputInitialAlbumName = Self.untitledAlbumName
+        textInputInitialAlbumName = AlbumModel.untitledAlbumName
         textInputAlbumName = nil
         textInputNewAlbum = true
         presentTextInput = true

@@ -154,7 +154,7 @@ private struct AlbumsScreenRow: View {
                 Text(albumName)
             }
             else {
-                Text(AlbumsViewModel.untitledAlbumName)
+                Text(AlbumModel.untitledAlbumName)
             }
 
             Spacer()
