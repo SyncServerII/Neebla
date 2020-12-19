@@ -96,8 +96,11 @@ class Services {
     
     // Neebla database
     var db:Connection!
+    weak var delegate: ServicesDelegate?
 
-    private init() {
+    private init(delegate: ServicesDelegate?) {
+        self.delegate = delegate
+        
         do {
             try SharedContainer.appLaunchSetup(applicationGroupIdentifier: applicationGroupIdentifier)
         } catch let error {
@@ -186,8 +189,8 @@ class Services {
     }
     
     // This *must* be called prior to any uses of `session`.
-    static func setup() {
-        session = Services()
+    static func setup(delegate: ServicesDelegate?) {
+        session = Services(delegate: delegate)
     }
     
     func appLaunch(options: [UIApplication.LaunchOptionsKey: Any]?) {

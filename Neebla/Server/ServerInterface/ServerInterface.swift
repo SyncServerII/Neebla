@@ -3,7 +3,6 @@ import Foundation
 import iOSBasics
 import iOSShared
 import SQLite
-import iOSDropbox
 import iOSSignIn
 import PersistentValue
 import ServerShared
@@ -60,8 +59,6 @@ class ServerInterface {
         
         deviceUUID = uuid
 
-        try hashingManager.add(hashing: DropboxHashing())
-
         let dbURL = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.syncServerDatabase)
         logger.info("SyncServer SQLite db: \(dbURL.path)")
@@ -71,6 +68,8 @@ class ServerInterface {
 
         syncServer = try SyncServer(hashingManager: hashingManager, db: db, configuration: config, signIns: signIns)
         logger.info("SyncServer initialized!")
+        
+        try addHashingForCloudStorageSignIns(hashingManager: hashingManager)
         
         syncServer.delegate = self
         syncServer.helperDelegate = self

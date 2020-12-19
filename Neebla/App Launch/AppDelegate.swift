@@ -11,7 +11,8 @@ import iOSShared
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        Services.setup()
+    
+        Services.setup(delegate: self)
         Services.session.appLaunch(options: launchOptions)
         
         do {
@@ -45,3 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate: ServicesDelegate {
+    func getCurrentViewController() -> UIViewController? {
+        return UIApplication.shared.windows.last?.rootViewController
+    }
+}

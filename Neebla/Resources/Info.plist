@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string>to take photos to store in your cloud storage.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>to save a copy of your image from your album.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>to pick an image to store in your cloud storage, or save a copy of your image from your album.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -37,6 +31,14 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>com.googleusercontent.apps.751293215012-bqhf9gmq8693bkg15o1qsfa4e77sj6g8</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
 				<string>db-5kjw9df8nocjgbm</string>
 			</array>
 		</dict>
@@ -46,6 +48,14 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>biz.SpasticMuffin.SharedImages.invitation</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.751293215012-bqhf9gmq8693bkg15o1qsfa4e77sj6g8</string>
 			</array>
 		</dict>
 	</array>
@@ -77,6 +87,12 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>to take photos to store in your cloud storage.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>to save a copy of your image from your album.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>to pick an image to store in your cloud storage, or save a copy of your image from your album.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

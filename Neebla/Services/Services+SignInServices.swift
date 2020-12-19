@@ -1,13 +1,5 @@
-//
-//  Services+.swift
-//  iOSIntegration
-//
-//  Created by Christopher G Prince on 9/28/20.
-//
 
 import Foundation
-import iOSFacebook
-import iOSDropbox
 import UIKit
 import iOSSignIn
 import iOSBasics
@@ -17,34 +9,10 @@ extension Services {
     
         var signInDescriptions = [SignInDescription]()
 
-        if let dropboxAppKey = configPlist["DropboxAppKey"] as? String {
-            let dropboxSignIn = DropboxSyncServerSignIn(appKey: dropboxAppKey)
-            let dropboxSignInButton = dropboxSignIn.signInButton(configuration: nil)
-            
-            if let dropboxSignInButton = dropboxSignInButton {
-                dropboxSignInButton.frame.size = CGSize(width: 150, height: 50)
-            
-                let dropboxDescription =
-                    SignInDescription(
-                        signInName: dropboxSignIn.signInName,
-                        userType: dropboxSignIn.userType,
-                        button: dropboxSignInButton)
-                signInDescriptions += [dropboxDescription]
-                signInsToAdd += [dropboxSignIn]
-            }
-        }
-
-        let facebookSignIn = FacebookSyncServerSignIn()
-        let facebookSignInButton = facebookSignIn.signInButton(configuration: nil)
-        
-        if let facebookButton = facebookSignInButton {
-            let facebookDescription =
-                SignInDescription(
-                    signInName:facebookSignIn.signInName,
-                    userType: facebookSignIn.userType,
-                    button: facebookButton)
-            signInDescriptions += [facebookDescription]
-            signInsToAdd += [facebookSignIn]
+        let signInTypes = getSignIns(configPlist: configPlist)
+        for signIn in signInTypes {
+            signInDescriptions += [signIn.1]
+            signInsToAdd += [signIn.0]
         }
         
         configuration = UIConfiguration(

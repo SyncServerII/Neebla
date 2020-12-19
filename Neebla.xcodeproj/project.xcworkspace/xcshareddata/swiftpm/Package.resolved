@@ -119,12 +119,21 @@
         }
       },
       {
+        "package": "iOSGoogle",
+        "repositoryURL": "http://github.com/SyncServerII/iOSGoogle",
+        "state": {
+          "branch": "main",
+          "revision": "5b2f83e9bc61f477689eb0a0ce44012b7860bebf",
+          "version": null
+        }
+      },
+      {
         "package": "KeychainAccess",
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
         "state": {
           "branch": null,
-          "revision": "8d33ffd6f74b3bcfc99af759d4204c6395a3f918",
-          "version": "3.2.1"
+          "revision": "654d52d30f3dd4592e944c3e0bccb53178c992f6",
+          "version": "4.2.1"
         }
       },
       {
@@ -204,7 +213,7 @@
         "repositoryURL": "http://github.com/crspybits/PersistentValue.git",
         "state": {
           "branch": "master",
-          "revision": "67dfc448f848bf44d73b8271b6239863ebea1d93",
+          "revision": "74adb41533af3e1205faf7f1852f2f7e6693f8c4",
           "version": null
         }
       },
@@ -227,21 +236,12 @@
         }
       },
       {
-        "package": "ServerShared",
-        "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
-        "state": {
-          "branch": "master",
-          "revision": "1f1cc0e43b53858aa0c13e05eb136c2c4771f701",
-          "version": null
-        }
-      },
-      {
         "package": "SFSafeSymbols",
         "repositoryURL": "https://github.com/piknotech/SFSafeSymbols.git",
         "state": {
           "branch": null,
-          "revision": "c5d2ebcc773782b625f287ce517a252bd115db6b",
-          "version": "2.1.0"
+          "revision": "fee7cc51851b7a1c8f6d0da340e9cf71169b1e7e",
+          "version": "2.1.1"
         }
       },
       {
@@ -330,8 +330,8 @@
         "repositoryURL": "https://github.com/sunshinejr/SwiftyUserDefaults.git",
         "state": {
           "branch": null,
-          "revision": "1930a81a299b074fd72eee09e88e452ad37dc34d",
-          "version": "5.0.0"
+          "revision": "28c8805314e67683f727c3376e69cbd4b8b590bb",
+          "version": "5.1.0"
         }
       },
       {
