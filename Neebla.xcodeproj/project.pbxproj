@@ -357,6 +357,7 @@
 		83BF80762585D8DA000E0B37 /* SignInScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenModel.swift; sourceTree = "<group>"; };
 		83BF80812585F9D3000E0B37 /* NavBarIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarIcon.swift; sourceTree = "<group>"; };
 		83C4365B258F2E3200F34628 /* ConfigPlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPlist.swift; sourceTree = "<group>"; };
+		83C43667258FD99D00F34628 /* iOSFacebook */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSFacebook; path = ../../iOSFacebook; sourceTree = "<group>"; };
 		83C43FE025733B480016BA4C /* MessageKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitTypes.swift; sourceTree = "<group>"; };
 		83C43FF82574371C0016BA4C /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
@@ -596,6 +597,7 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				83C43667258FD99D00F34628 /* iOSFacebook */,
 				834B25B8258C647600F653BC /* iOSGoogle */,
 				832D34362586CBBB00FEF094 /* ServerShared */,
 				83CE1ECD25709405004A418B /* iOSShared */,

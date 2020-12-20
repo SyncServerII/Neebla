@@ -10,9 +10,8 @@ class AlbumSharingScreenModel: ObservableObject, ModelAlertDisplaying {
 
     @Published var sharingCode: String? {
         didSet {
-            if let sharingCode = sharingCode {
-                let trimmed = sharingCode.trimmingCharacters(in: .whitespaces)
-                if trimmed.count > 0 {
+            if let trimmedSharingCode = getTrimmedSharingCode() {
+                if trimmedSharingCode.count > 0 {
                     enableAcceptSharingInvitation = true
                     return
                 }
@@ -20,6 +19,13 @@ class AlbumSharingScreenModel: ObservableObject, ModelAlertDisplaying {
             
             enableAcceptSharingInvitation = false
         }
+    }
+    
+    private func getTrimmedSharingCode() -> String? {
+        if let sharingCode = sharingCode {
+            return sharingCode.trimmingCharacters(in: .whitespaces)
+        }
+        return nil
     }
     
     @Published var enableAcceptSharingInvitation: Bool = false
@@ -30,8 +36,8 @@ class AlbumSharingScreenModel: ObservableObject, ModelAlertDisplaying {
     }
     
     func acceptSharingInvitation() {
-        guard let sharingCode = sharingCode,
-            let sharingCodeUUID = UUID(uuidString: sharingCode) else {
+        guard let trimmedSharingCode = getTrimmedSharingCode(),
+            let sharingCodeUUID = UUID(uuidString: trimmedSharingCode) else {
             userAlertModel.userAlert = .error(message: "Bad sharing code.")
             return
         }
