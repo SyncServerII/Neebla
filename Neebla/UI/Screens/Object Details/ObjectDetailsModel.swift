@@ -19,10 +19,10 @@ class ObjectDetailsModel: ObservableObject, ModelAlertDisplaying {
         var success = true
         
         if let displayName = AnyTypeManager.session.displayName(forObjectType: object.objectType) {
-            logger.error("Could not get display name for objectType: \(object.objectType)")
             objectTypeDisplayName = displayName
         }
         else {
+            logger.error("Could not get display name for objectType: \(object.objectType)")
             success = false
         }
         

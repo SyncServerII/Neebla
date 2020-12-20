@@ -11,6 +11,8 @@ extension Services {
     func getSignIns(configPlist: ConfigPlist) -> [(GenericSignIn, SignInDescription)] {
         var result = [(GenericSignIn, SignInDescription)]()
         
+        // The `SignInDescription`'s get sorted by `signInName` before being presented in the sign-in UI, so the order they are added to `result` here doesn't really matter.
+        
         if let dropboxAppKey = configPlist.getValue(for: .DropboxAppKey) {
             let dropboxSignIn = DropboxSyncServerSignIn(appKey: dropboxAppKey)
             let dropboxSignInButton = dropboxSignIn.signInButton(configuration: nil)

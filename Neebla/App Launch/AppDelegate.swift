@@ -47,7 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: ServicesDelegate {
+    /* This is for Google Sign In. I was initially getting the error:2020-12-20 11:36:34.082029-0700 Neebla[23638:595208] Keyboard cannot present view controllers (attempted to present <SFAuthenticationViewController: 0x7fe629879a00>)
+        2020-12-20 11:36:34.175586-0700 Neebla[23638:595208] [View] First responder error: non-key window attempting reload - allowing due to manual keyboard (first responder window is <UIRemoteKeyboardWindow: 0x7fe6288c2e00; frame = (0 0; 414 896); opaque = NO; autoresize = W+H; layer = <UIWindowLayer: 0x6000024ad460>>, key window is <UIWindow: 0x7fe628418530; frame = (0 0; 414 896); autoresize = W+H; gestureRecognizers = <NSArray: 0x600002a8e5e0>; layer = <UIWindowLayer: 0x6000024daf80>>)
+        https://stackoverflow.com/questions/59570306
+        Changed to current from:
+            UIApplication.shared.windows.first?.rootViewController
+        And that seems to fix it.
+    */
     func getCurrentViewController() -> UIViewController? {
-        return UIApplication.shared.windows.last?.rootViewController
+        return UIApplication.shared.windows.first?.rootViewController
     }
 }
