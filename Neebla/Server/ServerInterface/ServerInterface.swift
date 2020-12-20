@@ -39,7 +39,7 @@ class ServerInterface {
     // Subscribe to this to get fileGroupUUID's of objects deleted.
     @Published var deletionCompleted:UUID?
 
-    init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String) throws {
+    init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String) throws {
         if deviceUUIDString.value == nil {
             let uuid = UUID().uuidString
             deviceUUIDString.value = uuid
@@ -64,7 +64,7 @@ class ServerInterface {
         logger.info("SyncServer SQLite db: \(dbURL.path)")
         let db = try Connection(dbURL.path)
 
-        let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: nil, failoverMessageURL: nil, cloudFolderName: "BackgroundTesting", deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles)
+        let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: nil, failoverMessageURL: nil, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles)
 
         syncServer = try SyncServer(hashingManager: hashingManager, db: db, configuration: config, signIns: signIns)
         logger.info("SyncServer initialized!")

@@ -143,14 +143,20 @@ class Services {
             return
         }
         
-        guard let configPlist = NSDictionary(contentsOfFile: path) as? Dictionary<String, Any> else {
+        guard let configPlist = ConfigPlist(filePath: path) else {
             Self.setupState = .failure
             return
         }
         
-        guard let urlString = configPlist["serverURL"] as? String,
+        guard let urlString = configPlist.getValue(for: .serverURL),
             let serverURL = URL(string: urlString) else {
             logger.error("Cannot get server URL")
+            Self.setupState = .failure
+            return
+        }
+        
+        guard let cloudFolderName = configPlist.getValue(for: .cloudFolderName) else {
+            logger.error("Cannot get cloud folder name")
             Self.setupState = .failure
             return
         }
@@ -158,7 +164,7 @@ class Services {
         let signIns = SignIns(signInServicesHelper: self)
         
         do {
-            serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier)
+            serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName)
         } catch let error {
             logger.error("Could not start ServerInterface: \(error)")
             Self.setupState = .failure

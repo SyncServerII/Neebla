@@ -5,7 +5,7 @@ import iOSSignIn
 import iOSBasics
 
 extension Services {
-    func setupSignInServices(configPlist: Dictionary<String, Any>, signIns: SignIns, bundleIdentifier: String, helper: SharingInvitationHelper) {
+    func setupSignInServices(configPlist: ConfigPlist, signIns: SignIns, bundleIdentifier: String, helper: SharingInvitationHelper) {
     
         var signInDescriptions = [SignInDescription]()
 

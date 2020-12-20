@@ -8,10 +8,10 @@ import iOSGoogle
 
 extension Services {
     // Gets (GenericSignIn, SignInDescription) pairs for each sign in type.
-    func getSignIns(configPlist: Dictionary<String, Any>) -> [(GenericSignIn, SignInDescription)] {
+    func getSignIns(configPlist: ConfigPlist) -> [(GenericSignIn, SignInDescription)] {
         var result = [(GenericSignIn, SignInDescription)]()
         
-        if let dropboxAppKey = configPlist["DropboxAppKey"] as? String {
+        if let dropboxAppKey = configPlist.getValue(for: .DropboxAppKey) {
             let dropboxSignIn = DropboxSyncServerSignIn(appKey: dropboxAppKey)
             let dropboxSignInButton = dropboxSignIn.signInButton(configuration: nil)
             
@@ -39,8 +39,8 @@ extension Services {
             result += [(facebookSignIn, facebookDescription)]
         }
         
-        if let googleClientId = configPlist["GoogleClientId"] as? String,
-            let googleServerClientId = configPlist["GoogleServerClientId"] as? String {
+        if let googleClientId = configPlist.getValue(for: .GoogleClientId),
+            let googleServerClientId = configPlist.getValue(for: .GoogleServerClientId) {
             let googleSignIn = GoogleSyncServerSignIn(serverClientId: googleServerClientId, appClientId: googleClientId, signInDelegate: self)
             
             if let googleSignInButton = googleSignIn.signInButton(configuration: nil) {
