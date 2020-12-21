@@ -5,6 +5,7 @@ import UIKit
 import iOSFacebook
 import iOSDropbox
 import iOSGoogle
+import iOSApple
 
 extension Services {
     // Gets (GenericSignIn, SignInDescription) pairs for each sign in type.
@@ -53,6 +54,16 @@ extension Services {
                         button: googleSignInButton)
                 result += [(googleSignIn, googleSignInDescription)]
             }
+        }
+        
+        let appleSignIn = AppleSignIn()
+        if let appleSignInButton = appleSignIn.signInButton(configuration: nil) {
+            let appleSignInDescription =
+                SignInDescription(
+                    signInName:appleSignIn.signInName,
+                    userType: appleSignIn.userType,
+                    button: appleSignInButton)
+            result += [(appleSignIn, appleSignInDescription)]
         }
 
         return result

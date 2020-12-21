@@ -101,29 +101,20 @@
         }
       },
       {
+        "package": "iOSApple",
+        "repositoryURL": "http://github.com/SyncServerII/iOSApple.git",
+        "state": {
+          "branch": "main",
+          "revision": "3c4beec3eda70297e5a8c756177d1027a92abfe9",
+          "version": null
+        }
+      },
+      {
         "package": "iOSDropbox",
         "repositoryURL": "http://github.com/SyncServerII/iOSDropbox.git",
         "state": {
           "branch": "master",
           "revision": "236c98ac8390e5dbabd418306641abc4c0207fc1",
-          "version": null
-        }
-      },
-      {
-        "package": "iOSFacebook",
-        "repositoryURL": "http://github.com/SyncServerII/iOSFacebook.git",
-        "state": {
-          "branch": "master",
-          "revision": "46a58128e1e74ac6b6d80cef67d6c67201ae38dd",
-          "version": null
-        }
-      },
-      {
-        "package": "iOSGoogle",
-        "repositoryURL": "http://github.com/SyncServerII/iOSGoogle",
-        "state": {
-          "branch": "main",
-          "revision": "5b2f83e9bc61f477689eb0a0ce44012b7860bebf",
           "version": null
         }
       },

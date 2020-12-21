@@ -11,7 +11,6 @@
 		8308B6E3256A0479007F0CEB /* URLPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6E2256A0479007F0CEB /* URLPreviewView.swift */; };
 		8308B6E9256A0733007F0CEB /* URLPreviewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6E8256A0733007F0CEB /* URLPreviewGenerator.swift */; };
 		8308B6ED256A08AB007F0CEB /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8308B6EC256A08AB007F0CEB /* APIKeys.plist */; };
-		8308B6F3256A0A58007F0CEB /* LocalServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6F2256A0A58007F0CEB /* LocalServices.swift */; };
 		8308B6F9256A19DF007F0CEB /* URLPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6F8256A19DF007F0CEB /* URLPickerViewModel.swift */; };
 		8308B6FF256A318E007F0CEB /* URLObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6FE256A318E007F0CEB /* URLObjectType.swift */; };
 		8308B706256A3A53007F0CEB /* URLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B705256A3A53007F0CEB /* URLFile.swift */; };
@@ -190,6 +189,9 @@
 		83D5CF392564C2520018DE7C /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5CF382564C2520018DE7C /* Downloader.swift */; };
 		83E7B2C7257B5741008EE363 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */; };
 		83E7B2EB257D3EB9008EE363 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */; };
+		83F389C5259044ED00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389C4259044ED00610C76 /* iOSApple */; };
+		83F389D42590466B00610C76 /* LocalServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6F2256A0A58007F0CEB /* LocalServices.swift */; };
+		83F389DC2590468C00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389DB2590468C00610C76 /* iOSApple */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -369,6 +371,7 @@
 		83D5CF382564C2520018DE7C /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsViewModel.swift; path = "Neebla/UI/Screens/Object Details/CommentsViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		83F389C92590451C00610C76 /* iOSApple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSApple; path = ../../iOSApple; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +379,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83F389DC2590468C00610C76 /* iOSApple in Frameworks */,
 				8331F378255B8F2A0063A67D /* iOSFacebook in Frameworks */,
 				8331F376255B8F1C0063A67D /* iOSDropbox in Frameworks */,
 				83BF7CDE25857752000E0B37 /* SMLinkPreview in Frameworks */,
@@ -406,6 +410,7 @@
 				8308B6D92569F595007F0CEB /* SMLinkPreview in Frameworks */,
 				835AC8F8255B86AA00375084 /* PersistentValue in Frameworks */,
 				83B657F0255B81EC0041B9DF /* iOSBasics in Frameworks */,
+				83F389C5259044ED00610C76 /* iOSApple in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,6 +602,7 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				83F389C92590451C00610C76 /* iOSApple */,
 				83C43667258FD99D00F34628 /* iOSFacebook */,
 				834B25B8258C647600F653BC /* iOSGoogle */,
 				832D34362586CBBB00FEF094 /* ServerShared */,
@@ -786,11 +792,11 @@
 				83C4365B258F2E3200F34628 /* ConfigPlist.swift */,
 				8331F42E255F96AB0063A67D /* LocalFiles.swift */,
 				835AC8E4255B842E00375084 /* Services+Invitation.swift */,
+				8308B6F2256A0A58007F0CEB /* LocalServices.swift */,
 				835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */,
 				835AC8E6255B842E00375084 /* Services+Open.swift */,
 				835AC8E7255B842E00375084 /* Services+SignInServices.swift */,
 				8331F432255F97A50063A67D /* Services+LocalDatabase.swift */,
-				8308B6F2256A0A58007F0CEB /* LocalServices.swift */,
 				834B259C258C5F9600F653BC /* Specific SignIns */,
 			);
 			path = Services;
@@ -1001,6 +1007,7 @@
 				8331F377255B8F2A0063A67D /* iOSFacebook */,
 				83BF7CDD25857752000E0B37 /* SMLinkPreview */,
 				834B25C2258C73DA00F653BC /* iOSGoogle */,
+				83F389DB2590468C00610C76 /* iOSApple */,
 			);
 			productName = "Share Extension";
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
@@ -1039,6 +1046,7 @@
 				83BF7C642581E474000E0B37 /* ImageIOSwift */,
 				832D342C25869E2D00FEF094 /* RadioGroup */,
 				83269F0F258C4E3500D27594 /* iOSGoogle */,
+				83F389C4259044ED00610C76 /* iOSApple */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -1109,6 +1117,7 @@
 				83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */,
 				832D342B25869E2D00FEF094 /* XCRemoteSwiftPackageReference "RadioGroup" */,
 				83269F0E258C4E3500D27594 /* XCRemoteSwiftPackageReference "iOSGoogle" */,
+				83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -1214,7 +1223,6 @@
 				8331F337255B8AFD0063A67D /* MainView.swift in Sources */,
 				8308B6E9256A0733007F0CEB /* URLPreviewGenerator.swift in Sources */,
 				8331F433255F97A50063A67D /* Services+LocalDatabase.swift in Sources */,
-				8308B6F3256A0A58007F0CEB /* LocalServices.swift in Sources */,
 				835AC8EC255B842E00375084 /* Services+SignInServices.swift in Sources */,
 				83BF782C257DD242000E0B37 /* ImageObjectType+Uploadable.swift in Sources */,
 				83BF7C8725849AED000E0B37 /* Comments+Keys.swift in Sources */,
@@ -1229,6 +1237,7 @@
 				8308B706256A3A53007F0CEB /* URLFile.swift in Sources */,
 				8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */,
 				832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */,
+				83F389D42590466B00610C76 /* LocalServices.swift in Sources */,
 				835AC8E9255B842E00375084 /* Services+Invitation.swift in Sources */,
 				8331F4852560D7100063A67D /* AnyPicker.swift in Sources */,
 				8320A73C256E170900819377 /* MessagesView.swift in Sources */,
@@ -1777,6 +1786,14 @@
 				minimumVersion = 1.1.1;
 			};
 		};
+		83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/SyncServerII/iOSApple.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1893,6 +1910,15 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */;
 			productName = SMLinkPreview;
+		};
+		83F389C4259044ED00610C76 /* iOSApple */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */;
+			productName = iOSApple;
+		};
+		83F389DB2590468C00610C76 /* iOSApple */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = iOSApple;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
