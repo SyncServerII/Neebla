@@ -201,8 +201,13 @@ class Services {
     
     func appLaunch(options: [UIApplication.LaunchOptionsKey: Any]?) {
         for signIn in signInsToAdd {
-            signInServices.manager.addSignIn(signIn, launchOptions: options)
+            do {
+                try signInServices.manager.addSignIn(signIn, launchOptions: options)
+            } catch let error {
+                logger.error("\(error)")
+            }
         }
+        
         Self.setupState = .done(appLaunch: true)
     }
 }
