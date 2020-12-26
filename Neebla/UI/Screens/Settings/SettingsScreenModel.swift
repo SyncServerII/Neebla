@@ -3,6 +3,7 @@ import Foundation
 import CoreGraphics
 import SwiftUI
 import Combine
+import iOSShared
 
 class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
     var errorSubscription: AnyCancellable!

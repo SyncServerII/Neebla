@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/davbeck/ImageIOSwift.git",
         "state": {
           "branch": null,
-          "revision": "87f5d032f77c13f0b43a8c719b628ea537a7ac8e",
-          "version": "1.1.1"
+          "revision": "6603c216dd034d31308601aacf62b7bbfd81bab5",
+          "version": "1.1.2"
         }
       },
       {
@@ -98,24 +98,6 @@
           "branch": null,
           "revision": "9ad2fa50fdc19a48317aad5ddecbf8a388ca62ea",
           "version": "5.2.2"
-        }
-      },
-      {
-        "package": "iOSApple",
-        "repositoryURL": "http://github.com/SyncServerII/iOSApple.git",
-        "state": {
-          "branch": "main",
-          "revision": "3c4beec3eda70297e5a8c756177d1027a92abfe9",
-          "version": null
-        }
-      },
-      {
-        "package": "iOSDropbox",
-        "repositoryURL": "http://github.com/SyncServerII/iOSDropbox.git",
-        "state": {
-          "branch": "master",
-          "revision": "236c98ac8390e5dbabd418306641abc4c0207fc1",
-          "version": null
         }
       },
       {
@@ -195,7 +177,7 @@
         "repositoryURL": "https://github.com/MessageKit/MessageKit",
         "state": {
           "branch": "master",
-          "revision": "d9c277016c96781f9b34a138cdce062b5a79ce5e",
+          "revision": "155148dd8d44a0ec6a72651ead58f70b35ac9202",
           "version": null
         }
       },
@@ -213,8 +195,8 @@
         "repositoryURL": "https://github.com/yonat/RadioGroup.git",
         "state": {
           "branch": null,
-          "revision": "eea29f4acca1dcea7c32065c3b2b2379caefeda4",
-          "version": "1.4.2"
+          "revision": "7e4d8b48bf8da1adb27bca49307d1386aa47e3ac",
+          "version": "1.4.3"
         }
       },
       {
@@ -222,7 +204,7 @@
         "repositoryURL": "https://github.com/SyncServerII/ServerAccount.git",
         "state": {
           "branch": "master",
-          "revision": "d580f5fb871c557cb2cf9075d13e7aa4dd014334",
+          "revision": "cdbdcf096e4b55686a2cb640fa625d14ab321022",
           "version": null
         }
       },
@@ -309,11 +291,11 @@
       },
       {
         "package": "SwiftyDropbox",
-        "repositoryURL": "https://github.com/crspybits/SwiftyDropbox.git",
+        "repositoryURL": "https://github.com/dropbox/SwiftyDropbox.git",
         "state": {
-          "branch": "master",
-          "revision": "fbedfc164895e4bfece9bb8006e59f195978fe83",
-          "version": null
+          "branch": null,
+          "revision": "1a99f77ae123722322af455cb71a96e72eb153e1",
+          "version": "6.0.3"
         }
       },
       {

@@ -1,6 +1,7 @@
 
 import Foundation
 import SwiftUI
+import iOSShared
 
 struct SettingsScreen: View {
     @ObservedObject var userAlertModel: UserAlertModel

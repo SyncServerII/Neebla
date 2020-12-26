@@ -2,6 +2,7 @@
 import Foundation
 import SwiftUI
 import SFSafeSymbols
+import iOSShared
 
 struct ObjectDetailsView: View {
     @Environment(\.presentationMode) var isPresented

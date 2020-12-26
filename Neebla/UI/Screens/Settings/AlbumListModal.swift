@@ -1,6 +1,7 @@
 
 import Foundation
 import SwiftUI
+import iOSShared
 
 struct AlbumListModal: View {
     @ObservedObject var model:AlbumListModalModel

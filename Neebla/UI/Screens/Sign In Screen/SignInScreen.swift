@@ -3,15 +3,15 @@
 // Menu functionality adapted from https://github.com/Vidhyadharan24/SideMenu
 
 import SwiftUI
+import iOSShared
 
 struct SignInScreen: View {
     @ObservedObject var userAlertModel:UserAlertModel
     @ObservedObject var model:SignInScreenModel
     
     init() {
-        let userAlertModel = UserAlertModel()
-        model = SignInScreenModel(userAlertModel: userAlertModel)
-        self.userAlertModel = userAlertModel
+        model = SignInScreenModel(userAlertModel: Services.session.userAlertModel)
+        self.userAlertModel = Services.session.userAlertModel
     }
     
     var body: some View {

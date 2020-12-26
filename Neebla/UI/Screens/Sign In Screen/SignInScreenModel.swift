@@ -2,6 +2,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import iOSShared
 
 class SignInScreenModel: ObservableObject, ModelAlertDisplaying {
     @Published var userAlertModel:UserAlertModel

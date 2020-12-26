@@ -4,6 +4,7 @@ import SwiftUI
 import ServerShared
 import RadioGroup
 import WebKit
+import iOSShared
 
 struct AlbumSharingParameters {
     let invitationCode: UUID

@@ -226,6 +226,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8307B77725959D1C006DCF49 /* iOSDropbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSDropbox; path = ../../iOSDropbox; sourceTree = "<group>"; };
 		8308B6E2256A0479007F0CEB /* URLPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPreviewView.swift; sourceTree = "<group>"; };
 		8308B6E8256A0733007F0CEB /* URLPreviewGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPreviewGenerator.swift; sourceTree = "<group>"; };
 		8308B6EC256A08AB007F0CEB /* APIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
@@ -602,6 +603,7 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				8307B77725959D1C006DCF49 /* iOSDropbox */,
 				83F389C92590451C00610C76 /* iOSApple */,
 				83C43667258FD99D00F34628 /* iOSFacebook */,
 				834B25B8258C647600F653BC /* iOSGoogle */,

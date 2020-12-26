@@ -97,6 +97,9 @@ class Services {
     // Neebla database
     var db:Connection!
     weak var delegate: ServicesDelegate?
+    
+    // This is passed to the iOSSignIn view, so it can present alerts to the user.
+    let userAlertModel = UserAlertModel()
 
     private init(delegate: ServicesDelegate?) {
         self.delegate = delegate
@@ -188,7 +191,7 @@ class Services {
         // Do this *after* `setupLogging`-- the initial logger created by `iOSShared` doesn't have the file logging setup.
         set(logLevel: .trace)
         
-        setupSignInServices(configPlist: configPlist, signIns: signIns, bundleIdentifier: bundleIdentifier, helper: self)
+        setupSignInServices(configPlist: configPlist, signIns: signIns, bundleIdentifier: bundleIdentifier, helper: self, userAlertModel: userAlertModel)
         
         logger.info("Services: init successful!")
         Self.setupState = .done(appLaunch: false)

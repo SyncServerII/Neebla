@@ -3,21 +3,7 @@ import Foundation
 import SwiftUI
 import iOSBasics
 import Combine
-
-// User Alert Messages are intended to be informational, and not require a decision on the part of the user. They can be positive (e.g., "A user was created." or negative (e.g. "A server request failed.").
-
-enum UserAlertContents {
-    case title(String)
-    case full(title: String, message: String)
-    
-    // Shows "Error" as title
-    case error(message: String)
-}
-
-protocol UserAlertMessage: AnyObject {
-    var userAlert: UserAlertContents? { get set }
-    var screenDisplayed: Bool { get set }
-}
+import iOSShared
 
 extension UserAlertMessage {
     func showMessage(for errorEvent: ErrorEvent?) {
@@ -36,18 +22,6 @@ extension UserAlertMessage {
         case .none:
             // This isn't an error
             break
-        }
-    }
-}
-
-class UserAlertModel: ObservableObject, UserAlertMessage {
-    var screenDisplayed: Bool = false
-    @Published var show: Bool = false
-    
-    var userAlert: UserAlertContents? {
-        didSet {
-            // If we don't constrain this by whether or not the screen is displayed, when we navigate to other screens, we get the same error, once per screen-- because each screen model has an `errorSubscription`. I don't know if having these models remain allocated is standard behavior for SwiftUI, but currently it is the case.
-            show = userAlert != nil && screenDisplayed
         }
     }
 }
@@ -71,11 +45,11 @@ extension View {
         self.alert(isPresented: show, content: {
             switch message.userAlert {
             case .full(title: let title, message: let message):
-                return Alert(title: Text(title), message: Text(message), dismissButton: nil)
+                return Alert(title: Text(title), message: Text(message))
             case .title(let title):
                 return Alert(title: Text(title))
             case .error(message: let message):
-                return Alert(title: Text("Error!"), message: Text(message), dismissButton: nil)
+                return Alert(title: Text("Error!"), message: Text(message))
             case .none:
                 return Alert(title: Text("Error!"))
             }

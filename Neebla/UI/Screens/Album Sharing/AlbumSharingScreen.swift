@@ -1,5 +1,6 @@
 
 import SwiftUI
+import iOSShared
 
 struct AlbumSharingScreen: View {
     @ObservedObject var model:AlbumSharingScreenModel
