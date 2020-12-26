@@ -6,7 +6,7 @@ import iOSBasics
 import iOSShared
 
 extension Services {
-    func setupSignInServices(configPlist: ConfigPlist, signIns: SignIns, bundleIdentifier: String, helper: SharingInvitationHelper, userAlertModel: UserAlertModel) {
+    func setupSignInServices(configPlist: ConfigPlist, signIns: SignIns, bundleIdentifier: String, helper: SharingInvitationHelper) {
     
         var signInDescriptions = [SignInDescription]()
 
@@ -33,6 +33,6 @@ extension Services {
             
             helpTextWhenAcceptingInvitation: "Accepting the invitation will give you an account in Neebla. If you accept using a cloud storage account (e.g., Dropbox), it will be used to save the files you create. If allowed, and you use a social account (e.g., Facebook) to accept the invitation, files you create will be saved in your inviting users cloud storage. When you sign into Neebla later, you should use these same account credentials.")
 
-        signInServices = SignInServices(descriptions: signInDescriptions, configuration: configuration, appBundleIdentifier: bundleIdentifier, signIns: signIns, sharingInvitationHelper: helper, userAlertModel: userAlertModel)
+        signInServices = SignInServices(descriptions: signInDescriptions, configuration: configuration, appBundleIdentifier: bundleIdentifier, signIns: signIns, sharingInvitationHelper: helper)
     }
 }

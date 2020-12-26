@@ -8,10 +8,14 @@ import iOSShared
 struct SignInScreen: View {
     @ObservedObject var userAlertModel:UserAlertModel
     @ObservedObject var model:SignInScreenModel
-    
+
     init() {
-        model = SignInScreenModel(userAlertModel: Services.session.userAlertModel)
-        self.userAlertModel = Services.session.userAlertModel
+        let userAlertModel = UserAlertModel()
+        model = SignInScreenModel(userAlertModel: userAlertModel)
+        self.userAlertModel = userAlertModel
+        
+        // so the `signInView` can show alerts.
+        Services.session.signInServices.userAlertDelegate = userAlertModel
     }
     
     var body: some View {
