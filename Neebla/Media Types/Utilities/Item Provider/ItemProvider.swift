@@ -2,6 +2,8 @@
 import Foundation
 
 protocol ItemProvider {
+    var assets: UploadableMediaAssets { get}
+    
     // If the provider returns true from this, then use the constructor to make an instance.
     static func canHandle(item: NSItemProvider) -> Bool
     

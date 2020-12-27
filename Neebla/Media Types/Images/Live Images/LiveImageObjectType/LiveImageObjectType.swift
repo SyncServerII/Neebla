@@ -71,13 +71,7 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         let imageFileURL = try createNewFile(for: imageDeclaration.fileLabel)
         let movieFileURL = try createNewFile(for: movieDeclaration.fileLabel)
 
-        switch assets.imageType {
-        case .heic:
-            try convertHEICImageToJPEG(heicURL: assets.imageFile, outputJPEGImageURL: imageFileURL)
-        case .jpeg:
-            _ = try FileManager.default.replaceItemAt(imageFileURL, withItemAt: assets.imageFile, backupItemName: nil, options: [])
-        }
-        
+        _ = try FileManager.default.replaceItemAt(imageFileURL, withItemAt: assets.imageFile, backupItemName: nil, options: [])
         _ = try FileManager.default.replaceItemAt(movieFileURL, withItemAt: assets.movieFile, backupItemName: nil, options: [])
 
         let objectModel = try ServerObjectModel(db: Services.session.db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: objectType, creationDate: Date(), updateCreationDate: true)

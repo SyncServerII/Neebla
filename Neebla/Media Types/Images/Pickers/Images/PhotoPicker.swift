@@ -32,10 +32,10 @@ struct PhotoPicker: UIViewControllerRepresentable {
         return config
     }
     @Binding var isPresented: Bool
-    let completion:(Result<PickedImage, Error>)->()
+    let completion:(Result<UploadableMediaAssets, Error>)->()
     
     // Completion handler is called back on the main thread.
-    init(isPresented:Binding<Bool>, completion:@escaping (Result<PickedImage, Error>)->()) {
+    init(isPresented:Binding<Bool>, completion:@escaping (Result<UploadableMediaAssets, Error>)->()) {
         self._isPresented = isPresented
         self.completion = completion
     }
@@ -74,164 +74,28 @@ struct PhotoPicker: UIViewControllerRepresentable {
             
             let result = results[0]
             
-            // I'm going to get a live image first-- because I think I'll be able to get a jpeg image from a live image in some cases. And don't want to always default to jpeg in those cases.
-            tryToGetLiveImage(result: result) { [weak self] image in
-                guard let self = self else { return }
-                
-                switch image {
-                case .success(let pickedImage):
-                    logger.debug("liveImage: pickedImage: \(pickedImage)")
-                    DispatchQueue.main.async {
-                        self.parent.isPresented = false
-                        self.parent.completion(image)
-                    }
-                    
-                case .failure:
-                    self.tryToGetImage(result: result) { image in
-                        switch image {
-                        case .success(let pickedImage):
-                            logger.debug("image: pickedImage: \(pickedImage)")
-                            
-                        case .failure(let error):
-                            logger.error("error: \(error)")
-                        }
-                        
+            do {
+                try ItemProviderFactory.create(using: result.itemProvider) { result in
+                    switch result {
+                    case .success(let itemProvider):
+                        logger.debug("liveImage: pickedImage: \(itemProvider)")
                         DispatchQueue.main.async {
                             self.parent.isPresented = false
-                            self.parent.completion(image)
+                            self.parent.completion(.success(itemProvider.assets))
+                        }
+                        
+                    case .failure(let error):
+                        logger.error("error: \(error)")
+                        DispatchQueue.main.async {
+                            self.parent.completion(.failure(error))
                         }
                     }
                 }
-            }
-        }
-        
-        func tryToGetImage(result: PHPickerResult, completion:@escaping (Result<PickedImage, Error>)->()) {
-            let imageIdentifier = "public.jpeg"
-            result.itemProvider.loadFileRepresentation(forTypeIdentifier: imageIdentifier) { [weak self] (url, error) in
-                guard let self = self else { return }
-                if let error = error {
-                    completion(.failure(error))
-                    return
+            } catch let error {
+                logger.error("error: \(error)")
+                DispatchQueue.main.async {
+                    self.parent.completion(.failure(error))
                 }
-                
-                guard let url = url else {
-                    completion(.failure(PhotoPickerError.couldNotGetImage))
-                    return
-                }
-                
-                // The file we get back isn't one we can do just anything with. E.g., we can't use the FileManager replaceItemAt method with it. Copy it.
-                
-                let imageFileCopy:URL
-                do {
-                    imageFileCopy = try Files.createTemporary(withPrefix: "image", andExtension: FilenameExtensions.jpegImage, inDirectory: self.tempDir, create: false)
-                    try FileManager.default.copyItem(at: url, to: imageFileCopy)
-                } catch let error {
-                    logger.error("\(error)")
-                    completion(.failure(PhotoPickerError.couldNotGetImage))
-                    return
-                }
-                    
-                let assets = ImageObjectTypeAssets(jpegFile: imageFileCopy)
-                completion(.success(.jpeg(assets: assets)))
-            }
-        }
-        
-        func tryToGetLiveImage(result: PHPickerResult, completion:@escaping (Result<PickedImage, Error>)->()) {
-            let movieUTI = "com.apple.quicktime-movie"
-            let heicUTI = "public.heic"
-            let jpegUTI = "public.jpeg"
-            
-            let itemProvider = result.itemProvider
-            if itemProvider.canLoadObject(ofClass: PHLivePhoto.self) {
-                itemProvider.loadObject(ofClass: PHLivePhoto.self) { [weak self] livePhoto, error in
-                    guard let self = self else { return }
-                    
-                    if let livePhoto = livePhoto as? PHLivePhoto {
-                        let assetResources = PHAssetResource.assetResources(for: livePhoto)
-                        guard assetResources.count == 2 else {
-                            completion(.failure(PhotoPickerError.couldNotGetImage))
-                            return
-                        }
-                        
-                        let filteredForMovie = assetResources.filter {$0.uniformTypeIdentifier == movieUTI}
-
-                        guard filteredForMovie.count == 1 else {
-                            logger.error("Could not find movie resource: \(movieUTI)")
-                            completion(.failure(PhotoPickerError.couldNotGetImage))
-                            return
-                        }
-                        
-                        let movie:PHAssetResource = filteredForMovie[0]
-                        
-                        let filteredForOther = assetResources.filter {$0 !== movie}
-                        
-                        guard filteredForOther.count == 1 else {
-                            logger.error("Could not find other resource")
-                            completion(.failure(PhotoPickerError.couldNotGetImage))
-                            return
-                        }
-                        let image: PHAssetResource = filteredForOther[0]
-
-                        let pickedImageType: LiveImageObjectTypeAssets.ImageType
-                        
-                        switch image.uniformTypeIdentifier {
-                        case heicUTI:
-                            pickedImageType = .heic
-                        case jpegUTI:
-                            pickedImageType = .jpeg
-                        default:
-                            logger.error("UTI for image wasn't known.")
-                            completion(.failure(PhotoPickerError.couldNotGetImage))
-                            return
-                        }
-                        
-                        logger.debug("assetResources: \(assetResources.count)")
-                        
-
-                            
-                        let movieFile:URL
-                        let imageFile:URL
-                        let filePrefix = "live"
-                        
-                        do {
-                            movieFile = try Files.createTemporary(withPrefix: filePrefix, andExtension: "mov", inDirectory: self.tempDir, create: false)
-                            imageFile = try Files.createTemporary(withPrefix: filePrefix, andExtension: pickedImageType.rawValue, inDirectory: self.tempDir, create: false)
-                        } catch let error {
-                            logger.error("Could not create url: error: \(error)")
-                            completion(.failure(PhotoPickerError.failedCreatingURL))
-                            return
-                        }
-                        
-                        PHAssetResourceManager.default().writeData(for: movie, toFile: movieFile, options: nil) { error in
-                            if let error = error {
-                                logger.error("Could not write movie file: \(movieFile); error: \(error)")
-                                completion(.failure(PhotoPickerError.couldNotGetImage))
-                                return
-                            }
-                            
-                            logger.debug("Wrote movie file to: \(movieFile)")
-                            
-                            PHAssetResourceManager.default().writeData(for: image, toFile: imageFile, options: nil) { error in
-                                if let error = error {
-                                    logger.error("Could not write image file: \(imageFile); error: \(error)")
-                                    completion(.failure(PhotoPickerError.couldNotGetImage))
-                                    return
-                                }
-                                
-                                let assets = LiveImageObjectTypeAssets(imageFile: imageFile, imageType: pickedImageType, movieFile: movieFile)
-                                
-                                completion(.success(.liveImage(assets: assets)))
-                            }
-                        }
-                    } else {
-                        logger.debug("No live photo!")
-                        completion(.failure(PhotoPickerError.couldNotGetImage))
-                    }
-                }
-            }
-            else {
-                print("Could not load PHLivePhoto")
-                completion(.failure(PhotoPickerError.couldNotGetImage))
             }
         }
     }

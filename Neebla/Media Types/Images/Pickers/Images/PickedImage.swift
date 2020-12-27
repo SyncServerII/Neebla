@@ -3,6 +3,8 @@ import Foundation
 import iOSShared
 import UIKit
 
+// REMOVE THIS
+
 enum PickedImage {
     enum PickedImageError: Error {
         case noLiveImageSupportYet

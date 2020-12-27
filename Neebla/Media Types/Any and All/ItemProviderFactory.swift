@@ -15,6 +15,9 @@ class ItemProviderFactory {
     
     // The order in this list matters. If one provider works, the following are not tried.
     static let providers:[SXItemProvider.Type] = [
+        // Try this first. If we put `ImageItemProvider` and the image available is JPEG, it will succeed and the live image will never succeed.
+        LiveImageItemProvider.self,
+
         ImageItemProvider.self
     ]
     

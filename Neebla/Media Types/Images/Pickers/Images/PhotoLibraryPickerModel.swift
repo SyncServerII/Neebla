@@ -12,16 +12,15 @@ class PhotoLibraryPickerModel {
         self.dismisser = dismisser
     }
     
-    func uploadImage(pickerResult: Result<PickedImage, Error>) {
+    func uploadImage(pickerResult: Result<UploadableMediaAssets, Error>) {
         switch pickerResult {
         case .failure(let error):
             logger.error("error: \(error)")
             #warning("Need to show this to the user.")
             break
             
-        case .success(let pickedImage):
+        case .success(let asset):
             do {
-                let asset = try pickedImage.toUploadAssets()
                 try AnyTypeManager.session.uploadNewObject(assets: asset, sharingGroupUUID: sharingGroupUUID)
                 dismisser.dismiss(acquiredNewItem: true)
             }

@@ -193,6 +193,14 @@
 		83C734A6259876040073788A /* ItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734A1259876000073788A /* ItemProvider.swift */; };
 		83C734F3259890AC0073788A /* LIveImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734F2259890AC0073788A /* LIveImageItemProvider.swift */; };
 		83C734F4259890AC0073788A /* LIveImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734F2259890AC0073788A /* LIveImageItemProvider.swift */; };
+		83C734FE25991B700073788A /* SXItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7345425986DB60073788A /* SXItemProvider.swift */; };
+		83C7350225991B880073788A /* ItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734A1259876000073788A /* ItemProvider.swift */; };
+		83C73506259922440073788A /* LiveImageObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7859258061DF000E0B37 /* LiveImageObjectType.swift */; };
+		83C7350A259922470073788A /* LiveImageObjectType+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7C692584595B000E0B37 /* LiveImageObjectType+Image.swift */; };
+		83C7350B259922490073788A /* LiveImageObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF785E258066BC000E0B37 /* LiveImageObjectType+Uploadable.swift */; };
+		83C7351A259924790073788A /* ImageIOUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 83C73519259924790073788A /* ImageIOUIKit */; };
+		83C7352425992CAD0073788A /* ItemProviderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7345325986DB60073788A /* ItemProviderFactory.swift */; };
+		83C7352825992CC10073788A /* ImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7345525986DB60073788A /* ImageItemProvider.swift */; };
 		83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EA625707E79004A418B /* PriorityQueue.swift */; };
 		83CE1EAD257080EE004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
 		83CE1EB2257081BC004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
@@ -396,6 +404,7 @@
 				83F389DC2590468C00610C76 /* iOSApple in Frameworks */,
 				8331F378255B8F2A0063A67D /* iOSFacebook in Frameworks */,
 				8331F376255B8F1C0063A67D /* iOSDropbox in Frameworks */,
+				83C7351A259924790073788A /* ImageIOUIKit in Frameworks */,
 				83BF7CDE25857752000E0B37 /* SMLinkPreview in Frameworks */,
 				834B25C3258C73DA00F653BC /* iOSGoogle in Frameworks */,
 				8331F374255B8F110063A67D /* FileLogging in Frameworks */,
@@ -1049,6 +1058,7 @@
 				834B25C2258C73DA00F653BC /* iOSGoogle */,
 				83F389DB2590468C00610C76 /* iOSApple */,
 				83C7349C259870630073788A /* Toucan */,
+				83C73519259924790073788A /* ImageIOUIKit */,
 			);
 			productName = "Share Extension";
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
@@ -1211,6 +1221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83C73506259922440073788A /* LiveImageObjectType.swift in Sources */,
 				8331F384255B8FA20063A67D /* ServerInterface.swift in Sources */,
 				83BF7CCE258575FE000E0B37 /* UploadableMediaType.swift in Sources */,
 				832D34542587151B00FEF094 /* Value+Extras.swift in Sources */,
@@ -1225,6 +1236,7 @@
 				83C7348C25986FE00073788A /* ImageObjectType+Uploadable.swift in Sources */,
 				83C73494259870080073788A /* GenericImageModel.swift in Sources */,
 				834B25B1258C637400F653BC /* Services+SignIns.swift in Sources */,
+				83C7350A259922470073788A /* LiveImageObjectType+Image.swift in Sources */,
 				83C7349025986FFD0073788A /* GenericImageIcon.swift in Sources */,
 				8331F36D255B8DD10063A67D /* ItemPreview.swift in Sources */,
 				8331F439255F9AF70063A67D /* Services+LocalDatabase.swift in Sources */,
@@ -1252,6 +1264,7 @@
 				83C734A6259876040073788A /* ItemProvider.swift in Sources */,
 				8331F4E02561F8160063A67D /* ServerInterface+Helpers.swift in Sources */,
 				83BF7CD225857611000E0B37 /* URLFile.swift in Sources */,
+				83C7350B259922490073788A /* LiveImageObjectType+Uploadable.swift in Sources */,
 				834B25CC258C7C2200F653BC /* ServicesDelegate.swift in Sources */,
 				8331F444255F9C920063A67D /* ServerObjectModel.swift in Sources */,
 				83BF7CA6258543B4000E0B37 /* Comments+Keys.swift in Sources */,
@@ -1286,6 +1299,7 @@
 				8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */,
 				8308B706256A3A53007F0CEB /* URLFile.swift in Sources */,
 				8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */,
+				83C7352825992CC10073788A /* ImageItemProvider.swift in Sources */,
 				832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */,
 				83F389D42590466B00610C76 /* LocalServices.swift in Sources */,
 				835AC8E9255B842E00375084 /* Services+Invitation.swift in Sources */,
@@ -1327,6 +1341,7 @@
 				83BF7867258077F1000E0B37 /* LiveImageIcon.swift in Sources */,
 				8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */,
 				8320A6EC256CB56800819377 /* AnyLargeMedia.swift in Sources */,
+				83C7352425992CAD0073788A /* ItemProviderFactory.swift in Sources */,
 				8331F47E2560CE540063A67D /* AnyTypeManager.swift in Sources */,
 				83BF78712580789A000E0B37 /* TextInLowerRight.swift in Sources */,
 				8331F4C5256110520063A67D /* FileInfo+Extras.swift in Sources */,
@@ -1352,6 +1367,7 @@
 				8320A71A256E0E0500819377 /* ObjectDetailsModel.swift in Sources */,
 				8308B716256B4995007F0CEB /* RatioModifier.swift in Sources */,
 				8331F402255F83790063A67D /* AlbumsScreen.swift in Sources */,
+				83C7350225991B880073788A /* ItemProvider.swift in Sources */,
 				8331F4A92560F1C20063A67D /* MediaTypeButton.swift in Sources */,
 				83BF7CE42585B915000E0B37 /* AlbumSharingScreen.swift in Sources */,
 				834B259E258C5FC900F653BC /* ServerInterface+CloudHashing.swift in Sources */,
@@ -1375,6 +1391,7 @@
 				832D345C25871AFE00FEF094 /* AlbumListModal.swift in Sources */,
 				83E7B2EB257D3EB9008EE363 /* PhotoPicker.swift in Sources */,
 				8331F332255B8AFD0063A67D /* MenuNavBar.swift in Sources */,
+				83C734FE25991B700073788A /* SXItemProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1966,6 +1983,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8320A770256F62D800819377 /* XCRemoteSwiftPackageReference "Toucan" */;
 			productName = Toucan;
+		};
+		83C73519259924790073788A /* ImageIOUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */;
+			productName = ImageIOUIKit;
 		};
 		83F389C4259044ED00610C76 /* iOSApple */ = {
 			isa = XCSwiftPackageProductDependency;

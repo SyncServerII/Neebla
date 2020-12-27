@@ -11,10 +11,14 @@ class ImageItemProvider: SXItemProvider {
         case bizzareWrongType
     }
 
-    private let assets: ImageObjectTypeAssets
+    var assets: UploadableMediaAssets {
+        return imageAssets
+    }
+
+    private let imageAssets: ImageObjectTypeAssets
     
     required init(assets: ImageObjectTypeAssets) {
-        self.assets = assets
+        self.imageAssets = assets
     }
     
     static func canHandle(item: NSItemProvider) -> Bool {
@@ -72,10 +76,10 @@ class ImageItemProvider: SXItemProvider {
     }
     
     var preview: AnyView {
-        AnyView(GenericImageIcon(.url(assets.jpegFile)))
+        AnyView(GenericImageIcon(.url(imageAssets.jpegFile)))
     }
     
     func upload(toAlbum sharingGroupUUID: UUID) throws {
-        try ImageObjectType.uploadNewObjectInstance(assets: assets, sharingGroupUUID: sharingGroupUUID)
+        try ImageObjectType.uploadNewObjectInstance(assets: imageAssets, sharingGroupUUID: sharingGroupUUID)
     }
 }
