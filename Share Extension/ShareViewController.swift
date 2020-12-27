@@ -29,39 +29,44 @@ struct ShowAlert {
 class ShareViewController: UIViewController {
     var hostingController:UIHostingController<SharingView>!
     var showAlert: ShowAlert?
-    let viewModel = ShareViewModel()
+    var viewModel = ShareViewModel()
+    var viewHasAppeared = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         logger.info("viewDidLoad: ShareViewController")
-
+        
+        // Setup the view first so that we can show an error if neeed.
+        setupView(viewModel: viewModel)
+        
         viewModel.userSignedIn = false
-        
-        if setupServices() {
-            viewModel.userSignedIn = Services.session.signInServices.manager.userIsSignedIn
-        }
-        
         viewModel.cancel = { [weak self] in
             self?.cancel()
         }
         
+        guard setupServices() else {
+            logger.error("Could not setup services")
+            return
+        }
+        
+        viewModel.setupAfterServicesInitialized()
+        viewModel.userSignedIn = Services.session.signInServices.manager.userIsSignedIn
+
         viewModel.post = { [weak self] itemProvider, sharingGroupUUID in
             //self?.uploadFile(itemProvider: itemProvider, sharingGroupUUID: sharingGroupUUID)
         }
-        
-        setupView()
-        
+
+        // Call `getSharedFile` before view appears because it may take some time to run.
         getSharedFile { [weak self] result in
             switch result {
             case .success(let itemProvider):
                 DispatchQueue.main.async {
+                    logger.debug("itemProvider: \(itemProvider)")
                     self?.viewModel.sharingItem = itemProvider
                 }
 
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self?.showAlert = ShowAlert(title: "Alert!", message: "Could not load item!")
-                }
+                self?.showAlert(title: "Alert!", message: "Could not load item! Perhaps you selected more than one?")
                 logger.error("\(error)")
             }
         }
@@ -71,14 +76,25 @@ class ShareViewController: UIViewController {
         setViewModelSize(size: size)
     }
     
+    private func showAlert(title: String, message: String) {
+        DispatchQueue.main.async {
+            if self.viewHasAppeared {
+                self.viewModel.userAlertModel.userAlert = .full(title: title, message: message)
+            }
+            else {
+                self.showAlert = ShowAlert(title: title, message: message)
+            }
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let showAlert = showAlert {
-            Alert.show(withTitle: showAlert.title, message: showAlert.message, style: .alert) {
-                 self.cancel()
-            }
+            viewModel.userAlertModel.userAlert = .full(title: showAlert.title, message: showAlert.message)
         }
+        
+        viewHasAppeared = true
     }
 }
 
@@ -91,7 +107,7 @@ extension ShareViewController {
         self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
     }
     
-    func setupView() {
+    func setupView(viewModel: ShareViewModel)  {
         setViewModelSize(size: view.frame.size)
         hostingController = UIHostingController(rootView: SharingView(viewModel: viewModel))
         addChild(hostingController)
@@ -135,6 +151,7 @@ extension ShareViewController {
         hostingController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
+    // If false is returned an alert was given to the user.
     func setupServices() -> Bool {
         // If the sharing extension is used twice in a row, we oddly have a state where it's already been initialized. Get a crash on multiple initialization, so be careful.
         if Services.setupState == .none {
@@ -149,9 +166,13 @@ extension ShareViewController {
         
         guard Services.setupState.isComplete else {
             logger.error("Services.session.setupState: \(Services.setupState)")
-            DispatchQueue.main.async { [weak self] in
-                self?.showAlert = ShowAlert(title: "Alert!", message: "Problem with setting up sharing.")
-            }
+            showAlert(title: "Alert!", message: "Problem with setting up sharing.")
+            return false
+        }
+        
+        guard Services.session.signInServices.manager.userIsSignedIn else {
+            // The UI gives a message about this. No reason to give another alert.
+            logger.warning("No user is signed in.")
             return false
         }
         
@@ -169,7 +190,13 @@ extension ShareViewController {
         case notJustOneFile
     }
 
-    func getSharedFile(completion: @escaping (Result<ItemProvider, Error>)->()) {
+    /*
+    For a live photo:
+    - 0 : <NSItemProvider: 0x600000253c60> {types = (
+    "public.jpeg",
+    "com.apple.live-photo"
+     */
+    func getSharedFile(completion: @escaping (Result<SXItemProvider, Error>)->()) {
         let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
         
         guard attachments.count == 1 else {

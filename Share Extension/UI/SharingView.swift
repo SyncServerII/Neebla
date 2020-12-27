@@ -4,6 +4,13 @@ import iOSSignIn
 
 struct SharingView: View {
     @ObservedObject var viewModel:ShareViewModel
+    @ObservedObject var userAlertModel:UserAlertModel
+    
+    init(viewModel: ShareViewModel) {
+        self.viewModel = viewModel
+        userAlertModel = viewModel.userAlertModel
+    }
+
     let insideViewOffset: CGFloat = 30
     
     var body: some View {
@@ -24,6 +31,7 @@ struct SharingView: View {
         }
         .frame(width: viewModel.width, height: viewModel.height)
         .background(Color(UIColor.systemBackground))
+        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
     }
 }
 
@@ -38,24 +46,10 @@ struct Container: View {
             else {
                 Text("You are not signed in. Please sign in using the Neebla app.")
                     .foregroundColor(Color(UIColor.label))
+                    .font(.title)
             }
         }
     }
 }
 
-struct SharingView_Previews: PreviewProvider {
-    static let viewModel = ShareViewModel()
-    static var previews: some View {
-        viewModel.width = 250
-        viewModel.height = 450
-        viewModel.sharingGroups = [
-            SharingGroupData(id: UUID(), name: "Group 1"),
-            SharingGroupData(id: UUID(), name: "Group 2"),
-            SharingGroupData(id: UUID(), name: "Group 3"),
-            SharingGroupData(id: UUID(), name: "Group 4"),
-            SharingGroupData(id: UUID(), name: "Group 5"),
-            SharingGroupData(id: UUID(), name: "Group 6")
-        ]
-        return SharingView(viewModel: viewModel)
-    }
-}
+

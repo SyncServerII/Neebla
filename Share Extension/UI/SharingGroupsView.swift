@@ -45,13 +45,4 @@ struct SharingGroupsView: View {
     }
 }
 
-struct SharingGroups_Previews: PreviewProvider {
-    static let viewModel = ShareViewModel()
-    static var previews: some View {
-        viewModel.width = 150
-        viewModel.height = 300
-        viewModel.sharingGroups = [SharingGroupData(id: UUID(), name: "Group 1"), SharingGroupData(id: UUID(), name: "Group 2"), SharingGroupData(id: UUID(), name: "Group 3")]
-        return SharingGroupsView(viewModel: viewModel)
-    }
-}
 

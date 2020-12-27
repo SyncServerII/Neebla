@@ -10,19 +10,23 @@ import iOSShared
 import Combine
 import CoreGraphics
 
-class ShareViewModel: ObservableObject {
+class ShareViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var width: CGFloat = 0
     @Published var height: CGFloat = 0
     @Published var sharingGroups = [SharingGroupData]()
     @Published var userSignedIn: Bool = true
     @Published var selectedSharingGroupUUID: UUID?
-    @Published var sharingItem: ItemProvider?
-    var cancel:(()->())?
-    var post:((ItemProvider, _ sharingGroupUUID: UUID)->())!
+    @Published var sharingItem: SXItemProvider?
+    @Published var userAlertModel = UserAlertModel()
     
+    var errorSubscription: AnyCancellable!
+    var cancel:(()->())?
+    var post:((SXItemProvider, _ sharingGroupUUID: UUID)->())!
     private var syncSubscription:AnyCancellable!
-
-    init() {
+    
+    // Make sure `Services.session` is setup before calling this.
+    func setupAfterServicesInitialized() {
+        setupHandleErrors()
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             self.syncCompletionHelper()

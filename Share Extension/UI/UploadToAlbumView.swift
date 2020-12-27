@@ -28,12 +28,3 @@ struct UploadToAlbumView: View {
     }
 }
 
-struct UploadToAlbumView_Previews: PreviewProvider {
-    static let viewModel = ShareViewModel()
-    static var previews: some View {
-        viewModel.width = 250
-        viewModel.height = 400
-        viewModel.sharingGroups = [SharingGroupData(id: UUID(), name: "Group 1"), SharingGroupData(id: UUID(), name: "Group 2"), SharingGroupData(id: UUID(), name: "Group 3")]
-        return UploadToAlbumView(viewModel: viewModel)
-    }
-}

@@ -22,10 +22,4 @@ struct ItemPreview: View {
     }
 }
 
-struct ItemPreview_Previews: PreviewProvider {
-    static let viewModel = ShareViewModel()
-    static var previews: some View {
-        ItemPreview(viewModel: viewModel)
-    }
-}
 
