@@ -11,6 +11,6 @@ struct ImageIcon: View {
     }
     
     var body: some View {
-        return GenericImageIcon(fileLabel: imageFileLabel, object: object)
+        GenericImageIcon(.object(fileLabel: imageFileLabel, object: object))
     }
 }

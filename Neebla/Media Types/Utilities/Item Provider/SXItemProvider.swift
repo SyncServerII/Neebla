@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 import ServerShared
 
-// Sharing Extension Item Provider protocol
+// Sharing Extension Item Provider
 
 protocol SXItemProvider: ItemProvider {
     // Don't use the `getMediaAssets` method from ItemProvider any more. Use this.

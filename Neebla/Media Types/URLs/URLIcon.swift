@@ -17,7 +17,7 @@ struct URLIcon: View {
     
     var body: some View {
         ZStack {
-            GenericImageIcon(fileLabel: urlFileLabel, object: object, model: imageModel)
+            GenericImageIcon(.model(imageModel))
             
             if imageModel.imageStatus == .none || imageModel.imageStatus == .loaded {
                 TextInLowerRight(text: "url")

@@ -11,16 +11,10 @@ class ImageItemProvider: SXItemProvider {
         case bizzareWrongType
     }
 
-    private let imageURL: URL
-    private let image:UIImage
+    private let assets: ImageObjectTypeAssets
     
-    required init(url: URL) throws {
-        self.imageURL = url
-        let data = try Data(contentsOf: imageURL)
-        guard let image = UIImage(data: data) else {
-            throw ImageItemProviderError.cannotGetImage
-        }
-        self.image = image
+    required init(assets: ImageObjectTypeAssets) {
+        self.assets = assets
     }
     
     static func canHandle(item: NSItemProvider) -> Bool {
@@ -37,12 +31,8 @@ class ImageItemProvider: SXItemProvider {
                     return
                 }
                 
-                do {
-                    let obj = try Self.init(url: assets.jpegFile)
-                    completion(.success(obj))
-                } catch let error {
-                    completion(.failure(error))
-                }
+                let obj = Self.init(assets: assets)
+                completion(.success(obj))
                 
             case .failure(let error):
                 completion(.failure(error))
@@ -82,13 +72,10 @@ class ImageItemProvider: SXItemProvider {
     }
     
     var preview: AnyView {
-        AnyView(
-            Image(uiImage: image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-        )
+        AnyView(GenericImageIcon(.url(assets.jpegFile)))
     }
     
     func upload(toAlbum sharingGroupUUID: UUID) throws {
+        try ImageObjectType.uploadNewObjectInstance(assets: assets, sharingGroupUUID: sharingGroupUUID)
     }
 }

@@ -13,7 +13,10 @@ class ItemProviderFactory {
         case couldNotGetURL
     }
     
-    static let providers:[SXItemProvider.Type] = SXAllItemProviders.providers
+    // The order in this list matters. If one provider works, the following are not tried.
+    static let providers:[SXItemProvider.Type] = [
+        ImageItemProvider.self
+    ]
     
     static func create(using attachment: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>)->()) throws {
         

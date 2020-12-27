@@ -52,10 +52,6 @@ class ShareViewController: UIViewController {
         viewModel.setupAfterServicesInitialized()
         viewModel.userSignedIn = Services.session.signInServices.manager.userIsSignedIn
 
-        viewModel.post = { [weak self] itemProvider, sharingGroupUUID in
-            //self?.uploadFile(itemProvider: itemProvider, sharingGroupUUID: sharingGroupUUID)
-        }
-
         // Call `getSharedFile` before view appears because it may take some time to run.
         getSharedFile { [weak self] result in
             switch result {
@@ -190,12 +186,6 @@ extension ShareViewController {
         case notJustOneFile
     }
 
-    /*
-    For a live photo:
-    - 0 : <NSItemProvider: 0x600000253c60> {types = (
-    "public.jpeg",
-    "com.apple.live-photo"
-     */
     func getSharedFile(completion: @escaping (Result<SXItemProvider, Error>)->()) {
         let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
         
@@ -212,28 +202,4 @@ extension ShareViewController {
             completion(.failure(error))
         }
     }
-    
-    /*
-    func uploadFile(itemProvider: ItemProvider, sharingGroupUUID: UUID) {
-        let fileUUID = UUID()
-        let fileGroupUUID = UUID()
-        
-        let declaration1 = FileDeclaration(uuid: fileUUID, mimeType: itemProvider.mimeType, appMetaData: nil, changeResolverName: nil)
-        let declarations = Set<FileDeclaration>([declaration1])
-        
-        let uploadable1 = FileUpload(uuid: fileUUID, dataSource: .copy(itemProvider.itemURL))
-        let uploadables = Set<FileUpload>([uploadable1])
-
-        let testObject = ObjectDeclaration(fileGroupUUID: fileGroupUUID, objectType: "Image", sharingGroupUUID: sharingGroupUUID, declaredFiles: declarations)
-        
-        do {
-            try serverInterface.syncServer.queue(uploads: uploadables, declaration: testObject)
-            done()
-        } catch let error {
-            logger.error("\(error)")
-            Alert.show(withTitle: "Alert!", message: "Could not queue image for upload!", style: .alert)
-            cancel()
-        }
-    }
-    */
 }

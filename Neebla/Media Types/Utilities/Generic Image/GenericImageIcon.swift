@@ -6,25 +6,24 @@ import iOSShared
 import Toucan
 
 struct GenericImageIcon: View {
-    // Image icons are square.
-    static let dimension: CGFloat = 75
-    
     @ObservedObject var model:GenericImageModel
-    let object: ServerObjectModel
-    let fileLabel: String
-    
-    // The default image must be square.
+    static let dimension: CGFloat = 75
     static let defaultImageName = "ImageLoading" // From Asset catalog
-        
-    init(fileLabel: String, object: ServerObjectModel, model:GenericImageModel? = nil) {
-        self.object = object
-        self.fileLabel = fileLabel
-        
-        if let model = model {
+
+    enum Parameters {
+        case object(fileLabel:String, object: ServerObjectModel)
+        case url(URL)
+        case model(GenericImageModel)
+    }
+    
+    init(_ parameters: Parameters) {
+        switch parameters {
+        case .model(let model):
             self.model = model
-        }
-        else {
-            self.model = GenericImageModel(fileLabel: fileLabel, fileGroupUUID: object.fileGroupUUID, imageScale: CGSize(width: Self.dimension, height: Self.dimension))
+        case .object(fileLabel: let fileLabel, object: let object):
+            model = GenericImageModel(fileLabel: fileLabel, fileGroupUUID: object.fileGroupUUID, imageScale: CGSize(width: Self.dimension, height: Self.dimension))
+        case .url(let url):
+            model = GenericImageModel(fullSizeImageURL: url, imageScale: CGSize(width: Self.dimension, height: Self.dimension))
         }
     }
     

@@ -27,7 +27,7 @@ struct ButtonBar: View {
                 Button("Post", action: {
                     if let preview = viewModel.sharingItem,
                         let sharingGroupUUID = viewModel.selectedSharingGroupUUID {
-                        viewModel.post?(preview, sharingGroupUUID)
+                        viewModel.upload(item: preview, sharingGroupUUID: sharingGroupUUID)
                     }
                 })
                 .disabled(viewModel.sharingItem == nil || viewModel.selectedSharingGroupUUID == nil)

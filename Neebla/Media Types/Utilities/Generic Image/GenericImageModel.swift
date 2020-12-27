@@ -8,7 +8,6 @@ import iOSShared
 import Toucan
 
 class GenericImageModel: ObservableObject {
-    private let fileLabel: String
     @Published var image: UIImage?
     
     enum ImageStatus {
@@ -16,16 +15,19 @@ class GenericImageModel: ObservableObject {
         case loading
         case loaded
     }
-    
+
     @Published var imageStatus: ImageStatus = .none
 
     // Starts loading image when initialized. Image loads asynchronously, but is assigned to `image` on the main thread when finished loading.
     init(fileLabel: String, fileGroupUUID: UUID, imageScale: CGSize? = nil) {
-        self.fileLabel = fileLabel
-        loadImage(fileGroupUUID: fileGroupUUID, scale: imageScale)
+        loadImage(fileGroupUUID: fileGroupUUID, fileLabel: fileLabel, scale: imageScale)
+    }
+    
+    init(fullSizeImageURL: URL, imageScale: CGSize? = nil) {
+        loadImage(fullSizeImageURL: fullSizeImageURL, scale: imageScale)
     }
         
-    private func loadImage(fileGroupUUID: UUID, scale: CGSize? = nil) {
+    private func loadImage(fileGroupUUID: UUID, fileLabel: String, scale: CGSize? = nil) {
         imageStatus = .loading
                 
         guard let imageFileModel = try? ServerFileModel.getFileFor(fileLabel: fileLabel, withFileGroupUUID: fileGroupUUID) else {
@@ -37,7 +39,11 @@ class GenericImageModel: ObservableObject {
             noImageHelper()
             return
         }
-                
+        
+        loadImage(fullSizeImageURL: fullSizeImageURL, scale: scale)
+    }
+    
+    private func loadImage(fullSizeImageURL: URL, scale: CGSize?) {
         // Are we scaling?
         if let scale = scale {
             let iconURL = self.iconURLWithScaling(scale: scale, url: fullSizeImageURL)

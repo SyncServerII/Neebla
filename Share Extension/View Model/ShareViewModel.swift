@@ -21,7 +21,6 @@ class ShareViewModel: ObservableObject, ModelAlertDisplaying {
     
     var errorSubscription: AnyCancellable!
     var cancel:(()->())?
-    var post:((SXItemProvider, _ sharingGroupUUID: UUID)->())!
     private var syncSubscription:AnyCancellable!
     
     // Make sure `Services.session` is setup before calling this.
@@ -47,6 +46,14 @@ class ShareViewModel: ObservableObject, ModelAlertDisplaying {
             self.sharingGroups = sharingGroups.enumerated().map { index, group in
                 return SharingGroupData(id: group.sharingGroupUUID, name: group.sharingGroupName ?? "Album \(index)")
             }
+        }
+    }
+    
+    func upload(item: SXItemProvider, sharingGroupUUID: UUID) {
+        do {
+            try item.upload(toAlbum: sharingGroupUUID)
+        } catch let error {
+            logger.error("\(error)")
         }
     }
 }

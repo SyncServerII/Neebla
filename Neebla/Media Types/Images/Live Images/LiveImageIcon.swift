@@ -12,7 +12,7 @@ struct LiveImageIcon: View {
     
     var body: some View {
         ZStack {
-            GenericImageIcon(fileLabel: imageFileLabel, object: object)
+            GenericImageIcon(.object(fileLabel: imageFileLabel, object: object))
             TextInLowerRight(text: "live")
         }
     }
