@@ -26,6 +26,11 @@ struct ShowAlert {
 
 // To make a custom UI: https://stackoverflow.com/questions/25922118 (The original superclass for ShareViewController was `SLComposeServiceViewController`).
 
+// It looks like I need to declare what file types I can receive in the share extension:
+// https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/ExtensionScenarios.html#//apple_ref/doc/uid/TP40014214-CH21-SW8
+// https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AppExtensionKeys.html
+// https://stackoverflow.com/questions/38226283/ios-share-extension-not-working-on-image-urls
+
 class ShareViewController: UIViewController {
     var hostingController:UIHostingController<SharingView>!
     var showAlert: ShowAlert?
@@ -193,7 +198,7 @@ extension ShareViewController {
             completion(.failure(HandleSharedFileError.notJustOneFile))
             return
         }
-          
+
         do {
             try ItemProviderFactory.create(using: attachments[0]) { result in
                 completion(result)
@@ -203,3 +208,25 @@ extension ShareViewController {
         }
     }
 }
+
+/* Another issue: When tap on some live photos and open the share extension, it immediately closes. Like it crashed. But the Photo's app doesn't crash. I'm seeing this in the console log:
+
+default	19:08:17.662079-0700	MobileSlideShow	SLRemoteComposeViewController: (this may be harmless) viewServiceDidTerminateWithError: Error Domain=_UIViewServiceInterfaceErrorDomain Code=3 "(null)" UserInfo={Message=Service Connection Interrupted}
+default	19:08:17.662122-0700	MobileSlideShow	viewServiceDidTerminateWithError:: Error Domain=_UIViewServiceInterfaceErrorDomain Code=3 "(null)" UserInfo={Message=Service Connection Interrupted}
+
+A little before:
+
+default	19:08:17.663129-0700	runningboardd	XPC connection invalidated: [xpcservice<biz.SpasticMuffin.SharedImages.Share([application<com.apple.mobileslideshow>:19084])>:19092]
+default	19:08:17.663306-0700	nsurlsessiond	NDSession
+
+And then a little later:
+
+default	19:08:17.684577-0700	runningboardd	[xpcservice<biz.SpasticMuffin.SharedImages.Share([application<com.apple.mobileslideshow>:19084])>:19092] termination reported by launchd (1, 7, 9)
+
+When I stop processing related to the NSItemProvider values, this problem goes away. There's some suggestion here: https://developer.apple.com/forums/thread/54456 that this is graphics related.
+
+When I remove live image processing: Same deal. Crash.
+When I stop rendering the icon with a still image: That fixes it. Looks related to rendering the icon image.
+Is this related to scaling the image? When I stop scaling, the problem goes away.
+    I have dealt with this by removing use of Toucan/resize-- that seems to be the issue.
+*/

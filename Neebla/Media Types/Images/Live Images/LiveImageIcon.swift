@@ -3,16 +3,15 @@ import Foundation
 import SwiftUI
 
 struct LiveImageIcon: View {
-    let imageFileLabel = LiveImageObjectType.imageDeclaration.fileLabel
-    let object: ServerObjectModel
+    let parameters: GenericImageIcon.Parameters
     
-    init(object: ServerObjectModel) {
-        self.object = object
+    init(_ parameters: GenericImageIcon.Parameters) {
+        self.parameters = parameters
     }
     
     var body: some View {
         ZStack {
-            GenericImageIcon(.object(fileLabel: imageFileLabel, object: object))
+            GenericImageIcon(parameters)
             TextInLowerRight(text: "live")
         }
     }

@@ -13,9 +13,10 @@ class LiveImageItemProvider: SXItemProvider {
         case couldNotConvertToJPEG
     }
     
+    // This is what I see in the sharing extension
     static let livePhotoUTI = "com.apple.live-photo"
     
-    // This is what I see in the sharing extension
+    // This is what I see in the main app.
     static let livePhotoBundleUTI = "com.apple.live-photo-bundle"
     
     static let movieUTI = "com.apple.quicktime-movie"
@@ -34,12 +35,20 @@ class LiveImageItemProvider: SXItemProvider {
     
     static func canHandle(item: NSItemProvider) -> Bool {
         let conformsToImage = item.hasItemConformingToTypeIdentifier(jpegUTI) || item.hasItemConformingToTypeIdentifier(heicUTI)
-        let conformsToLivePhoto = item.hasItemConformingToTypeIdentifier(livePhotoUTI) || item.hasItemConformingToTypeIdentifier(livePhotoBundleUTI)
+        
+        let conformsToLivePhotoUTI = item.hasItemConformingToTypeIdentifier(livePhotoUTI)
+        let conformsToLivePhotoBundleUTI = item.hasItemConformingToTypeIdentifier(livePhotoBundleUTI)
+        
+        let conformsToLivePhoto = conformsToLivePhotoUTI || conformsToLivePhotoBundleUTI
         
         let canHandle = conformsToImage && conformsToLivePhoto
         
+        logger.debug("conformsToLivePhotoUTI: \(conformsToLivePhotoUTI)")
+        logger.debug("conformsToLivePhotoBundleUTI: \(conformsToLivePhotoBundleUTI)")
         logger.debug("canHandle: \(canHandle)")
-        return canHandle
+
+        // `canLoadObject` is returning false in sharing extension. Check for it here.
+        return canHandle && item.canLoadObject(ofClass: PHLivePhoto.self)
     }
     
     static func create(item: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>) -> ()) {
@@ -70,13 +79,16 @@ class LiveImageItemProvider: SXItemProvider {
     // And https://stackoverflow.com/questions/33247240/error-accessing-live-photo-from-app-extension
     // And possibly https://stackoverflow.com/questions/39422917/get-video-from-share-extension-from-photos-like-whatsapp
     // Posted my own question: https://stackoverflow.com/questions/65470983/getting-a-live-image-phlivephoto-when-in-a-sharing-extension-using-the-photos
+    // item.loadFileRepresentation(forTypeIdentifier: Self.movieUTI) is also failing with `No appropriate representation found for type com.apple.quicktime-movie`
+    
     static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) {
+        
         guard item.canLoadObject(ofClass: PHLivePhoto.self) else {
             logger.error("Could not load PHLivePhoto")
             completion(.failure(LiveImageItemProviderError.cannotGetLivePhoto))
             return
         }
-
+        
         item.loadObject(ofClass: PHLivePhoto.self) { livePhoto, error in
             guard let livePhoto = livePhoto as? PHLivePhoto else {
                 logger.debug("No live photo: \(String(describing: error))")
@@ -183,10 +195,11 @@ class LiveImageItemProvider: SXItemProvider {
 
     var preview: AnyView {
         return AnyView(
-            Rectangle()
+            LiveImageIcon(.url(liveImageAssets.imageFile))
         )
     }
     
     func upload(toAlbum sharingGroupUUID: UUID) throws {
+        try LiveImageObjectType.uploadNewObjectInstance(assets: liveImageAssets, sharingGroupUUID: sharingGroupUUID)
     }
 }

@@ -19,7 +19,7 @@ struct SharingGroupsView: View {
             return Color(red: 0, green: 0, blue: 114, opacity: 1.0)
         }
         else {
-            return Color(red: 0, green: 140, blue: 230, opacity: 1.0)
+            return Color(red: 0, green: 140, blue: 230, opacity: 0.2)
         }
     }
     

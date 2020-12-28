@@ -16,7 +16,7 @@ struct AnyIcon: View {
                 URLIcon(object: object)
                 
             case LiveImageObjectType.objectType:
-                LiveImageIcon(object:object)
+                LiveImageIcon(.object(fileLabel: LiveImageObjectType.imageDeclaration.fileLabel, object: object))
             
             default:
                 EmptyView()

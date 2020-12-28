@@ -4,7 +4,8 @@ import ServerShared
 import iOSShared
 
 class ImageItemProvider: SXItemProvider {
-    static let imageIdentifier = "public.jpeg"
+    // TODO: Extend this to dealing with PNG and possibly HEIC images. Not sure if a HEIC image can be the only one, but I've seen just a PNG.
+    static let jpegUTI = "public.jpeg"
 
     enum ImageItemProviderError: Error {
         case cannotGetImage
@@ -22,7 +23,7 @@ class ImageItemProvider: SXItemProvider {
     }
     
     static func canHandle(item: NSItemProvider) -> Bool {
-        return item.hasItemConformingToTypeIdentifier(imageIdentifier)
+        return item.hasItemConformingToTypeIdentifier(jpegUTI)
     }
 
     static func create(item: NSItemProvider, completion:@escaping (Result<SXItemProvider, Error>)->()) {
@@ -47,7 +48,7 @@ class ImageItemProvider: SXItemProvider {
     static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) {
         let tempDir = Files.getDocumentsDirectory().appendingPathComponent(LocalFiles.temporary)
 
-        item.loadFileRepresentation(forTypeIdentifier: Self.imageIdentifier) { (url, error) in
+        item.loadFileRepresentation(forTypeIdentifier: Self.jpegUTI) { (url, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -76,7 +77,9 @@ class ImageItemProvider: SXItemProvider {
     }
     
     var preview: AnyView {
-        AnyView(GenericImageIcon(.url(imageAssets.jpegFile)))
+        AnyView(
+            GenericImageIcon(.url(imageAssets.jpegFile))
+        )
     }
     
     func upload(toAlbum sharingGroupUUID: UUID) throws {

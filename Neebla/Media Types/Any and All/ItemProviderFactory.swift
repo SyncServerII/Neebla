@@ -15,10 +15,11 @@ class ItemProviderFactory {
     
     // The order in this list matters. If one provider works, the following are not tried.
     static let providers:[SXItemProvider.Type] = [
-        // Try this first. If we put `ImageItemProvider` and the image available is JPEG, it will succeed and the live image will never succeed.
+        // Try this first. If we put `ImageItemProvider` first and the image available is JPEG, it will succeed and the live image will never succeed.
         LiveImageItemProvider.self,
 
-        ImageItemProvider.self
+        ImageItemProvider.self,
+        URLItemProvider.self
     ]
     
     static func create(using attachment: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>)->()) throws {

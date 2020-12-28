@@ -27,12 +27,21 @@
 			<key>IntentsSupported</key>
 			<array/>
 			<key>NSExtensionActivationRule</key>
-			<dict>
-				<key>NSExtensionActivationSupportsImageWithMaxCount</key>
-				<integer>1</integer>
-				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
-				<integer>1</integer>
-			</dict>
+			<string>SUBQUERY (
+              extensionItems,
+              $extensionItem,
+              SUBQUERY (
+                  $extensionItem.attachments,
+                  $attachment,
+                  (
+                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg" ||
+                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.heic" ||
+                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.apple.quicktime-movie" ||
+                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.apple.live-photo" ||
+                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url"
+                  )
+              ).@count == $extensionItem.attachments.@count and $extensionItem.attachments.@count == 1
+            ).@count == 1</string>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>

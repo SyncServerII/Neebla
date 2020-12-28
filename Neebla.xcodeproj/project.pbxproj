@@ -32,7 +32,6 @@
 		8320A74F256F3EF900819377 /* DefaultModalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A74E256F3EF900819377 /* DefaultModalStyle.swift */; };
 		8320A755256F530C00819377 /* SFSymbolNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A754256F530C00819377 /* SFSymbolNavBar.swift */; };
 		8320A759256F568400819377 /* View+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A758256F568400819377 /* View+Extras.swift */; };
-		8320A772256F62D800819377 /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8320A771256F62D800819377 /* Toucan */; };
 		83269F10258C4E3500D27594 /* iOSGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 83269F0F258C4E3500D27594 /* iOSGoogle */; };
 		832D341D258680B100FEF094 /* AlbumSharingModalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */; };
 		832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D341C258680B100FEF094 /* AlbumSharingModal.swift */; };
@@ -189,7 +188,6 @@
 		83C7349025986FFD0073788A /* GenericImageIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4F2256208320063A67D /* GenericImageIcon.swift */; };
 		83C73494259870080073788A /* GenericImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F517256220670063A67D /* GenericImageModel.swift */; };
 		83C73498259870320073788A /* RatioModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B715256B4995007F0CEB /* RatioModifier.swift */; };
-		83C7349D259870630073788A /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 83C7349C259870630073788A /* Toucan */; };
 		83C734A6259876040073788A /* ItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734A1259876000073788A /* ItemProvider.swift */; };
 		83C734F3259890AC0073788A /* LIveImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734F2259890AC0073788A /* LIveImageItemProvider.swift */; };
 		83C734F4259890AC0073788A /* LIveImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734F2259890AC0073788A /* LIveImageItemProvider.swift */; };
@@ -201,11 +199,17 @@
 		83C7351A259924790073788A /* ImageIOUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 83C73519259924790073788A /* ImageIOUIKit */; };
 		83C7352425992CAD0073788A /* ItemProviderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7345325986DB60073788A /* ItemProviderFactory.swift */; };
 		83C7352825992CC10073788A /* ImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7345525986DB60073788A /* ImageItemProvider.swift */; };
+		83C73942259966470073788A /* URLItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C73941259966470073788A /* URLItemProvider.swift */; };
+		83C73943259966470073788A /* URLItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C73941259966470073788A /* URLItemProvider.swift */; };
+		83C73947259968920073788A /* LiveImageIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7866258077F1000E0B37 /* LiveImageIcon.swift */; };
+		83C7394B259968E30073788A /* TextInLowerRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF78702580789A000E0B37 /* TextInLowerRight.swift */; };
 		83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EA625707E79004A418B /* PriorityQueue.swift */; };
 		83CE1EAD257080EE004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
 		83CE1EB2257081BC004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
 		83CE1EBC257088F0004A418B /* PriorityQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EBB257088F0004A418B /* PriorityQueueTests.swift */; };
 		83D5CF392564C2520018DE7C /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5CF382564C2520018DE7C /* Downloader.swift */; };
+		83E1A98025999BE7004D4029 /* URLPreviewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6E8256A0733007F0CEB /* URLPreviewGenerator.swift */; };
+		83E1A98425999C38004D4029 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8308B6EC256A08AB007F0CEB /* APIKeys.plist */; };
 		83E7B2C7257B5741008EE363 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */; };
 		83E7B2EB257D3EB9008EE363 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */; };
 		83F389C5259044ED00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389C4259044ED00610C76 /* iOSApple */; };
@@ -383,6 +387,7 @@
 		83C7345525986DB60073788A /* ImageItemProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageItemProvider.swift; sourceTree = "<group>"; };
 		83C734A1259876000073788A /* ItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemProvider.swift; sourceTree = "<group>"; };
 		83C734F2259890AC0073788A /* LIveImageItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIveImageItemProvider.swift; sourceTree = "<group>"; };
+		83C73941259966470073788A /* URLItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLItemProvider.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		83CE1EAC257080EE004A418B /* BasicEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicEquatable.swift; sourceTree = "<group>"; };
 		83CE1EB9257088F0004A418B /* PriorityQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriorityQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -400,7 +405,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83C7349D259870630073788A /* Toucan in Frameworks */,
 				83F389DC2590468C00610C76 /* iOSApple in Frameworks */,
 				8331F378255B8F2A0063A67D /* iOSFacebook in Frameworks */,
 				8331F376255B8F1C0063A67D /* iOSDropbox in Frameworks */,
@@ -416,7 +420,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8320A772256F62D800819377 /* Toucan in Frameworks */,
 				835AC8E1255B835D00375084 /* FileLogging in Frameworks */,
 				835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */,
 				8331F33C255B8B4E0063A67D /* SideMenu in Frameworks */,
@@ -521,6 +524,7 @@
 				8308B702256A3A34007F0CEB /* URLObjectType */,
 				8308B71B256B4A44007F0CEB /* URLIcon.swift */,
 				8320A6F9256CC64700819377 /* URLLargeMedia.swift */,
+				83C73941259966470073788A /* URLItemProvider.swift */,
 				8320A765256F58CE00819377 /* URL PIcker */,
 			);
 			path = URLs;
@@ -1057,7 +1061,6 @@
 				83BF7CDD25857752000E0B37 /* SMLinkPreview */,
 				834B25C2258C73DA00F653BC /* iOSGoogle */,
 				83F389DB2590468C00610C76 /* iOSApple */,
-				83C7349C259870630073788A /* Toucan */,
 				83C73519259924790073788A /* ImageIOUIKit */,
 			);
 			productName = "Share Extension";
@@ -1092,7 +1095,6 @@
 				8331F456255FB5790063A67D /* CustomModalView */,
 				8308B6D82569F595007F0CEB /* SMLinkPreview */,
 				8320A70D256DF07E00819377 /* MessageKit */,
-				8320A771256F62D800819377 /* Toucan */,
 				83BF7C622581E474000E0B37 /* ImageIOUIKit */,
 				83BF7C642581E474000E0B37 /* ImageIOSwift */,
 				832D342C25869E2D00FEF094 /* RadioGroup */,
@@ -1164,7 +1166,6 @@
 				8331F455255FB5790063A67D /* XCRemoteSwiftPackageReference "CustomModalView" */,
 				8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */,
 				8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */,
-				8320A770256F62D800819377 /* XCRemoteSwiftPackageReference "Toucan" */,
 				83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */,
 				832D342B25869E2D00FEF094 /* XCRemoteSwiftPackageReference "RadioGroup" */,
 				83269F0E258C4E3500D27594 /* XCRemoteSwiftPackageReference "iOSGoogle" */,
@@ -1187,6 +1188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8331F3B4255BAE290063A67D /* iOSSignIn in Resources */,
+				83E1A98425999C38004D4029 /* APIKeys.plist in Resources */,
 				8331F3A2255B9E8C0063A67D /* Server.plist in Resources */,
 				8331F365255B8DD10063A67D /* Media.xcassets in Resources */,
 				8331F34D255B8CC50063A67D /* MainInterface.storyboard in Resources */,
@@ -1225,6 +1227,7 @@
 				8331F384255B8FA20063A67D /* ServerInterface.swift in Sources */,
 				83BF7CCE258575FE000E0B37 /* UploadableMediaType.swift in Sources */,
 				832D34542587151B00FEF094 /* Value+Extras.swift in Sources */,
+				83C73943259966470073788A /* URLItemProvider.swift in Sources */,
 				8331F34A255B8CC50063A67D /* ShareViewController.swift in Sources */,
 				8331F36B255B8DD10063A67D /* SharingGroupsView.swift in Sources */,
 				8331F4CE2561168B0063A67D /* ServerFileModel.swift in Sources */,
@@ -1246,6 +1249,7 @@
 				83C43660258F2F5400F34628 /* ConfigPlist.swift in Sources */,
 				83BF7CB025854448000E0B37 /* Comments.swift in Sources */,
 				83C734F4259890AC0073788A /* LIveImageItemProvider.swift in Sources */,
+				83E1A98025999BE7004D4029 /* URLPreviewGenerator.swift in Sources */,
 				83C7348825986FB40073788A /* ImageObjectType.swift in Sources */,
 				8331F37E255B8F790063A67D /* Services+SignInServices.swift in Sources */,
 				83C7346F25986E160073788A /* ItemProviderFactory.swift in Sources */,
@@ -1258,6 +1262,8 @@
 				834B25A8258C60AF00F653BC /* ServerInterface+CloudHashing.swift in Sources */,
 				8331F369255B8DD10063A67D /* UploadToAlbumView.swift in Sources */,
 				8331F441255F9C8E0063A67D /* AlbumModel.swift in Sources */,
+				83C73947259968920073788A /* LiveImageIcon.swift in Sources */,
+				83C7394B259968E30073788A /* TextInLowerRight.swift in Sources */,
 				83C7345E25986DBE0073788A /* SXItemProvider.swift in Sources */,
 				8331F4E72561FAEF0063A67D /* ShareViewModel.swift in Sources */,
 				8331F36A255B8DD10063A67D /* SharingGroupData.swift in Sources */,
@@ -1294,6 +1300,7 @@
 				83C43FF92574371C0016BA4C /* Comments.swift in Sources */,
 				83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */,
 				8320A6E3256CB2F400819377 /* ObjectDetailsView.swift in Sources */,
+				83C73942259966470073788A /* URLItemProvider.swift in Sources */,
 				83BF7847257DDD71000E0B37 /* CameraMediaTypeModel.swift in Sources */,
 				83BF7CC225854ECE000E0B37 /* DeveloperScreenModel.swift in Sources */,
 				8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */,
@@ -1742,14 +1749,6 @@
 				kind = branch;
 			};
 		};
-		8320A770256F62D800819377 /* XCRemoteSwiftPackageReference "Toucan" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/petrpavlik/Toucan";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
 		83269F0E258C4E3500D27594 /* XCRemoteSwiftPackageReference "iOSGoogle" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSGoogle";
@@ -1875,11 +1874,6 @@
 			package = 8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */;
 			productName = MessageKit;
 		};
-		8320A771256F62D800819377 /* Toucan */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8320A770256F62D800819377 /* XCRemoteSwiftPackageReference "Toucan" */;
-			productName = Toucan;
-		};
 		83269F0F258C4E3500D27594 /* iOSGoogle */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 83269F0E258C4E3500D27594 /* XCRemoteSwiftPackageReference "iOSGoogle" */;
@@ -1978,11 +1972,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */;
 			productName = SMLinkPreview;
-		};
-		83C7349C259870630073788A /* Toucan */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8320A770256F62D800819377 /* XCRemoteSwiftPackageReference "Toucan" */;
-			productName = Toucan;
 		};
 		83C73519259924790073788A /* ImageIOUIKit */ = {
 			isa = XCSwiftPackageProductDependency;

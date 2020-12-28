@@ -308,15 +308,6 @@
         }
       },
       {
-        "package": "Toucan",
-        "repositoryURL": "https://github.com/petrpavlik/Toucan",
-        "state": {
-          "branch": "develop",
-          "revision": "3755e969b0be377a62405c84d558a201e79bdacb",
-          "version": null
-        }
-      },
-      {
         "package": "TypeDecoder",
         "repositoryURL": "https://github.com/Kitura/TypeDecoder.git",
         "state": {
