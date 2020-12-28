@@ -26,8 +26,8 @@ class ImageItemProvider: SXItemProvider {
         return item.hasItemConformingToTypeIdentifier(jpegUTI)
     }
 
-    static func create(item: NSItemProvider, completion:@escaping (Result<SXItemProvider, Error>)->()) {
-        getMediaAssets(item: item) { result in
+    static func create(item: NSItemProvider, completion:@escaping (Result<SXItemProvider, Error>)->()) -> Any? {
+        _ = getMediaAssets(item: item) { result in
             switch result {
             case .success(let assets):
                 guard let assets = assets as? ImageObjectTypeAssets else {
@@ -43,9 +43,11 @@ class ImageItemProvider: SXItemProvider {
                 completion(.failure(error))
             }
         }
+        
+        return nil
     }
 
-    static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) {
+    static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
         let tempDir = Files.getDocumentsDirectory().appendingPathComponent(LocalFiles.temporary)
 
         item.loadFileRepresentation(forTypeIdentifier: Self.jpegUTI) { (url, error) in
@@ -74,6 +76,8 @@ class ImageItemProvider: SXItemProvider {
             let assets = ImageObjectTypeAssets(jpegFile: imageFileCopy)
             completion(.success(assets))
         }
+        
+        return nil
     }
     
     var preview: AnyView {

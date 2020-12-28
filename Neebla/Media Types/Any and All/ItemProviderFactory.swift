@@ -8,6 +8,8 @@
 import Foundation
 
 class ItemProviderFactory {
+    var handle: Any?
+    
     enum ItemProviderFactoryError: Error {
         case noMatchingTypeIdentifiers
         case couldNotGetURL
@@ -22,11 +24,11 @@ class ItemProviderFactory {
         URLItemProvider.self
     ]
     
-    static func create(using attachment: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>)->()) throws {
+    func create(using attachment: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>)->()) throws {
         
-        for provider in providers {
+        for provider in Self.providers {
             if provider.canHandle(item: attachment) {
-                provider.create(item: attachment, completion: completion)
+                handle = provider.create(item: attachment, completion: completion)
                 return
             }
         }

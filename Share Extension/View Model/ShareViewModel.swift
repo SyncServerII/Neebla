@@ -52,6 +52,9 @@ class ShareViewModel: ObservableObject, ModelAlertDisplaying {
     func upload(item: SXItemProvider, sharingGroupUUID: UUID) {
         do {
             try item.upload(toAlbum: sharingGroupUUID)
+            
+            // Once the upload is triggered, close the sharing extension. The upload will continue in the background! :)
+            cancel?()
         } catch let error {
             logger.error("\(error)")
         }

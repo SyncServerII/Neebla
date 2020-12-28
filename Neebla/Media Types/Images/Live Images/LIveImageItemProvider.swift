@@ -51,8 +51,8 @@ class LiveImageItemProvider: SXItemProvider {
         return canHandle && item.canLoadObject(ofClass: PHLivePhoto.self)
     }
     
-    static func create(item: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>) -> ()) {
-        getMediaAssets(item: item) { result in
+    static func create(item: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
+        _ = getMediaAssets(item: item) { result in
             switch result {
             case .success(let assets):
                 guard let assets = assets as? LiveImageObjectTypeAssets else {
@@ -68,6 +68,8 @@ class LiveImageItemProvider: SXItemProvider {
                 completion(.failure(error))
             }
         }
+        
+        return nil
     }
 
     private enum ImageType: String {
@@ -81,12 +83,12 @@ class LiveImageItemProvider: SXItemProvider {
     // Posted my own question: https://stackoverflow.com/questions/65470983/getting-a-live-image-phlivephoto-when-in-a-sharing-extension-using-the-photos
     // item.loadFileRepresentation(forTypeIdentifier: Self.movieUTI) is also failing with `No appropriate representation found for type com.apple.quicktime-movie`
     
-    static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) {
+    static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
         
         guard item.canLoadObject(ofClass: PHLivePhoto.self) else {
             logger.error("Could not load PHLivePhoto")
             completion(.failure(LiveImageItemProviderError.cannotGetLivePhoto))
-            return
+            return nil
         }
         
         item.loadObject(ofClass: PHLivePhoto.self) { livePhoto, error in
@@ -191,6 +193,8 @@ class LiveImageItemProvider: SXItemProvider {
                 }
             }
         }
+        
+        return nil
     }
 
     var preview: AnyView {

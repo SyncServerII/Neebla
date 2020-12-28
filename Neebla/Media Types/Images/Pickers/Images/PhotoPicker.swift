@@ -57,6 +57,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
         var progress:Progress?
       
         private let parent: PhotoPicker
+        let itemProviderFactory = ItemProviderFactory()
         
         init(_ parent: PhotoPicker) {
             self.parent = parent
@@ -75,7 +76,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
             let result = results[0]
             
             do {
-                try ItemProviderFactory.create(using: result.itemProvider) { result in
+                try itemProviderFactory.create(using: result.itemProvider) { result in
                     switch result {
                     case .success(let itemProvider):
                         logger.debug("liveImage: pickedImage: \(itemProvider)")

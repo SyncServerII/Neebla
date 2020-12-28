@@ -7,7 +7,8 @@ import ServerShared
 
 protocol SXItemProvider: ItemProvider {
     // Don't use the `getMediaAssets` method from ItemProvider any more. Use this.
-    static func create(item: NSItemProvider, completion:@escaping (Result<SXItemProvider, Error>)->())
+    // Returns a handle, that if non-nil, you need to keep a strong reference to until the completion handler returns.
+    static func create(item: NSItemProvider, completion:@escaping (Result<SXItemProvider, Error>)->()) -> Any?
     
     var preview: AnyView { get }
     func upload(toAlbum sharingGroupUUID: UUID) throws

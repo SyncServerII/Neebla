@@ -8,5 +8,6 @@ protocol ItemProvider {
     static func canHandle(item: NSItemProvider) -> Bool
     
     // If `canHandle` reported `true`, then an errors are reported only for actual errors, not because this provider cannot handle this media type.
-    static func getMediaAssets(item: NSItemProvider, completion:@escaping (Result<UploadableMediaAssets, Error>)->())
+    // Retain the returned handle, if non-nil, until the completion handler is called.
+    static func getMediaAssets(item: NSItemProvider, completion:@escaping (Result<UploadableMediaAssets, Error>)->()) -> Any?
 }

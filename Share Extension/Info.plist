@@ -24,8 +24,6 @@
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
-			<key>IntentsSupported</key>
-			<array/>
 			<key>NSExtensionActivationRule</key>
 			<string>SUBQUERY (
               extensionItems,
@@ -38,10 +36,11 @@
                   ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.heic" ||
                   ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.apple.quicktime-movie" ||
                   ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.apple.live-photo" ||
-                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url"
+                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url" ||
+                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.text"
                   )
-              ).@count == $extensionItem.attachments.@count and $extensionItem.attachments.@count == 1
-            ).@count == 1</string>
+              ).@count == $extensionItem.attachments.@count and $extensionItem.attachments.@count &lt;= 2
+            ).@count &lt;= 2</string>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>

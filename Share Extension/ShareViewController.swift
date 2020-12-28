@@ -36,6 +36,7 @@ class ShareViewController: UIViewController {
     var showAlert: ShowAlert?
     var viewModel = ShareViewModel()
     var viewHasAppeared = false
+    let itemProviderFactory = ItemProviderFactory()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -200,7 +201,7 @@ extension ShareViewController {
         }
 
         do {
-            try ItemProviderFactory.create(using: attachments[0]) { result in
+            try itemProviderFactory.create(using: attachments[0]) { result in
                 completion(result)
             }
         } catch let error {

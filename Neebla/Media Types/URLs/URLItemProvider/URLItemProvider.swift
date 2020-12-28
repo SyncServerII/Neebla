@@ -3,6 +3,11 @@ import SwiftUI
 import ServerShared
 import iOSShared
 import PhotosUI
+import SMLinkPreview
+
+// This is not working in the sharing extension in Chrome:
+// https://stackoverflow.com/questions/42911395/share-extension-google-chrome-not-working
+// I updated the Info.plist so that <= 2 items are allowed and it's working now.
 
 class URLItemProvider: SXItemProvider {
     var assets: UploadableMediaAssets {
@@ -18,6 +23,7 @@ class URLItemProvider: SXItemProvider {
         case bizzareWrongType
         case cannotGetURL
         case couldNotCreateURLPreviewGenerator
+        case cannotGetLinkData
     }
     
     required init(assets: URLObjectTypeAssets) {
@@ -30,31 +36,45 @@ class URLItemProvider: SXItemProvider {
         return canHandle
     }
     
-    static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) {
-        let tempDir = Files.getDocumentsDirectory().appendingPathComponent(LocalFiles.temporary)
+    class URLItemProviderSupport {
+        var generator: URLPreviewGenerator!
+        var preview:LinkPreview!
+    }
+    
+    static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {        
+        guard let generator = try? URLPreviewGenerator() else {
+            completion(.failure(URLItemProviderError.couldNotCreateURLPreviewGenerator))
+            return nil
+        }
         
+        let support = URLItemProviderSupport()
+        support.generator = generator
+                
         item.loadItem(forTypeIdentifier: Self.urlUTI, options: nil) { results, error in
+            logger.debug("\(String(describing: results)); \(String(describing: error))")
+
             guard let url = results as? URL else {
                 completion(.failure(URLItemProviderError.cannotGetURL))
                 return
             }
-            
-            guard let generator = try? URLPreviewGenerator() else {
-                completion(.failure(URLItemProviderError.couldNotCreateURLPreviewGenerator))
-                return
-            }
-            
+
             generator.getPreview(for: url) { linkData in
-                
+                guard let linkData = linkData else {
+                    completion(.failure(URLItemProviderError.cannotGetURL))
+                    return
+                }
+
+                support.preview = LinkPreview.create(with: linkData) { image in
+                    completion(.success(URLObjectTypeAssets(linkData: linkData, image: image)))
+                }
             }
-            
-            logger.debug("\(String(describing: results)); \(String(describing: error))")
-            completion(.failure(URLItemProviderError.cannotGetURL))
         }
+        
+        return support
     }
     
-    static func create(item: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>) -> ()) {
-        getMediaAssets(item: item) { result in
+    static func create(item: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
+        let handle = getMediaAssets(item: item) { result in
             switch result {
             case .success(let assets):
                 guard let assets = assets as? URLObjectTypeAssets else {
@@ -70,14 +90,17 @@ class URLItemProvider: SXItemProvider {
                 completion(.failure(error))
             }
         }
+        
+        return handle
     }
     
     var preview: AnyView {
         return AnyView(
-            Rectangle()
+            URLPreviewItemProvider(linkData: urlAssets.linkData)
         )
     }
     
     func upload(toAlbum sharingGroupUUID: UUID) throws {
+        try URLObjectType.uploadNewObjectInstance(asset: urlAssets, sharingGroupUUID: sharingGroupUUID)
     }
 }
