@@ -210,6 +210,13 @@ extension ShareViewController {
     }
 }
 
+/*
+Links for Info.plist subqueries for indicating when the sharing extension should be active:
+https://medium.com/@cmoulinet/ios-share-extension-custom-rules-to-limit-type-or-numbers-of-medias-selected-91ab596d505
+https://github.com/irccloud/ios/blob/master/ShareExtension/Info.plist
+https://irace.me/tumblr-ios-extension
+ */
+
 /* Another issue: When tap on some live photos and open the share extension, it immediately closes. Like it crashed. But the Photo's app doesn't crash. I'm seeing this in the console log:
 
 default	19:08:17.662079-0700	MobileSlideShow	SLRemoteComposeViewController: (this may be harmless) viewServiceDidTerminateWithError: Error Domain=_UIViewServiceInterfaceErrorDomain Code=3 "(null)" UserInfo={Message=Service Connection Interrupted}
