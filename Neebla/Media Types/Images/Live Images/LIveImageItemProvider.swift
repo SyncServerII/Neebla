@@ -41,13 +41,16 @@ class LiveImageItemProvider: SXItemProvider {
         
         let conformsToLivePhoto = conformsToLivePhotoUTI || conformsToLivePhotoBundleUTI
         
-        let canHandle = conformsToImage && conformsToLivePhoto
+        // `canLoadObject` is returning false in sharing extension. Check for it here.
+        let canLoadObject = item.canLoadObject(ofClass: PHLivePhoto.self)
+        
+        let canHandle = conformsToImage && conformsToLivePhoto && canLoadObject
         
         logger.debug("conformsToLivePhotoUTI: \(conformsToLivePhotoUTI)")
         logger.debug("conformsToLivePhotoBundleUTI: \(conformsToLivePhotoBundleUTI)")
+        logger.debug("canLoadObject: \(canLoadObject)")
         logger.debug("canHandle: \(canHandle)")
 
-        // `canLoadObject` is returning false in sharing extension. Check for it here.
         return canHandle && item.canLoadObject(ofClass: PHLivePhoto.self)
     }
     

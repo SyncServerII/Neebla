@@ -25,31 +25,53 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
-			<string>SUBQUERY (
-              extensionItems,
-              $extensionItem,
-              
-              SUBQUERY (
-                  $extensionItem.attachments,
-                  $attachment,
-                  (
-                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg" ||
-                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.heic" ||
-                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.apple.quicktime-movie" ||
-                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.apple.live-photo"
-                  )
-              ).@count == $extensionItem.attachments.@count and $extensionItem.attachments.@count == 1
-              OR
-              SUBQUERY (
-                  $extensionItem.attachments,
-                  $attachment,
-                  (
-                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url" ||
-                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.text"
-                  )
-              ).@count &lt;= 2
-              
-            ).@count == 1</string>
+			<string>
+		(
+			SUBQUERY (
+				extensionItems,
+				$extensionItem,
+				SUBQUERY (
+					$extensionItem.attachments,
+					$attachment,
+					ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url" ||
+					ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.text"
+				).@count &lt;= 2
+			).@count &lt;= 2
+			AND
+			 SUBQUERY (
+				extensionItems,
+				$extensionItem,
+				SUBQUERY (
+					$extensionItem.attachments,
+					$attachment,
+					ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url" ||
+					ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.text"
+				).@count &gt;=1
+			).@count &gt;=1
+        )
+        OR
+        (
+            SUBQUERY (
+                extensionItems,
+                $extensionItem,
+                SUBQUERY (
+                    $extensionItem.attachments,
+                    $attachment,
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg"
+                ).@count == 1
+            ).@count == 1
+            AND
+            SUBQUERY (
+                extensionItems,
+                $extensionItem,
+                SUBQUERY (
+                    $extensionItem.attachments,
+                    $attachment,
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg"
+                ).@count == $extensionItem.attachments.@count
+            ).@count == 1
+        )
+            </string>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>

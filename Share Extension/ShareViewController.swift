@@ -215,6 +215,13 @@ Links for Info.plist subqueries for indicating when the sharing extension should
 https://medium.com/@cmoulinet/ios-share-extension-custom-rules-to-limit-type-or-numbers-of-medias-selected-91ab596d505
 https://github.com/irccloud/ios/blob/master/ShareExtension/Info.plist
 https://irace.me/tumblr-ios-extension
+https://stackoverflow.com/questions/34411753/how-to-only-share-an-image-or-video-with-a-share-extension
+https://stackoverflow.com/questions/26218627/ios-appextension-how-can-i-combine-nsextensionactivationrule-and-nspredicate
+https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/ExtensionScenarios.html
+https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/Articles/pSyntax.html
+
+Here are my notes on what I have so far in Neebla:
+https://github.com/SyncServerII/Neebla/issues/3
  */
 
 /* Another issue: When tap on some live photos and open the share extension, it immediately closes. Like it crashed. But the Photo's app doesn't crash. I'm seeing this in the console log:
