@@ -3,6 +3,7 @@ import SwiftUI
 import iOSSignIn
 
 struct SharingView: View {
+    static let itemPreviewSize = CGSize(width: 150, height: 150)
     @ObservedObject var viewModel:ShareViewModel
     @ObservedObject var userAlertModel:UserAlertModel
     
@@ -22,7 +23,7 @@ struct SharingView: View {
                 Container(viewModel: viewModel)
                 Spacer()
                 ItemPreview(viewModel: viewModel)
-                    .frame(width: 100, height: 100)
+                    .frame(width: Self.itemPreviewSize.width, height: Self.itemPreviewSize.height)
                 Spacer()
             }
             .frame(

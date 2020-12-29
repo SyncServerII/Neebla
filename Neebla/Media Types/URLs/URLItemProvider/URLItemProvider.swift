@@ -36,6 +36,7 @@ class URLItemProvider: SXItemProvider {
         return canHandle
     }
     
+    // This will get retained by the caller-- so we can do async callbacks.
     class URLItemProviderSupport {
         var generator: URLPreviewGenerator!
         var preview:LinkPreview!

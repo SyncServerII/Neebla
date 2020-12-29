@@ -145,7 +145,6 @@
 		83BF781F257DCE9B000E0B37 /* UploadableMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */; };
 		83BF7824257DCFBD000E0B37 /* URLObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7823257DCFBD000E0B37 /* URLObjectType+Uploadable.swift */; };
 		83BF782C257DD242000E0B37 /* ImageObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF782B257DD242000E0B37 /* ImageObjectType+Uploadable.swift */; };
-		83BF7831257DD599000E0B37 /* PickedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7830257DD599000E0B37 /* PickedImage.swift */; };
 		83BF7847257DDD71000E0B37 /* CameraMediaTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7846257DDD71000E0B37 /* CameraMediaTypeModel.swift */; };
 		83BF784F257DE02D000E0B37 /* URLPickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF784E257DE02D000E0B37 /* URLPickerModel.swift */; };
 		83BF785A258061DF000E0B37 /* LiveImageObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7859258061DF000E0B37 /* LiveImageObjectType.swift */; };
@@ -362,7 +361,6 @@
 		83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadableMediaType.swift; sourceTree = "<group>"; };
 		83BF7823257DCFBD000E0B37 /* URLObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLObjectType+Uploadable.swift"; sourceTree = "<group>"; };
 		83BF782B257DD242000E0B37 /* ImageObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageObjectType+Uploadable.swift"; sourceTree = "<group>"; };
-		83BF7830257DD599000E0B37 /* PickedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedImage.swift; sourceTree = "<group>"; };
 		83BF7846257DDD71000E0B37 /* CameraMediaTypeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMediaTypeModel.swift; sourceTree = "<group>"; };
 		83BF784E257DE02D000E0B37 /* URLPickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPickerModel.swift; sourceTree = "<group>"; };
 		83BF7859258061DF000E0B37 /* LiveImageObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageObjectType.swift; sourceTree = "<group>"; };
@@ -390,6 +388,7 @@
 		83C734A1259876000073788A /* ItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemProvider.swift; sourceTree = "<group>"; };
 		83C734F2259890AC0073788A /* LIveImageItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIveImageItemProvider.swift; sourceTree = "<group>"; };
 		83C73941259966470073788A /* URLItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLItemProvider.swift; sourceTree = "<group>"; };
+		83CB117F259AAACC0058C7F4 /* SMLinkPreview */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SMLinkPreview; path = ../../../Desktop/Apps/repos/SMLinkPreview; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		83CE1EAC257080EE004A418B /* BasicEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicEquatable.swift; sourceTree = "<group>"; };
 		83CE1EB9257088F0004A418B /* PriorityQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriorityQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -617,6 +616,7 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				83CB117F259AAACC0058C7F4 /* SMLinkPreview */,
 				8307B77725959D1C006DCF49 /* iOSDropbox */,
 				83F389C92590451C00610C76 /* iOSApple */,
 				83C43667258FD99D00F34628 /* iOSFacebook */,
@@ -888,7 +888,6 @@
 		83BF7842257DDD21000E0B37 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				83BF7830257DD599000E0B37 /* PickedImage.swift */,
 				83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */,
 				8331F49A2560D96D0063A67D /* PhotoLibraryPicker.swift */,
 				83BF7816257DC493000E0B37 /* PhotoLibraryPickerModel.swift */,
@@ -1384,7 +1383,6 @@
 				835AC8F3255B848300375084 /* ServerInterface.swift in Sources */,
 				8331F44B255FA7BA0063A67D /* AlbumsViewModel.swift in Sources */,
 				834B25C8258C7B9800F653BC /* ServicesDelegate.swift in Sources */,
-				83BF7831257DD599000E0B37 /* PickedImage.swift in Sources */,
 				8320A71A256E0E0500819377 /* ObjectDetailsModel.swift in Sources */,
 				8308B716256B4995007F0CEB /* RatioModifier.swift in Sources */,
 				8331F402255F83790063A67D /* AlbumsScreen.swift in Sources */,

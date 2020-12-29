@@ -10,14 +10,15 @@ import SwiftUI
 
 struct ItemPreview: View {
     @ObservedObject var viewModel:ShareViewModel
-
+    
     var body: some View {
         if let sharingItem = viewModel.sharingItem {
             sharingItem.preview
         }
         else {
             Rectangle()
-                .background(Color(UIColor.systemFill))
+                .fill(Color.clear)
+                .border(Color(UIColor.systemFill))
         }
     }
 }
