@@ -119,14 +119,13 @@
 		834B25A8258C60AF00F653BC /* ServerInterface+CloudHashing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B259D258C5FC900F653BC /* ServerInterface+CloudHashing.swift */; };
 		834B25AD258C613700F653BC /* Services+SignIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B25AC258C613700F653BC /* Services+SignIns.swift */; };
 		834B25B1258C637400F653BC /* Services+SignIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B25AC258C613700F653BC /* Services+SignIns.swift */; };
-		834B25C3258C73DA00F653BC /* iOSGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 834B25C2258C73DA00F653BC /* iOSGoogle */; };
 		834B25C8258C7B9800F653BC /* ServicesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B25C7258C7B9800F653BC /* ServicesDelegate.swift */; };
 		834B25CC258C7C2200F653BC /* ServicesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B25C7258C7B9800F653BC /* ServicesDelegate.swift */; };
 		835AC8D5255B82AD00375084 /* iOSDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8D4255B82AD00375084 /* iOSDropbox */; };
 		835AC8D9255B831800375084 /* iOSFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8D8255B831800375084 /* iOSFacebook */; };
 		835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8DC255B833A00375084 /* SFSafeSymbols */; };
 		835AC8E1255B835D00375084 /* FileLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8E0255B835D00375084 /* FileLogging */; };
-		835AC8E9255B842E00375084 /* Services+Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E4255B842E00375084 /* Services+Invitation.swift */; };
+		835AC8E9255B842E00375084 /* LocalServices+Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E4255B842E00375084 /* LocalServices+Invitation.swift */; };
 		835AC8EA255B842E00375084 /* Services+LoggingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */; };
 		835AC8EB255B842E00375084 /* Services+Open.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E6255B842E00375084 /* Services+Open.swift */; };
 		835AC8EC255B842E00375084 /* Services+SignInServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E7255B842E00375084 /* Services+SignInServices.swift */; };
@@ -341,9 +340,8 @@
 		8333E1A62567B06D00A5F79E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		834B259D258C5FC900F653BC /* ServerInterface+CloudHashing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServerInterface+CloudHashing.swift"; sourceTree = "<group>"; };
 		834B25AC258C613700F653BC /* Services+SignIns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services+SignIns.swift"; sourceTree = "<group>"; };
-		834B25B8258C647600F653BC /* iOSGoogle */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSGoogle; path = ../../iOSGoogle; sourceTree = "<group>"; };
 		834B25C7258C7B9800F653BC /* ServicesDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesDelegate.swift; sourceTree = "<group>"; };
-		835AC8E4255B842E00375084 /* Services+Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+Invitation.swift"; sourceTree = "<group>"; };
+		835AC8E4255B842E00375084 /* LocalServices+Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocalServices+Invitation.swift"; sourceTree = "<group>"; };
 		835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+LoggingHelpers.swift"; sourceTree = "<group>"; };
 		835AC8E6255B842E00375084 /* Services+Open.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+Open.swift"; sourceTree = "<group>"; };
 		835AC8E7255B842E00375084 /* Services+SignInServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+SignInServices.swift"; sourceTree = "<group>"; };
@@ -388,7 +386,6 @@
 		83C734A1259876000073788A /* ItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemProvider.swift; sourceTree = "<group>"; };
 		83C734F2259890AC0073788A /* LIveImageItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIveImageItemProvider.swift; sourceTree = "<group>"; };
 		83C73941259966470073788A /* URLItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLItemProvider.swift; sourceTree = "<group>"; };
-		83CB117F259AAACC0058C7F4 /* SMLinkPreview */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SMLinkPreview; path = ../../../Desktop/Apps/repos/SMLinkPreview; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		83CE1EAC257080EE004A418B /* BasicEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicEquatable.swift; sourceTree = "<group>"; };
 		83CE1EB9257088F0004A418B /* PriorityQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriorityQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -412,7 +409,6 @@
 				8331F376255B8F1C0063A67D /* iOSDropbox in Frameworks */,
 				83C7351A259924790073788A /* ImageIOUIKit in Frameworks */,
 				83BF7CDE25857752000E0B37 /* SMLinkPreview in Frameworks */,
-				834B25C3258C73DA00F653BC /* iOSGoogle in Frameworks */,
 				8331F374255B8F110063A67D /* FileLogging in Frameworks */,
 				8331F372255B8F060063A67D /* iOSBasics in Frameworks */,
 			);
@@ -487,6 +483,27 @@
 				8320A713256DF0FE00819377 /* DiscussionMessage.swift */,
 			);
 			path = Comments;
+			sourceTree = "<group>";
+		};
+		831CF122259B031200A6475A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				835AC8E8255B842E00375084 /* Services.swift */,
+				835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */,
+				835AC8E6255B842E00375084 /* Services+Open.swift */,
+				835AC8E7255B842E00375084 /* Services+SignInServices.swift */,
+				8331F432255F97A50063A67D /* Services+LocalDatabase.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		831CF126259B034700A6475A /* LocalServices */ = {
+			isa = PBXGroup;
+			children = (
+				8308B6F2256A0A58007F0CEB /* LocalServices.swift */,
+				835AC8E4255B842E00375084 /* LocalServices+Invitation.swift */,
+			);
+			path = LocalServices;
 			sourceTree = "<group>";
 		};
 		8320A74D256F3EBD00819377 /* Utilities */ = {
@@ -616,11 +633,9 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
-				83CB117F259AAACC0058C7F4 /* SMLinkPreview */,
 				8307B77725959D1C006DCF49 /* iOSDropbox */,
 				83F389C92590451C00610C76 /* iOSApple */,
 				83C43667258FD99D00F34628 /* iOSFacebook */,
-				834B25B8258C647600F653BC /* iOSGoogle */,
 				832D34362586CBBB00FEF094 /* ServerShared */,
 				83CE1ECD25709405004A418B /* iOSShared */,
 				8331F45C2560A64C0063A67D /* iOSBasics */,
@@ -803,16 +818,11 @@
 		835AC8E3255B83D100375084 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				835AC8E8255B842E00375084 /* Services.swift */,
+				831CF122259B031200A6475A /* Services */,
 				834B25C7258C7B9800F653BC /* ServicesDelegate.swift */,
 				83C4365B258F2E3200F34628 /* ConfigPlist.swift */,
 				8331F42E255F96AB0063A67D /* LocalFiles.swift */,
-				835AC8E4255B842E00375084 /* Services+Invitation.swift */,
-				8308B6F2256A0A58007F0CEB /* LocalServices.swift */,
-				835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */,
-				835AC8E6255B842E00375084 /* Services+Open.swift */,
-				835AC8E7255B842E00375084 /* Services+SignInServices.swift */,
-				8331F432255F97A50063A67D /* Services+LocalDatabase.swift */,
+				831CF126259B034700A6475A /* LocalServices */,
 				834B259C258C5F9600F653BC /* Specific SignIns */,
 			);
 			path = Services;
@@ -1070,7 +1080,6 @@
 				8331F375255B8F1C0063A67D /* iOSDropbox */,
 				8331F377255B8F2A0063A67D /* iOSFacebook */,
 				83BF7CDD25857752000E0B37 /* SMLinkPreview */,
-				834B25C2258C73DA00F653BC /* iOSGoogle */,
 				83F389DB2590468C00610C76 /* iOSApple */,
 				83C73519259924790073788A /* ImageIOUIKit */,
 			);
@@ -1322,7 +1331,7 @@
 				83C7352825992CC10073788A /* ImageItemProvider.swift in Sources */,
 				832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */,
 				83F389D42590466B00610C76 /* LocalServices.swift in Sources */,
-				835AC8E9255B842E00375084 /* Services+Invitation.swift in Sources */,
+				835AC8E9255B842E00375084 /* LocalServices+Invitation.swift in Sources */,
 				8331F4852560D7100063A67D /* AnyPicker.swift in Sources */,
 				8320A73C256E170900819377 /* MessagesView.swift in Sources */,
 				83BF7824257DCFBD000E0B37 /* URLObjectType+Uploadable.swift in Sources */,
@@ -1930,10 +1939,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8331F455255FB5790063A67D /* XCRemoteSwiftPackageReference "CustomModalView" */;
 			productName = CustomModalView;
-		};
-		834B25C2258C73DA00F653BC /* iOSGoogle */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = iOSGoogle;
 		};
 		835AC8D4255B82AD00375084 /* iOSDropbox */ = {
 			isa = XCSwiftPackageProductDependency;

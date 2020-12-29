@@ -5,6 +5,7 @@ class PriorityQueue<T: AnyObject & BasicEquatable> {
     enum PriorityQueueError: Error {
         case badMaxLength
         case badResetLength
+        case badLength
     }
     
     let maxLength: UInt
@@ -33,13 +34,31 @@ class PriorityQueue<T: AnyObject & BasicEquatable> {
         
         current.insert(object, at: 0)
     }
+
+    // Count must be <= current.count, and this sequence of current is returned,
+    // and those are removed from head, reducing the number of objects in the queue by
+    // this number.
+    @discardableResult
+    func getInitial(_ count: UInt) throws -> [T] {
+        guard count > 0 else {
+            return []
+        }
+        
+        return try reset(first: count)
+    }
+    
+    // Returns all elements, resetting the queue.
+    @discardableResult
+    func getAll() throws -> [T] {
+        return try reset()
+    }
     
     // If first is nil, resets current to empty, returning the prior contents of the queue.
     // Otherwise, first must be <= current.count, and this sequence of current is returned,
     // and those are removed from head, reducing the number of objects in the queue by
     // this number.
     @discardableResult
-    func reset(first: UInt? = nil) throws -> [T] {
+    private func reset(first: UInt? = nil) throws -> [T] {
         if let first = first {
             guard first <= current.count else {
                 throw PriorityQueueError.badResetLength

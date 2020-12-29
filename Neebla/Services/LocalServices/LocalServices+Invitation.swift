@@ -1,5 +1,5 @@
 //
-//  Services+Invitation.swift
+//  LocalServices+Invitation.swift
 //  iOSIntegration
 //
 //  Created by Christopher G Prince on 10/1/20.

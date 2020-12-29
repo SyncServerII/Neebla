@@ -54,7 +54,7 @@ class Services {
     let logFileName = "LogFile.txt"
 
     static private var _session:Services!
-    
+        
     // I'm being very careful here because of a problem that's coming up in the sharing extension. If the sharing extension is used twice in a row, we oddly have a state where it's already been initialized. Get a crash on multiple initialization.
     static var session:Services {
         set {

@@ -6,20 +6,26 @@ import iOSBasics
 // Implements a relatively simple strategy for deciding which files need to be downloaded.
 
 class Downloader {
-    // Eventually will probably want this to be approx. the number of items that can be shown in the icons screen. So, the user could scroll to a screenful of icons, watch them download, then scroll some more etc.
-    static let maxNumberActiveDownloads: UInt = 10
+    private let maxNumberActiveDownloads: UInt = 10
     
+    // Size of queue beyond those actively downloading
+    let priorityQueueAdditional: UInt = 100
+
+    let priorityQueueLength: UInt
+
     static let checkDownloadsInterval: TimeInterval = 4
     static let session = Downloader()
     
     // Keep track of the N most recently accessed objects. i.e., objects viewed by the user. When we're ready to trigger downloads, use these. A consequence of this strategy is that if the user doesn't move around in the UI, more downloads may not be triggered because they were not accessed.
+    // We make the `priorityQueue` larger than the actual number of objects we allow to download so we can queue up additional objects.
     private let priorityQueue:PriorityQueue<ServerObjectModel>
     
     // To periodically check for downloads.
     private var timer: Timer!
     
     private init() {
-        priorityQueue = try! PriorityQueue<ServerObjectModel>(maxLength: Self.maxNumberActiveDownloads)
+        priorityQueueLength = maxNumberActiveDownloads + priorityQueueAdditional
+        priorityQueue = try! PriorityQueue<ServerObjectModel>(maxLength: priorityQueueLength)
         timer = Timer.scheduledTimer(withTimeInterval: Self.checkDownloadsInterval, repeats: true) { [weak self] _ in
             self?.checkDownloads()
         }
@@ -66,15 +72,15 @@ class Downloader {
             
             numberDownloadsQueued = try Services.session.syncServer.numberQueued(.download)
             
-            guard numberDownloadsQueued < Self.maxNumberActiveDownloads else {
+            guard numberDownloadsQueued < maxNumberActiveDownloads else {
                 logger.info("Not starting more downloads: Currently at max.")
                 return
             }
             
-            let maxNumberDownloadsToStart = Self.maxNumberActiveDownloads - UInt(numberDownloadsQueued)
+            let maxNumberDownloadsToStart = maxNumberActiveDownloads - UInt(numberDownloadsQueued)
             let numberDownloadsToStart = min(maxNumberDownloadsToStart, UInt(priorityQueue.current.count))
             
-            downloadsToStart = try priorityQueue.reset(first: numberDownloadsToStart)
+            downloadsToStart = try priorityQueue.getInitial(numberDownloadsToStart)
         }
         
         guard downloadsToStart.count > 0 else {

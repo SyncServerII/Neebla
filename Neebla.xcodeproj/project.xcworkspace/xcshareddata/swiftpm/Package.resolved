@@ -101,6 +101,15 @@
         }
       },
       {
+        "package": "iOSGoogle",
+        "repositoryURL": "http://github.com/SyncServerII/iOSGoogle",
+        "state": {
+          "branch": "main",
+          "revision": "c2bf377b88378aa9160bec8ea80bb8f3a83af782",
+          "version": null
+        }
+      },
+      {
         "package": "KeychainAccess",
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
         "state": {
@@ -204,7 +213,7 @@
         "repositoryURL": "https://github.com/SyncServerII/ServerAccount.git",
         "state": {
           "branch": "master",
-          "revision": "cdbdcf096e4b55686a2cb640fa625d14ab321022",
+          "revision": "d15e402dfdccf49349ba2d525ff66b1167df7f0c",
           "version": null
         }
       },
@@ -231,7 +240,7 @@
         "repositoryURL": "https://github.com/crspybits/SMLinkPreview",
         "state": {
           "branch": "master",
-          "revision": "841dfaeabc879392f0d311485e3e81b1aeee1051",
+          "revision": "11a02a4d81c31e2a05cd46989e68d3272c03d0eb",
           "version": null
         }
       },

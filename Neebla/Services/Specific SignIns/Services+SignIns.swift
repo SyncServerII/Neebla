@@ -4,7 +4,7 @@ import iOSSignIn
 import UIKit
 import iOSFacebook
 import iOSDropbox
-import iOSGoogle
+//import iOSGoogle
 import iOSApple
 
 extension Services {
@@ -41,20 +41,22 @@ extension Services {
                     button: facebookButton)
             result += [(facebookSignIn, facebookDescription)]
         }
-        
-        if let googleClientId = configPlist.getValue(for: .GoogleClientId),
-            let googleServerClientId = configPlist.getValue(for: .GoogleServerClientId) {
-            let googleSignIn = GoogleSyncServerSignIn(serverClientId: googleServerClientId, appClientId: googleClientId, signInDelegate: self)
-            
-            if let googleSignInButton = googleSignIn.signInButton(configuration: nil) {
-                let googleSignInDescription =
-                    SignInDescription(
-                        signInName:googleSignIn.signInName,
-                        userType: googleSignIn.userType,
-                        button: googleSignInButton)
-                result += [(googleSignIn, googleSignInDescription)]
-            }
-        }
+//
+//        if let googleClientId = configPlist.getValue(for: .GoogleClientId),
+//            let googleServerClientId = configPlist.getValue(for: .GoogleServerClientId) {
+//            //let delegateObject = GoogleSignInDelegateObject()
+//            //delegateObject.delegate = delegate
+//            let googleSignIn = GoogleSyncServerSignIn(serverClientId: googleServerClientId, appClientId: googleClientId, signInDelegate: self)
+//
+//            if let googleSignInButton = googleSignIn.signInButton(configuration: nil) {
+//                let googleSignInDescription =
+//                    SignInDescription(
+//                        signInName:googleSignIn.signInName,
+//                        userType: googleSignIn.userType,
+//                        button: googleSignInButton)
+//                result += [(googleSignIn, googleSignInDescription)]
+//            }
+//        }
         
         let appleSignIn = AppleSignIn()
         if let appleSignInButton = appleSignIn.signInButton(configuration: nil) {
@@ -70,8 +72,21 @@ extension Services {
     }
 }
 
-extension Services: GoogleSignInDelegate {
-    func getCurrentViewController() -> UIViewController? {
-        return delegate?.getCurrentViewController()
-    }
-}
+/* I was getting link errors:
+  "protocol descriptor for iOSGoogle.GoogleSignInDelegate", referenced from:
+      l_got.$s9iOSGoogle20GoogleSignInDelegateMp in Services+SignIns.o
+This is why I am using `GoogleSignInDelegateObject`.
+*/
+//class GoogleSignInDelegateObject: GoogleSignInDelegate {
+//    weak var delegate: ServicesDelegate?
+//
+//    func getCurrentViewController() -> UIViewController? {
+//        return delegate?.getCurrentViewController()
+//    }
+//}
+//
+//extension Services: GoogleSignInDelegate {
+//    func getCurrentViewController() -> UIViewController? {
+//        return delegate?.getCurrentViewController()
+//    }
+//}
