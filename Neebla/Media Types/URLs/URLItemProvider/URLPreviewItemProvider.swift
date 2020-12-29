@@ -11,7 +11,8 @@ struct URLPreviewItemProvider: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> UIView {
-        return LinkPreview.create(with: linkData)
+        let sizing = LinkPreviewSizing(resizingAllowed: false, titleLabelNumberOfLines: 1)
+        return LinkPreview.create(with: linkData, sizing: sizing)
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
