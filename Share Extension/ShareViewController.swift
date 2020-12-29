@@ -135,7 +135,7 @@ extension ShareViewController {
     func setViewModelSize(size: CGSize) {
         let widthProportion: CGFloat = 0.8
         let shortHeightProportion: CGFloat = widthProportion
-        let tallHeightProportion: CGFloat = 0.6
+        let tallHeightProportion: CGFloat = 0.7
         
         viewModel.width = size.width * widthProportion
         

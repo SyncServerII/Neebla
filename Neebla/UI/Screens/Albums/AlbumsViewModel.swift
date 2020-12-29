@@ -83,7 +83,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
                 return
             }
             
-            self.sync()
+            // Don't do a sync-- `createSharingGroup` does it for us and if we do another it seems we can get an error due to a race condition.
         }
     }
     
@@ -100,7 +100,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
                 return
             }
             
-            self.sync()
+            // No need to do a `sync`. `updateSharingGroup` does one when successful.
         }
     }
     
