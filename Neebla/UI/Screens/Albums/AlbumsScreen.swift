@@ -41,13 +41,25 @@ struct AlbumsScreenBody: View {
                 AlbumsScreenAlbumList(viewModel: viewModel)
             }
             else {
-                Text("You have no albums.")
-                Image("sad-icon")
-                Button(action: {
-                    viewModel.startCreateNewAlbum()
-                }, label: {
-                    Text("Make an album.")
-                })
+                VStack(spacing: 20) {
+                    Text("You have no albums.")
+                    Image("sad-icon")
+                    
+                    Button(action: {
+                        viewModel.startCreateNewAlbum()
+                    }, label: {
+                        Text("Make an album.")
+                    })
+                    
+                    Button(
+                        action: {
+                            viewModel.sync()
+                        },
+                        label: {
+                            SFSymbolNavBar(symbol: .goforward)
+                        }
+                    )
+                }
             }
         }
         .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
@@ -154,16 +166,11 @@ private struct RightNavBarIcons: View {
                 },
                 label: {
                     NavBarIcon(imageName: "Share", size: CGSize(width: 25, height: 25), blueAccent: false)
-                        .if(viewModel.sharingMode) {
-                            $0.accentColor(.gray)
-                        }
-                        .if(!viewModel.sharingMode) {
-                            $0.accentColor(.blue)
-                        }
+                        .accentColor(viewModel.sharingMode ? .gray : .blue)
                 }
             )
             .frame(width: NavBarIcon.dimension, height: NavBarIcon.dimension)
-            .enabled(viewModel.canSendMail)
+            .enabled(viewModel.canSendMail && viewModel.albums.count > 0)
                                     
             Button(
                 action: {

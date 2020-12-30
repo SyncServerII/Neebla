@@ -23,7 +23,7 @@ struct AddItemModal: View {
         
         return VStack(spacing: 50) {
             Text("Add new:")
-
+            
             AnyPicker(album: viewModel.sharingGroupUUID, dismisser: dimisser)
 
             Button(action: {

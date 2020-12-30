@@ -27,15 +27,13 @@ struct AnyPicker: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 40) {
             // Note that this list doesn't map exactly to media types.
             // Some pickers allow upload of more than one media type. E.g., still images and live images by the PhotoLibraryPicker.
             // Multiple pickers are needed for some media types. E.g., PhotoLibraryPicker and CameraMediaType both support still images.
             
             CameraMediaType(album: sharingGroupUUID, dismisser: dismisser)
-            Spacer().frame(height: 20)
             PhotoLibraryPicker(album: sharingGroupUUID, dismisser: dismisser)
-            Spacer().frame(height: 20)
             URLPicker(album: sharingGroupUUID, dismisser: dismisser)
         }
     }
