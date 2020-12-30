@@ -4,8 +4,10 @@ import iOSSignIn
 import UIKit
 import iOSFacebook
 import iOSDropbox
-//import iOSGoogle
+import iOSGoogle
 import iOSApple
+
+// For Google Sign In issues, see https://stackoverflow.com/questions/65469685/using-google-sign-in-for-ios-with-swift-package-manager
 
 extension Services {
     // Gets (GenericSignIn, SignInDescription) pairs for each sign in type.
@@ -41,11 +43,9 @@ extension Services {
                     button: facebookButton)
             result += [(facebookSignIn, facebookDescription)]
         }
-//
+
 //        if let googleClientId = configPlist.getValue(for: .GoogleClientId),
 //            let googleServerClientId = configPlist.getValue(for: .GoogleServerClientId) {
-//            //let delegateObject = GoogleSignInDelegateObject()
-//            //delegateObject.delegate = delegate
 //            let googleSignIn = GoogleSyncServerSignIn(serverClientId: googleServerClientId, appClientId: googleClientId, signInDelegate: self)
 //
 //            if let googleSignInButton = googleSignIn.signInButton(configuration: nil) {
@@ -72,19 +72,6 @@ extension Services {
     }
 }
 
-/* I was getting link errors:
-  "protocol descriptor for iOSGoogle.GoogleSignInDelegate", referenced from:
-      l_got.$s9iOSGoogle20GoogleSignInDelegateMp in Services+SignIns.o
-This is why I am using `GoogleSignInDelegateObject`.
-*/
-//class GoogleSignInDelegateObject: GoogleSignInDelegate {
-//    weak var delegate: ServicesDelegate?
-//
-//    func getCurrentViewController() -> UIViewController? {
-//        return delegate?.getCurrentViewController()
-//    }
-//}
-//
 //extension Services: GoogleSignInDelegate {
 //    func getCurrentViewController() -> UIViewController? {
 //        return delegate?.getCurrentViewController()
