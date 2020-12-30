@@ -36,6 +36,61 @@ struct AlbumsScreenBody: View {
     @ObservedObject var userAlertModel:UserAlertModel
 
     var body: some View {
+        VStack {
+            if viewModel.albums.count > 0 {
+                AlbumsScreenAlbumList(viewModel: viewModel)
+            }
+            else {
+                Text("You have no albums.")
+                Image("sad-icon")
+                Button(action: {
+                    viewModel.startCreateNewAlbum()
+                }, label: {
+                    Text("Make an album.")
+                })
+            }
+        }
+        .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                viewModel.sync()
+            }
+        }
+        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+        .disabled(viewModel.presentTextInput)
+        // Using this both for creating an album and for changing an existing album's name.
+        .modal(isPresented: $viewModel.presentTextInput) {
+            TextInputModal(viewModel: viewModel)
+                .padding(20)
+        }
+        // Fail to get the sheets displaying properly when there is more than one .sheet modifier. Working around this. See also https://stackoverflow.com/questions/58837007
+        .sheet(item: $viewModel.activeSheet) { item in
+            switch item {
+            case .albumSharing:
+                if let album = viewModel.albumToShare {
+                    AlbumSharingModal(album: album) { parameters in
+                        viewModel.sharingMode = false
+                        let contents = viewModel.emailContents(from: parameters)
+                        viewModel.emailMessage = contents
+                        viewModel.activeSheet = .email
+                    }.padding(20)
+                }
+            case .email:
+                if let emailMessage = viewModel.emailMessage {
+                    MailView(emailContents: emailMessage, result: $viewModel.sendMailResult)
+                }
+            }
+        }
+        .modalStyle(DefaultModalStyle(padding: UIDevice.isPad ? 100 : 20))
+        .onDisappear() {
+            viewModel.sharingMode = false
+        }
+    }
+}
+
+struct AlbumsScreenAlbumList: View {
+    @ObservedObject var viewModel:AlbumsViewModel
+
+    var body: some View {
         /* Action states per row:
         1) Non-sharing mode.
             A tap on the main part of the row navigates to the album contents. Button blinks.
@@ -84,40 +139,6 @@ struct AlbumsScreenBody: View {
                     .enabled(!viewModel.sharingMode)
                 }
             }
-        }
-        .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                viewModel.sync()
-            }
-        }
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
-        .disabled(viewModel.presentTextInput)
-        // Using this both for creating an album and for changing an existing album's name.
-        .modal(isPresented: $viewModel.presentTextInput) {
-            TextInputModal(viewModel: viewModel)
-                .padding(20)
-        }
-        // Fail to get the sheets displaying properly when there is more than one .sheet modifier. Working around this. See also https://stackoverflow.com/questions/58837007
-        .sheet(item: $viewModel.activeSheet) { item in
-            switch item {
-            case .albumSharing:
-                if let album = viewModel.albumToShare {
-                    AlbumSharingModal(album: album) { parameters in
-                        viewModel.sharingMode = false
-                        let contents = viewModel.emailContents(from: parameters)
-                        viewModel.emailMessage = contents
-                        viewModel.activeSheet = .email
-                    }.padding(20)
-                }
-            case .email:
-                if let emailMessage = viewModel.emailMessage {
-                    MailView(emailContents: emailMessage, result: $viewModel.sendMailResult)
-                }
-            }
-        }
-        .modalStyle(DefaultModalStyle(padding: UIDevice.isPad ? 100 : 20))
-        .onDisappear() {
-            viewModel.sharingMode = false
         }
     }
 }

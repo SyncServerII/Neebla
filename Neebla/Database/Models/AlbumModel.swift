@@ -86,6 +86,20 @@ extension AlbumModel {
     }
     
     static func upsertSharingGroups(db: Connection, sharingGroups: [iOSBasics.SharingGroup]) throws {
+    
+        // Need to deal with case of albums that we have locally but which are not listed on server. Those have been deleted.
+        let localAlbums = try AlbumModel.fetch(db: db)
+        
+        for localAlbum in localAlbums {
+            // Is this local album on the server?
+            let onServer = sharingGroups.filter {$0.sharingGroupUUID == localAlbum.sharingGroupUUID}.count == 1
+            if !onServer {
+                // Not on server: Remove it locally.
+                try localAlbum.update(setters: AlbumModel.deletedField.description <- true)
+                // TODO: Need some more cleanup here. Need to remove other resources such as associated files: See https://docs.google.com/document/d/190FBElJHbzCqvI9-pZGuHOg4jC2gbMh3lB6INCaiQcs/edit#bookmark=id.2r7xxqk5u39x
+            }
+        }
+        
         for sharingGroup in sharingGroups {
             try upsertSharingGroup(db: db, sharingGroup: sharingGroup)
         }
