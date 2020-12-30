@@ -16,6 +16,13 @@ extension Services {
             signInsToAdd += [signIn.0]
         }
         
+        var height: CGFloat = UIConfiguration.defaultHeight
+        let width: CGFloat = UIConfiguration.defaultWidth
+        if UIDevice.isPad {
+            // Make the sign in view a bit larger on iPad
+            height *= 1.5
+        }
+        
         configuration = UIConfiguration(
             signIntoExisting: "Sign into Existing\nNeebla Account",
             signingIntoExisting: "Signing into Existing\nNeebla Account",
@@ -31,7 +38,9 @@ extension Services {
             
             helpTextWhenCreatingNewAccount: "Creating a new account will give you an account in Neebla. Your cloud storage account (e.g., Dropbox) will be used to save the files you create. When you sign into Neebla later, you should use these same cloud storage account credentials.",
             
-            helpTextWhenAcceptingInvitation: "Accepting the invitation will give you an account in Neebla. If you accept using a cloud storage account (e.g., Dropbox), it will be used to save the files you create. If allowed, and you use a social account (e.g., Facebook) to accept the invitation, files you create will be saved in your inviting users cloud storage. When you sign into Neebla later, you should use these same account credentials.")
+            helpTextWhenAcceptingInvitation: "Accepting the invitation will give you an account in Neebla. If you accept using a cloud storage account (e.g., Dropbox), it will be used to save the files you create. If allowed, and you use a social account (e.g., Facebook) to accept the invitation, files you create will be saved in your inviting users cloud storage. When you sign into Neebla later, you should use these same account credentials.",
+            width: width,
+            height: height)
 
         signInServices = SignInServices(descriptions: signInDescriptions, configuration: configuration, appBundleIdentifier: bundleIdentifier, signIns: signIns, sharingInvitationHelper: helper)
     }

@@ -215,6 +215,9 @@
 		83F389C5259044ED00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389C4259044ED00610C76 /* iOSApple */; };
 		83F389D42590466B00610C76 /* LocalServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6F2256A0A58007F0CEB /* LocalServices.swift */; };
 		83F389DC2590468C00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389DB2590468C00610C76 /* iOSApple */; };
+		83F4167B259C2074003C7200 /* UIDevice+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F4167A259C2074003C7200 /* UIDevice+Extras.swift */; };
+		83F41682259C20D5003C7200 /* UIDevice+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F4167A259C2074003C7200 /* UIDevice+Extras.swift */; };
+		83F41687259C21EC003C7200 /* UIView+iPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F41686259C21EC003C7200 /* UIView+iPad.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -397,6 +400,8 @@
 		83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsViewModel.swift; path = "Neebla/UI/Screens/Object Details/CommentsViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		83F389C92590451C00610C76 /* iOSApple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSApple; path = ../../iOSApple; sourceTree = "<group>"; };
+		83F4167A259C2074003C7200 /* UIDevice+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extras.swift"; sourceTree = "<group>"; };
+		83F41686259C21EC003C7200 /* UIView+iPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+iPad.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -738,6 +743,8 @@
 				8320A754256F530C00819377 /* SFSymbolNavBar.swift */,
 				83BF80812585F9D3000E0B37 /* NavBarIcon.swift */,
 				8320A758256F568400819377 /* View+Extras.swift */,
+				83F4167A259C2074003C7200 /* UIDevice+Extras.swift */,
+				83F41686259C21EC003C7200 /* UIView+iPad.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1275,6 +1282,7 @@
 				8331F37E255B8F790063A67D /* Services+SignInServices.swift in Sources */,
 				83C7346F25986E160073788A /* ItemProviderFactory.swift in Sources */,
 				8331F364255B8DD10063A67D /* ButtonBar.swift in Sources */,
+				83F41682259C20D5003C7200 /* UIDevice+Extras.swift in Sources */,
 				83BF7CCA258575F3000E0B37 /* URLObjectType+Uploadable.swift in Sources */,
 				83C7348425986F970073788A /* ImageIcon.swift in Sources */,
 				8331F4E32561F9250063A67D /* FileInfo+Extras.swift in Sources */,
@@ -1310,6 +1318,7 @@
 				83CE1EAD257080EE004A418B /* BasicEquatable.swift in Sources */,
 				8331F42F255F96AB0063A67D /* LocalFiles.swift in Sources */,
 				8331F53025623A170063A67D /* RefreshableScrollView.swift in Sources */,
+				83F4167B259C2074003C7200 /* UIDevice+Extras.swift in Sources */,
 				83E1A98D2599A36F004D4029 /* URLPreviewItemProvider.swift in Sources */,
 				8331F337255B8AFD0063A67D /* MainView.swift in Sources */,
 				8308B6E9256A0733007F0CEB /* URLPreviewGenerator.swift in Sources */,
@@ -1369,6 +1378,7 @@
 				835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */,
 				83BF7867258077F1000E0B37 /* LiveImageIcon.swift in Sources */,
 				8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */,
+				83F41687259C21EC003C7200 /* UIView+iPad.swift in Sources */,
 				8320A6EC256CB56800819377 /* AnyLargeMedia.swift in Sources */,
 				83C7352425992CAD0073788A /* ItemProviderFactory.swift in Sources */,
 				8331F47E2560CE540063A67D /* AnyTypeManager.swift in Sources */,
