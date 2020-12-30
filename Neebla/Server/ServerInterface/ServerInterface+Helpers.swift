@@ -23,20 +23,6 @@ extension ServerInterface {
         try AlbumModel.upsertSharingGroups(db: Services.session.db, sharingGroups: sharingGroups)
     }
     
-    func sharingGroups() {
-        do {
-            let sharingGroups = try syncServer.sharingGroups()
-            for sharingGroup in sharingGroups {
-                logger.info("\(sharingGroup)")
-                if firstSharingGroupUUID == nil {
-                    firstSharingGroupUUID = sharingGroup.sharingGroupUUID
-                }
-            }
-        } catch let error {
-            logger.error("\(error)")
-        }
-    }
-    
     func createSharingInvitation(permission: Permission, sharingGroupUUID: UUID, numberAcceptors: UInt, allowSocialAcceptance: Bool) {
         syncServer.createSharingInvitation(withPermission: permission, sharingGroupUUID: sharingGroupUUID, numberAcceptors: numberAcceptors, allowSocialAcceptance: allowSocialAcceptance) { result in
             switch result {

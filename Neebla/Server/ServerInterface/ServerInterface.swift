@@ -16,9 +16,7 @@ enum ServerInterfaceError: Error {
     case noServerURL
 }
 
-class ServerInterface {
-    var firstSharingGroupUUID:UUID?
-    
+class ServerInterface {    
     // Storing in a file so it's easier to access this from a sharing extension.
     let deviceUUIDString = try! PersistentValue<String>(name: "ServerInterface.deviceUUID", storage: .file)
     
