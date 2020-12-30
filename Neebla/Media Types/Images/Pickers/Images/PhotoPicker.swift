@@ -33,11 +33,13 @@ struct PhotoPicker: UIViewControllerRepresentable {
     }
     @Binding var isPresented: Bool
     let completion:(Result<UploadableMediaAssets, Error>)->()
+    let dismisser:MediaTypeListDismisser
     
     // Completion handler is called back on the main thread.
-    init(isPresented:Binding<Bool>, completion:@escaping (Result<UploadableMediaAssets, Error>)->()) {
+    init(isPresented:Binding<Bool>, dismisser:MediaTypeListDismisser, completion:@escaping (Result<UploadableMediaAssets, Error>)->()) {
         self._isPresented = isPresented
         self.completion = completion
+        self.dismisser = dismisser
     }
     
     func makeUIViewController(context: Context) -> PHPickerViewController {
@@ -69,6 +71,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
             if results.count == 0 {
                 // User tapped cancel.
                 parent.isPresented = false
+                parent.dismisser.didDismiss?(false)
                 return
             }
 

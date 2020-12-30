@@ -10,10 +10,12 @@ struct CameraMediaType: MediaConstructorBasics, View {
     let model: CameraMediaTypeModel
     let cameraAvailable:Bool
     @State private var isImagePickerDisplay = false
+    let dismisser:MediaTypeListDismisser
     
     init(album sharingGroupUUID: UUID, dismisser:MediaTypeListDismisser) {
         cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
         model = CameraMediaTypeModel(album: sharingGroupUUID, dismisser: dismisser)
+        self.dismisser = dismisser
     }
 
     var body: some View {
@@ -22,7 +24,7 @@ struct CameraMediaType: MediaConstructorBasics, View {
         }
         .enabled(cameraAvailable)
         .sheet(isPresented: $isImagePickerDisplay) {
-            CameraPickerView() { imageAsset in
+            CameraPickerView(dismisser: dismisser) { imageAsset in
                 model.uploadImage(asset: imageAsset)
             }
         }

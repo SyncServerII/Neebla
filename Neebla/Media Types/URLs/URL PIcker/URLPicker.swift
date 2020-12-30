@@ -8,9 +8,11 @@ struct URLPicker: MediaConstructorBasics, View {
     @State private var isPickerDisplay = false
     @State var linkMedia: URLObjectTypeAssets?
     let model: URLPickerModel
+    let dismisser:MediaTypeListDismisser
     
     init(album sharingGroupUUID: UUID, dismisser:MediaTypeListDismisser) {
         model = URLPickerModel(album: sharingGroupUUID, dismisser: dismisser)
+        self.dismisser = dismisser
     }
     
     var body: some View {
@@ -18,7 +20,7 @@ struct URLPicker: MediaConstructorBasics, View {
             isPickerDisplay = true
         }
         .sheet(isPresented: $isPickerDisplay) {
-            URLPickerView() { pickedURL in
+            URLPickerView(dismisser: dismisser) { pickedURL in
                 model.upload(assets: pickedURL)
             }
         }

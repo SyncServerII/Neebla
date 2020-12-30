@@ -17,9 +17,8 @@ struct AddItemModal: View {
             if acquiredNewMediaItem {
                 // Update the view with the new media item.
                 viewModel.updateAfterAddingItem()
-                
-                modalPresentationMode.wrappedValue.dismiss()
             }
+            modalPresentationMode.wrappedValue.dismiss()
         }
         
         return VStack(spacing: 50) {

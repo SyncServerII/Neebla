@@ -13,9 +13,11 @@ struct CameraPickerView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var isPresented
     let sourceType: UIImagePickerController.SourceType = .camera
     let picked: (ImageObjectTypeAssets) -> Void
+    let dismisser:MediaTypeListDismisser
     
-    init(picked: @escaping (ImageObjectTypeAssets) -> Void) {
+    init(dismisser:MediaTypeListDismisser, picked: @escaping (ImageObjectTypeAssets) -> Void) {
         self.picked = picked
+        self.dismisser = dismisser
     }
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
@@ -41,6 +43,10 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
 
     init(picker: CameraPickerView) {
         self.picker = picker
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.picker.dismisser.didDismiss?(false)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
