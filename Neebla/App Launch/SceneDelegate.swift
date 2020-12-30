@@ -8,8 +8,14 @@
 import UIKit
 import SwiftUI
 
+// Adapted from https://stackoverflow.com/questions/57441654/swiftui-repaint-view-components-on-device-rotation
+class AppEnv: ObservableObject {
+    @Published var isLandScape: Bool = false
+}
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    var appEnv = AppEnv()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -22,12 +28,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
+            window.rootViewController = UIHostingController(rootView: contentView.environmentObject(appEnv))
             self.window = window
             window.makeKeyAndVisible()
         }
     }
-    
+
     // See https://github.com/dropbox/SwiftyDropbox/issues/259
     // Also relevant: I first tried to use the SwiftUI life cycle management-- without a SceneDelegate, but I wasn't able to get an equivalent method to this called. Even using https://stackoverflow.com/questions/62538110
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -64,6 +70,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    func windowScene(_ windowScene: UIWindowScene, didUpdate previousCoordinateSpace: UICoordinateSpace, interfaceOrientation previousInterfaceOrientation: UIInterfaceOrientation, traitCollection previousTraitCollection: UITraitCollection) {
+        appEnv.isLandScape = windowScene.interfaceOrientation.isLandscape
+    }
 }
 

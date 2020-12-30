@@ -24,89 +24,100 @@ struct AlbumsScreen: View {
                 )
             ) {
             
-            /* Action states per row:
-            1) Non-sharing mode.
-                A tap on the main part of the row navigates to the album contents. Button blinks.
-                If the user has .admin permissions, the pencil icon shows to the right. And a tap on the pencil brings up dialog to change the album name.
-            2) Sharing mode.
-                If the user has .admin permissions:
-                    Shows rectangle to the right.
-                    Tapping on the row anywhere, blinks button and brings up sharing modal.
-                Otherwise:
-                    No rectangle shown.
-                    Taps have no effect.
-             */
-             
-            List {
-                // The `ForEach` appears needed to use the `listRowBackground`-- See https://stackoverflow.com/questions/56517904
-                ForEach(viewModel.albums, id: \.sharingGroupUUID) { album in
-                    VStack {
-                        if viewModel.sharingMode {
-                            if album.permission.hasMinimumPermission(.admin) {
-                                Button(action: {
-                                    viewModel.albumToShare = album
-                                    viewModel.activeSheet = .albumSharing
-                                }, label: {
-                                    AlbumsScreenRow(album: album, viewModel: viewModel)
-                                })
-                            }
-                            else {
-                                AlbumsScreenRow(album: album, viewModel: viewModel)
-                            }
-                        }
-                        else {
+            iPadConditionalScreenBodySizer {
+                AlbumsScreenBody(viewModel: viewModel, userAlertModel: userAlertModel)
+            }
+        }
+    }
+}
+
+struct AlbumsScreenBody: View {
+    @ObservedObject var viewModel:AlbumsViewModel
+    @ObservedObject var userAlertModel:UserAlertModel
+
+    var body: some View {
+        /* Action states per row:
+        1) Non-sharing mode.
+            A tap on the main part of the row navigates to the album contents. Button blinks.
+            If the user has .admin permissions, the pencil icon shows to the right. And a tap on the pencil brings up dialog to change the album name.
+        2) Sharing mode.
+            If the user has .admin permissions:
+                Shows rectangle to the right.
+                Tapping on the row anywhere, blinks button and brings up sharing modal.
+            Otherwise:
+                No rectangle shown.
+                Taps have no effect.
+         */
+         
+        List {
+            // The `ForEach` appears needed to use the `listRowBackground`-- See https://stackoverflow.com/questions/56517904
+            ForEach(viewModel.albums, id: \.sharingGroupUUID) { album in
+                VStack {
+                    if viewModel.sharingMode {
+                        if album.permission.hasMinimumPermission(.admin) {
                             Button(action: {
+                                viewModel.albumToShare = album
+                                viewModel.activeSheet = .albumSharing
                             }, label: {
                                 AlbumsScreenRow(album: album, viewModel: viewModel)
                             })
                         }
-
-                        // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
-                        // Some hurdles here to get rid of the disclosure button at end of row: https://stackoverflow.com/questions/56516333
-                        NavigationLink(destination:
-                            AlbumItemsScreen(album: album.sharingGroupUUID)) {
-                            EmptyView()
+                        else {
+                            AlbumsScreenRow(album: album, viewModel: viewModel)
                         }
-                        .frame(width: 0)
-                        .opacity(0)
-                        .enabled(!viewModel.sharingMode)
                     }
+                    else {
+                        Button(action: {
+                        }, label: {
+                            AlbumsScreenRow(album: album, viewModel: viewModel)
+                        })
+                    }
+
+                    // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
+                    // Some hurdles here to get rid of the disclosure button at end of row: https://stackoverflow.com/questions/56516333
+                    NavigationLink(destination:
+                        AlbumItemsScreen(album: album.sharingGroupUUID)) {
+                        EmptyView()
+                    }
+                    .frame(width: 0)
+                    .opacity(0)
+                    .enabled(!viewModel.sharingMode)
                 }
             }
-            .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    viewModel.sync()
+        }
+        .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                viewModel.sync()
+            }
+        }
+        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+        .disabled(viewModel.presentTextInput)
+        // Using this both for creating an album and for changing an existing album's name.
+        .modal(isPresented: $viewModel.presentTextInput) {
+            TextInputModal(viewModel: viewModel)
+                .padding(20)
+        }
+        // Fail to get the sheets displaying properly when there is more than one .sheet modifier. Working around this. See also https://stackoverflow.com/questions/58837007
+        .sheet(item: $viewModel.activeSheet) { item in
+            switch item {
+            case .albumSharing:
+                if let album = viewModel.albumToShare {
+                    AlbumSharingModal(album: album) { parameters in
+                        viewModel.sharingMode = false
+                        let contents = viewModel.emailContents(from: parameters)
+                        viewModel.emailMessage = contents
+                        viewModel.activeSheet = .email
+                    }.padding(20)
+                }
+            case .email:
+                if let emailMessage = viewModel.emailMessage {
+                    MailView(emailContents: emailMessage, result: $viewModel.sendMailResult)
                 }
             }
-            .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
-            .disabled(viewModel.presentTextInput)
-            // Using this both for creating an album and for changing an existing album's name.
-            .modal(isPresented: $viewModel.presentTextInput) {
-                TextInputModal(viewModel: viewModel)
-                    .padding(20)
-            }
-            // Fail to get the sheets displaying properly when there is more than one .sheet modifier. Working around this. See also https://stackoverflow.com/questions/58837007
-            .sheet(item: $viewModel.activeSheet) { item in
-                switch item {
-                case .albumSharing:
-                    if let album = viewModel.albumToShare {
-                        AlbumSharingModal(album: album) { parameters in
-                            viewModel.sharingMode = false
-                            let contents = viewModel.emailContents(from: parameters)
-                            viewModel.emailMessage = contents
-                            viewModel.activeSheet = .email
-                        }.padding(20)
-                    }
-                case .email:
-                    if let emailMessage = viewModel.emailMessage {
-                        MailView(emailContents: emailMessage, result: $viewModel.sendMailResult)
-                    }
-                }
-            }
-            .modalStyle(DefaultModalStyle(padding: 20))
-            .onDisappear() {
-                viewModel.sharingMode = false
-            }
+        }
+        .modalStyle(DefaultModalStyle(padding: UIDevice.isPad ? 100 : 20))
+        .onDisappear() {
+            viewModel.sharingMode = false
         }
     }
 }

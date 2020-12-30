@@ -6,6 +6,21 @@ import CustomModalView
 import iOSShared
 
 struct AlbumItemsScreen: View {
+    let sharingGroupUUID: UUID
+    
+    init(album sharingGroupUUID: UUID) {
+        self.sharingGroupUUID = sharingGroupUUID
+    }
+    
+    var body: some View {
+        iPadConditionalScreenBodySizer {
+            AlbumItemsScreenBody(album: sharingGroupUUID)
+                .background(Color.screenBackground)
+        }
+    }
+}
+
+struct AlbumItemsScreenBody: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     @ObservedObject var userAlertModel:UserAlertModel
     

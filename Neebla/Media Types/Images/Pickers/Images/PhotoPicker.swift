@@ -63,7 +63,14 @@ struct PhotoPicker: UIViewControllerRepresentable {
             self.parent = parent
         }
         
+        // This gets called on a cancel, and when finished picking.
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+            if results.count == 0 {
+                // User tapped cancel.
+                parent.isPresented = false
+                return
+            }
 
             // Only allowing user to pick a single image for now.
             guard results.count == 1 else {
