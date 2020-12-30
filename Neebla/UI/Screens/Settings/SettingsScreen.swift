@@ -4,6 +4,16 @@ import SwiftUI
 import iOSShared
 
 struct SettingsScreen: View {
+    var body: some View {
+        MenuNavBar(title: "Settings") {
+            iPadConditionalScreenBodySizer(iPadBackgroundColor: .screenBackground) {
+                SettingsScreenBody()
+            }
+        }
+    }
+}
+
+struct SettingsScreenBody: View {
     @ObservedObject var userAlertModel: UserAlertModel
     @ObservedObject var settingsModel:SettingsScreenModel
 
@@ -22,35 +32,35 @@ struct SettingsScreen: View {
         self.settingsModel = SettingsScreenModel(userAlertModel: userAlertModel)
         self.userAlertModel = userAlertModel
     }
-    
+        
     var body: some View {
-        MenuNavBar(title: "Settings") {
-            VStack(spacing: 40) {
-                Spacer().frame(height: 20)
-                
-                Button(action: {
-                    settingsModel.showAlbumList = true
-                }, label: {
-                    Text("Remove user from album")
-                })
-                
-                Button(action: {
-                }, label: {
-                    Text("Contact developer")
-                })
-                
-                Spacer()
-                
-                VStack {
-                    Text("Version/Build")
-                        .bold()
-                    Text(versionAndBuild)
-                }
+        VStack(spacing: 40) {
+            Spacer().frame(height: 20)
+            
+            Button(action: {
+                settingsModel.showAlbumList = true
+            }, label: {
+                Text("Remove user from album")
+            })
+            
+            Button(action: {
+            }, label: {
+                Text("Contact developer")
+            })
+            
+            Spacer()
+            
+            VStack {
+                Text("Version/Build")
+                    .bold()
+                Text(versionAndBuild)
             }
-            .sheet(isPresented: $settingsModel.showAlbumList) {
-                AlbumListModal()
-            }
-            .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+            
+            Spacer().frame(height: 20)
         }
+        .sheet(isPresented: $settingsModel.showAlbumList) {
+            AlbumListModal()
+        }
+        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
     }
 }
