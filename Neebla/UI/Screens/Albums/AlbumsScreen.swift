@@ -202,7 +202,7 @@ private struct AlbumsScreenRow: View {
             // To change an album name and to share an album, you must have .admin permissions.
             if album.permission.hasMinimumPermission(.admin) {
                 if viewModel.sharingMode {
-                    Image(systemName: SFSymbol.square.rawValue)
+                    NavBarIcon(imageName: "Share", size: CGSize(width: 25, height: 25))
                 }
                 else {
                     Button(action: {
