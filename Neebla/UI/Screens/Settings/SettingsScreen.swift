@@ -23,7 +23,7 @@ struct SettingsScreenBody: View {
             return version + "/" + build
         }
         else {
-            return ""
+            return "(Unavailable)"
         }
     }
     

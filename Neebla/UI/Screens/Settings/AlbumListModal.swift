@@ -45,7 +45,9 @@ private struct AlbumRow: View {
     
     var body: some View {
         Button(action: {
-            model.removeUserFromAlbum(album: album)
+            model.userAlertModel.userAlert = .customAction(title: "Delete album?", message: "This will remove you from the album \"\(albumName)\". And if you are the last one using the album, will entirely remove the album.", actionButtonTitle: "Remove", action: {
+                model.removeUserFromAlbum(album: album)
+            })
         }, label: {
             Text(albumName)
         })

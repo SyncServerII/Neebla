@@ -81,7 +81,7 @@ class ShareViewController: UIViewController {
     private func showAlert(title: String, message: String) {
         DispatchQueue.main.async {
             if self.viewHasAppeared {
-                self.viewModel.userAlertModel.userAlert = .full(title: title, message: message)
+                self.viewModel.userAlertModel.userAlert = .titleAndMessage(title: title, message: message)
             }
             else {
                 self.showAlert = ShowAlert(title: title, message: message)
@@ -93,7 +93,7 @@ class ShareViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if let showAlert = showAlert {
-            viewModel.userAlertModel.userAlert = .full(title: showAlert.title, message: showAlert.message)
+            viewModel.userAlertModel.userAlert = .titleAndMessage(title: showAlert.title, message: showAlert.message)
         }
         
         viewHasAppeared = true

@@ -31,11 +31,11 @@ extension UserAlertMessage {
                 userAlert = .error(message: "\(error)")
             }
             else {
-                userAlert = .title("Error!")
+                userAlert = .titleOnly("Error!")
             }
             
         case .showAlert(title: let title, message: let message):
-            userAlert = .full(title: title, message: message)
+            userAlert = .titleAndMessage(title: title, message: message)
 
         case .none:
             // This isn't an error
@@ -62,12 +62,23 @@ extension View {
     func showUserAlert(show: Binding<Bool>, message:UserAlertMessage) -> some View {
         self.alert(isPresented: show, content: {
             switch message.userAlert {
-            case .full(title: let title, message: let message):
+            case .titleAndMessage(title: let title, message: let message):
                 return Alert(title: Text(title), message: Text(message))
-            case .title(let title):
+            case .titleOnly(let title):
                 return Alert(title: Text(title))
             case .error(message: let message):
                 return Alert(title: Text("Error!"), message: Text(message))
+            
+            case .customAction(title: let title, message: let message, actionButtonTitle: let actionButtonTitle, action: let action):
+                let cancel = Alert.Button.cancel()
+                let defaultButton = Alert.Button.default(
+                    Text(actionButtonTitle),
+                    action: {
+                        action()
+                    }
+                )
+                return Alert(title: Text(title), message: Text(message), primaryButton: defaultButton, secondaryButton: cancel)
+            
             case .none:
                 return Alert(title: Text("Error!"))
             }

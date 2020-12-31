@@ -78,7 +78,7 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
                 
             case .failure(let error):
                 logger.error("\(error)")
-                self.userAlertModel.userAlert = .full(title: "Alert!", message: "Failed to create sharing invitation!")
+                self.userAlertModel.userAlert = .titleAndMessage(title: "Alert!", message: "Failed to create sharing invitation!")
             }
         }
     }

@@ -48,7 +48,7 @@ class AlbumSharingScreenModel: ObservableObject, ModelAlertDisplaying {
             switch result {
             case .success:
                 // The index was automatically synced. Don't need to do it again.
-                self.userAlertModel.userAlert = .full(title: "Success!", message: "You have a new sharing album!")
+                self.userAlertModel.userAlert = .titleAndMessage(title: "Success!", message: "You have a new sharing album!")
                 self.sharingCode = nil
                 
             case .failure(let error):

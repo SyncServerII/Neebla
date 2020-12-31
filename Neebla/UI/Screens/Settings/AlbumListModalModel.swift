@@ -7,6 +7,7 @@ import SQLite
 
 class AlbumListModalModel: ObservableObject, ModelAlertDisplaying {
     var errorSubscription: AnyCancellable!
+    var syncSubscription: AnyCancellable!
     @Published var userAlertModel: UserAlertModel
     
     @Published var albums:[AlbumModel] = []
@@ -15,6 +16,18 @@ class AlbumListModalModel: ObservableObject, ModelAlertDisplaying {
         self.userAlertModel = userAlertModel
         setupHandleErrors()
         fetchAlbums()
+        
+        syncSubscription = Services.session.serverInterface.$sync.sink { _ in        
+            // Propagate any sharing group changes to our AlbumModel.
+            do {
+                let sharingGroups = try Services.session.syncServer.sharingGroups()
+                try AlbumModel.upsertSharingGroups(db: Services.session.db, sharingGroups: sharingGroups)
+            } catch let error {
+                logger.error("\(error)")
+            }
+            
+            self.fetchAlbums()
+        }
     }
     
     func fetchAlbums() {
@@ -24,7 +37,7 @@ class AlbumListModalModel: ObservableObject, ModelAlertDisplaying {
             albums = try AlbumModel.fetch(db: Services.session.db, where: AlbumModel.deletedField.description == false)
         } catch let error {
             logger.error("\(error)")
-            userAlertModel.userAlert = .full(title: "Alert!", message: "Failed to fetch albums.")
+            userAlertModel.userAlert = .titleAndMessage(title: "Alert!", message: "Failed to fetch albums.")
             return
         }
         
@@ -37,11 +50,11 @@ class AlbumListModalModel: ObservableObject, ModelAlertDisplaying {
             
             if let error = error {
                 logger.error("\(error)")
-                self.userAlertModel.userAlert = .full(title: "Alert!", message: "Failed to remove user from album.")
+                self.userAlertModel.userAlert = .titleAndMessage(title: "Alert!", message: "Failed to remove user from album.")
                 return
             }
             
-            self.fetchAlbums()
+            // At this point, the sync carried out by `removeFromSharingGroup` may not have completed. Rely on our `sync` listener for that.
         }
     }
 }
