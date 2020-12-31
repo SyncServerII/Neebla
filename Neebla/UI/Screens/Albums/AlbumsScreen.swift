@@ -165,11 +165,11 @@ private struct RightNavBarIcons: View {
                     viewModel.sharingMode.toggle()
                 },
                 label: {
-                    NavBarIcon(imageName: "Share", size: CGSize(width: 25, height: 25), blueAccent: false)
+                    Icon(imageName: "Share", size: CGSize(width: 25, height: 25), blueAccent: false)
                         .accentColor(viewModel.sharingMode ? .gray : .blue)
                 }
             )
-            .frame(width: NavBarIcon.dimension, height: NavBarIcon.dimension)
+            .frame(width: Icon.dimension, height: Icon.dimension)
             .enabled(viewModel.canSendMail && viewModel.albums.count > 0)
                                     
             Button(
@@ -202,7 +202,7 @@ private struct AlbumsScreenRow: View {
             // To change an album name and to share an album, you must have .admin permissions.
             if album.permission.hasMinimumPermission(.admin) {
                 if viewModel.sharingMode {
-                    NavBarIcon(imageName: "Share", size: CGSize(width: 25, height: 25))
+                    Icon(imageName: "Share", size: CGSize(width: 25, height: 25))
                 }
                 else {
                     Button(action: {

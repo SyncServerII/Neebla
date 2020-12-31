@@ -10,6 +10,8 @@ class ImageObjectType: ItemType, DeclarableObject {
         case couldNotGetJPEGData
         case invalidFileLabel
         case badAssetType
+        case badObjectType
+        case couldNotGetImage
     }
         
     let displayName = "image"
@@ -87,5 +89,28 @@ extension ImageObjectType: ObjectDownloadHandler {
         let files = object.downloads.map { FileToDownload(uuid: $0.uuid, fileVersion: $0.fileVersion) }
         let downloadObject = ObjectToDownload(fileGroupUUID: object.fileGroupUUID, downloads: files)
         try Services.session.syncServer.markAsDownloaded(object: downloadObject)
+    }
+}
+
+extension ImageObjectType: MediaTypeActivityItems {
+    func activityItems(forObject object: ServerObjectModel) throws -> [Any] {
+        guard object.objectType == objectType else {
+            throw ImageObjectTypeError.badObjectType
+        }
+        
+        guard let imageFileModel = try? ServerFileModel.getFileFor(fileLabel: Self.imageDeclaration.fileLabel, withFileGroupUUID: object.fileGroupUUID) else {
+            throw ImageObjectTypeError.couldNotGetImage
+        }
+        
+        guard let fullSizeImageURL = imageFileModel.url else {
+            throw ImageObjectTypeError.couldNotGetImage
+        }
+        
+        guard let imageData = try? Data(contentsOf: fullSizeImageURL),
+            let image = UIImage(data: imageData) else {
+            throw ImageObjectTypeError.couldNotGetImage
+        }
+ 
+        return [image]
     }
 }

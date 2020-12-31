@@ -14,6 +14,8 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         case couldNotLoadHEIC
         case couldNotGetJPEGData
         case imageConversionFailed(String)
+        case badObjectType
+        case couldNotGetImage
     }
     
     let displayName = "live image"
@@ -107,5 +109,29 @@ extension LiveImageObjectType: ObjectDownloadHandler {
         let files = object.downloads.map { FileToDownload(uuid: $0.uuid, fileVersion: $0.fileVersion) }
         let downloadObject = ObjectToDownload(fileGroupUUID: object.fileGroupUUID, downloads: files)
         try Services.session.syncServer.markAsDownloaded(object: downloadObject)
+    }
+}
+
+
+extension LiveImageObjectType: MediaTypeActivityItems {
+    func activityItems(forObject object: ServerObjectModel) throws -> [Any] {
+        guard object.objectType == objectType else {
+            throw LiveImageObjectTypeError.badObjectType
+        }
+        
+        guard let imageFileModel = try? ServerFileModel.getFileFor(fileLabel: Self.imageDeclaration.fileLabel, withFileGroupUUID: object.fileGroupUUID) else {
+            throw LiveImageObjectTypeError.couldNotGetImage
+        }
+        
+        guard let fullSizeImageURL = imageFileModel.url else {
+            throw LiveImageObjectTypeError.couldNotGetImage
+        }
+        
+        guard let imageData = try? Data(contentsOf: fullSizeImageURL),
+            let image = UIImage(data: imageData) else {
+            throw LiveImageObjectTypeError.couldNotGetImage
+        }
+ 
+        return [image]
     }
 }

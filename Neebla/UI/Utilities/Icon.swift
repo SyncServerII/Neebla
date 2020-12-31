@@ -2,11 +2,13 @@
 import Foundation
 import SwiftUI
 
-struct NavBarIcon: View {
+struct Icon: View {
     let imageName: String
     let size: CGSize
     let blueAccent: Bool
     static let dimension: CGFloat = 50
+    
+    // The `blueAccent` only seems to work if this used in a nav bar.
     
     init(imageName: String, size: CGSize = CGSize(width: Self.dimension, height: Self.dimension), blueAccent: Bool = true) {
         self.imageName = imageName

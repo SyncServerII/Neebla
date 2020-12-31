@@ -49,10 +49,15 @@ struct AlbumItemsScreenBody: View {
             RefreshableScrollView(refreshing: $viewModel.loading) {
                 LazyVGrid(columns: gridItemLayout) {
                     ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
-                        AlbumItemsScreenCell(object: item)
+                        AlbumItemsScreenCell(object: item, viewModel: viewModel)
                             .onTapGesture {
-                                object = item
-                                viewModel.showCellDetails = true
+                                if viewModel.sharing {
+                                    viewModel.toggleItemToShare(fileGroupUUID: item.fileGroupUUID)
+                                }
+                                else {
+                                    object = item
+                                    viewModel.showCellDetails = true
+                                }
                             }
                     } // end ForEach
                 } // end LazyVGrid
@@ -79,6 +84,14 @@ struct AlbumItemsScreenBody: View {
             AlbumItemsScreenNavButtons(viewModel: viewModel)
         )
         .disabled(viewModel.addNewItem)
+        // For some reason, it's important that this .sheet come before the .modal for `AddItemModal`. Otherwise, I can't use the buttons in the `AddItemModal`. Perhaps because the modal contains a .sheet?
+        .sheet(isPresented: $viewModel.completeSharing) {
+            ActivityViewController(activityItems: viewModel.shareActivityItems())
+                .onAppear() {
+                    // Switch out of sharing mode, so when user comes back they don't have the selection state-- which doesn't seem right.
+                    viewModel.sharing = false
+                }
+        }
         .modal(isPresented: $viewModel.addNewItem) {
             AddItemModal(viewModel: viewModel)
                 .padding(20)
@@ -98,22 +111,69 @@ private struct AlbumItemsScreenNavButtons: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     
     var body: some View {
+        if viewModel.sharing && viewModel.itemsToShare.count > 0 {
+            AlbumItemsScreenNavSharingButtons(viewModel: viewModel)
+        }
+        else {
+            AlbumItemsScreenNavRegularButtons(viewModel: viewModel)
+        }
+    }
+}
+
+private struct AlbumItemsScreenNavRegularButtons: View {
+    @ObservedObject var viewModel:AlbumItemsViewModel
+    
+    var body: some View {
         HStack(spacing: 0) {
-            Button(
-                action: {
-                    viewModel.sync()
-                },
-                label: {
-                    SFSymbolNavBar(symbol: .goforward)
-                }
-            )
-            
             Button(
                 action: {
                     viewModel.startNewAddItem()
                 },
                 label: {
                     SFSymbolNavBar(symbol: .plusCircle)
+                }
+            )
+            
+            Menu {
+                Button(action: {
+                    viewModel.sharing = true
+                }) {
+                    Label("Share items", image: "Share")
+                }.enabled(viewModel.objects.count > 0)
+                
+                Button(action: {
+                    viewModel.sync()
+                }) {
+                    Label("Sync", systemImage: "goforward")
+                }
+            } label: {
+                SFSymbolNavBar(symbol: .ellipsis)
+            }
+        }
+    }
+}
+
+private struct AlbumItemsScreenNavSharingButtons: View {
+    @ObservedObject var viewModel:AlbumItemsViewModel
+    
+    var body: some View {
+        HStack {
+            Button(
+                action: {
+                    viewModel.completeSharing = true
+                },
+                label: {
+                    SFSymbolNavBar(symbol: .squareAndArrowUp)
+                }
+            )
+            
+            Button(
+                action: {
+                    viewModel.sharing = false
+                    viewModel.itemsToShare.removeAll()
+                },
+                label: {
+                    SFSymbolNavBar(symbol: .xmark)
                 }
             )
         }

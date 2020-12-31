@@ -7,10 +7,11 @@ class AnyTypeManager {
     enum ItemTypeManagerError: Error {
         case duplicateObjectType
         case couldNotUploadWithAssets
+        case couldNotFindObjectType
     }
     
     static let session = AnyTypeManager()
-    let objectTypes:[DeclarableObject & ObjectDownloadHandler & ItemType & UploadableMediaType] = [
+    let objectTypes:[DeclarableObject & ObjectDownloadHandler & ItemType & UploadableMediaType & MediaTypeActivityItems] = [
         ImageObjectType(),
         URLObjectType(),
         LiveImageObjectType()
@@ -47,5 +48,15 @@ class AnyTypeManager {
         }
         
         throw ItemTypeManagerError.couldNotUploadWithAssets
+    }
+    
+    func activityItems(forObject object: ServerObjectModel) throws -> [Any] {
+        for type in objectTypes {
+            if type.objectType == object.objectType {
+                return try type.activityItems(forObject: object)
+            }
+        }
+        
+        throw ItemTypeManagerError.couldNotFindObjectType
     }
 }

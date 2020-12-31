@@ -10,6 +10,8 @@ class URLObjectType: ItemType, DeclarableObject {
         case invalidFileLabel
         case couldNotGetJPEGData
         case badAssetType
+        case badObjectType
+        case couldNotGetURLFile
     }
     
     static let urlFilenameExtension = "url"
@@ -127,5 +129,29 @@ extension URLObjectType: ObjectDownloadHandler {
         let files = object.downloads.map { FileToDownload(uuid: $0.uuid, fileVersion: $0.fileVersion) }
         let downloadObject = ObjectToDownload(fileGroupUUID: object.fileGroupUUID, downloads: files)
         try Services.session.syncServer.markAsDownloaded(object: downloadObject)
+    }
+}
+
+extension URLObjectType: MediaTypeActivityItems {
+    func activityItems(forObject object: ServerObjectModel) throws -> [Any] {
+        guard object.objectType == objectType else {
+            throw URLObjectTypeError.badObjectType
+        }
+        
+        guard let urlFileModel = try? ServerFileModel.getFileFor(fileLabel: Self.urlDeclaration.fileLabel, withFileGroupUUID: object.fileGroupUUID) else {
+            throw URLObjectTypeError.couldNotGetURLFile
+        }
+
+        guard let urlFile = urlFileModel.url else {
+            logger.error("No url with url file!")
+            throw URLObjectTypeError.couldNotGetURLFile
+        }
+        
+        guard let contents = URLFile.parse(localURLFile: urlFile) else {
+            logger.error("Could not get url file contents!")
+            throw URLObjectTypeError.couldNotGetURLFile
+        }
+        
+        return [contents.url]
     }
 }

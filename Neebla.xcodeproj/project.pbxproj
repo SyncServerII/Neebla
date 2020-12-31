@@ -170,7 +170,7 @@
 		83BF7CE42585B915000E0B37 /* AlbumSharingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CE32585B915000E0B37 /* AlbumSharingScreen.swift */; };
 		83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CE82585B99F000E0B37 /* AlbumSharingScreenModel.swift */; };
 		83BF80772585D8DA000E0B37 /* SignInScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF80762585D8DA000E0B37 /* SignInScreenModel.swift */; };
-		83BF80822585F9D3000E0B37 /* NavBarIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF80812585F9D3000E0B37 /* NavBarIcon.swift */; };
+		83BF80822585F9D3000E0B37 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF80812585F9D3000E0B37 /* Icon.swift */; };
 		83C4365C258F2E3200F34628 /* ConfigPlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4365B258F2E3200F34628 /* ConfigPlist.swift */; };
 		83C43660258F2F5400F34628 /* ConfigPlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4365B258F2E3200F34628 /* ConfigPlist.swift */; };
 		83C43FE125733B480016BA4C /* MessageKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C43FE025733B480016BA4C /* MessageKitTypes.swift */; };
@@ -219,6 +219,10 @@
 		83F41682259C20D5003C7200 /* UIDevice+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F4167A259C2074003C7200 /* UIDevice+Extras.swift */; };
 		83F41687259C21EC003C7200 /* View+iPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F41686259C21EC003C7200 /* View+iPad.swift */; };
 		83F41692259C3F70003C7200 /* Colors+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F41691259C3F70003C7200 /* Colors+Extras.swift */; };
+		83F416A5259D60A0003C7200 /* ViewInUpperRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416A4259D60A0003C7200 /* ViewInUpperRight.swift */; };
+		83F416AB259D7E7C003C7200 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416AA259D7E7C003C7200 /* ActivityViewController.swift */; };
+		83F416B3259D821D003C7200 /* MediaTypeActivityItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */; };
+		83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -379,7 +383,7 @@
 		83BF7CE32585B915000E0B37 /* AlbumSharingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSharingScreen.swift; sourceTree = "<group>"; };
 		83BF7CE82585B99F000E0B37 /* AlbumSharingScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSharingScreenModel.swift; sourceTree = "<group>"; };
 		83BF80762585D8DA000E0B37 /* SignInScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenModel.swift; sourceTree = "<group>"; };
-		83BF80812585F9D3000E0B37 /* NavBarIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarIcon.swift; sourceTree = "<group>"; };
+		83BF80812585F9D3000E0B37 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		83C4365B258F2E3200F34628 /* ConfigPlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPlist.swift; sourceTree = "<group>"; };
 		83C43667258FD99D00F34628 /* iOSFacebook */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSFacebook; path = ../../iOSFacebook; sourceTree = "<group>"; };
 		83C43FE025733B480016BA4C /* MessageKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitTypes.swift; sourceTree = "<group>"; };
@@ -404,6 +408,9 @@
 		83F4167A259C2074003C7200 /* UIDevice+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extras.swift"; sourceTree = "<group>"; };
 		83F41686259C21EC003C7200 /* View+iPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+iPad.swift"; sourceTree = "<group>"; };
 		83F41691259C3F70003C7200 /* Colors+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Extras.swift"; sourceTree = "<group>"; };
+		83F416A4259D60A0003C7200 /* ViewInUpperRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInUpperRight.swift; sourceTree = "<group>"; };
+		83F416AA259D7E7C003C7200 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeActivityItems.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -471,10 +478,10 @@
 				8331F4782560CC610063A67D /* Item Types */,
 				83C7345225986D080073788A /* Item Provider */,
 				83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */,
+				83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */,
 				83C734C1259883C00073788A /* Generic Image */,
 				8308B715256B4995007F0CEB /* RatioModifier.swift */,
 				8331F4A82560F1C20063A67D /* MediaTypeButton.swift */,
-				83BF78702580789A000E0B37 /* TextInLowerRight.swift */,
 				83BF7C9725854354000E0B37 /* Comments */,
 			);
 			path = Utilities;
@@ -739,11 +746,13 @@
 		8331F44E255FB13C0063A67D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				83BF78702580789A000E0B37 /* TextInLowerRight.swift */,
+				83F416A4259D60A0003C7200 /* ViewInUpperRight.swift */,
 				8331F51025621F7A0063A67D /* AlertMessage.swift */,
 				8331F4DC2561EDA50063A67D /* Binding+Extras.swift */,
 				8331F52F25623A170063A67D /* RefreshableScrollView.swift */,
 				8320A754256F530C00819377 /* SFSymbolNavBar.swift */,
-				83BF80812585F9D3000E0B37 /* NavBarIcon.swift */,
+				83BF80812585F9D3000E0B37 /* Icon.swift */,
 				8320A758256F568400819377 /* View+Extras.swift */,
 				83F4167A259C2074003C7200 /* UIDevice+Extras.swift */,
 				83F41686259C21EC003C7200 /* View+iPad.swift */,
@@ -759,6 +768,7 @@
 				8320A6D8256CA0DE00819377 /* AlbumItemsScreenCell.swift */,
 				8320A6DE256CA11A00819377 /* AddItemModal.swift */,
 				8331F4662560BE0E0063A67D /* AlbumItemsViewModel.swift */,
+				83F416A9259D7E47003C7200 /* Activity */,
 			);
 			path = "Album Items";
 			sourceTree = "<group>";
@@ -1068,6 +1078,14 @@
 			path = "Live Images";
 			sourceTree = "<group>";
 		};
+		83F416A9259D7E47003C7200 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				83F416AA259D7E7C003C7200 /* ActivityViewController.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1306,6 +1324,7 @@
 				834B25CC258C7C2200F653BC /* ServicesDelegate.swift in Sources */,
 				8331F444255F9C920063A67D /* ServerObjectModel.swift in Sources */,
 				83BF7CA6258543B4000E0B37 /* Comments+Keys.swift in Sources */,
+				83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */,
 				83C7347D25986E2C0073788A /* ImageItemProvider.swift in Sources */,
 				8331F381255B8F820063A67D /* Services+LoggingHelpers.swift in Sources */,
 				8331F43E255F9C8B0063A67D /* SetupLocalDatabase.swift in Sources */,
@@ -1326,6 +1345,7 @@
 				8331F337255B8AFD0063A67D /* MainView.swift in Sources */,
 				8308B6E9256A0733007F0CEB /* URLPreviewGenerator.swift in Sources */,
 				8331F433255F97A50063A67D /* Services+LocalDatabase.swift in Sources */,
+				83F416A5259D60A0003C7200 /* ViewInUpperRight.swift in Sources */,
 				835AC8EC255B842E00375084 /* Services+SignInServices.swift in Sources */,
 				83BF782C257DD242000E0B37 /* ImageObjectType+Uploadable.swift in Sources */,
 				83BF7C8725849AED000E0B37 /* Comments+Keys.swift in Sources */,
@@ -1394,12 +1414,13 @@
 				83BF786C25807826000E0B37 /* LiveImageLargeMedia.swift in Sources */,
 				8320A759256F568400819377 /* View+Extras.swift in Sources */,
 				8331F518256220670063A67D /* GenericImageModel.swift in Sources */,
-				83BF80822585F9D3000E0B37 /* NavBarIcon.swift in Sources */,
+				83BF80822585F9D3000E0B37 /* Icon.swift in Sources */,
 				8331F33F255B8B8F0063A67D /* SignInViewModel.swift in Sources */,
 				83BF781F257DCE9B000E0B37 /* UploadableMediaType.swift in Sources */,
 				83C734F3259890AC0073788A /* LIveImageItemProvider.swift in Sources */,
 				8331F51125621F7A0063A67D /* AlertMessage.swift in Sources */,
 				83B657D9255B81320041B9DF /* AppDelegate.swift in Sources */,
+				83F416AB259D7E7C003C7200 /* ActivityViewController.swift in Sources */,
 				835AC8EB255B842E00375084 /* Services+Open.swift in Sources */,
 				832D3441258710E500FEF094 /* SettingsModel.swift in Sources */,
 				835AC8F3255B848300375084 /* ServerInterface.swift in Sources */,
@@ -1422,6 +1443,7 @@
 				834B25AD258C613700F653BC /* Services+SignIns.swift in Sources */,
 				83B657DB255B81320041B9DF /* SceneDelegate.swift in Sources */,
 				8331F415255F857E0063A67D /* AlbumModel.swift in Sources */,
+				83F416B3259D821D003C7200 /* MediaTypeActivityItems.swift in Sources */,
 				83BF80772585D8DA000E0B37 /* SignInScreenModel.swift in Sources */,
 				8331F4A32560F0A90063A67D /* CameraPickerView.swift in Sources */,
 				8331F4612560BD7D0063A67D /* AlbumItemsScreen.swift in Sources */,

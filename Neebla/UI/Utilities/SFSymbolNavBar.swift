@@ -11,6 +11,6 @@ struct SFSymbolNavBar: View {
             .accentColor(.blue)
             .imageScale(.large)
             // The tappable area is too small; fat fingering. Trying to make it larger.
-            .frame(width: NavBarIcon.dimension, height: NavBarIcon.dimension)
+            .frame(width: Icon.dimension, height: Icon.dimension)
     }
 }

@@ -22,6 +22,27 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     let sharingGroupUUID: UUID
     
     @Published var addNewItem = false
+    @Published var sharing = false {
+        didSet {
+            itemsToShare.removeAll()
+        }
+    }
+    
+    func toggleItemToShare(fileGroupUUID: UUID) {
+        if itemsToShare.contains(fileGroupUUID) {
+            itemsToShare.remove(fileGroupUUID)
+        }
+        else {
+            itemsToShare.insert(fileGroupUUID)
+        }
+    }
+    
+    // fileGroupUUID's of items to share
+    @Published var itemsToShare = Set<UUID>()
+    
+    var activityItems = [Any]()
+    @Published var completeSharing:Bool = false
+    
     private var syncSubscription:AnyCancellable!
     var errorSubscription:AnyCancellable!
     private var markAsDownloadedSubscription:AnyCancellable!
@@ -97,5 +118,31 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     
     func startNewAddItem() {
         addNewItem = true
+    }
+    
+    func shareActivityItems() -> [Any] {
+        guard itemsToShare.count > 0 else {
+            return []
+        }
+        
+        // Map the fileGroupUUID for an object to its type, and then to the activityItem(s) for that object.
+        
+        var result = [Any]()
+        
+        for itemToShare in itemsToShare {
+            guard let object = (objects.filter {$0.fileGroupUUID == itemToShare}).first else {
+                logger.error("Could not find object!!")
+                continue
+            }
+
+            do {
+                let activityItems = try AnyTypeManager.session.activityItems(forObject: object)
+                result += activityItems
+            } catch let error {
+                logger.error("\(error)")
+            }
+        }
+        
+        return result
     }
 }
