@@ -118,6 +118,12 @@ extension ServerFileModel {
         
         return fileModelsWithLabel[0]
     }
+    
+    func removeFile() throws {
+        if let existingFileURL = url {
+            try FileManager.default.removeItem(at: existingFileURL)
+        }
+    }
 }
 
 extension DownloadedFile {
@@ -139,9 +145,7 @@ extension DownloadedFile {
         if let fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == uuid) {
         
             // For an existing file, replaces the content URL. First, get rid of existing file, if any.
-            if let existingFileURL = fileModel.url {
-                try FileManager.default.removeItem(at: existingFileURL)
-            }
+            try fileModel.removeFile()
             
             try fileModel.update(setters:
                 ServerFileModel.goneField.description <- gone,

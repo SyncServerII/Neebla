@@ -74,9 +74,12 @@ extension AlbumModel {
     static func upsertSharingGroup(db: Connection, sharingGroup: iOSBasics.SharingGroup) throws {
         if let model = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroup.sharingGroupUUID) {
             if sharingGroup.sharingGroupName != model.albumName {
-                try model.update(setters:
-                    AlbumModel.albumNameField.description <- sharingGroup.sharingGroupName,
-                    AlbumModel.deletedField.description <- sharingGroup.deleted)
+                if sharingGroup.deleted {
+                    try model.update(setters:
+                        AlbumModel.albumNameField.description <- sharingGroup.sharingGroupName,
+                        AlbumModel.deletedField.description <- sharingGroup.deleted)
+                    try albumDeletionCleanup(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID)
+                }
             }
         }
         else {
@@ -96,12 +99,28 @@ extension AlbumModel {
             if !onServer {
                 // Not on server: Remove it locally.
                 try localAlbum.update(setters: AlbumModel.deletedField.description <- true)
-                // TODO: Need some more cleanup here. Need to remove other resources such as associated files: See https://docs.google.com/document/d/190FBElJHbzCqvI9-pZGuHOg4jC2gbMh3lB6INCaiQcs/edit#bookmark=id.2r7xxqk5u39x
+                try albumDeletionCleanup(db: db, sharingGroupUUID: localAlbum.sharingGroupUUID)
             }
         }
         
         for sharingGroup in sharingGroups {
             try upsertSharingGroup(db: db, sharingGroup: sharingGroup)
+        }
+    }
+    
+    /* After marking an album as deleted, do related cleanup:
+        Remove all ServerObjectModel’s, and all ServerFileModel's.
+            Remove all files associated with these.
+    */
+    static func albumDeletionCleanup(db: Connection, sharingGroupUUID: UUID) throws {
+        let objectModelsForAlbum = try ServerObjectModel.fetch(db: db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID)
+        for objectModel in objectModelsForAlbum {
+            let fileModels = try ServerFileModel.fetch(db: db, where: ServerFileModel.fileGroupUUIDField.description == objectModel.fileGroupUUID)
+            for fileModel in fileModels {
+                try fileModel.removeFile()
+                try fileModel.delete()
+            }
+            try objectModel.delete()
         }
     }
 }
