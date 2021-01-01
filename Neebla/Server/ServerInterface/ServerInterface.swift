@@ -28,8 +28,8 @@ class ServerInterface {
     // Subscribe to this to get sync completions.
     @Published var sync: SyncResult?
     
-    // Subscribe to this to get error completions.
-    @Published var error: ErrorEvent?
+    // Subscribe to this to get user event completions.
+    @Published var userEvent: UserEvent?
     
     // Subscribe to this to get fileGroupUUID's of objects marked as downloaded.
     @Published var objectMarkedAsDownloaded: UUID?
@@ -75,9 +75,15 @@ class ServerInterface {
 }
 
 extension ServerInterface: SyncServerDelegate {
-    func error(_ syncServer: SyncServer, error: ErrorEvent) {
-        logger.error("\(String(describing: error))")
-        self.error = error
+    func userEvent(_ syncServer: SyncServer, event: UserEvent) {
+        switch event {
+        case .error(let error):
+            logger.error("\(String(describing: error))")
+        case .showAlert:
+            break
+        }
+        
+        self.userEvent = event
     }
     
     func syncCompleted(_ syncServer: SyncServer, result: SyncResult) {
@@ -85,7 +91,7 @@ extension ServerInterface: SyncServerDelegate {
         do {
             try syncHelper(result: result)
         } catch let error {
-            self.error = .error(error)
+            self.userEvent = .error(error)
         }
         
         self.sync = result

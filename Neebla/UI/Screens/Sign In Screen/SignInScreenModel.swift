@@ -6,10 +6,10 @@ import iOSShared
 
 class SignInScreenModel: ObservableObject, ModelAlertDisplaying {
     @Published var userAlertModel:UserAlertModel
-    var errorSubscription:AnyCancellable!
+    var userEventSubscription:AnyCancellable!
 
     init(userAlertModel:UserAlertModel) {
         self.userAlertModel = userAlertModel
-        setupHandleErrors()
+        setupHandleUserEvents()
     }
 }

@@ -19,13 +19,13 @@ class ShareViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var sharingItem: SXItemProvider?
     @Published var userAlertModel = UserAlertModel()
     
-    var errorSubscription: AnyCancellable!
+    var userEventSubscription: AnyCancellable!
     var cancel:(()->())?
     private var syncSubscription:AnyCancellable!
     
     // Make sure `Services.session` is setup before calling this.
     func setupAfterServicesInitialized() {
-        setupHandleErrors()
+        setupHandleUserEvents()
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             self.syncCompletionHelper()

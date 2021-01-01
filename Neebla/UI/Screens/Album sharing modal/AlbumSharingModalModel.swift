@@ -7,7 +7,7 @@ import iOSShared
 import ServerShared
 
 class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
-    var errorSubscription: AnyCancellable!
+    var userEventSubscription: AnyCancellable!
     @Published var userAlertModel: UserAlertModel
     let album:AlbumModel
     let helpDocs = ("SharingInvitationHelp", "html")
@@ -43,7 +43,7 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
         
         self.completion = completion
 
-        setupHandleErrors()
+        setupHandleUserEvents()
         
         guard let helpFileURL = Bundle.main.url(forResource: helpDocs.0, withExtension: helpDocs.1) else {
             logger.error("Could not load help file from bundle: \(helpDocs)")

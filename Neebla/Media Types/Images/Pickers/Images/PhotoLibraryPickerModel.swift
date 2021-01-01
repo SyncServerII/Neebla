@@ -16,7 +16,7 @@ class PhotoLibraryPickerModel {
         switch pickerResult {
         case .failure(let error):
             logger.error("error: \(error)")
-            #warning("Need to show this to the user.")
+            Services.session.serverInterface.userEvent = .error(error)
             break
             
         case .success(let asset):

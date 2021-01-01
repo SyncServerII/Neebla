@@ -24,8 +24,8 @@ class UserAlertModel: ObservableObject, UserAlertMessage {
 }
 
 extension UserAlertMessage {
-    func showMessage(for errorEvent: ErrorEvent?) {
-        switch errorEvent {
+    func showMessage(for userEvent: UserEvent?) {
+        switch userEvent {
         case .error(let error):
             if let error = error {
                 userAlert = .error(message: "\(error)")
@@ -45,15 +45,15 @@ extension UserAlertMessage {
 }
 
 protocol ModelAlertDisplaying: AnyObject {
-    var errorSubscription:AnyCancellable! {get set}
+    var userEventSubscription:AnyCancellable! {get set}
     var userAlertModel:UserAlertModel {get}
 }
 
 extension ModelAlertDisplaying {
-    func setupHandleErrors() {
-        errorSubscription = Services.session.serverInterface.$error.sink { [weak self] errorEvent in
+    func setupHandleUserEvents() {
+        userEventSubscription = Services.session.serverInterface.$userEvent.sink { [weak self] event in
             guard let self = self else { return }
-            self.userAlertModel.showMessage(for: errorEvent)
+            self.userAlertModel.showMessage(for: event)
         }
     }
 }

@@ -6,7 +6,7 @@ import Combine
 import SQLite
 
 class AlbumListModalModel: ObservableObject, ModelAlertDisplaying {
-    var errorSubscription: AnyCancellable!
+    var userEventSubscription: AnyCancellable!
     var syncSubscription: AnyCancellable!
     @Published var userAlertModel: UserAlertModel
     
@@ -14,7 +14,7 @@ class AlbumListModalModel: ObservableObject, ModelAlertDisplaying {
     
     init(userAlertModel: UserAlertModel) {
         self.userAlertModel = userAlertModel
-        setupHandleErrors()
+        setupHandleUserEvents()
         fetchAlbums()
         
         syncSubscription = Services.session.serverInterface.$sync.sink { _ in        

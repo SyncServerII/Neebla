@@ -43,7 +43,7 @@ extension Services {
             
             if let message = message {
                 DispatchQueue.main.async {
-                    self.serverInterface.error = .showAlert(title: "Alert!", message: message)
+                    self.serverInterface.userEvent = .showAlert(title: "Alert!", message: message)
                 }
             }
         }
@@ -56,11 +56,11 @@ extension Services {
             switch result {
             case .success:
                 DispatchQueue.main.async {
-                    self.serverInterface.error = .showAlert(title: "Success!", message: "You are now in another sharing group!")
+                    self.serverInterface.userEvent = .showAlert(title: "Success!", message: "You are now in another sharing group!")
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.serverInterface.error = .showAlert(title: "Alert!", message: "Failed redeeming sharing invitation. Has it expired? Have you redeemded it already?")
+                    self.serverInterface.userEvent = .showAlert(title: "Alert!", message: "Failed redeeming sharing invitation. Has it expired? Have you redeemded it already?")
                     logger.error("\(error)")
                 }
             }

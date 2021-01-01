@@ -44,14 +44,14 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var completeSharing:Bool = false
     
     private var syncSubscription:AnyCancellable!
-    var errorSubscription:AnyCancellable!
+    var userEventSubscription:AnyCancellable!
     private var markAsDownloadedSubscription:AnyCancellable!
     private var objectDeletedSubscription:AnyCancellable!
 
     init(album sharingGroupUUID: UUID, userAlertModel: UserAlertModel) {
         self.userAlertModel = userAlertModel
         self.sharingGroupUUID = sharingGroupUUID
-        setupHandleErrors()
+        setupHandleUserEvents()
         
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }

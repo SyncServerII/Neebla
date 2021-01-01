@@ -42,12 +42,12 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     var textInputAction: (()->())?
     
     private var syncSubscription:AnyCancellable!
-    var errorSubscription:AnyCancellable!
+    var userEventSubscription:AnyCancellable!
     let userAlertModel:UserAlertModel
     
     init(userAlertModel:UserAlertModel) {
         self.userAlertModel = userAlertModel
-        setupHandleErrors()
+        setupHandleUserEvents()
         
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }

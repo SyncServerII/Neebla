@@ -6,12 +6,12 @@ import Combine
 import iOSShared
 
 class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
-    var errorSubscription: AnyCancellable!
+    var userEventSubscription: AnyCancellable!
     @Published var userAlertModel: UserAlertModel
     @Published var showAlbumList: Bool = false
     
     init(userAlertModel: UserAlertModel) {
         self.userAlertModel = userAlertModel
-        setupHandleErrors()
+        setupHandleUserEvents()
     }
 }

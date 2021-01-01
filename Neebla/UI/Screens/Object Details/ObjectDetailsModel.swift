@@ -5,7 +5,7 @@ import SQLite
 import Combine
 
 class ObjectDetailsModel: ObservableObject, ModelAlertDisplaying {
-    var errorSubscription: AnyCancellable!
+    var userEventSubscription: AnyCancellable!
     let object: ServerObjectModel
     private(set) var objectTypeDisplayName:String?
     var mediaTitle: String?
@@ -35,7 +35,7 @@ class ObjectDetailsModel: ObservableObject, ModelAlertDisplaying {
         
         modelInitialized = success
         
-        setupHandleErrors()
+        setupHandleUserEvents()
     }
     
     func deleteObject() -> Bool {
