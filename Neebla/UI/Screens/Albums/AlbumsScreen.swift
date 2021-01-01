@@ -129,6 +129,9 @@ struct AlbumsScreenAlbumList: View {
                             Button(action: {
                                 viewModel.albumToShare = album
                                 viewModel.activeSheet = .albumSharing
+                                
+                                // So when we come back from album sharing, the screen isn't in sharing mode.
+                                viewModel.sharingMode = false
                             }, label: {
                                 AlbumsScreenRow(album: album, viewModel: viewModel)
                             })
