@@ -65,7 +65,7 @@ struct MenuNavBar<Content: View>: View {
                                         }
                                     }
                                 }, label: {
-                                    SFSymbolNavBar(symbol: .lineHorizontal3)
+                                    SFSymbolIcon(symbol: .lineHorizontal3)
                                 })
                             }
                             else {

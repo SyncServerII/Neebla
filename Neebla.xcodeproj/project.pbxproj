@@ -30,7 +30,7 @@
 		8320A738256E164500819377 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A737256E164500819377 /* CommentsView.swift */; };
 		8320A73C256E170900819377 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A73B256E170900819377 /* MessagesView.swift */; };
 		8320A74F256F3EF900819377 /* DefaultModalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A74E256F3EF900819377 /* DefaultModalStyle.swift */; };
-		8320A755256F530C00819377 /* SFSymbolNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A754256F530C00819377 /* SFSymbolNavBar.swift */; };
+		8320A755256F530C00819377 /* SFSymbolIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A754256F530C00819377 /* SFSymbolIcon.swift */; };
 		8320A759256F568400819377 /* View+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A758256F568400819377 /* View+Extras.swift */; };
 		83269F10258C4E3500D27594 /* iOSGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 83269F0F258C4E3500D27594 /* iOSGoogle */; };
 		832D341D258680B100FEF094 /* AlbumSharingModalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */; };
@@ -286,7 +286,7 @@
 		8320A737256E164500819377 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		8320A73B256E170900819377 /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		8320A74E256F3EF900819377 /* DefaultModalStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultModalStyle.swift; sourceTree = "<group>"; };
-		8320A754256F530C00819377 /* SFSymbolNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolNavBar.swift; sourceTree = "<group>"; };
+		8320A754256F530C00819377 /* SFSymbolIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolIcon.swift; sourceTree = "<group>"; };
 		8320A758256F568400819377 /* View+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extras.swift"; sourceTree = "<group>"; };
 		832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSharingModalModel.swift; sourceTree = "<group>"; };
 		832D341C258680B100FEF094 /* AlbumSharingModal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSharingModal.swift; sourceTree = "<group>"; };
@@ -759,7 +759,7 @@
 				8331F51025621F7A0063A67D /* AlertMessage.swift */,
 				8331F4DC2561EDA50063A67D /* Binding+Extras.swift */,
 				8331F52F25623A170063A67D /* RefreshableScrollView.swift */,
-				8320A754256F530C00819377 /* SFSymbolNavBar.swift */,
+				8320A754256F530C00819377 /* SFSymbolIcon.swift */,
 				83BF80812585F9D3000E0B37 /* Icon.swift */,
 				8320A758256F568400819377 /* View+Extras.swift */,
 				83F4167A259C2074003C7200 /* UIDevice+Extras.swift */,
@@ -1346,7 +1346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83BF7CBD25854D91000E0B37 /* DeveloperScreen.swift in Sources */,
-				8320A755256F530C00819377 /* SFSymbolNavBar.swift in Sources */,
+				8320A755256F530C00819377 /* SFSymbolIcon.swift in Sources */,
 				83CE1EAD257080EE004A418B /* BasicEquatable.swift in Sources */,
 				8331F42F255F96AB0063A67D /* LocalFiles.swift in Sources */,
 				8331F53025623A170063A67D /* RefreshableScrollView.swift in Sources */,

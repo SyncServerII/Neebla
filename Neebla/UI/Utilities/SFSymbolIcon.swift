@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 import SFSafeSymbols
 
-struct SFSymbolNavBar: View {
+struct SFSymbolIcon: View {
     let symbol: SFSymbol
     
     var body: some View {

@@ -52,7 +52,7 @@ struct AlbumsScreenBody: View {
                                 viewModel.sync()
                             },
                             label: {
-                                SFSymbolNavBar(symbol: .goforward)
+                                SFSymbolIcon(symbol: .goforward)
                             }
                         )
                     }
@@ -181,7 +181,7 @@ private struct RightNavBarIcons: View {
                     viewModel.startCreateNewAlbum()
                 },
                 label: {
-                    SFSymbolNavBar(symbol: .plusCircle)
+                    SFSymbolIcon(symbol: .plusCircle)
                 }
             )
         }

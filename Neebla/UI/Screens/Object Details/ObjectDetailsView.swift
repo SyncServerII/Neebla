@@ -43,7 +43,7 @@ struct ObjectDetailsView: View {
                         showDeletion = true
                     },
                     label: {
-                        SFSymbolNavBar(symbol: .trash)
+                        SFSymbolIcon(symbol: .trash)
                     }
                 )
                 
@@ -52,7 +52,7 @@ struct ObjectDetailsView: View {
                         showComments = true
                     },
                     label: {
-                        SFSymbolNavBar(symbol: .message)
+                        SFSymbolIcon(symbol: .message)
                     }
                 )
             }.enabled(model.modelInitialized)

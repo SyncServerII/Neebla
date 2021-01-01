@@ -130,7 +130,7 @@ private struct AlbumItemsScreenNavRegularButtons: View {
                     viewModel.startNewAddItem()
                 },
                 label: {
-                    SFSymbolNavBar(symbol: .plusCircle)
+                    SFSymbolIcon(symbol: .plusCircle)
                 }
             )
             
@@ -147,7 +147,7 @@ private struct AlbumItemsScreenNavRegularButtons: View {
                     Label("Sync", systemImage: "goforward")
                 }
             } label: {
-                SFSymbolNavBar(symbol: .ellipsis)
+                SFSymbolIcon(symbol: .ellipsis)
             }
         }
     }
@@ -163,7 +163,7 @@ private struct AlbumItemsScreenNavSharingButtons: View {
                     viewModel.completeSharing = true
                 },
                 label: {
-                    SFSymbolNavBar(symbol: .squareAndArrowUp)
+                    SFSymbolIcon(symbol: .squareAndArrowUp)
                 }
             )
             
@@ -173,7 +173,7 @@ private struct AlbumItemsScreenNavSharingButtons: View {
                     viewModel.itemsToShare.removeAll()
                 },
                 label: {
-                    SFSymbolNavBar(symbol: .xmark)
+                    SFSymbolIcon(symbol: .xmark)
                 }
             )
         }
