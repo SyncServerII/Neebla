@@ -49,19 +49,19 @@ extension Services {
             result += [(facebookSignIn, facebookDescription)]
         }
 
-//        if let googleClientId = configPlist.getValue(for: .GoogleClientId),
-//            let googleServerClientId = configPlist.getValue(for: .GoogleServerClientId) {
-//            let googleSignIn = GoogleSyncServerSignIn(serverClientId: googleServerClientId, appClientId: googleClientId, signInDelegate: self)
-//
-//            if let googleSignInButton = googleSignIn.signInButton(configuration: nil) {
-//                let googleSignInDescription =
-//                    SignInDescription(
-//                        signInName:googleSignIn.signInName,
-//                        userType: googleSignIn.userType,
-//                        button: googleSignInButton)
-//                result += [(googleSignIn, googleSignInDescription)]
-//            }
-//        }
+        if let googleClientId = configPlist.getValue(for: .GoogleClientId),
+            let googleServerClientId = configPlist.getValue(for: .GoogleServerClientId) {
+            let googleSignIn = GoogleSyncServerSignIn(serverClientId: googleServerClientId, appClientId: googleClientId, signInDelegate: self)
+
+            if let googleSignInButton = googleSignIn.signInButton(configuration: nil) {
+                let googleSignInDescription =
+                    SignInDescription(
+                        signInName:googleSignIn.signInName,
+                        userType: googleSignIn.userType,
+                        button: googleSignInButton)
+                result += [(googleSignIn, googleSignInDescription)]
+            }
+        }
         
         let appleSignIn = AppleSignIn()
         if let appleSignInButton = appleSignIn.signInButton(configuration: nil) {
@@ -77,8 +77,8 @@ extension Services {
     }
 }
 
-//extension Services: GoogleSignInDelegate {
-//    func getCurrentViewController() -> UIViewController? {
-//        return delegate?.getCurrentViewController()
-//    }
-//}
+extension Services: GoogleSignInDelegate {
+    func getCurrentViewController() -> UIViewController? {
+        return delegate?.getCurrentViewController()
+    }
+}

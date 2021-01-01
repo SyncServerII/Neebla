@@ -115,6 +115,7 @@
 		8331F53025623A170063A67D /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F52F25623A170063A67D /* RefreshableScrollView.swift */; };
 		8333E19F2567AE0200A5F79E /* URLPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8333E19E2567AE0200A5F79E /* URLPickerView.swift */; };
 		8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8333E1A62567B06D00A5F79E /* SearchBar.swift */; };
+		8340ADD1259FB4FC00AFB31E /* iOSGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 8340ADD0259FB4FC00AFB31E /* iOSGoogle */; };
 		834B259E258C5FC900F653BC /* ServerInterface+CloudHashing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B259D258C5FC900F653BC /* ServerInterface+CloudHashing.swift */; };
 		834B25A8258C60AF00F653BC /* ServerInterface+CloudHashing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B259D258C5FC900F653BC /* ServerInterface+CloudHashing.swift */; };
 		834B25AD258C613700F653BC /* Services+SignIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B25AC258C613700F653BC /* Services+SignIns.swift */; };
@@ -429,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83F389DC2590468C00610C76 /* iOSApple in Frameworks */,
+				8340ADD1259FB4FC00AFB31E /* iOSGoogle in Frameworks */,
 				8331F378255B8F2A0063A67D /* iOSFacebook in Frameworks */,
 				8331F376255B8F1C0063A67D /* iOSDropbox in Frameworks */,
 				83C7351A259924790073788A /* ImageIOUIKit in Frameworks */,
@@ -1132,6 +1134,7 @@
 				83BF7CDD25857752000E0B37 /* SMLinkPreview */,
 				83F389DB2590468C00610C76 /* iOSApple */,
 				83C73519259924790073788A /* ImageIOUIKit */,
+				8340ADD0259FB4FC00AFB31E /* iOSGoogle */,
 			);
 			productName = "Share Extension";
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
@@ -1565,6 +1568,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages.Share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1585,6 +1589,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages.Share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2028,6 +2033,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8331F455255FB5790063A67D /* XCRemoteSwiftPackageReference "CustomModalView" */;
 			productName = CustomModalView;
+		};
+		8340ADD0259FB4FC00AFB31E /* iOSGoogle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83269F0E258C4E3500D27594 /* XCRemoteSwiftPackageReference "iOSGoogle" */;
+			productName = iOSGoogle;
 		};
 		835AC8D4255B82AD00375084 /* iOSDropbox */ = {
 			isa = XCSwiftPackageProductDependency;
