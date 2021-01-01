@@ -63,7 +63,13 @@ class ServerInterface {
         logger.info("SyncServer SQLite db: \(dbURL.path)")
         let db = try Connection(dbURL.path)
 
-        let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: nil, failoverMessageURL: nil, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles)
+        // The version in `CFBundleShortVersionString` needs to have format X.Y.Z.
+        var currentClientAppVersion: Version?
+        if let versionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            currentClientAppVersion = try? Version(versionString)
+        }
+    
+        let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: nil, currentClientAppVersion: currentClientAppVersion, failoverMessageURL: nil, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles)
 
         syncServer = try SyncServer(hashingManager: hashingManager, db: db, configuration: config, signIns: signIns)
         logger.info("SyncServer initialized!")
