@@ -6,6 +6,7 @@ import SQLite
 import iOSSignIn
 import PersistentValue
 import ServerShared
+import Version
 
 enum ServerInterfaceError: Error {
     case cannotFindFile
@@ -75,6 +76,17 @@ class ServerInterface {
 }
 
 extension ServerInterface: SyncServerDelegate {
+    func badVersion(_ syncServer: SyncServer, version: BadVersion) {
+        DispatchQueue.main.async {
+            switch version {
+            case .badServerVersion:
+                self.userEvent = .showAlert(title: "Alert!", message: "The server version is bad. This is likely a developer problem. Whoops.")
+            case .badClientAppVersion:
+                self.userEvent = .showAlert(title: "Alert!", message: "The Neebla app is out of date. You need to update it from the Apple App store.")
+            }
+        }
+    }
+    
     func userEvent(_ syncServer: SyncServer, event: UserEvent) {
         switch event {
         case .error(let error):

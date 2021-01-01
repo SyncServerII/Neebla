@@ -17,16 +17,6 @@ struct SettingsScreenBody: View {
     let emailDeveloper = EmailContents(subject: "Question or comment for developer of Neebla", to: "chris@SpasticMuffin.biz")
     @ObservedObject var userAlertModel: UserAlertModel
     @ObservedObject var settingsModel:SettingsScreenModel
-
-    var versionAndBuild:String {
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-            return version + "/" + build
-        }
-        else {
-            return "(Unavailable)"
-        }
-    }
     
     init() {
         let userAlertModel = UserAlertModel()
@@ -57,7 +47,7 @@ struct SettingsScreenBody: View {
             VStack {
                 Text("Version/Build")
                     .bold()
-                Text(versionAndBuild)
+                Text(settingsModel.versionAndBuild)
             }
             
             Spacer().frame(height: 20)
@@ -73,9 +63,3 @@ struct SettingsScreenBody: View {
         .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
     }
 }
-
-/*
-                if let emailMessage = viewModel.emailMessage {
-                    MailView(emailContents: emailMessage, result: $viewModel.sendMailResult)
-                }
- */

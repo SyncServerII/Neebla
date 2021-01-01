@@ -12,6 +12,16 @@ class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
         case emailDeveloper
     }
     
+    var versionAndBuild:String {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            return version + "/" + build
+        }
+        else {
+            return "(Unavailable)"
+        }
+    }
+    
     var userEventSubscription: AnyCancellable!
     @Published var userAlertModel: UserAlertModel
     @Published var showSheet: Bool = false
