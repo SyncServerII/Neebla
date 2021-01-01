@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -134,6 +134,7 @@
 		835AC8F3255B848300375084 /* ServerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F1255B848300375084 /* ServerInterface.swift */; };
 		835AC8F8255B86AA00375084 /* PersistentValue in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8F7255B86AA00375084 /* PersistentValue */; };
 		83B1F0B7259ED836006E00FF /* EmailContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1F0B6259ED836006E00FF /* EmailContents.swift */; };
+		83B1F4E1259F9163006E00FF /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83B1F4E0259F9163006E00FF /* Settings.bundle */; };
 		83B657D9255B81320041B9DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B657D8255B81320041B9DF /* AppDelegate.swift */; };
 		83B657DB255B81320041B9DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B657DA255B81320041B9DF /* SceneDelegate.swift */; };
 		83B657DF255B81330041B9DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83B657DE255B81330041B9DF /* Assets.xcassets */; };
@@ -362,6 +363,7 @@
 		835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerInterface+Helpers.swift"; sourceTree = "<group>"; };
 		835AC8F1255B848300375084 /* ServerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInterface.swift; sourceTree = "<group>"; };
 		83B1F0B6259ED836006E00FF /* EmailContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailContents.swift; sourceTree = "<group>"; };
+		83B1F4E0259F9163006E00FF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		83B657D5255B81320041B9DF /* Neebla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neebla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83B657D8255B81320041B9DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83B657DA255B81320041B9DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -645,6 +647,7 @@
 		8331F38F255B925E0063A67D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				83B1F4E0259F9163006E00FF /* Settings.bundle */,
 				832D34312586B0B000FEF094 /* SharingInvitationHelp.html */,
 				8308B6EC256A08AB007F0CEB /* APIKeys.plist */,
 				8331F390255B931F0063A67D /* Server.plist */,
@@ -1142,6 +1145,7 @@
 				83B657D2255B81320041B9DF /* Frameworks */,
 				83B657D3255B81320041B9DF /* Resources */,
 				8331F355255B8CC50063A67D /* Embed App Extensions */,
+				83B1F4DC259F8FF0006E00FF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1266,6 +1270,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B1F4E1259F9163006E00FF /* Settings.bundle in Resources */,
 				8331F3B1255BAE250063A67D /* iOSSignIn in Resources */,
 				83B657E5255B81330041B9DF /* LaunchScreen.storyboard in Resources */,
 				8331F39D255B9E7B0063A67D /* Server.plist in Resources */,
@@ -1284,6 +1289,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		83B1F4DC259F8FF0006E00FF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/Tools/LicenseGenerator-iOS/credits.py\" -s \"$CONFIGURATION_BUILD_DIR/../../../SourcePackages/checkouts\" -o \"$SRCROOT/Neebla/Resources/Settings.bundle/Acknowledgements.plist\" -e \"$SRCROOT/Tools/LicenseGenerator-iOS/Example,$SRCROOT/Tools/LicenseGenerator-iOS/Tests\"\n\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8331F343255B8CC50063A67D /* Sources */ = {

@@ -1,0 +1,11 @@
+Launch ngrok
+	(download at https://ngrok.com)
+	~/bin/ngrok http 8080
+	
+App changes:	
+	Server.plist          
+		<key>serverURL</key>
+		<string>https://...</string>
+		
+Apple developer portal
+	Need to change serverURL for server-to-server Apple sign in notifications
