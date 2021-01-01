@@ -91,8 +91,10 @@ extension ServerInterface: SyncServerDelegate {
         switch event {
         case .error(let error):
             logger.error("\(String(describing: error))")
-        case .showAlert:
-            break
+            self.userEvent = .showAlert(title: "Alert!", message: "There was a server error.")
+
+        case .showAlert(title: let title, message: let message):
+            self.userEvent = .showAlert(title: title, message: message)
         }
         
         self.userEvent = event
@@ -103,7 +105,8 @@ extension ServerInterface: SyncServerDelegate {
         do {
             try syncHelper(result: result)
         } catch let error {
-            self.userEvent = .error(error)
+            logger.error("\(String(describing: error))")
+            self.userEvent = .showAlert(title: "Alert!", message: "There was a server error.")
         }
         
         self.sync = result
