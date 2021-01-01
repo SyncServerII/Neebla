@@ -15,11 +15,6 @@ enum AlbumsScreenActiveSheet: Identifiable {
     }
 }
 
-struct SharingEmailContents {
-    let subject: String
-    let body: String
-}
-
 class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var isShowingRefresh = false
     
@@ -28,7 +23,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var albumToShare: AlbumModel?
     @Published var canSendMail: Bool = MFMailComposeViewController.canSendMail()
     @Published var sendMailResult: Swift.Result<MFMailComposeResult, Error>? = nil
-    @Published var emailMessage: SharingEmailContents?
+    @Published var emailMessage: EmailContents?
 
     @Published var albums = [AlbumModel]()
         
@@ -151,7 +146,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
         return Services.session.signInServices.sharingInvitation.createSharingURL(invitationCode: invitationCode.uuidString)
     }
     
-    func emailContents(from parameters: AlbumSharingParameters) -> SharingEmailContents {
+    func emailContents(from parameters: AlbumSharingParameters) -> EmailContents {
         let sharingURLString = createSharingInvitationLink(invitationCode: parameters.invitationCode)
         
         var socialText = " "
@@ -185,6 +180,6 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
         
         let subject = "Share \(subjectAlbumName)media using the Neebla app"
         
-        return SharingEmailContents(subject: subject, body: message)
+        return EmailContents(subject: subject, body: message)
     }
 }

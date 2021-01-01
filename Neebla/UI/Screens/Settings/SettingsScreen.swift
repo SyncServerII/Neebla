@@ -14,6 +14,7 @@ struct SettingsScreen: View {
 }
 
 struct SettingsScreenBody: View {
+    let emailDeveloper = EmailContents(subject: "Question or comment for developer of Neebla", to: "chris@SpasticMuffin.biz")
     @ObservedObject var userAlertModel: UserAlertModel
     @ObservedObject var settingsModel:SettingsScreenModel
 
@@ -38,12 +39,15 @@ struct SettingsScreenBody: View {
             Spacer().frame(height: 20)
             
             Button(action: {
-                settingsModel.showAlbumList = true
+                settingsModel.sheet = .albumList
+                settingsModel.showSheet = true
             }, label: {
                 Text("Remove user from album")
             })
             
             Button(action: {
+                settingsModel.sheet = .emailDeveloper
+                settingsModel.showSheet = true
             }, label: {
                 Text("Contact developer")
             })
@@ -58,9 +62,20 @@ struct SettingsScreenBody: View {
             
             Spacer().frame(height: 20)
         }
-        .sheet(isPresented: $settingsModel.showAlbumList) {
-            AlbumListModal()
+        .sheet(isPresented: $settingsModel.showSheet) {
+            if settingsModel.sheet == .albumList {
+                AlbumListModal()
+            }
+            else if settingsModel.sheet == .emailDeveloper {
+                MailView(emailContents: emailDeveloper, result: $settingsModel.sendMailResult)
+            }
         }
         .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
     }
 }
+
+/*
+                if let emailMessage = viewModel.emailMessage {
+                    MailView(emailContents: emailMessage, result: $viewModel.sendMailResult)
+                }
+ */

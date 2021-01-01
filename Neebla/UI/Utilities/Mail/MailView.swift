@@ -14,20 +14,20 @@ import MessageUI
 struct MailView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentation
     @Binding var result: Result<MFMailComposeResult, Error>?
-    let emailContents: SharingEmailContents
+    let emailContents: EmailContents
     
-    init(emailContents: SharingEmailContents, result: Binding<Result<MFMailComposeResult, Error>?>) {
+    init(emailContents: EmailContents, result: Binding<Result<MFMailComposeResult, Error>?>) {
         self.emailContents = emailContents
         self._result = result
     }
     
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
-        let emailContents: SharingEmailContents
+        let emailContents: EmailContents
         @Binding var presentation: PresentationMode
         @Binding var result: Result<MFMailComposeResult, Error>?
 
         init(presentation: Binding<PresentationMode>,
-             result: Binding<Result<MFMailComposeResult, Error>?>, emailContents: SharingEmailContents) {
+             result: Binding<Result<MFMailComposeResult, Error>?>, emailContents: EmailContents) {
             _presentation = presentation
             _result = result
             self.emailContents = emailContents
@@ -55,7 +55,12 @@ struct MailView: UIViewControllerRepresentable {
         let vc = MFMailComposeViewController()
         
         vc.mailComposeDelegate = context.coordinator
-        vc.setMessageBody(emailContents.body, isHTML: false)
+        if let body = emailContents.body {
+            vc.setMessageBody(body, isHTML: false)
+        }
+        if let to = emailContents.to {
+            vc.setToRecipients([to])
+        }
         vc.setSubject(emailContents.subject)
         return vc
     }

@@ -133,6 +133,7 @@
 		835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */; };
 		835AC8F3255B848300375084 /* ServerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F1255B848300375084 /* ServerInterface.swift */; };
 		835AC8F8255B86AA00375084 /* PersistentValue in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8F7255B86AA00375084 /* PersistentValue */; };
+		83B1F0B7259ED836006E00FF /* EmailContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1F0B6259ED836006E00FF /* EmailContents.swift */; };
 		83B657D9255B81320041B9DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B657D8255B81320041B9DF /* AppDelegate.swift */; };
 		83B657DB255B81320041B9DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B657DA255B81320041B9DF /* SceneDelegate.swift */; };
 		83B657DF255B81330041B9DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83B657DE255B81330041B9DF /* Assets.xcassets */; };
@@ -360,6 +361,7 @@
 		835AC8E8255B842E00375084 /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerInterface+Helpers.swift"; sourceTree = "<group>"; };
 		835AC8F1255B848300375084 /* ServerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInterface.swift; sourceTree = "<group>"; };
+		83B1F0B6259ED836006E00FF /* EmailContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailContents.swift; sourceTree = "<group>"; };
 		83B657D5255B81320041B9DF /* Neebla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neebla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83B657D8255B81320041B9DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83B657DA255B81320041B9DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -615,7 +617,6 @@
 			children = (
 				832D341C258680B100FEF094 /* AlbumSharingModal.swift */,
 				832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */,
-				8331F327255B8AFD0063A67D /* MailView.swift */,
 			);
 			path = "Album sharing modal";
 			sourceTree = "<group>";
@@ -754,6 +755,7 @@
 		8331F44E255FB13C0063A67D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				83B1F0B5259ED81B006E00FF /* Mail */,
 				83BF78702580789A000E0B37 /* TextInLowerRight.swift */,
 				83F416A4259D60A0003C7200 /* ViewInUpperRight.swift */,
 				8331F51025621F7A0063A67D /* AlertMessage.swift */,
@@ -863,6 +865,15 @@
 				835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */,
 			);
 			path = ServerInterface;
+			sourceTree = "<group>";
+		};
+		83B1F0B5259ED81B006E00FF /* Mail */ = {
+			isa = PBXGroup;
+			children = (
+				8331F327255B8AFD0063A67D /* MailView.swift */,
+				83B1F0B6259ED836006E00FF /* EmailContents.swift */,
+			);
+			path = Mail;
 			sourceTree = "<group>";
 		};
 		83B657CC255B81320041B9DF = {
@@ -1424,6 +1435,7 @@
 				83F416C5259E7BED003C7200 /* Services+SignInServicesHelper.swift in Sources */,
 				8308B6F9256A19DF007F0CEB /* URLPickerViewModel.swift in Sources */,
 				83BF786C25807826000E0B37 /* LiveImageLargeMedia.swift in Sources */,
+				83B1F0B7259ED836006E00FF /* EmailContents.swift in Sources */,
 				8320A759256F568400819377 /* View+Extras.swift in Sources */,
 				8331F518256220670063A67D /* GenericImageModel.swift in Sources */,
 				83BF80822585F9D3000E0B37 /* Icon.swift in Sources */,
