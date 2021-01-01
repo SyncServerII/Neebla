@@ -223,6 +223,10 @@
 		83F416AB259D7E7C003C7200 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416AA259D7E7C003C7200 /* ActivityViewController.swift */; };
 		83F416B3259D821D003C7200 /* MediaTypeActivityItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */; };
 		83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */; };
+		83F416C5259E7BED003C7200 /* Services+SignInServicesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416C4259E7BED003C7200 /* Services+SignInServicesHelper.swift */; };
+		83F416CF259E7D4E003C7200 /* Services+SignInServicesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416C4259E7BED003C7200 /* Services+SignInServicesHelper.swift */; };
+		83F416D4259E7DCE003C7200 /* Services+SignInsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */; };
+		83F416DB259E7E22003C7200 /* Services+SignInsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -411,6 +415,8 @@
 		83F416A4259D60A0003C7200 /* ViewInUpperRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInUpperRight.swift; sourceTree = "<group>"; };
 		83F416AA259D7E7C003C7200 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeActivityItems.swift; sourceTree = "<group>"; };
+		83F416C4259E7BED003C7200 /* Services+SignInServicesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services+SignInServicesHelper.swift"; sourceTree = "<group>"; };
+		83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services+SignInsDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -504,6 +510,8 @@
 			children = (
 				835AC8E8255B842E00375084 /* Services.swift */,
 				835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */,
+				83F416C4259E7BED003C7200 /* Services+SignInServicesHelper.swift */,
+				83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */,
 				835AC8E6255B842E00375084 /* Services+Open.swift */,
 				835AC8E7255B842E00375084 /* Services+SignInServices.swift */,
 				8331F432255F97A50063A67D /* Services+LocalDatabase.swift */,
@@ -1271,6 +1279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83F416DB259E7E22003C7200 /* Services+SignInsDelegate.swift in Sources */,
 				83C73506259922440073788A /* LiveImageObjectType.swift in Sources */,
 				8331F384255B8FA20063A67D /* ServerInterface.swift in Sources */,
 				83BF7CCE258575FE000E0B37 /* UploadableMediaType.swift in Sources */,
@@ -1312,6 +1321,7 @@
 				834B25A8258C60AF00F653BC /* ServerInterface+CloudHashing.swift in Sources */,
 				8331F369255B8DD10063A67D /* UploadToAlbumView.swift in Sources */,
 				8331F441255F9C8E0063A67D /* AlbumModel.swift in Sources */,
+				83F416CF259E7D4E003C7200 /* Services+SignInServicesHelper.swift in Sources */,
 				83C73947259968920073788A /* LiveImageIcon.swift in Sources */,
 				83C7394B259968E30073788A /* TextInLowerRight.swift in Sources */,
 				83C7345E25986DBE0073788A /* SXItemProvider.swift in Sources */,
@@ -1345,6 +1355,7 @@
 				8331F337255B8AFD0063A67D /* MainView.swift in Sources */,
 				8308B6E9256A0733007F0CEB /* URLPreviewGenerator.swift in Sources */,
 				8331F433255F97A50063A67D /* Services+LocalDatabase.swift in Sources */,
+				83F416D4259E7DCE003C7200 /* Services+SignInsDelegate.swift in Sources */,
 				83F416A5259D60A0003C7200 /* ViewInUpperRight.swift in Sources */,
 				835AC8EC255B842E00375084 /* Services+SignInServices.swift in Sources */,
 				83BF782C257DD242000E0B37 /* ImageObjectType+Uploadable.swift in Sources */,
@@ -1410,6 +1421,7 @@
 				832D34502587142B00FEF094 /* Value+Extras.swift in Sources */,
 				8308B6E3256A0479007F0CEB /* URLPreviewView.swift in Sources */,
 				8308B71C256B4A44007F0CEB /* URLIcon.swift in Sources */,
+				83F416C5259E7BED003C7200 /* Services+SignInServicesHelper.swift in Sources */,
 				8308B6F9256A19DF007F0CEB /* URLPickerViewModel.swift in Sources */,
 				83BF786C25807826000E0B37 /* LiveImageLargeMedia.swift in Sources */,
 				8320A759256F568400819377 /* View+Extras.swift in Sources */,

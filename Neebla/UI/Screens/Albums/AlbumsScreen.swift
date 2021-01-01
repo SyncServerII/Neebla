@@ -42,23 +42,27 @@ struct AlbumsScreenBody: View {
             }
             else {
                 VStack(spacing: 20) {
-                    Text("You have no albums.")
+                    Text("No albums found.")
                     Image("sad-icon")
                     
+                    VStack {
+                        Text("Do you just need to refresh?")
+                        Button(
+                            action: {
+                                viewModel.sync()
+                            },
+                            label: {
+                                SFSymbolNavBar(symbol: .goforward)
+                            }
+                        )
+                    }
+                    
+                    Text("Or perhaps you have none?")
                     Button(action: {
                         viewModel.startCreateNewAlbum()
                     }, label: {
                         Text("Make an album.")
                     })
-                    
-                    Button(
-                        action: {
-                            viewModel.sync()
-                        },
-                        label: {
-                            SFSymbolNavBar(symbol: .goforward)
-                        }
-                    )
                 }
             }
         }

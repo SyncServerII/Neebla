@@ -33,6 +33,16 @@ class Services {
         }
     }
     
+    var userId: UserId? {
+        get {
+            return syncServerUserId
+        }
+        
+        set(newValue) {
+            syncServerUserId = newValue
+        }
+    }
+    
     var username: String? {
         return signInServices.manager.currentSignIn?.credentials?.username
     }
@@ -162,6 +172,7 @@ class Services {
         }
         
         let signIns = SignIns(signInServicesHelper: self)
+        signIns.delegate = self
         
         do {
             serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName)
@@ -219,33 +230,5 @@ extension Services: SharingInvitationHelper {
     
     func sharingInvitationUserAlert(_ sharingInvitation: SharingInvitation, title: String, message: String) {
         serverInterface.error = .showAlert(title: title, message: message)
-    }
-}
-
-extension Services: SignInServicesHelper {
-    public func signUserOut() {
-        signInServices.manager.currentSignIn?.signUserOut()
-    }
-    
-    public var currentCredentials: GenericCredentials? {
-        return signInServices.manager.currentSignIn?.credentials
-    }
-    
-    public var cloudStorageType: CloudStorageType? {
-        return signInServices.manager.currentSignIn?.cloudStorageType
-    }
-    
-    public var userId: UserId? {
-        get {
-            return syncServerUserId
-        }
-        
-        set(newValue) {
-            syncServerUserId = newValue
-        }
-    }
-    
-    public var userType: UserType? {
-        return signInServices.manager.currentSignIn?.userType
     }
 }

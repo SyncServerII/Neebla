@@ -8,6 +8,11 @@ import iOSGoogle
 import iOSApple
 
 // For Google Sign In issues, see https://stackoverflow.com/questions/65469685/using-google-sign-in-for-ios-with-swift-package-manager
+/* See also these references for using Google Sign In in extensions in iOS:
+https://stackoverflow.com/questions/36103665/how-can-i-sign-in-with-the-google-signin-sdk-in-a-sharing-extension
+https://stackoverflow.com/questions/27082068/google-plus-sign-in-for-xcode-share-extension
+https://stackoverflow.com/questions/39139160/retrieve-google-user-from-ios-extension/39295203#39295203
+*/
 
 extension Services {
     // Gets (GenericSignIn, SignInDescription) pairs for each sign in type.
