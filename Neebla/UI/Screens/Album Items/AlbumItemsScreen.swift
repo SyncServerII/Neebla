@@ -94,7 +94,7 @@ struct AlbumItemsScreenBody: View {
             case .picker(let mediaPicker):
                 mediaPicker.mediaPicker
                     .onAppear() {
-                        // Same idea as above.
+                        // Same idea as above. Note that if I do this with a .onTapGesture on the Menu, this causes the menu to disappear.
                         viewModel.sharing = false
                     }
             }
@@ -139,7 +139,7 @@ private struct AlbumItemsScreenNavRegularButtons: View {
             } label: {
                 SFSymbolIcon(symbol: .plusCircle)
             }
-
+            
             Menu {
                 Button(action: {
                     viewModel.sharing = true
