@@ -93,6 +93,10 @@ struct AlbumItemsScreenBody: View {
                     }
             case .picker(let mediaPicker):
                 mediaPicker.mediaPicker
+                    .onAppear() {
+                        // Same idea as above.
+                        viewModel.sharing = false
+                    }
             }
         }
     }
