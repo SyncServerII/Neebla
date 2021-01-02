@@ -11,6 +11,7 @@ class AnyTypeManager {
     }
     
     static let session = AnyTypeManager()
+    // These objects don't provide support for pickers because the relationship between object type and picker isn't 1:1
     let objectTypes:[DeclarableObject & ObjectDownloadHandler & ItemType & UploadableMediaType & MediaTypeActivityItems] = [
         ImageObjectType(),
         URLObjectType(),

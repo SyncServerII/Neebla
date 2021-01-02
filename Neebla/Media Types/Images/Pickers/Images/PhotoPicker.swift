@@ -24,6 +24,8 @@ enum PhotoPickerError: Error {
 }
 
 struct PhotoPicker: UIViewControllerRepresentable {
+    @Environment(\.presentationMode) var isPresented
+
     var configuration: PHPickerConfiguration {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
         config.filter = .any(of: [.livePhotos, .images])
@@ -31,15 +33,11 @@ struct PhotoPicker: UIViewControllerRepresentable {
         
         return config
     }
-    @Binding var isPresented: Bool
     let completion:(Result<UploadableMediaAssets, Error>)->()
-    let dismisser:MediaTypeListDismisser
     
     // Completion handler is called back on the main thread.
-    init(isPresented:Binding<Bool>, dismisser:MediaTypeListDismisser, completion:@escaping (Result<UploadableMediaAssets, Error>)->()) {
-        self._isPresented = isPresented
+    init(completion:@escaping (Result<UploadableMediaAssets, Error>)->()) {
         self.completion = completion
-        self.dismisser = dismisser
     }
     
     func makeUIViewController(context: Context) -> PHPickerViewController {
@@ -70,8 +68,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
         
             if results.count == 0 {
                 // User tapped cancel.
-                parent.isPresented = false
-                parent.dismisser.didDismiss?(false)
+                parent.isPresented.wrappedValue.dismiss()
                 return
             }
 
@@ -91,8 +88,8 @@ struct PhotoPicker: UIViewControllerRepresentable {
                     case .success(let itemProvider):
                         logger.debug("liveImage: pickedImage: \(itemProvider)")
                         DispatchQueue.main.async {
-                            self.parent.isPresented = false
                             self.parent.completion(.success(itemProvider.assets))
+                            self.parent.isPresented.wrappedValue.dismiss()
                         }
                         
                     case .failure(let error):

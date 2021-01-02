@@ -6,6 +6,22 @@ import iOSShared
 import iOSBasics
 
 class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
+    enum SheetToShow: Identifiable {        
+        case activityController
+        case picker(MediaPicker)
+        
+        var id: Int {
+            switch self {
+            case .activityController:
+                return 0
+            case .picker:
+                return 1
+            }
+        }
+    }
+    
+    @Published var sheetToShow: SheetToShow?
+    
     let userAlertModel: UserAlertModel
     @Published var showCellDetails: Bool = false
     @Published var loading: Bool = false {
@@ -21,7 +37,6 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var objects = [ServerObjectModel]()
     let sharingGroupUUID: UUID
     
-    @Published var addNewItem = false
     @Published var sharing = false {
         didSet {
             itemsToShare.removeAll()
@@ -41,7 +56,6 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var itemsToShare = Set<UUID>()
     
     var activityItems = [Any]()
-    @Published var completeSharing:Bool = false
     
     private var syncSubscription:AnyCancellable!
     var userEventSubscription:AnyCancellable!
@@ -107,17 +121,20 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
         }
     }
     
-    func updateAfterAddingItem() {
-        // Don't rely on only a sync to update the view with the new media item. If there isn't a network connection, a sync won't do what we want.
+    func uploadNewItem(assets: UploadableMediaAssets) {
+        do {
+            try AnyTypeManager.session.uploadNewObject(assets: assets, sharingGroupUUID: sharingGroupUUID)
+            
+            // Don't rely on only a sync to update the view with the new media item. If there isn't a network connection, a sync won't do what we want.
         
-        // This more directly updates the view from the local file that was added.
-        getItemsForAlbum(album: sharingGroupUUID)
-        
-        sync()
-    }
-    
-    func startNewAddItem() {
-        addNewItem = true
+            // This more directly updates the view from the local file that was added.
+            getItemsForAlbum(album: sharingGroupUUID)
+            
+            sync()
+        }
+        catch let error {
+            logger.error("error: \(error)")
+        }
     }
     
     func shareActivityItems() -> [Any] {

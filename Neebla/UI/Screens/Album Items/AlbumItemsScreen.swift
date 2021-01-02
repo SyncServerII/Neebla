@@ -83,25 +83,16 @@ struct AlbumItemsScreenBody: View {
         .navigationBarItems(trailing:
             AlbumItemsScreenNavButtons(viewModel: viewModel)
         )
-        .disabled(viewModel.addNewItem)
-        // For some reason, it's important that this .sheet come before the .modal for `AddItemModal`. Otherwise, I can't use the buttons in the `AddItemModal`. Perhaps because the modal contains a .sheet?
-        .sheet(isPresented: $viewModel.completeSharing) {
-            ActivityViewController(activityItems: viewModel.shareActivityItems())
-                .onAppear() {
-                    // Switch out of sharing mode, so when user comes back they don't have the selection state-- which doesn't seem right.
-                    viewModel.sharing = false
-                }
-        }
-        .modal(isPresented: $viewModel.addNewItem) {
-            AddItemModal(viewModel: viewModel)
-                .padding(20)
-        }
-        .modalStyle(DefaultModalStyle())
-        .onDisappear {
-            // I'm having a problem with the modal possibly being presented, the user navigating away, coming back and the modal still being present.
-            // See also https://github.com/jankaltoun/CustomModalView/issues/1
-            if viewModel.addNewItem == true {
-                viewModel.addNewItem = false
+        .sheet(item: $viewModel.sheetToShow) { sheet in
+            switch sheet {
+            case .activityController:
+                ActivityViewController(activityItems: viewModel.shareActivityItems())
+                    .onAppear() {
+                        // Switch out of sharing mode, so when user comes back they don't have the selection state-- which doesn't seem right.
+                        viewModel.sharing = false
+                    }
+            case .picker(let mediaPicker):
+                mediaPicker.mediaPicker
             }
         }
     }
@@ -122,18 +113,29 @@ private struct AlbumItemsScreenNavButtons: View {
 
 private struct AlbumItemsScreenNavRegularButtons: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
-    
+    let pickers:[MediaPicker]
+        
+    init(viewModel:AlbumItemsViewModel) {
+        self.viewModel = viewModel
+        pickers = AnyPicker.forAlbum { assets in
+            viewModel.uploadNewItem(assets: assets)
+        }
+    }
+
     var body: some View {
         HStack(spacing: 0) {
-            Button(
-                action: {
-                    viewModel.startNewAddItem()
-                },
-                label: {
-                    SFSymbolIcon(symbol: .plusCircle)
+            Menu {
+                ForEach(pickers, id: \.mediaPickerUIDisplayName) { picker in
+                    Button(action: {
+                        viewModel.sheetToShow = .picker(picker)
+                    }) {
+                        Text(picker.mediaPickerUIDisplayName)
+                    }.enabled(picker.mediaPickerEnabled)
                 }
-            )
-            
+            } label: {
+                SFSymbolIcon(symbol: .plusCircle)
+            }
+
             Menu {
                 Button(action: {
                     viewModel.sharing = true
@@ -160,7 +162,7 @@ private struct AlbumItemsScreenNavSharingButtons: View {
         HStack {
             Button(
                 action: {
-                    viewModel.completeSharing = true
+                    viewModel.sheetToShow = .activityController
                 },
                 label: {
                     SFSymbolIcon(symbol: .squareAndArrowUp)

@@ -8,11 +8,9 @@ struct URLPickerView: View {
     @ObservedObject var model = URLPickerViewModel()
     let placeholderText: String = "Enter your website (web link/URL)"
     let picked: (URLObjectTypeAssets)->()
-    let dismisser:MediaTypeListDismisser
     
-    init(dismisser:MediaTypeListDismisser, picked: @escaping (URLObjectTypeAssets)->()) {
+    init(picked: @escaping (URLObjectTypeAssets)->()) {
         self.picked = picked
-        self.dismisser = dismisser
     }
     
     var body: some View {
@@ -31,7 +29,6 @@ struct URLPickerView: View {
             HStack {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
-                    dismisser.didDismiss?(false)
                 }, label: {
                     Text("Cancel")
                 })
