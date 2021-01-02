@@ -9,6 +9,7 @@ import SQLite
 enum AlbumsScreenActiveSheet: Identifiable {
     case albumSharing
     case email
+    case textInput
     
     var id: Int {
         hashValue
@@ -110,7 +111,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     }
     
     func startChangeExistingAlbumName(sharingGroupUUID: UUID, currentAlbumName: String?) {
-        textInputTitle = "Change Album Name:"
+        textInputTitle = "Change Album Name"
         textInputActionButtonName = "Change"
         
         textInputAction = { [weak self] in
@@ -123,11 +124,12 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
         textInputAlbumName = nil
         textInputPriorAlbumName = currentAlbumName
         textInputNewAlbum = false
-        presentTextInput = true
+        //presentTextInput = true
+        activeSheet = .textInput
     }
     
     func startCreateNewAlbum() {
-        textInputTitle = "New Album Name:"
+        textInputTitle = "New Album Name"
         textInputActionButtonName = "Create"
 
         textInputAction = { [weak self] in
@@ -139,7 +141,8 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
         textInputInitialAlbumName = AlbumModel.untitledAlbumName
         textInputAlbumName = nil
         textInputNewAlbum = true
-        presentTextInput = true
+        //presentTextInput = true
+        activeSheet = .textInput
     }
     
     private func createSharingInvitationLink(invitationCode: UUID) -> String {

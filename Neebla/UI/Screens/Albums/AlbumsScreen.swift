@@ -21,7 +21,6 @@ struct AlbumsScreen: View {
             rightNavbarButton:
                 AnyView(
                     RightNavBarIcons(viewModel: viewModel)
-                        .enabled(!viewModel.presentTextInput)
                 )
             ) {
             
@@ -35,7 +34,7 @@ struct AlbumsScreen: View {
 struct AlbumsScreenBody: View {
     @ObservedObject var viewModel:AlbumsViewModel
     @ObservedObject var userAlertModel:UserAlertModel
-
+    
     var body: some View {
         VStack {
             if viewModel.albums.count > 0 {
@@ -73,14 +72,13 @@ struct AlbumsScreenBody: View {
             }
         }
         .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
-        // Using this both for creating an album and for changing an existing album's name.
-        .modal(isPresented: $viewModel.presentTextInput) {
-            TextInputModal(viewModel: viewModel)
-                .padding(20)
-        }
         // Fail to get the sheets displaying properly when there is more than one .sheet modifier. Working around this. See also https://stackoverflow.com/questions/58837007
         .sheet(item: $viewModel.activeSheet) { item in
             switch item {
+            case .textInput:
+                // Using this both for creating an album and for changing an existing album's name.
+                TextInputModal(viewModel: viewModel)
+                    .padding(20)
             case .albumSharing:
                 if let album = viewModel.albumToShare {
                     AlbumSharingModal(album: album) { parameters in
@@ -227,7 +225,7 @@ private struct AlbumsScreenRow: View {
 }
 
 private struct TextInputModal: View {
-    @Environment(\.modalPresentationMode) var modalPresentationMode: Binding<ModalPresentationMode>
+    @Environment(\.presentationMode) var isPresented
     @ObservedObject var viewModel:AlbumsViewModel
     
     init(viewModel:AlbumsViewModel) {
@@ -236,29 +234,33 @@ private struct TextInputModal: View {
     
     var body: some View {
         VStack(spacing: 32) {
-            Text(viewModel.textInputTitle ?? "Album:")
+            ZStack {
+                Text(viewModel.textInputTitle ?? "Album")
+                
+                HStack {
+                    Button(action: {
+                        self.isPresented.wrappedValue.dismiss()
+                    }) {
+                        Text("Cancel")
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        viewModel.textInputAction?()
+                        self.isPresented.wrappedValue.dismiss()
+                    }) {
+                        Text(viewModel.textInputActionButtonName ?? "Do It")
+                    }
+                }
+            }
+            
             TextField(viewModel.textInputInitialAlbumName ?? "",
                 text: $viewModel.textInputAlbumName ?? "")
-            
-            HStack {
-                Button(action: {
-                    self.modalPresentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Cancel")
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    viewModel.textInputAction?()
-                    self.modalPresentationMode.wrappedValue.dismiss()
-                }) {
-                    Text(viewModel.textInputActionButtonName ?? "Do It")
-                }.enabled(
-                    viewModel.textInputNewAlbum
-                    || !viewModel.textInputNewAlbum &&
-                        (viewModel.textInputAlbumName != viewModel.textInputPriorAlbumName) && viewModel.textInputAlbumName != nil)
-            }
+                .padding(10)
+                .border(Color.gray.opacity(0.4))
+
+            Spacer()
         }
     }
 }
