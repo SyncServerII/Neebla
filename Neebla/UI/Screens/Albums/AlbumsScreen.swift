@@ -21,6 +21,7 @@ struct AlbumsScreen: View {
             rightNavbarButton:
                 AnyView(
                     RightNavBarIcons(viewModel: viewModel)
+                        .enabled(!viewModel.presentTextInput)
                 )
             ) {
             
@@ -72,7 +73,6 @@ struct AlbumsScreenBody: View {
             }
         }
         .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
-        .disabled(viewModel.presentTextInput)
         // Using this both for creating an album and for changing an existing album's name.
         .modal(isPresented: $viewModel.presentTextInput) {
             TextInputModal(viewModel: viewModel)

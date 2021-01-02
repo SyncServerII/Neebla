@@ -4,10 +4,30 @@
 import SwiftUI
 import SFSafeSymbols
 
+class MenuState: ObservableObject {
+    @Published var displayed = false
+}
+
+struct MenuStateKey: EnvironmentKey {
+    static let defaultValue: MenuState = MenuState()
+}
+
+extension EnvironmentValues {
+    var menuState: MenuState {
+        get {
+            return self[MenuStateKey.self]
+        }
+        set {
+            self[MenuStateKey.self] = newValue
+        }
+    }
+}
+
 struct LeftMenuView: View {
     @Environment(\.sideMenuLeftPanelKey) var sideMenuLeftPanel
     @Environment(\.sideMenuCenterViewKey) var sideMenuCenterView
     @ObservedObject var viewModel:SignInViewModel
+    @Environment(\.menuState) var menuState
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -24,6 +44,12 @@ struct LeftMenuView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(red: 32/255, green: 32/255, blue: 32/255))
         .edgesIgnoringSafeArea(.all)
+        .onAppear() {
+            menuState.displayed = true
+        }
+        .onDisappear() {
+            menuState.displayed = false
+        }
     }
 }
 
