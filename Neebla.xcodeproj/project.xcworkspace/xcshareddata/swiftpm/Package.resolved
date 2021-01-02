@@ -47,15 +47,6 @@
         }
       },
       {
-        "package": "CustomModalView",
-        "repositoryURL": "https://github.com/jankaltoun/CustomModalView",
-        "state": {
-          "branch": null,
-          "revision": "672cc727956c7006888044ca3de35e03f4067f55",
-          "version": "1.0.0"
-        }
-      },
-      {
         "package": "Facebook",
         "repositoryURL": "https://github.com/facebook/facebook-ios-sdk.git",
         "state": {

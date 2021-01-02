@@ -2,7 +2,6 @@
 import Foundation
 import SwiftUI
 import SFSafeSymbols
-import CustomModalView
 import iOSShared
 
 struct AlbumItemsScreen: View {

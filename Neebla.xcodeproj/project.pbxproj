@@ -28,7 +28,6 @@
 		8320A71E256E0ED500819377 /* FileLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A71D256E0ED500819377 /* FileLabels.swift */; };
 		8320A738256E164500819377 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A737256E164500819377 /* CommentsView.swift */; };
 		8320A73C256E170900819377 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A73B256E170900819377 /* MessagesView.swift */; };
-		8320A74F256F3EF900819377 /* DefaultModalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A74E256F3EF900819377 /* DefaultModalStyle.swift */; };
 		8320A755256F530C00819377 /* SFSymbolIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A754256F530C00819377 /* SFSymbolIcon.swift */; };
 		8320A759256F568400819377 /* View+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A758256F568400819377 /* View+Extras.swift */; };
 		83269F10258C4E3500D27594 /* iOSGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 83269F0F258C4E3500D27594 /* iOSGoogle */; };
@@ -86,7 +85,6 @@
 		8331F441255F9C8E0063A67D /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F414255F857E0063A67D /* AlbumModel.swift */; };
 		8331F444255F9C920063A67D /* ServerObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F3C8255E4D7D0063A67D /* ServerObjectModel.swift */; };
 		8331F44B255FA7BA0063A67D /* AlbumsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F44A255FA7BA0063A67D /* AlbumsViewModel.swift */; };
-		8331F457255FB5790063A67D /* CustomModalView in Frameworks */ = {isa = PBXBuildFile; productRef = 8331F456255FB5790063A67D /* CustomModalView */; };
 		8331F4612560BD7D0063A67D /* AlbumItemsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4602560BD7D0063A67D /* AlbumItemsScreen.swift */; };
 		8331F4672560BE0E0063A67D /* AlbumItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4662560BE0E0063A67D /* AlbumItemsViewModel.swift */; };
 		8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F46C2560BE8A0063A67D /* ServerFileModel.swift */; };
@@ -284,7 +282,6 @@
 		8320A71D256E0ED500819377 /* FileLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLabels.swift; sourceTree = "<group>"; };
 		8320A737256E164500819377 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		8320A73B256E170900819377 /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
-		8320A74E256F3EF900819377 /* DefaultModalStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultModalStyle.swift; sourceTree = "<group>"; };
 		8320A754256F530C00819377 /* SFSymbolIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolIcon.swift; sourceTree = "<group>"; };
 		8320A758256F568400819377 /* View+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extras.swift"; sourceTree = "<group>"; };
 		832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSharingModalModel.swift; sourceTree = "<group>"; };
@@ -444,7 +441,6 @@
 				8320A70E256DF07E00819377 /* MessageKit in Frameworks */,
 				835AC8D9255B831800375084 /* iOSFacebook in Frameworks */,
 				832D342D25869E2D00FEF094 /* RadioGroup in Frameworks */,
-				8331F457255FB5790063A67D /* CustomModalView in Frameworks */,
 				83BF7C652581E474000E0B37 /* ImageIOSwift in Frameworks */,
 				83BF7C632581E474000E0B37 /* ImageIOUIKit in Frameworks */,
 				835AC8D5255B82AD00375084 /* iOSDropbox in Frameworks */,
@@ -525,14 +521,6 @@
 				835AC8E4255B842E00375084 /* LocalServices+Invitation.swift */,
 			);
 			path = LocalServices;
-			sourceTree = "<group>";
-		};
-		8320A74D256F3EBD00819377 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				8320A74E256F3EF900819377 /* DefaultModalStyle.swift */,
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 		8320A75C256F56CF00819377 /* Media Types */ = {
@@ -687,7 +675,6 @@
 		8331F3BD255E43470063A67D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				8320A74D256F3EBD00819377 /* Utilities */,
 				8331F32B255B8AFD0063A67D /* Screens.swift */,
 				83BF80752585D8C3000E0B37 /* Sign In Screen */,
 				83BF7CE22585B73A000E0B37 /* Album Sharing */,
@@ -1155,7 +1142,6 @@
 				835AC8F7255B86AA00375084 /* PersistentValue */,
 				8331F33B255B8B4E0063A67D /* SideMenu */,
 				8331F424255F8C6D0063A67D /* SwiftUIRefresh */,
-				8331F456255FB5790063A67D /* CustomModalView */,
 				8308B6D82569F595007F0CEB /* SMLinkPreview */,
 				8320A70D256DF07E00819377 /* MessageKit */,
 				83BF7C622581E474000E0B37 /* ImageIOUIKit */,
@@ -1226,7 +1212,6 @@
 				835AC8F6255B86AA00375084 /* XCRemoteSwiftPackageReference "PersistentValue" */,
 				8331F33A255B8B4E0063A67D /* XCRemoteSwiftPackageReference "SideMenu" */,
 				8331F423255F8C6D0063A67D /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
-				8331F455255FB5790063A67D /* XCRemoteSwiftPackageReference "CustomModalView" */,
 				8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */,
 				8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */,
 				83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */,
@@ -1416,7 +1401,6 @@
 				8331F3FC255F82ED0063A67D /* SettingsScreen.swift in Sources */,
 				8331F336255B8AFD0063A67D /* LeftMenuView.swift in Sources */,
 				8331F4C12560FFC70063A67D /* SettingsScreenModel.swift in Sources */,
-				8320A74F256F3EF900819377 /* DefaultModalStyle.swift in Sources */,
 				8331F4B42560F5B90063A67D /* ItemType.swift in Sources */,
 				83BF7C6A2584595C000E0B37 /* LiveImageObjectType+Image.swift in Sources */,
 				8308B738256B6EF6007F0CEB /* URLModel.swift in Sources */,
@@ -1882,14 +1866,6 @@
 				minimumVersion = 0.0.3;
 			};
 		};
-		8331F455255FB5790063A67D /* XCRemoteSwiftPackageReference "CustomModalView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jankaltoun/CustomModalView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		835AC8D3255B82AD00375084 /* XCRemoteSwiftPackageReference "iOSDropbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSDropbox.git";
@@ -2014,11 +1990,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8331F423255F8C6D0063A67D /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
 			productName = SwiftUIRefresh;
-		};
-		8331F456255FB5790063A67D /* CustomModalView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8331F455255FB5790063A67D /* XCRemoteSwiftPackageReference "CustomModalView" */;
-			productName = CustomModalView;
 		};
 		8340ADD0259FB4FC00AFB31E /* iOSGoogle */ = {
 			isa = XCSwiftPackageProductDependency;
