@@ -54,8 +54,9 @@ struct AlbumItemsScreenBody: View {
                     }
             case .picker(let mediaPicker):
                 mediaPicker.mediaPicker
-                    .onAppear() {
+                    .onDisappear() {
                         // Same idea as above. Note that if I do this with a .onTapGesture on the Menu, this causes the menu to disappear.
+                        // If I trigger this from `onAppear`, I get other grief in my view hierarchy. A view lower in the hierarchy (`URLPickerViewModel`) stops responding to its published view model values.
                         viewModel.sharing = false
                     }
             }
@@ -178,6 +179,7 @@ struct MediaPickersMenu: View {
     
     var body: some View {
         VStack {
+            // In some cases, the menu is presented with items in top to bottom order. In others, it's presented bottom to top. E.g., from the nav bar, the order is top to bottom. Presented from a button on the screen, I'm getting bottom to top order. Seems a context sensitive issue.
             Menu {
                 ForEach(pickers, id: \.mediaPickerUIDisplayName) { picker in
                     Button(action: {

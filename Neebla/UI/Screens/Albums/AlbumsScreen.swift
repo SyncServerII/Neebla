@@ -3,7 +3,6 @@ import Foundation
 import SwiftUI
 import SwiftUIRefresh
 import SFSafeSymbols
-import CustomModalView
 import iOSShared
 
 struct AlbumsScreen: View {
@@ -41,29 +40,7 @@ struct AlbumsScreenBody: View {
                 AlbumsScreenAlbumList(viewModel: viewModel)
             }
             else {
-                VStack(spacing: 20) {
-                    Text("No albums found.")
-                    Image("client-icon")
-                    
-                    VStack {
-                        Text("Do you just need to refresh?")
-                        Button(
-                            action: {
-                                viewModel.sync()
-                            },
-                            label: {
-                                SFSymbolIcon(symbol: .goforward)
-                            }
-                        )
-                    }
-                    
-                    Text("Or perhaps you have none?")
-                    Button(action: {
-                        viewModel.startCreateNewAlbum()
-                    }, label: {
-                        Text("Make an album.")
-                    })
-                }
+                AlbumsScreenEmptyState(viewModel: viewModel)
             }
         }
         .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
@@ -94,9 +71,43 @@ struct AlbumsScreenBody: View {
                 }
             }
         }
-        .modalStyle(DefaultModalStyle(padding: UIDevice.isPad ? 100 : 20))
         .onDisappear() {
             viewModel.sharingMode = false
+        }
+    }
+}
+
+struct AlbumsScreenEmptyState: View {
+    @ObservedObject var viewModel:AlbumsViewModel
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("No albums found.")
+            Image("client-icon")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxHeight: 120)
+            
+            VStack {
+                Text("Do you just need to refresh?")
+                Button(
+                    action: {
+                        viewModel.sync()
+                    },
+                    label: {
+                        SFSymbolIcon(symbol: .goforward)
+                    }
+                )
+            }
+            
+            VStack {
+                Text("Or perhaps you have none?")
+                Button(action: {
+                    viewModel.startCreateNewAlbum()
+                }, label: {
+                    SFSymbolIcon(symbol: .plusCircle)
+                })
+            }
         }
     }
 }
