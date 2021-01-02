@@ -171,7 +171,7 @@ struct MediaPickersMenu: View {
     
     init(viewModel:AlbumItemsViewModel) {
         self.viewModel = viewModel
-        pickers = AnyPicker.forAlbum { assets in
+        pickers = AnyPicker.pickers { assets in
             viewModel.uploadNewItem(assets: assets)
         }
     }
@@ -179,6 +179,7 @@ struct MediaPickersMenu: View {
     var body: some View {
         VStack {
             // In some cases, the menu is presented with items in top to bottom order. In others, it's presented bottom to top. E.g., from the nav bar, the order is top to bottom. Presented from a button on the screen, I'm getting bottom to top order. Seems a context sensitive issue.
+            // See https://stackoverflow.com/questions/65543824/swiftui-menu-top-to-bottom-order-varies-depending-on-context/65543825#65543825
             Menu {
                 ForEach(pickers, id: \.mediaPickerUIDisplayName) { picker in
                     Button(action: {
