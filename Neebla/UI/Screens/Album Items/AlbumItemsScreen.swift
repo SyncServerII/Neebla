@@ -23,6 +23,79 @@ struct AlbumItemsScreen: View {
 struct AlbumItemsScreenBody: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     @ObservedObject var userAlertModel:UserAlertModel
+        
+    init(album sharingGroupUUID: UUID) {
+        let userAlertModel = UserAlertModel()
+        self.viewModel = AlbumItemsViewModel(album: sharingGroupUUID, userAlertModel: userAlertModel)
+        self.userAlertModel = userAlertModel
+    }
+    
+    var body: some View {
+        VStack {
+            if viewModel.objects.count == 0 {
+                AlbumItemsScreenBodyEmptyState(viewModel: viewModel)
+            }
+            else {
+                AlbumItemsScreenBodyWithContent(viewModel: viewModel)
+            }
+        }
+        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+        .navigationBarTitle("Album Contents")
+        .navigationBarItems(trailing:
+            AlbumItemsScreenNavButtons(viewModel: viewModel)
+        )
+        .sheet(item: $viewModel.sheetToShow) { sheet in
+            switch sheet {
+            case .activityController:
+                ActivityViewController(activityItems: viewModel.shareActivityItems())
+                    .onAppear() {
+                        // Switch out of sharing mode, so when user comes back they don't have the selection state-- which doesn't seem right.
+                        viewModel.sharing = false
+                    }
+            case .picker(let mediaPicker):
+                mediaPicker.mediaPicker
+                    .onAppear() {
+                        // Same idea as above. Note that if I do this with a .onTapGesture on the Menu, this causes the menu to disappear.
+                        viewModel.sharing = false
+                    }
+            }
+        }
+    }
+}
+
+struct AlbumItemsScreenBodyEmptyState: View {
+    @ObservedObject var viewModel:AlbumItemsViewModel
+
+    init(viewModel:AlbumItemsViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("No media items found in album.")
+            Image("client-icon")
+            
+            VStack {
+                Text("Do you just need to refresh?")
+                Button(
+                    action: {
+                        viewModel.sync()
+                    },
+                    label: {
+                        SFSymbolIcon(symbol: .goforward)
+                    }
+                )
+            }
+            
+            VStack {
+                Text("Or perhaps you need to add some?")
+                MediaPickersMenu(viewModel: viewModel)
+            }
+        }.padding(20)
+    }
+}
+struct AlbumItemsScreenBodyWithContent: View {
+    @ObservedObject var viewModel:AlbumItemsViewModel
     
     /* It seems hard to get the spacing to work out reasonably. At first, it looked OK on iPhone 11 but not on iPhone 8-- on iPhone 8 there was no spacing. In this case I was using:
     
@@ -38,10 +111,8 @@ struct AlbumItemsScreenBody: View {
     
     @State var object: ServerObjectModel?
     
-    init(album sharingGroupUUID: UUID) {
-        let userAlertModel = UserAlertModel()
-        self.viewModel = AlbumItemsViewModel(album: sharingGroupUUID, userAlertModel: userAlertModel)
-        self.userAlertModel = userAlertModel
+    init(viewModel:AlbumItemsViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {
@@ -78,27 +149,6 @@ struct AlbumItemsScreenBody: View {
                 .disabled(true)
             } // end if
         }
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
-        .navigationBarTitle("Album Contents")
-        .navigationBarItems(trailing:
-            AlbumItemsScreenNavButtons(viewModel: viewModel)
-        )
-        .sheet(item: $viewModel.sheetToShow) { sheet in
-            switch sheet {
-            case .activityController:
-                ActivityViewController(activityItems: viewModel.shareActivityItems())
-                    .onAppear() {
-                        // Switch out of sharing mode, so when user comes back they don't have the selection state-- which doesn't seem right.
-                        viewModel.sharing = false
-                    }
-            case .picker(let mediaPicker):
-                mediaPicker.mediaPicker
-                    .onAppear() {
-                        // Same idea as above. Note that if I do this with a .onTapGesture on the Menu, this causes the menu to disappear.
-                        viewModel.sharing = false
-                    }
-            }
-        }
     }
 }
 
@@ -115,19 +165,19 @@ private struct AlbumItemsScreenNavButtons: View {
     }
 }
 
-private struct AlbumItemsScreenNavRegularButtons: View {
+struct MediaPickersMenu: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     let pickers:[MediaPicker]
-        
+    
     init(viewModel:AlbumItemsViewModel) {
         self.viewModel = viewModel
         pickers = AnyPicker.forAlbum { assets in
             viewModel.uploadNewItem(assets: assets)
         }
     }
-
+    
     var body: some View {
-        HStack(spacing: 0) {
+        VStack {
             Menu {
                 ForEach(pickers, id: \.mediaPickerUIDisplayName) { picker in
                     Button(action: {
@@ -139,6 +189,20 @@ private struct AlbumItemsScreenNavRegularButtons: View {
             } label: {
                 SFSymbolIcon(symbol: .plusCircle)
             }
+        }
+    }
+}
+
+private struct AlbumItemsScreenNavRegularButtons: View {
+    @ObservedObject var viewModel:AlbumItemsViewModel
+        
+    init(viewModel:AlbumItemsViewModel) {
+        self.viewModel = viewModel
+    }
+
+    var body: some View {
+        HStack(spacing: 0) {
+            MediaPickersMenu(viewModel: viewModel)
             
             Menu {
                 Button(action: {

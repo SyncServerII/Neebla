@@ -43,7 +43,7 @@ struct AlbumsScreenBody: View {
             else {
                 VStack(spacing: 20) {
                     Text("No albums found.")
-                    Image("sad-icon")
+                    Image("client-icon")
                     
                     VStack {
                         Text("Do you just need to refresh?")
