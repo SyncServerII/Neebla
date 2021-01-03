@@ -121,9 +121,16 @@ extension ServerObjectModel {
             try model.insert()
         }
     }
+    
+    func getCommentsUnreadCount() throws -> Int? {
+        let fileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.comments, withFileGroupUUID: fileGroupUUID)
+        logger.debug("fileModel.unreadCount: \(String(describing: fileModel.unreadCount))")
+        return fileModel.unreadCount
+    }
 }
 
 extension DownloadedObject {
+    // Upsert based on a downloaded object
     func upsert(db: Connection, itemType: ItemType.Type) throws {
         if let model = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) {
         

@@ -28,6 +28,7 @@ class Comments {
     }
     
     static func save(commentFile: CommentFile, commentFileModel:ServerFileModel) throws {
+        var commentFileModel = commentFileModel
         let commentFileURL: URL
         
         if let url = commentFileModel.url {
@@ -35,10 +36,11 @@ class Comments {
         }
         else {
             commentFileURL = try URLObjectType.createNewFile(for: URLObjectType.commentDeclaration.fileLabel)
-            try commentFileModel.update(setters: ServerFileModel.urlField.description <- commentFileURL)
+            commentFileModel = try commentFileModel.update(setters: ServerFileModel.urlField.description <- commentFileURL)
         }
         
         try commentFile.save(toFile: commentFileURL)
+        try Self.updateUnreadCount(for: commentFileModel)
     }
     
     // The UI-displayable title of media objects are stored in their associated comment file.
@@ -50,6 +52,23 @@ class Comments {
         
         let commentFile = try CommentFile(with: fileURL)
         return commentFile[Comments.Keys.mediaTitleKey] as? String
+    }
+    
+    static func updateUnreadCount(for fileModel: ServerFileModel) throws {
+        var currentCount = fileModel.unreadCount ?? 0
+        
+        // Load the file referenced and add to this count.
+        
+        guard let url = fileModel.url else {
+            return
+        }
+        
+        let commentFile = try CommentFile(with: url)
+        
+        // Assuming that the comments that our `currentCount` represents must be included in commentFile
+        currentCount = max(commentFile.count - currentCount, 0)
+        
+        try fileModel.update(setters: ServerFileModel.unreadCountField.description <- currentCount)
     }
 }
 

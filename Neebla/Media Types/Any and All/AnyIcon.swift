@@ -37,6 +37,12 @@ struct AnyIcon: View {
                     upperRightView
                 }
             }
+            
+            ViewInUpperLeft {
+                if let count = try? object.getCommentsUnreadCount(), count > 0 {
+                    Badge("\(count)")
+                }
+            }
         }
         .onAppear() {
             Downloader.session.objectAccessed(object: object)

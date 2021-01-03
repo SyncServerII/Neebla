@@ -28,13 +28,18 @@ class ServerFileModel: DatabaseModel {
     static let urlField = Field("url", \M.url)
     var url: URL?
     
+    // This is non-nil only for files containing comments.
+    static let unreadCountField = Field("unreadCount", \M.unreadCount)
+    var unreadCount: Int?
+    
     init(db: Connection,
         id: Int64! = nil,
         fileGroupUUID: UUID,
         fileUUID: UUID,
         fileLabel: String,
         gone: Bool = false,
-        url: URL? = nil) throws {
+        url: URL? = nil,
+        unreadCount: Int? = nil) throws {
 
         self.db = db
         self.id = id
@@ -43,6 +48,7 @@ class ServerFileModel: DatabaseModel {
         self.fileLabel = fileLabel
         self.gone = gone
         self.url = url
+        self.unreadCount = unreadCount
     }
     
     // MARK: DatabaseModel
@@ -55,6 +61,7 @@ class ServerFileModel: DatabaseModel {
             t.column(fileLabelField.description)
             t.column(goneField.description)
             t.column(urlField.description)
+            t.column(unreadCountField.description)
         }
     }
     
@@ -65,7 +72,8 @@ class ServerFileModel: DatabaseModel {
             fileUUID: row[Self.fileUUIDField.description],
             fileLabel: row[Self.fileLabelField.description],
             gone: row[Self.goneField.description],
-            url: row[Self.urlField.description]
+            url: row[Self.urlField.description],
+            unreadCount: row[Self.unreadCountField.description]
         )
     }
     
@@ -75,7 +83,8 @@ class ServerFileModel: DatabaseModel {
             Self.fileUUIDField.description <- fileUUID,
             Self.fileLabelField.description <- fileLabel,
             Self.goneField.description <- gone,
-            Self.urlField.description <- url
+            Self.urlField.description <- url,
+            Self.unreadCountField.description <- unreadCount
         )
     }
 }
@@ -88,6 +97,7 @@ extension ServerFileModel {
         case noFileForFileLabel
     }
     
+    // Upsert files based on index obtained from the server.
     static func upsert(db: Connection, file: DownloadFile, object: IndexObject) throws {
         if let model = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == file.uuid) {
             // This handles both the case of a download deletion (another client has deleted an object/file(s)) and the case of a local deletion. In the local deletion-- the deletion request gets uploaded, and later an index request will occur. This later index request is now driving this upsert.
@@ -127,6 +137,7 @@ extension ServerFileModel {
 }
 
 extension DownloadedFile {
+    // Upsert based on a downloaded file
     // If itemType `DownloadFile.Contents` gives a URL, this moves the file to a permanent Neebla directory and saves it into the relevant `ServerFileModel`.
     func upsert(db: Connection, fileGroupUUID: UUID, itemType: ItemType.Type) throws {
         var contentsURL: URL?
@@ -141,19 +152,26 @@ extension DownloadedFile {
         case .gone:
             gone = true
         }
-            
-        if let fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == uuid) {
+
+        if var fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == uuid) {
         
             // For an existing file, replaces the content URL. First, get rid of existing file, if any.
             try fileModel.removeFile()
-            
-            try fileModel.update(setters:
+   
+            fileModel = try fileModel.update(setters:
                 ServerFileModel.goneField.description <- gone,
                 ServerFileModel.urlField.description <- contentsURL)
+                
+            if fileModel.fileLabel == FileLabels.comments {
+                try Comments.updateUnreadCount(for: fileModel)
+            }
         }
         else {
             let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: uuid, fileLabel: fileLabel, gone: gone, url: contentsURL)
             try model.insert()
+            if model.fileLabel == FileLabels.comments {
+                try Comments.updateUnreadCount(for: model)
+            }
         }
     }
 }
