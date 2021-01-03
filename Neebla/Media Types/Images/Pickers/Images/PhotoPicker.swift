@@ -25,7 +25,8 @@ enum PhotoPickerError: Error {
 
 struct PhotoPicker: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var isPresented
-
+    var controller:PHPickerViewController!
+    
     var configuration: PHPickerConfiguration {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
         config.filter = .any(of: [.livePhotos, .images])
@@ -38,10 +39,10 @@ struct PhotoPicker: UIViewControllerRepresentable {
     // Completion handler is called back on the main thread.
     init(completion:@escaping (Result<UploadableMediaAssets, Error>)->()) {
         self.completion = completion
+        controller = PHPickerViewController(configuration: configuration)
     }
     
     func makeUIViewController(context: Context) -> PHPickerViewController {
-        let controller = PHPickerViewController(configuration: configuration)
         controller.delegate = context.coordinator
         return controller
     }
@@ -80,8 +81,18 @@ struct PhotoPicker: UIViewControllerRepresentable {
             
             logger.debug("results: \(results)")
             
-            let result = results[0]
-            
+            let alert = UIAlertController(title: "Add image?", message: "Is this the image you to add to album?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
+                self.addImage(result: results[0])
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            }))
+            parent.controller.present(alert, animated: true)
+        }
+    
+        // TODO: Not reporting errors properly from this. I tried putting an .alert on this picker, but didn't get that working.
+        // See https://docs.google.com/document/d/190FBElJHbzCqvI9-pZGuHOg4jC2gbMh3lB6INCaiQcs/edit#bookmark=id.m29y98rl7vw8
+        func addImage(result: PHPickerResult) {
             do {
                 try itemProviderFactory.create(using: result.itemProvider) { result in
                     switch result {

@@ -44,9 +44,9 @@ extension LiveImageObjectType {
         // I'm assuming this will always be 1 for our HEIC files, but want to get some data on this.
         logger.debug("Success: imageSource.count: \(imageSource.count)")
         
-        let settings = try SettingsModel.getSingleton(db: Services.session.db)
-
-        guard let imageData = image.jpegData(compressionQuality: settings.jpegQuality) else {
+        let jpegQuality = try SettingsModel.jpegQuality(db: Services.session.db)
+        
+        guard let imageData = image.jpegData(compressionQuality: jpegQuality) else {
             throw LiveImageObjectTypeError.imageConversionFailed("Invalid JPEG image")
         }
         

@@ -4,6 +4,11 @@ import ServerShared
 import iOSShared
 import PhotosUI
 
+enum ImageType: String {
+    case jpeg
+    case heic
+}
+    
 class LiveImageItemProvider: SXItemProvider {
     enum LiveImageItemProviderError: Error {
         case cannotGetLivePhoto
@@ -73,11 +78,6 @@ class LiveImageItemProvider: SXItemProvider {
         }
         
         return nil
-    }
-
-    private enum ImageType: String {
-        case jpeg
-        case heic
     }
     
     // I'm having problems using this from the sharing extension. canLoadObject and loadObject are failing. This is when running the Sharing Extension target using the simulator. Behaving the same way when running on an actual device. See also https://developer.apple.com/forums/thread/22132?login=true

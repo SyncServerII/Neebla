@@ -75,4 +75,9 @@ extension SettingsModel {
         
         return singleton[0]
     }
+    
+    static func jpegQuality(db: Connection) throws -> CGFloat {
+        let settings = try SettingsModel.getSingleton(db: Services.session.db)
+        return settings.jpegQuality
+    }
 }

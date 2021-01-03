@@ -13,7 +13,7 @@ struct PhotoLibraryMediaPicker: MediaPicker {
     let mediaPickerEnabled: Bool = true
     let mediaPickerUIDisplayName: String = "Photo library image"
     let itemPicked:(UploadableMediaAssets)->()
-    
+
     init(itemPicked: @escaping (UploadableMediaAssets)->()) {
         self.itemPicked = itemPicked
     }
