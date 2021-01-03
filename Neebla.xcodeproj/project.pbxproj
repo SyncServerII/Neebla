@@ -210,6 +210,7 @@
 		83E1A9912599A377004D4029 /* URLPreviewItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */; };
 		83E7B2C7257B5741008EE363 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */; };
 		83E7B2EB257D3EB9008EE363 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */; };
+		83F2C54B25A1510500D0B710 /* AddressNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2C54A25A1510500D0B710 /* AddressNavigation.swift */; };
 		83F389C5259044ED00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389C4259044ED00610C76 /* iOSApple */; };
 		83F389D42590466B00610C76 /* LocalServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6F2256A0A58007F0CEB /* LocalServices.swift */; };
 		83F389DC2590468C00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389DB2590468C00610C76 /* iOSApple */; };
@@ -403,6 +404,7 @@
 		83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPreviewItemProvider.swift; sourceTree = "<group>"; };
 		83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsViewModel.swift; path = "Neebla/UI/Screens/Object Details/CommentsViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		83F2C54A25A1510500D0B710 /* AddressNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressNavigation.swift; sourceTree = "<group>"; };
 		83F389C92590451C00610C76 /* iOSApple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSApple; path = ../../iOSApple; sourceTree = "<group>"; };
 		83F4167A259C2074003C7200 /* UIDevice+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extras.swift"; sourceTree = "<group>"; };
 		83F41686259C21EC003C7200 /* View+iPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+iPad.swift"; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 				8320A73B256E170900819377 /* MessagesView.swift */,
 				83C43FE025733B480016BA4C /* MessageKitTypes.swift */,
 				8320A713256DF0FE00819377 /* DiscussionMessage.swift */,
+				83F2C54A25A1510500D0B710 /* AddressNavigation.swift */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -1385,6 +1388,7 @@
 				8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */,
 				8308B706256A3A53007F0CEB /* URLFile.swift in Sources */,
 				835104A4259FE91900C5A05E /* MediaPicker.swift in Sources */,
+				83F2C54B25A1510500D0B710 /* AddressNavigation.swift in Sources */,
 				8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */,
 				83C7352825992CC10073788A /* ImageItemProvider.swift in Sources */,
 				832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */,

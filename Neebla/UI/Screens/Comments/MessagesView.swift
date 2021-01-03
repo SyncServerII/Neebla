@@ -35,9 +35,7 @@ final class MessageSwiftUIVC: MessagesViewController {
         // messagesCollectionView.scrollToLastItem(at: .top, animated: true)
         print("view.frame: \(view.frame)")
         print("messagesCollectionView.frame: \(messagesCollectionView.frame)")
-        print("messagesCollectionView.contentSize: \(messagesCollectionView.contentSize)")
-        
-        //messagesCollectionView.contentSize = messagesCollectionView.frame.size
+        print("messagesCollectionView.contentSize: \(messagesCollectionView.contentSize)")        
     }
 
     @objc func keyboardWillDisappear() {
@@ -52,22 +50,13 @@ final class MessageSwiftUIVC: MessagesViewController {
         // Without this, the scrolling contents appears on the top bar.
         view.clipsToBounds = true
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//
-//        print("view.frame.size: \(view.frame.size)")
-//        print("messagesCollectionView.frame.size: \(messagesCollectionView.frame.size)")
-//        messagesCollectionView.frame.size = view.frame.size
-//        messagesCollectionView.contentSize = view.frame.size
-//    }
 }
 
 @available(iOS 13.0, *)
 struct MessagesView: UIViewControllerRepresentable {
     @State var initialized = false
     @ObservedObject var model: CommentsViewModel
-    
+
     init(model: CommentsViewModel){
         self.model = model
     }
@@ -80,7 +69,6 @@ struct MessagesView: UIViewControllerRepresentable {
         messagesVC.messagesCollectionView.messagesDataSource = context.coordinator
         messagesVC.messagesCollectionView.messageCellDelegate = context.coordinator
         messagesVC.messageInputBar.delegate = context.coordinator
-        //messagesVC.scrollsToBottomOnKeyboardBeginsEditing = true // default false
         messagesVC.scrollsToLastItemOnKeyboardBeginsEditing = true
         messagesVC.maintainPositionOnKeyboardFrameChanged = true // default false
         messagesVC.showMessageTimestampOnSwipeLeft = true // default false
@@ -108,7 +96,8 @@ struct MessagesView: UIViewControllerRepresentable {
     
     final class Coordinator {
         weak var messagesCollectionView:MessagesCollectionView!
-        
+        var navigation:AddressNavigation?
+
         let formatter: DateFormatter = {
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
@@ -141,12 +130,6 @@ extension MessagesView.Coordinator: MessagesDataSource {
         let name = message.sender.displayName
         return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
     }
-    
-    /*
-    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        let dateString = formatter.string(from: message.sentDate)
-        return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
-    }*/
 
     func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         
@@ -343,8 +326,8 @@ extension MessagesView.Coordinator: MessageCellDelegate {
             return
         }
     
-        #warning("FIX ME")
-        // AddressNavigation.navigate(to: address, using: self)
+        navigation = AddressNavigation()
+        navigation?.navigate(to: address)
     }
 }
 

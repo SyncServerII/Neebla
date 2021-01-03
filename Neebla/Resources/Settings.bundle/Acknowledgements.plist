@@ -230,20 +230,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright (c) 2020 jankaltoun &lt;jan.kaltoun@me.com&gt; 
-
-Please do whatever you want with this code. 
-
-If you link to this repository or mention me as the author, it will make me happy!
-
-</string>
-			<key>Title</key>
-			<string>CustomModalView</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>BSD License 
 
 For the FBSnapshotTestCase software 
