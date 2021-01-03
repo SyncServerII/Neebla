@@ -4,6 +4,14 @@ import SwiftUI
 
 struct AnyLargeMedia: View {
     let object: ServerObjectModel
+    private var badgeText: String?
+    
+    init(object: ServerObjectModel) {
+        self.object = object
+        if let count = try? object.getCommentsUnreadCount(), count > 0 {
+            badgeText = "\(count)"
+        }
+    }
     
     var body: some View {
         VStack {
@@ -20,6 +28,11 @@ struct AnyLargeMedia: View {
             default:
                 EmptyView()
             }
+        }
+        .if(badgeText != nil) {
+            $0.overlay(
+                BadgeOverlay(text: badgeText!).padding([.leading, .top], 5),
+                alignment: .topLeading)
         }
         .onAppear() {
             Downloader.session.objectAccessed(object: object)

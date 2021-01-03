@@ -25,3 +25,13 @@ struct Badge: View {
             .font(Font.system(size: 14))
     }
 }
+
+struct BadgeOverlay: View {
+    let text: String
+    
+    var body: some View {
+        ZStack {
+            Badge(text)
+        }
+    }
+}
