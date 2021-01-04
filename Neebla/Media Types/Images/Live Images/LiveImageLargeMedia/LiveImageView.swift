@@ -9,6 +9,9 @@ struct LiveImageView: UIViewRepresentable {
     
     init(fileGroupUUID: UUID) {
         let view = PHLivePhotoView()
+        // Without this, in landscape mode, I don't get proper scaling of the image.
+        view.contentMode = .scaleAspectFit
+        
         self.view = view
         model = LiveImageViewModel(fileGroupUUID: fileGroupUUID)
         
@@ -28,3 +31,4 @@ struct LiveImageView: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: Context) {
     }
 }
+
