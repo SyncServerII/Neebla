@@ -203,6 +203,15 @@ private struct RightNavBarIcons: View {
 private struct AlbumsScreenRow: View {
     @ObservedObject var album:AlbumModel
     @ObservedObject var viewModel:AlbumsViewModel
+    var badgeText:String?
+    
+    init(album:AlbumModel, viewModel:AlbumsViewModel) {
+        self.album = album
+        self.viewModel = viewModel
+        if let unreadCount = try? viewModel.unreadCountFor(album: album.sharingGroupUUID), unreadCount > 0 {
+            badgeText = "\(unreadCount)"
+        }
+    }
     
     var body: some View {
         HStack {
@@ -214,6 +223,10 @@ private struct AlbumsScreenRow: View {
             }
 
             Spacer()
+            
+            if let badgeText = badgeText {
+                Badge(badgeText)
+            }
             
             // To change an album name and to share an album, you must have .admin permissions.
             if album.permission.hasMinimumPermission(.admin) {
