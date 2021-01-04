@@ -28,9 +28,12 @@ class ServerFileModel: DatabaseModel {
     static let urlField = Field("url", \M.url)
     var url: URL?
     
-    // This is non-nil only for files containing comments.
+    // The following two fields are non-nil only for files containing comments.
     static let unreadCountField = Field("unreadCount", \M.unreadCount)
     var unreadCount: Int?
+
+    static let readCountField = Field("readCount", \M.readCount)
+    var readCount: Int?
     
     init(db: Connection,
         id: Int64! = nil,
@@ -39,7 +42,8 @@ class ServerFileModel: DatabaseModel {
         fileLabel: String,
         gone: Bool = false,
         url: URL? = nil,
-        unreadCount: Int? = nil) throws {
+        unreadCount: Int? = nil,
+        readCount: Int? = nil) throws {
 
         self.db = db
         self.id = id
@@ -49,6 +53,7 @@ class ServerFileModel: DatabaseModel {
         self.gone = gone
         self.url = url
         self.unreadCount = unreadCount
+        self.readCount = readCount
     }
     
     // MARK: DatabaseModel
@@ -62,6 +67,7 @@ class ServerFileModel: DatabaseModel {
             t.column(goneField.description)
             t.column(urlField.description)
             t.column(unreadCountField.description)
+            t.column(readCountField.description)
         }
     }
     
@@ -73,7 +79,8 @@ class ServerFileModel: DatabaseModel {
             fileLabel: row[Self.fileLabelField.description],
             gone: row[Self.goneField.description],
             url: row[Self.urlField.description],
-            unreadCount: row[Self.unreadCountField.description]
+            unreadCount: row[Self.unreadCountField.description],
+            readCount: row[Self.readCountField.description]
         )
     }
     
@@ -84,7 +91,8 @@ class ServerFileModel: DatabaseModel {
             Self.fileLabelField.description <- fileLabel,
             Self.goneField.description <- gone,
             Self.urlField.description <- url,
-            Self.unreadCountField.description <- unreadCount
+            Self.unreadCountField.description <- unreadCount,
+            Self.readCountField.description <- readCount
         )
     }
 }

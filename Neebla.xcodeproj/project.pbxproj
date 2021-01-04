@@ -212,7 +212,6 @@
 		83E7B2C7257B5741008EE363 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */; };
 		83E7B2EB257D3EB9008EE363 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */; };
 		83F2C54B25A1510500D0B710 /* AddressNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2C54A25A1510500D0B710 /* AddressNavigation.swift */; };
-		83F2C55325A183DF00D0B710 /* ViewInUpperLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2C55225A183DF00D0B710 /* ViewInUpperLeft.swift */; };
 		83F389C5259044ED00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389C4259044ED00610C76 /* iOSApple */; };
 		83F389D42590466B00610C76 /* LocalServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6F2256A0A58007F0CEB /* LocalServices.swift */; };
 		83F389DC2590468C00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389DB2590468C00610C76 /* iOSApple */; };
@@ -408,7 +407,6 @@
 		83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsViewModel.swift; path = "Neebla/UI/Screens/Object Details/CommentsViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		83F2C54A25A1510500D0B710 /* AddressNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressNavigation.swift; sourceTree = "<group>"; };
-		83F2C55225A183DF00D0B710 /* ViewInUpperLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInUpperLeft.swift; sourceTree = "<group>"; };
 		83F389C92590451C00610C76 /* iOSApple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSApple; path = ../../iOSApple; sourceTree = "<group>"; };
 		83F4167A259C2074003C7200 /* UIDevice+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extras.swift"; sourceTree = "<group>"; };
 		83F41686259C21EC003C7200 /* View+iPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+iPad.swift"; sourceTree = "<group>"; };
@@ -749,7 +747,6 @@
 				83B1F0B5259ED81B006E00FF /* Mail */,
 				83BF78702580789A000E0B37 /* TextInLowerRight.swift */,
 				83F416A4259D60A0003C7200 /* ViewInUpperRight.swift */,
-				83F2C55225A183DF00D0B710 /* ViewInUpperLeft.swift */,
 				8331F51025621F7A0063A67D /* AlertMessage.swift */,
 				8331F4DC2561EDA50063A67D /* Binding+Extras.swift */,
 				8331F52F25623A170063A67D /* RefreshableScrollView.swift */,
@@ -1418,7 +1415,6 @@
 				8331F4BA2560F7300063A67D /* ImageObjectType.swift in Sources */,
 				8320A6FA256CC64700819377 /* URLLargeMedia.swift in Sources */,
 				83C4365C258F2E3200F34628 /* ConfigPlist.swift in Sources */,
-				83F2C55325A183DF00D0B710 /* ViewInUpperLeft.swift in Sources */,
 				8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */,
 				8308B724256B4B73007F0CEB /* ImageIcon.swift in Sources */,
 				83BF785F258066BC000E0B37 /* LiveImageObjectType+Uploadable.swift in Sources */,

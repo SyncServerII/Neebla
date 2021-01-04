@@ -38,6 +38,10 @@ struct CommentsView: View {
                 Text("No comments available")
             }
         }
+        .onAppear() {
+            // The user is viewing comments. Reset the (local) unread count.
+            model?.resetUnreadCount()
+        }
     }
 }
 

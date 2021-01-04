@@ -140,4 +140,12 @@ class CommentsViewModel: ObservableObject {
         // Also going to update local file. This file will get replaced in a download from the server next time downloads happen for this object, but without this update we won't have the new comment in the file locally until that download.
         try Comments.save(commentFile: commentFile, commentFileModel: commentFileModel)
     }
+    
+    func resetUnreadCount() {
+        do {
+            try Comments.resetReadCounts(for: commentFileModel)
+        } catch let error {
+            logger.error("\(error)")
+        }
+    }
 }

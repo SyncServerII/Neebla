@@ -7,10 +7,14 @@ import SwiftUI
 struct AnyIcon: View {
     let object: ServerObjectModel
     let upperRightView: AnyView?
+    private var badgeText: String?
     
     init(object: ServerObjectModel, upperRightView: AnyView? = nil) {
         self.object = object
         self.upperRightView = upperRightView
+        if let count = try? object.getCommentsUnreadCount(), count > 0 {
+            badgeText = "\(count)"
+        }
     }
     
     var body: some View {
@@ -37,12 +41,11 @@ struct AnyIcon: View {
                     upperRightView
                 }
             }
-            
-            ViewInUpperLeft {
-                if let count = try? object.getCommentsUnreadCount(), count > 0 {
-                    Badge("\(count)")
-                }
-            }
+        }
+        .if(badgeText != nil) {
+            $0.overlay(
+                BadgeOverlay(text: badgeText!).padding([.leading, .top], 5),
+                alignment: .topLeading)
         }
         .onAppear() {
             Downloader.session.objectAccessed(object: object)

@@ -27,6 +27,7 @@ class Comments {
         try Services.session.syncServer.queue(upload: upload)
     }
     
+    // Save of comment file from a local change.
     static func save(commentFile: CommentFile, commentFileModel:ServerFileModel) throws {
         var commentFileModel = commentFileModel
         let commentFileURL: URL
@@ -40,7 +41,9 @@ class Comments {
         }
         
         try commentFile.save(toFile: commentFileURL)
-        try Self.updateUnreadCount(for: commentFileModel)
+        
+        // Since this a local change, we take this as "user has read all comments".
+        try Self.resetReadCounts(for: commentFileModel)
     }
     
     // The UI-displayable title of media objects are stored in their associated comment file.
@@ -55,20 +58,26 @@ class Comments {
     }
     
     static func updateUnreadCount(for fileModel: ServerFileModel) throws {
-        var currentCount = fileModel.unreadCount ?? 0
+        guard let url = fileModel.url else {
+            return
+        }
         
-        // Load the file referenced and add to this count.
+        let currentReadCount = fileModel.readCount ?? 0
+        let commentFile = try CommentFile(with: url)
+        let currentUnreadCount = max(commentFile.count - currentReadCount, 0)
         
+        try fileModel.update(setters: ServerFileModel.unreadCountField.description <- currentUnreadCount)
+    }
+    
+    static func resetReadCounts(for fileModel: ServerFileModel) throws {
         guard let url = fileModel.url else {
             return
         }
         
         let commentFile = try CommentFile(with: url)
-        
-        // Assuming that the comments that our `currentCount` represents must be included in commentFile
-        currentCount = max(commentFile.count - currentCount, 0)
-        
-        try fileModel.update(setters: ServerFileModel.unreadCountField.description <- currentCount)
+
+        try fileModel.update(setters: ServerFileModel.unreadCountField.description <- 0)
+        try fileModel.update(setters: ServerFileModel.readCountField.description <- commentFile.count)
     }
 }
 
