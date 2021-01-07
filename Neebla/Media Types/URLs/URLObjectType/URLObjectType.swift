@@ -20,9 +20,9 @@ class URLObjectType: ItemType, DeclarableObject {
 
     // Object declaration
     static var objectType = "url"
-    static let urlDeclaration = FileDeclaration(fileLabel: "url", mimeType: .url, changeResolverName: nil)
-    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeType: .text, changeResolverName: CommentFile.changeResolverName)
-    static let previewImageDeclaration = FileDeclaration(fileLabel: "image", mimeType: .jpeg, changeResolverName: nil)
+    static let urlDeclaration = FileDeclaration(fileLabel: "url", mimeTypes: [.url], changeResolverName: nil)
+    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
+    static let previewImageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)
 
     let declaredFiles: [DeclarableFile]
 

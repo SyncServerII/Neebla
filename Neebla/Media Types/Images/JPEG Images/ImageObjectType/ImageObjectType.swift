@@ -18,8 +18,8 @@ class ImageObjectType: ItemType, DeclarableObject {
 
     // Object declaration
     static let objectType: String = "image"
-    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeType: .text, changeResolverName: CommentFile.changeResolverName)
-    static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeType: .jpeg, changeResolverName: nil)
+    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
+    static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)
     
     static func createNewFile(for fileLabel: String) throws -> URL {
         let localObjectsDir = Files.getDocumentsDirectory().appendingPathComponent(

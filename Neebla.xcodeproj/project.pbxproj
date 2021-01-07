@@ -324,7 +324,6 @@
 		8331F42E255F96AB0063A67D /* LocalFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFiles.swift; sourceTree = "<group>"; };
 		8331F432255F97A50063A67D /* Services+LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services+LocalDatabase.swift"; sourceTree = "<group>"; };
 		8331F44A255FA7BA0063A67D /* AlbumsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewModel.swift; sourceTree = "<group>"; };
-		8331F45C2560A64C0063A67D /* iOSBasics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSBasics; path = ../../iOSBasics; sourceTree = "<group>"; };
 		8331F4602560BD7D0063A67D /* AlbumItemsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumItemsScreen.swift; sourceTree = "<group>"; };
 		8331F4662560BE0E0063A67D /* AlbumItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumItemsViewModel.swift; sourceTree = "<group>"; };
 		8331F46C2560BE8A0063A67D /* ServerFileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFileModel.swift; sourceTree = "<group>"; };
@@ -651,7 +650,6 @@
 				83C43667258FD99D00F34628 /* iOSFacebook */,
 				832D34362586CBBB00FEF094 /* ServerShared */,
 				83CE1ECD25709405004A418B /* iOSShared */,
-				8331F45C2560A64C0063A67D /* iOSBasics */,
 				8331F3AE255BADF10063A67D /* iOSSignIn */,
 			);
 			path = "Local Packages";

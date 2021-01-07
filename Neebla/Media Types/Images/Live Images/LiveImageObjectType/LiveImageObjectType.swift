@@ -22,12 +22,12 @@ class LiveImageObjectType: ItemType, DeclarableObject {
 
     // Object declaration
     static let objectType: String = "liveImage"
-    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeType: .text, changeResolverName: CommentFile.changeResolverName)
+    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
     
     // These can be HEIC or JPEG coming from iOS, but I'm going to convert them all to jpeg and upload/download them that way.
-    static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeType: .jpeg, changeResolverName: nil)
+    static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)
     
-    static let movieDeclaration = FileDeclaration(fileLabel: "movie", mimeType: .mov, changeResolverName: nil)
+    static let movieDeclaration = FileDeclaration(fileLabel: "movie", mimeTypes: [.mov], changeResolverName: nil)
     
     init() {
         declaredFiles = [Self.commentDeclaration, Self.imageDeclaration, Self.movieDeclaration]

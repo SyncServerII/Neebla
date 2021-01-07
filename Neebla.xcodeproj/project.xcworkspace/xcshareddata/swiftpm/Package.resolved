@@ -87,8 +87,17 @@
         "repositoryURL": "https://github.com/nathantannar4/InputBarAccessoryView",
         "state": {
           "branch": null,
-          "revision": "9ad2fa50fdc19a48317aad5ddecbf8a388ca62ea",
-          "version": "5.2.2"
+          "revision": "a2983f8728bf7aefc7da8a17ffc0e382479ce001",
+          "version": "5.2.3"
+        }
+      },
+      {
+        "package": "iOSBasics",
+        "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
+        "state": {
+          "branch": "master",
+          "revision": "7b433ff0237649e3843a95e6c7abc517c0b1c599",
+          "version": null
         }
       },
       {
