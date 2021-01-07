@@ -538,7 +538,7 @@
 			path = "Media Types";
 			sourceTree = "<group>";
 		};
-		8320A75D256F56EA00819377 /* JPEG Images */ = {
+		8320A75D256F56EA00819377 /* Still Images */ = {
 			isa = PBXGroup;
 			children = (
 				83BF7C8325849A5D000E0B37 /* ImageObjectType */,
@@ -546,7 +546,7 @@
 				8320A6F1256CB59700819377 /* ImageLargeMedia.swift */,
 				83C7345525986DB60073788A /* ImageItemProvider.swift */,
 			);
-			path = "JPEG Images";
+			path = "Still Images";
 			sourceTree = "<group>";
 		};
 		8320A75E256F56F700819377 /* URLs */ = {
@@ -1065,7 +1065,7 @@
 			isa = PBXGroup;
 			children = (
 				8320A760256F57F300819377 /* Pickers */,
-				8320A75D256F56EA00819377 /* JPEG Images */,
+				8320A75D256F56EA00819377 /* Still Images */,
 				83E7B2DB257CA7EB008EE363 /* Live Images */,
 			);
 			path = Images;
