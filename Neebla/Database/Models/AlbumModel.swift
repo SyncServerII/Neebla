@@ -74,12 +74,14 @@ extension AlbumModel {
     static func upsertSharingGroup(db: Connection, sharingGroup: iOSBasics.SharingGroup) throws {
         if let model = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroup.sharingGroupUUID) {
             if sharingGroup.sharingGroupName != model.albumName {
-                if sharingGroup.deleted {
-                    try model.update(setters:
-                        AlbumModel.albumNameField.description <- sharingGroup.sharingGroupName,
-                        AlbumModel.deletedField.description <- sharingGroup.deleted)
-                    try albumDeletionCleanup(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID)
-                }
+                try model.update(setters:
+                    AlbumModel.albumNameField.description <- sharingGroup.sharingGroupName)
+            }
+            
+            if sharingGroup.deleted {
+                try model.update(setters:
+                    AlbumModel.deletedField.description <- sharingGroup.deleted)
+                try albumDeletionCleanup(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID)
             }
         }
         else {

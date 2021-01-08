@@ -1,7 +1,7 @@
 
 import Foundation
 import ChangeResolvers
-
+import ServerShared
 protocol ItemType {
     // SyncServer objectType
     static var objectType: String {get}
@@ -10,13 +10,7 @@ protocol ItemType {
     // For this object type, to display in the UI.
     var displayName: String {get}
     
-    static func createNewFile(for fileLabel: String) throws -> URL
-}
-
-enum FilenameExtensions {
-    static var jpegImage: String {
-        return "jpeg"
-    }
+    static func createNewFile(for fileLabel: String, mimeType: MimeType?) throws -> URL
 }
 
 extension ItemType {
@@ -30,14 +24,6 @@ extension ItemType {
     
     static var commentFilenameExtension: String {
         return "json"
-    }
-    
-    static var jpegImageFilenameExtension: String {
-        return FilenameExtensions.jpegImage
-    }
-    
-    static var quicktimeMovieFilenameExtension: String {
-        return "mov"
     }
 }
 

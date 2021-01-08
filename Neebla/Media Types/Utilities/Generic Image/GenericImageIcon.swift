@@ -22,7 +22,6 @@ struct GenericImageIcon: View {
         case .object(fileLabel: let fileLabel, object: let object):
             model = GenericImageModel(fileLabel: fileLabel, fileGroupUUID: object.fileGroupUUID, imageScale: CGSize(width: Self.dimension, height: Self.dimension))
         case .url(let url):
-            //model = GenericImageModel(fullSizeImageURL: url, imageScale: nil)
             model = GenericImageModel(fullSizeImageURL: url, imageScale: CGSize(width: Self.dimension, height: Self.dimension))
         }
     }

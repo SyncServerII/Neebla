@@ -52,66 +52,19 @@ class ImageItemProvider: SXItemProvider {
     static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
 
         if item.hasItemConformingToTypeIdentifier(jpegUTI) {
-            return getJPEGMediaAsset(item: item, completion: completion)
+            return getMediaAsset(item: item, mimeType: .jpeg, typeIdentifier: jpegUTI, completion: completion)
         }
         else if item.hasItemConformingToTypeIdentifier(pngUTI) {
-            return getPNGMediaAsset(item: item, completion: completion)
+            return getMediaAsset(item: item, mimeType: .png, typeIdentifier: pngUTI, completion: completion)
         }
         
         // Shouldn't get here.
         return nil
     }
- 
-    private static func getPNGMediaAsset(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
-        let tempDir = Files.getDocumentsDirectory().appendingPathComponent(LocalFiles.temporary)
-        item.loadFileRepresentation(forTypeIdentifier: Self.pngUTI) { (url, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-                        
-            guard let url = url else {
-                completion(.failure(ImageItemProviderError.cannotGetImage))
-                return
-            }
-            
-            // Neebla is only going to upload JPEG files to the server. Convert PNG to JPEG.
-            let filePrefix = "formerPNG"
-
-            let jpegImageFile:URL
-            do {
-                let pngImageData = try Data(contentsOf: url)
-                guard let image = UIImage(data: pngImageData) else {
-                    completion(.failure(ImageItemProviderError.couldNotConvertToJPEG))
-                    return
-                }
-                                
-                let jpegQuality = try SettingsModel.jpegQuality(db: Services.session.db)
-                
-                guard let jpegData = image.jpegData(compressionQuality: jpegQuality) else {
-                    completion(.failure(ImageItemProviderError.couldNotConvertToJPEG))
-                    return
-                }
-
-                jpegImageFile = try Files.createTemporary(withPrefix: filePrefix, andExtension: ImageType.jpeg.rawValue, inDirectory: tempDir, create: false)
-                
-                try jpegData.write(to: jpegImageFile)
-            } catch let error {
-                logger.error("\(error)")
-                completion(.failure(ImageItemProviderError.couldNotConvertToJPEG))
-                return
-            }
-                
-            let assets = ImageObjectTypeAssets(jpegFile: jpegImageFile)
-            completion(.success(assets))
-        }
-        
-        return nil
-    }
     
-    private static func getJPEGMediaAsset(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
+    private static func getMediaAsset(item: NSItemProvider, mimeType: MimeType, typeIdentifier: String, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
         let tempDir = Files.getDocumentsDirectory().appendingPathComponent(LocalFiles.temporary)
-        item.loadFileRepresentation(forTypeIdentifier: Self.jpegUTI) { (url, error) in
+        item.loadFileRepresentation(forTypeIdentifier: typeIdentifier) { (url, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -126,7 +79,7 @@ class ImageItemProvider: SXItemProvider {
             
             let imageFileCopy:URL
             do {
-                imageFileCopy = try Files.createTemporary(withPrefix: "image", andExtension: FilenameExtensions.jpegImage, inDirectory: tempDir, create: false)
+                imageFileCopy = try Files.createTemporary(withPrefix: "image", andExtension: mimeType.fileNameExtension, inDirectory: tempDir, create: false)
                 try FileManager.default.copyItem(at: url, to: imageFileCopy)
             } catch let error {
                 logger.error("\(error)")
@@ -134,8 +87,14 @@ class ImageItemProvider: SXItemProvider {
                 return
             }
                 
-            let assets = ImageObjectTypeAssets(jpegFile: imageFileCopy)
-            completion(.success(assets))
+            do {
+                let assets = try ImageObjectTypeAssets(mimeType: mimeType, imageURL: imageFileCopy)
+                completion(.success(assets))
+            }
+            catch let error {
+                logger.error("\(error)")
+                completion(.failure(ImageItemProviderError.cannotGetImage))
+            }
         }
         
         return nil
@@ -143,7 +102,7 @@ class ImageItemProvider: SXItemProvider {
     
     var preview: AnyView {
         AnyView(
-            GenericImageIcon(.url(imageAssets.jpegFile))
+            GenericImageIcon(.url(imageAssets.imageURL))
         )
     }
     

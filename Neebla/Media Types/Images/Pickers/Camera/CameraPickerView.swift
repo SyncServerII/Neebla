@@ -5,6 +5,7 @@ import Foundation
 import PhotosUI
 import MobileCoreServices
 import iOSShared
+import ServerShared
 
 // Using this only for camera.
 // Adapted from https://medium.com/swlh/how-to-open-the-camera-and-photo-library-in-swiftui-9693f9d4586b
@@ -54,7 +55,7 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
         
         let tempImageFile: URL
         do {
-            tempImageFile = try Files.createTemporary(withPrefix: "temp", andExtension: FilenameExtensions.jpegImage, inDirectory: tempDir, create: false)
+            tempImageFile = try Files.createTemporary(withPrefix: "temp", andExtension: MimeType.jpeg.fileNameExtension, inDirectory: tempDir, create: false)
         } catch let error {
             logger.error("Could not create new file for image: \(error)")
             return
@@ -79,9 +80,15 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
             logger.error("Could not write image file: \(error)")
             return
         }
-                
-        let asset = ImageObjectTypeAssets(jpegFile: tempImageFile)
-        self.picker.picked(asset)
-        self.picker.isPresented.wrappedValue.dismiss()
+        
+        do {
+            let asset = try ImageObjectTypeAssets(mimeType: .jpeg, imageURL: tempImageFile)
+            self.picker.picked(asset)
+            self.picker.isPresented.wrappedValue.dismiss()
+        } catch let error {
+            logger.error("Could not return image file: \(error)")
+            return
+        }
+        
     }
 }

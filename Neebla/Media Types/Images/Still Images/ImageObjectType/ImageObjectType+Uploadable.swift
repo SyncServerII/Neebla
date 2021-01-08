@@ -1,10 +1,29 @@
 
 import Foundation
 import UIKit
+import ServerShared
 
 struct ImageObjectTypeAssets: UploadableMediaAssets {
-    // File reference to a JPEG image. This needs to be movied/copied to a permanent location in the app.
-    let jpegFile: URL
+    enum ImageObjectTypeAssetsError: Error {
+        case badMimeType
+    }
+    
+    static let allowedMimeTypes: Set<MimeType> = [.jpeg, .png]
+    
+    // Mime type of the image
+    let mimeType: MimeType
+    
+    // File reference to an image. This needs to be movied/copied to a permanent location in the app.
+    let imageURL: URL
+    
+    init(mimeType: MimeType, imageURL: URL) throws {
+        guard Self.allowedMimeTypes.contains(mimeType) else {
+            throw ImageObjectTypeAssetsError.badMimeType
+        }
+        
+        self.mimeType = mimeType
+        self.imageURL = imageURL
+    }
 }
 
 extension ImageObjectType: UploadableMediaType {

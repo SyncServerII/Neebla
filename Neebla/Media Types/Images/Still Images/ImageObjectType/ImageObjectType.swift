@@ -4,6 +4,7 @@ import iOSBasics
 import ChangeResolvers
 import UIKit
 import iOSShared
+import ServerShared
 
 class ImageObjectType: ItemType, DeclarableObject {
     enum ImageObjectTypeError: Error {
@@ -12,6 +13,7 @@ class ImageObjectType: ItemType, DeclarableObject {
         case badAssetType
         case badObjectType
         case couldNotGetImage
+        case noMimeType
     }
         
     let displayName = "image"
@@ -19,9 +21,9 @@ class ImageObjectType: ItemType, DeclarableObject {
     // Object declaration
     static let objectType: String = "image"
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
-    static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)
+    static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg, .png], changeResolverName: nil)
     
-    static func createNewFile(for fileLabel: String) throws -> URL {
+    static func createNewFile(for fileLabel: String, mimeType: MimeType? = nil) throws -> URL {
         let localObjectsDir = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.objectsDir)
         let fileExtension: String
@@ -30,7 +32,10 @@ class ImageObjectType: ItemType, DeclarableObject {
         case Self.commentDeclaration.fileLabel:
             fileExtension = Self.commentFilenameExtension
         case Self.imageDeclaration.fileLabel:
-            fileExtension = Self.jpegImageFilenameExtension
+            guard let mimeType = mimeType else {
+                throw ImageObjectTypeError.noMimeType
+            }
+            fileExtension = mimeType.fileNameExtension
         default:
             throw ImageObjectTypeError.invalidFileLabel
         }
@@ -54,8 +59,8 @@ class ImageObjectType: ItemType, DeclarableObject {
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)
         
-        let imageFileURL = try createNewFile(for: imageDeclaration.fileLabel)
-        _ = try FileManager.default.replaceItemAt(imageFileURL, withItemAt: assets.jpegFile, backupItemName: nil, options: [])
+        let imageFileURL = try createNewFile(for: imageDeclaration.fileLabel, mimeType: assets.mimeType)
+        _ = try FileManager.default.replaceItemAt(imageFileURL, withItemAt: assets.imageURL, backupItemName: nil, options: [])
 
         let objectModel = try ServerObjectModel(db: Services.session.db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: objectType, creationDate: Date(), updateCreationDate: true)
         try objectModel.insert()
@@ -67,7 +72,7 @@ class ImageObjectType: ItemType, DeclarableObject {
         try commentFileModel.insert()
         
         let commentUpload = FileUpload(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
-        let imageUpload = FileUpload(fileLabel: imageDeclaration.fileLabel, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
+        let imageUpload = FileUpload(fileLabel: imageDeclaration.fileLabel, mimeType: assets.mimeType, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
         let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, uploads: [commentUpload, imageUpload])
 
         try Services.session.serverInterface.syncServer.queue(upload:upload)

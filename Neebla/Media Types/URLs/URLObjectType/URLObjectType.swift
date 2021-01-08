@@ -4,6 +4,7 @@ import iOSBasics
 import ChangeResolvers
 import iOSShared
 import SMLinkPreview
+import ServerShared
 
 class URLObjectType: ItemType, DeclarableObject {
     enum URLObjectTypeError: Error {
@@ -30,7 +31,7 @@ class URLObjectType: ItemType, DeclarableObject {
         declaredFiles = [Self.commentDeclaration, Self.urlDeclaration, Self.previewImageDeclaration]
     }
 
-    static func createNewFile(for fileLabel: String) throws -> URL {
+    static func createNewFile(for fileLabel: String, mimeType: MimeType? = nil) throws -> URL {
         let localObjectsDir = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.objectsDir)
 
@@ -44,7 +45,7 @@ class URLObjectType: ItemType, DeclarableObject {
             fileExtension = Self.urlFilenameExtension
             
         case Self.previewImageDeclaration.fileLabel:
-            fileExtension = Self.jpegImageFilenameExtension
+            fileExtension = MimeType.jpeg.fileNameExtension
             
         default:
             throw URLObjectTypeError.invalidFileLabel

@@ -35,14 +35,21 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var textInputNewAlbum: Bool = false
     @Published var textInputTitle: String?
     var textInputAction: (()->())?
+    var textInputActionEnabled: (()->(Bool))?
+    var textInputKeyPressed:((String?)->())?
     
     private var syncSubscription:AnyCancellable!
     var userEventSubscription:AnyCancellable!
+    var textInputSubscription:AnyCancellable!
     let userAlertModel:UserAlertModel
     
     init(userAlertModel:UserAlertModel) {
         self.userAlertModel = userAlertModel
         setupHandleUserEvents()
+        
+        textInputSubscription = $textInputAlbumName.sink { [weak self] text in
+            self?.textInputKeyPressed?(text)
+        }
         
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }
@@ -82,13 +89,8 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
         }
     }
     
-    private func changeAlbumName(sharingGroupUUID: UUID, changedAlbumName: String?) {
-        var changedAlbumName = changedAlbumName
-        if changedAlbumName == "" {
-            // So we get default title
-            changedAlbumName = nil
-        }
-        
+    // SyncServer doesn't let you change an album name back to nil.
+    private func changeAlbumName(sharingGroupUUID: UUID, changedAlbumName: String) {
         Services.session.serverInterface.syncServer.updateSharingGroup(sharingGroupUUID: sharingGroupUUID, newSharingGroupName: changedAlbumName) { error in
             guard error == nil else {
                 self.userAlertModel.userAlert = .error(message: "Failed to change album name.")
@@ -113,14 +115,54 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
         textInputTitle = "Change Album Name"
         textInputActionButtonName = "Change"
         
-        textInputAction = { [weak self] in
-            guard let self = self else { return }
-            let changedAlbumName = self.textInputAlbumName ?? AlbumModel.untitledAlbumName
-            self.changeAlbumName(sharingGroupUUID: sharingGroupUUID, changedAlbumName: changedAlbumName)
+        var enabled = false
+        if let count = currentAlbumName?.count, count > 0 {
+            enabled = true
         }
         
+        textInputKeyPressed = { text in
+            if let trimmed = text?.trimmingCharacters(in: .whitespaces) {
+                if trimmed.count > 0 {
+                    enabled = true
+                    return
+                }
+            }
+            
+            enabled = false
+        }
+        
+        textInputActionEnabled = {
+            return enabled
+        }
+        
+        textInputAction = { [weak self] in
+            guard let self = self else { return }
+            let updatedAlbumName: String
+            
+            let trimmed = self.textInputAlbumName?.trimmingCharacters(in: .whitespaces)
+            
+            if let trimmed = trimmed, trimmed.count > 0 {
+                updatedAlbumName = trimmed
+            }
+            else {
+                self.textInputAlbumName = trimmed
+                return
+            }
+
+            self.changeAlbumName(sharingGroupUUID: sharingGroupUUID, changedAlbumName: updatedAlbumName)
+        }
+
         textInputInitialAlbumName = currentAlbumName ?? AlbumModel.untitledAlbumName
-        textInputAlbumName = nil
+
+        // If there was a nil album name, just use untitled place holder.
+        // But, if there was an album name, I don't want the user to be forced to re-enter the entire name. Perhaps they just want to change it slightly.
+        if currentAlbumName == nil {
+            textInputAlbumName = nil
+        }
+        else {
+            textInputAlbumName = currentAlbumName
+        }
+        
         textInputPriorAlbumName = currentAlbumName
         textInputNewAlbum = false
         activeSheet = .textInput
@@ -129,10 +171,17 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     func startCreateNewAlbum() {
         textInputTitle = "New Album Name"
         textInputActionButtonName = "Create"
-
+        
+        textInputKeyPressed = nil
+        
+        // Going to allow nil new album names.
+        textInputActionEnabled = nil
+        
         textInputAction = { [weak self] in
             guard let self = self else { return }
-            let newAlbumName = self.textInputAlbumName ?? AlbumModel.untitledAlbumName
+            
+            // But I see no reason to allow white space before/after the album name
+            let newAlbumName = self.textInputAlbumName?.trimmingCharacters(in: .whitespaces)
             self.createNewAlbum(newAlbumName: newAlbumName)
         }
         

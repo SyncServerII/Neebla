@@ -159,7 +159,7 @@ struct AlbumsScreenAlbumList: View {
                     // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
                     // Some hurdles here to get rid of the disclosure button at end of row: https://stackoverflow.com/questions/56516333
                     NavigationLink(destination:
-                        AlbumItemsScreen(album: album.sharingGroupUUID)) {
+                        AlbumItemsScreen(album: album.sharingGroupUUID, albumName: album.albumName ?? AlbumModel.untitledAlbumName)) {
                         EmptyView()
                     }
                     .frame(width: 0)
@@ -275,7 +275,7 @@ private struct TextInputModal: View {
                         self.isPresented.wrappedValue.dismiss()
                     }) {
                         Text(viewModel.textInputActionButtonName ?? "Do It")
-                    }
+                    }.enabled(viewModel.textInputActionEnabled?() ?? true)
                 }
             }
             

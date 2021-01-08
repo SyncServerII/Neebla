@@ -153,7 +153,7 @@ extension DownloadedFile {
 
         switch contents {
         case .download(let url):
-            let permanentURL = try itemType.createNewFile(for: fileLabel)
+            let permanentURL = try itemType.createNewFile(for: fileLabel, mimeType: mimeType)
             _ = try FileManager.default.replaceItemAt(permanentURL, withItemAt: url)
             logger.debug("permanentURL: \(permanentURL)")
             contentsURL = permanentURL

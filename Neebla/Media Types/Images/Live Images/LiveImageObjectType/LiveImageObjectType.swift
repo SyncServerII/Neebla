@@ -4,6 +4,7 @@ import iOSBasics
 import ChangeResolvers
 import iOSShared
 import UIKit
+import ServerShared
 
 class LiveImageObjectType: ItemType, DeclarableObject {
     let declaredFiles: [DeclarableFile]
@@ -24,7 +25,7 @@ class LiveImageObjectType: ItemType, DeclarableObject {
     static let objectType: String = "liveImage"
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
     
-    // These can be HEIC or JPEG coming from iOS, but I'm going to convert them all to jpeg and upload/download them that way.
+    // These can be HEIC or JPEG coming from iOS, but I'm going to convert them all to jpeg and upload/download them that way. I think JPEG's are easier for users to deal with.
     static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)
     
     static let movieDeclaration = FileDeclaration(fileLabel: "movie", mimeTypes: [.mov], changeResolverName: nil)
@@ -33,7 +34,7 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         declaredFiles = [Self.commentDeclaration, Self.imageDeclaration, Self.movieDeclaration]
     }
     
-    static func createNewFile(for fileLabel: String) throws -> URL {
+    static func createNewFile(for fileLabel: String, mimeType: MimeType? = nil) throws -> URL {
         let localObjectsDir = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.objectsDir)
         let fileExtension: String
@@ -42,9 +43,9 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         case Self.commentDeclaration.fileLabel:
             fileExtension = Self.commentFilenameExtension
         case Self.imageDeclaration.fileLabel:
-            fileExtension = Self.jpegImageFilenameExtension
+            fileExtension = MimeType.jpeg.fileNameExtension
         case Self.movieDeclaration.fileLabel:
-            fileExtension = Self.quicktimeMovieFilenameExtension
+            fileExtension = MimeType.mov.fileNameExtension
             
         default:
             throw LiveImageObjectTypeError.invalidFileLabel

@@ -6,14 +6,16 @@ import iOSShared
 
 struct AlbumItemsScreen: View {
     let sharingGroupUUID: UUID
+    let albumName: String
     
-    init(album sharingGroupUUID: UUID) {
+    init(album sharingGroupUUID: UUID, albumName: String) {
         self.sharingGroupUUID = sharingGroupUUID
+        self.albumName = albumName
     }
     
     var body: some View {
         iPadConditionalScreenBodySizer {
-            AlbumItemsScreenBody(album: sharingGroupUUID)
+            AlbumItemsScreenBody(album: sharingGroupUUID, albumName: albumName)
                 .background(Color.screenBackground)
         }
     }
@@ -22,11 +24,13 @@ struct AlbumItemsScreen: View {
 struct AlbumItemsScreenBody: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     @ObservedObject var userAlertModel:UserAlertModel
-        
-    init(album sharingGroupUUID: UUID) {
+    let albumName: String
+    
+    init(album sharingGroupUUID: UUID, albumName: String) {
         let userAlertModel = UserAlertModel()
         self.viewModel = AlbumItemsViewModel(album: sharingGroupUUID, userAlertModel: userAlertModel)
         self.userAlertModel = userAlertModel
+        self.albumName = albumName
     }
     
     var body: some View {
@@ -39,7 +43,7 @@ struct AlbumItemsScreenBody: View {
             }
         }
         .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
-        .navigationBarTitle("Album Contents")
+        .navigationBarTitle(albumName)
         .navigationBarItems(trailing:
             AlbumItemsScreenNavButtons(viewModel: viewModel)
         )
