@@ -405,6 +405,7 @@
 		83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPreviewItemProvider.swift; sourceTree = "<group>"; };
 		83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsViewModel.swift; path = "Neebla/UI/Screens/Object Details/CommentsViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		83EE70B525A95B92001EF706 /* iOSBasics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSBasics; path = ../../iOSBasics; sourceTree = "<group>"; };
 		83F2C54A25A1510500D0B710 /* AddressNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressNavigation.swift; sourceTree = "<group>"; };
 		83F389C92590451C00610C76 /* iOSApple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSApple; path = ../../iOSApple; sourceTree = "<group>"; };
 		83F4167A259C2074003C7200 /* UIDevice+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extras.swift"; sourceTree = "<group>"; };
@@ -645,6 +646,7 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				83EE70B525A95B92001EF706 /* iOSBasics */,
 				8307B77725959D1C006DCF49 /* iOSDropbox */,
 				83F389C92590451C00610C76 /* iOSApple */,
 				83C43667258FD99D00F34628 /* iOSFacebook */,

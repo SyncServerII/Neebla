@@ -39,6 +39,7 @@ extension Services: iOSBasics.SignInsDelegate {
     }
     
     func userIsSignedOut(_ signIns: SignIns) {
+        syncServerUserId = nil
     }
     
     func setCredentials(_ signIns: SignIns, credentials: GenericCredentials?) {
