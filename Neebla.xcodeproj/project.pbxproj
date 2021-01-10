@@ -209,6 +209,7 @@
 		83E1A9912599A377004D4029 /* URLPreviewItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */; };
 		83E7B2C7257B5741008EE363 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */; };
 		83E7B2EB257D3EB9008EE363 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */; };
+		83EE70C725AA8C4F001EF706 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83EE70C625AA8C4F001EF706 /* iOSApple */; };
 		83F2C54B25A1510500D0B710 /* AddressNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2C54A25A1510500D0B710 /* AddressNavigation.swift */; };
 		83F389C5259044ED00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389C4259044ED00610C76 /* iOSApple */; };
 		83F389D42590466B00610C76 /* LocalServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6F2256A0A58007F0CEB /* LocalServices.swift */; };
@@ -418,6 +419,7 @@
 				8331F376255B8F1C0063A67D /* iOSDropbox in Frameworks */,
 				83C7351A259924790073788A /* ImageIOUIKit in Frameworks */,
 				83BF7CDE25857752000E0B37 /* SMLinkPreview in Frameworks */,
+				83EE70C725AA8C4F001EF706 /* iOSApple in Frameworks */,
 				8331F374255B8F110063A67D /* FileLogging in Frameworks */,
 				8331F372255B8F060063A67D /* iOSBasics in Frameworks */,
 			);
@@ -1098,6 +1100,7 @@
 				83BF7CDD25857752000E0B37 /* SMLinkPreview */,
 				83C73519259924790073788A /* ImageIOUIKit */,
 				8340ADD0259FB4FC00AFB31E /* iOSGoogle */,
+				83EE70C625AA8C4F001EF706 /* iOSApple */,
 			);
 			productName = "Share Extension";
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
@@ -2037,6 +2040,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */;
 			productName = ImageIOUIKit;
+		};
+		83EE70C625AA8C4F001EF706 /* iOSApple */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */;
+			productName = iOSApple;
 		};
 		83F389C4259044ED00610C76 /* iOSApple */ = {
 			isa = XCSwiftPackageProductDependency;

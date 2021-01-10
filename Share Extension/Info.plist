@@ -57,7 +57,8 @@
                 SUBQUERY (
                     $extensionItem.attachments,
                     $attachment,
-                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg"
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg" ||
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.png"
                 ).@count == 1
             ).@count == 1
             AND
@@ -67,7 +68,8 @@
                 SUBQUERY (
                     $extensionItem.attachments,
                     $attachment,
-                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg"
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg" ||
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.png"
                 ).@count == $extensionItem.attachments.@count
             ).@count == 1
         )

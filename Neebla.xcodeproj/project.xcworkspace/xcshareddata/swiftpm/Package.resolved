@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "75bba56748359f297a83f620d45f72cf4ebee4e7",
+          "version": "4.8.2"
+        }
+      },
+      {
         "package": "Cryptor",
         "repositoryURL": "https://github.com/Kitura/BlueCryptor.git",
         "state": {
@@ -35,6 +44,15 @@
           "branch": "master",
           "revision": "30b73253204a79e036f133465005d5f16f923b9a",
           "version": null
+        }
+      },
+      {
+        "package": "Facebook",
+        "repositoryURL": "https://github.com/facebook/facebook-ios-sdk.git",
+        "state": {
+          "branch": null,
+          "revision": "cdb8c71fb7f22b4f1af05c21246c12c1aa49f89e",
+          "version": "6.5.2"
         }
       },
       {
@@ -74,6 +92,15 @@
         }
       },
       {
+        "package": "iOSApple",
+        "repositoryURL": "http://github.com/SyncServerII/iOSApple.git",
+        "state": {
+          "branch": "main",
+          "revision": "bf20dc2b95d42c3a5f71d3ea578d98e13f48fa69",
+          "version": null
+        }
+      },
+      {
         "package": "iOSBasics",
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
@@ -83,11 +110,47 @@
         }
       },
       {
+        "package": "iOSDropbox",
+        "repositoryURL": "http://github.com/SyncServerII/iOSDropbox.git",
+        "state": {
+          "branch": "master",
+          "revision": "6daf2247fa4d6dabf3f246bb6f536ac9080e273b",
+          "version": null
+        }
+      },
+      {
+        "package": "iOSFacebook",
+        "repositoryURL": "http://github.com/SyncServerII/iOSFacebook.git",
+        "state": {
+          "branch": "master",
+          "revision": "86597024756cb8d0095e845b3227675fcefa6747",
+          "version": null
+        }
+      },
+      {
         "package": "iOSGoogle",
         "repositoryURL": "http://github.com/SyncServerII/iOSGoogle",
         "state": {
           "branch": "main",
           "revision": "dd2d14ce11c6194a7030993453a204130721de27",
+          "version": null
+        }
+      },
+      {
+        "package": "iOSShared",
+        "repositoryURL": "https://github.com/SyncServerII/iOSShared.git",
+        "state": {
+          "branch": "master",
+          "revision": "96a56bf20979217704590fae7aa77e0352b1e75e",
+          "version": null
+        }
+      },
+      {
+        "package": "iOSSignIn",
+        "repositoryURL": "http://github.com/SyncServerII/iOSSIgnIn.git",
+        "state": {
+          "branch": "master",
+          "revision": "e8ff7601cd9f35de3edc45f43d8075dd08cac638",
           "version": null
         }
       },
@@ -200,6 +263,15 @@
         }
       },
       {
+        "package": "ServerShared",
+        "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
+        "state": {
+          "branch": "master",
+          "revision": "2cb3610a5ea7fe30a7d736e01087a41d77a169dd",
+          "version": null
+        }
+      },
+      {
         "package": "SFSafeSymbols",
         "repositoryURL": "https://github.com/piknotech/SFSafeSymbols.git",
         "state": {
@@ -278,6 +350,15 @@
           "branch": null,
           "revision": "fa8fac7b5eb5c729983a8bef65f094b5e0d12014",
           "version": "0.0.3"
+        }
+      },
+      {
+        "package": "SwiftyDropbox",
+        "repositoryURL": "https://github.com/dropbox/SwiftyDropbox.git",
+        "state": {
+          "branch": null,
+          "revision": "1a99f77ae123722322af455cb71a96e72eb153e1",
+          "version": "6.0.3"
         }
       },
       {
