@@ -69,8 +69,6 @@
 		8331F384255B8FA20063A67D /* ServerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F1255B848300375084 /* ServerInterface.swift */; };
 		8331F39D255B9E7B0063A67D /* Server.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8331F390255B931F0063A67D /* Server.plist */; };
 		8331F3A2255B9E8C0063A67D /* Server.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8331F390255B931F0063A67D /* Server.plist */; };
-		8331F3B1255BAE250063A67D /* iOSSignIn in Resources */ = {isa = PBXBuildFile; fileRef = 8331F3AE255BADF10063A67D /* iOSSignIn */; };
-		8331F3B4255BAE290063A67D /* iOSSignIn in Resources */ = {isa = PBXBuildFile; fileRef = 8331F3AE255BADF10063A67D /* iOSSignIn */; };
 		8331F3C9255E4D7D0063A67D /* ServerObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F3C8255E4D7D0063A67D /* ServerObjectModel.swift */; };
 		8331F3FC255F82ED0063A67D /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F3FB255F82ED0063A67D /* SettingsScreen.swift */; };
 		8331F402255F83790063A67D /* AlbumsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F401255F83790063A67D /* AlbumsScreen.swift */; };
@@ -214,7 +212,6 @@
 		83F2C54B25A1510500D0B710 /* AddressNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2C54A25A1510500D0B710 /* AddressNavigation.swift */; };
 		83F389C5259044ED00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389C4259044ED00610C76 /* iOSApple */; };
 		83F389D42590466B00610C76 /* LocalServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6F2256A0A58007F0CEB /* LocalServices.swift */; };
-		83F389DC2590468C00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389DB2590468C00610C76 /* iOSApple */; };
 		83F4167B259C2074003C7200 /* UIDevice+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F4167A259C2074003C7200 /* UIDevice+Extras.swift */; };
 		83F41682259C20D5003C7200 /* UIDevice+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F4167A259C2074003C7200 /* UIDevice+Extras.swift */; };
 		83F41687259C21EC003C7200 /* View+iPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F41686259C21EC003C7200 /* View+iPad.swift */; };
@@ -261,7 +258,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8307B77725959D1C006DCF49 /* iOSDropbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSDropbox; path = ../../iOSDropbox; sourceTree = "<group>"; };
 		8308B6E2256A0479007F0CEB /* URLPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPreviewView.swift; sourceTree = "<group>"; };
 		8308B6E8256A0733007F0CEB /* URLPreviewGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPreviewGenerator.swift; sourceTree = "<group>"; };
 		8308B6EC256A08AB007F0CEB /* APIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
@@ -289,7 +285,6 @@
 		832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSharingModalModel.swift; sourceTree = "<group>"; };
 		832D341C258680B100FEF094 /* AlbumSharingModal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSharingModal.swift; sourceTree = "<group>"; };
 		832D34312586B0B000FEF094 /* SharingInvitationHelp.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SharingInvitationHelp.html; sourceTree = "<group>"; };
-		832D34362586CBBB00FEF094 /* ServerShared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ServerShared; path = ../../ServerShared; sourceTree = "<group>"; };
 		832D3440258710E500FEF094 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		832D344F2587142B00FEF094 /* Value+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Value+Extras.swift"; sourceTree = "<group>"; };
 		832D345B25871AFE00FEF094 /* AlbumListModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListModal.swift; sourceTree = "<group>"; };
@@ -315,7 +310,6 @@
 		8331F387255B90330063A67D /* Neebla.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Neebla.entitlements; sourceTree = "<group>"; };
 		8331F38C255B91600063A67D /* Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Share Extension.entitlements"; sourceTree = "<group>"; };
 		8331F390255B931F0063A67D /* Server.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Server.plist; sourceTree = "<group>"; };
-		8331F3AE255BADF10063A67D /* iOSSignIn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSSignIn; path = ../../iOSSignIn; sourceTree = "<group>"; };
 		8331F3C8255E4D7D0063A67D /* ServerObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerObjectModel.swift; sourceTree = "<group>"; };
 		8331F3FB255F82ED0063A67D /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		8331F401255F83790063A67D /* AlbumsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsScreen.swift; sourceTree = "<group>"; };
@@ -386,7 +380,6 @@
 		83BF80762585D8DA000E0B37 /* SignInScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenModel.swift; sourceTree = "<group>"; };
 		83BF80812585F9D3000E0B37 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		83C4365B258F2E3200F34628 /* ConfigPlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPlist.swift; sourceTree = "<group>"; };
-		83C43667258FD99D00F34628 /* iOSFacebook */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSFacebook; path = ../../iOSFacebook; sourceTree = "<group>"; };
 		83C43FE025733B480016BA4C /* MessageKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitTypes.swift; sourceTree = "<group>"; };
 		83C43FF82574371C0016BA4C /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		83C7345325986DB60073788A /* ItemProviderFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemProviderFactory.swift; sourceTree = "<group>"; };
@@ -400,14 +393,11 @@
 		83CE1EB9257088F0004A418B /* PriorityQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriorityQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83CE1EBB257088F0004A418B /* PriorityQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueueTests.swift; sourceTree = "<group>"; };
 		83CE1EBD257088F0004A418B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		83CE1ECD25709405004A418B /* iOSShared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSShared; path = ../../iOSShared; sourceTree = "<group>"; };
 		83D5CF382564C2520018DE7C /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPreviewItemProvider.swift; sourceTree = "<group>"; };
 		83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsViewModel.swift; path = "Neebla/UI/Screens/Object Details/CommentsViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
-		83EE70B525A95B92001EF706 /* iOSBasics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSBasics; path = ../../iOSBasics; sourceTree = "<group>"; };
 		83F2C54A25A1510500D0B710 /* AddressNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressNavigation.swift; sourceTree = "<group>"; };
-		83F389C92590451C00610C76 /* iOSApple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSApple; path = ../../iOSApple; sourceTree = "<group>"; };
 		83F4167A259C2074003C7200 /* UIDevice+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extras.swift"; sourceTree = "<group>"; };
 		83F41686259C21EC003C7200 /* View+iPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+iPad.swift"; sourceTree = "<group>"; };
 		83F41691259C3F70003C7200 /* Colors+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Extras.swift"; sourceTree = "<group>"; };
@@ -423,7 +413,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83F389DC2590468C00610C76 /* iOSApple in Frameworks */,
 				8340ADD1259FB4FC00AFB31E /* iOSGoogle in Frameworks */,
 				8331F378255B8F2A0063A67D /* iOSFacebook in Frameworks */,
 				8331F376255B8F1C0063A67D /* iOSDropbox in Frameworks */,
@@ -646,13 +635,6 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
-				83EE70B525A95B92001EF706 /* iOSBasics */,
-				8307B77725959D1C006DCF49 /* iOSDropbox */,
-				83F389C92590451C00610C76 /* iOSApple */,
-				83C43667258FD99D00F34628 /* iOSFacebook */,
-				832D34362586CBBB00FEF094 /* ServerShared */,
-				83CE1ECD25709405004A418B /* iOSShared */,
-				8331F3AE255BADF10063A67D /* iOSSignIn */,
 			);
 			path = "Local Packages";
 			sourceTree = "<group>";
@@ -1114,7 +1096,6 @@
 				8331F375255B8F1C0063A67D /* iOSDropbox */,
 				8331F377255B8F2A0063A67D /* iOSFacebook */,
 				83BF7CDD25857752000E0B37 /* SMLinkPreview */,
-				83F389DB2590468C00610C76 /* iOSApple */,
 				83C73519259924790073788A /* ImageIOUIKit */,
 				8340ADD0259FB4FC00AFB31E /* iOSGoogle */,
 			);
@@ -1241,7 +1222,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8331F3B4255BAE290063A67D /* iOSSignIn in Resources */,
 				83E1A98425999C38004D4029 /* APIKeys.plist in Resources */,
 				8331F3A2255B9E8C0063A67D /* Server.plist in Resources */,
 				8331F365255B8DD10063A67D /* Media.xcassets in Resources */,
@@ -1254,7 +1234,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				83B1F4E1259F9163006E00FF /* Settings.bundle in Resources */,
-				8331F3B1255BAE250063A67D /* iOSSignIn in Resources */,
 				83B657E5255B81330041B9DF /* LaunchScreen.storyboard in Resources */,
 				8331F39D255B9E7B0063A67D /* Server.plist in Resources */,
 				832D34322586B0B100FEF094 /* SharingInvitationHelp.html in Resources */,
@@ -2062,10 +2041,6 @@
 		83F389C4259044ED00610C76 /* iOSApple */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */;
-			productName = iOSApple;
-		};
-		83F389DB2590468C00610C76 /* iOSApple */ = {
-			isa = XCSwiftPackageProductDependency;
 			productName = iOSApple;
 		};
 /* End XCSwiftPackageProductDependency section */

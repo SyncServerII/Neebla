@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "Alamofire",
-        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
-        "state": {
-          "branch": null,
-          "revision": "75bba56748359f297a83f620d45f72cf4ebee4e7",
-          "version": "4.8.2"
-        }
-      },
-      {
         "package": "Cryptor",
         "repositoryURL": "https://github.com/Kitura/BlueCryptor.git",
         "state": {
@@ -44,15 +35,6 @@
           "branch": "master",
           "revision": "30b73253204a79e036f133465005d5f16f923b9a",
           "version": null
-        }
-      },
-      {
-        "package": "Facebook",
-        "repositoryURL": "https://github.com/facebook/facebook-ios-sdk.git",
-        "state": {
-          "branch": null,
-          "revision": "cdb8c71fb7f22b4f1af05c21246c12c1aa49f89e",
-          "version": "6.5.2"
         }
       },
       {
@@ -96,7 +78,7 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": "master",
-          "revision": "7b433ff0237649e3843a95e6c7abc517c0b1c599",
+          "revision": "7659bf93a57661f0d111cde174e56a0fef2f0835",
           "version": null
         }
       },
@@ -296,15 +278,6 @@
           "branch": null,
           "revision": "fa8fac7b5eb5c729983a8bef65f094b5e0d12014",
           "version": "0.0.3"
-        }
-      },
-      {
-        "package": "SwiftyDropbox",
-        "repositoryURL": "https://github.com/dropbox/SwiftyDropbox.git",
-        "state": {
-          "branch": null,
-          "revision": "1a99f77ae123722322af455cb71a96e72eb153e1",
-          "version": "6.0.3"
         }
       },
       {
