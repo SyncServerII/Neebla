@@ -45,7 +45,6 @@ class ShareViewController: UIViewController {
         // Setup the view first so that we can show an error if neeed.
         setupView(viewModel: viewModel)
         
-        viewModel.userSignedIn = false
         viewModel.cancel = { [weak self] in
             self?.cancel()
         }
@@ -56,7 +55,6 @@ class ShareViewController: UIViewController {
         }
         
         viewModel.setupAfterServicesInitialized()
-        viewModel.userSignedIn = Services.session.signInServices.manager.userIsSignedIn
 
         // Call `getSharedFile` before view appears because it may take some time to run.
         getSharedFile { [weak self] result in
@@ -172,18 +170,7 @@ extension ShareViewController {
             return false
         }
         
-        guard Services.session.signInServices.manager.userIsSignedIn else {
-            // The UI gives a message about this. No reason to give another alert.
-            logger.warning("No user is signed in.")
-            return false
-        }
-        
-        do {
-            try Services.session.serverInterface.syncServer.sync()
-        }
-        catch let error {
-            logger.error("\(error)")
-        }
+        // Doing initial sync in ShareViewModel.
         
         return true
     }

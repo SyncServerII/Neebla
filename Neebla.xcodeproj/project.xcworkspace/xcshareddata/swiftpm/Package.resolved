@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/facebook/facebook-ios-sdk.git",
         "state": {
           "branch": null,
-          "revision": "cdb8c71fb7f22b4f1af05c21246c12c1aa49f89e",
-          "version": "6.5.2"
+          "revision": "fa5fab33bb440eed75122459965b82c7b944d9d8",
+          "version": "8.2.0"
         }
       },
       {
@@ -92,20 +92,11 @@
         }
       },
       {
-        "package": "iOSApple",
-        "repositoryURL": "http://github.com/SyncServerII/iOSApple.git",
-        "state": {
-          "branch": "main",
-          "revision": "bf20dc2b95d42c3a5f71d3ea578d98e13f48fa69",
-          "version": null
-        }
-      },
-      {
         "package": "iOSBasics",
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": "master",
-          "revision": "7659bf93a57661f0d111cde174e56a0fef2f0835",
+          "revision": "adc774e8d56cf1176863762ede7c75b1efdb4c5a",
           "version": null
         }
       },
@@ -119,20 +110,11 @@
         }
       },
       {
-        "package": "iOSFacebook",
-        "repositoryURL": "http://github.com/SyncServerII/iOSFacebook.git",
-        "state": {
-          "branch": "master",
-          "revision": "86597024756cb8d0095e845b3227675fcefa6747",
-          "version": null
-        }
-      },
-      {
         "package": "iOSGoogle",
         "repositoryURL": "http://github.com/SyncServerII/iOSGoogle",
         "state": {
           "branch": "main",
-          "revision": "dd2d14ce11c6194a7030993453a204130721de27",
+          "revision": "e33911cfd27d92a911e8f17a7ef2a9db85ac5b1e",
           "version": null
         }
       },
@@ -141,7 +123,7 @@
         "repositoryURL": "https://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": "master",
-          "revision": "96a56bf20979217704590fae7aa77e0352b1e75e",
+          "revision": "41fe05d0c698f4fd3140d50ac90d63ed7468ffb2",
           "version": null
         }
       },
@@ -150,7 +132,7 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSSIgnIn.git",
         "state": {
           "branch": "master",
-          "revision": "e8ff7601cd9f35de3edc45f43d8075dd08cac638",
+          "revision": "b259769139ddf42d29bbe9caa221a7e9c372075e",
           "version": null
         }
       },
@@ -231,7 +213,7 @@
         "repositoryURL": "https://github.com/MessageKit/MessageKit",
         "state": {
           "branch": "master",
-          "revision": "155148dd8d44a0ec6a72651ead58f70b35ac9202",
+          "revision": "a863f5f8561e5087a1c046d4b76428f9f1e45b29",
           "version": null
         }
       },
@@ -368,6 +350,15 @@
           "branch": null,
           "revision": "28c8805314e67683f727c3376e69cbd4b8b590bb",
           "version": "5.1.0"
+        }
+      },
+      {
+        "package": "Toucan",
+        "repositoryURL": "https://github.com/petrpavlik/Toucan",
+        "state": {
+          "branch": "develop",
+          "revision": "3755e969b0be377a62405c84d558a201e79bdacb",
+          "version": null
         }
       },
       {

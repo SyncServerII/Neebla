@@ -3,6 +3,7 @@ import Foundation
 import SQLite
 import UIKit
 import iOSShared
+import Toucan
 
 class GenericImageModel: ObservableObject {
     @Published var image: UIImage?
@@ -40,11 +41,19 @@ class GenericImageModel: ObservableObject {
         loadImage(fullSizeImageURL: fullSizeImageURL, scale: scale)
     }
     
+    // The scale is for future performance improvement when loading the image at the same scale.
     private func loadImage(fullSizeImageURL: URL, scale: CGSize?) {
         imageStatus = .loading
-
-        guard let scale = scale else {
-            // Not scaling.
+        let actualScale = scale
+        
+        /* Not going to scale if
+            (a) we have no scale, or
+            (b) if we're in the sharing extension.
+                RE: The sharing extension: I've gotten out of memory crashes if I scale from the sharing extension.
+                    Since this is just for performance improvement, it can be done later on a subsequent load of this image.
+        */
+        guard let scale = scale, !Bundle.isAppExtension else {
+            logger.debug("loadImage: Bundle.isAppExtension: \(Bundle.isAppExtension); scale: \(String(describing: actualScale))")
             DispatchQueue.global(qos: .background).async {
                 self.loadImageFrom(url: fullSizeImageURL)
             }
@@ -69,20 +78,22 @@ class GenericImageModel: ObservableObject {
                 return
             }
             
-            guard let scaledImage = image.squareCropAndScaleTo(dimension: scale.height) else {
-                 logger.error("Could not scale full sized image.")
-                self.noImageHelper()
-                return
-            }
+//            guard let scaledImage = image.squareCropAndScaleTo(dimension: scale.height) else {
+//                 logger.error("Could not scale full sized image.")
+//                self.noImageHelper()
+//                return
+//            }
             
             // Looks like this is causing sharing extension to fail:
             // https://github.com/gavinbunney/Toucan/issues/81
-            /*
+            // But, I think this is just a sharing extension / memory issue.
+            // Back to using https://github.com/petrpavlik/Toucan again (this has SPM support)
+
             guard let scaledImage = Toucan(image: image).resize(scale, fitMode: Toucan.Resize.FitMode.crop).image else {
                 logger.error("Could not scale full sized image.")
                 self.noImageHelper()
                 return
-            }*/
+            }
             
             guard let jpegQuality = try? SettingsModel.jpegQuality(db: Services.session.db) else {
                 logger.error("Could not get settings.")
@@ -223,7 +234,19 @@ extension UIImage {
         let format = UIGraphicsImageRendererFormat()
         format.scale = newScale
         format.opaque = true
-        let newImage = UIGraphicsImageRenderer(bounds: rect, format: format).image() { _ in
+        
+        // 1/10/21; I'm getting an issue with this failing in a sharing extension
+        // I am intentionally *not* running the present method (`resize`) on the main thread. I wonder if that's a problem. `draw` below is a UIKit/UIImage method.
+        // This may be a problem: https://stackoverflow.com/questions/56649275
+        // But I think it's not a threading problem. It may be a memory limitation due to a sharing extension:
+        // https://stackoverflow.com/questions/57008915
+        // I'm getting from Xcode: "Message from debugger: Terminated due to memory issue".
+        
+        logger.debug("resize: rect: \(rect)")
+        
+        let renderer = UIGraphicsImageRenderer(bounds: rect, format: format)
+        
+        let newImage = renderer.image() { _ in
             self.draw(in: rect)
         }
 

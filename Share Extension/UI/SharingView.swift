@@ -38,10 +38,16 @@ struct SharingView: View {
 
 struct Container: View {
     @ObservedObject var viewModel:ShareViewModel
+    @ObservedObject var manager: iOSSignIn.SignInManager
+
+    init(viewModel:ShareViewModel) {
+        self.viewModel = viewModel
+        manager = Services.session.signInServices.manager
+    }
     
     var body: some View {
         VStack {
-            if viewModel.userSignedIn {
+            if manager.userIsSignedIn {
                 UploadToAlbumView(viewModel: viewModel)
             }
             else {

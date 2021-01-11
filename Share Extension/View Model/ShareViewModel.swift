@@ -14,18 +14,27 @@ class ShareViewModel: ObservableObject, ModelAlertDisplaying {
     @Published var width: CGFloat = 0
     @Published var height: CGFloat = 0
     @Published var sharingGroups = [SharingGroupData]()
-    @Published var userSignedIn: Bool = true
     @Published var selectedSharingGroupUUID: UUID?
     @Published var sharingItem: SXItemProvider?
     @Published var userAlertModel = UserAlertModel()
     
     var userEventSubscription: AnyCancellable!
+    var userIsSignedInSubscription: AnyCancellable!
     var cancel:(()->())?
     private var syncSubscription:AnyCancellable!
+    private var initialSync = false
     
     // Make sure `Services.session` is setup before calling this.
     func setupAfterServicesInitialized() {
         setupHandleUserEvents()
+
+        // Have to do some wrangling to get an initial sync because user sign in may be async.
+        userIsSignedInSubscription = Services.session.signInServices.manager.$userIsSignedIn.sink { [weak self] signedIn in
+            guard let self = self else { return }
+            self.sync()
+            self.userIsSignedInSubscription = nil
+        }
+
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             self.syncCompletionHelper()
