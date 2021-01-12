@@ -29,6 +29,7 @@ struct AnyLargeMedia: View {
                 EmptyView()
             }
         }
+        // The badge is not showing up the way I want it on `LiveImageLargeMedia`. It is not showing up within the image. Just the upper/left of the screen. Not sure how to resolve that.
         .if(badgeText != nil) {
             $0.overlay(
                 BadgeOverlay(text: badgeText!).padding([.leading, .top], 5),
