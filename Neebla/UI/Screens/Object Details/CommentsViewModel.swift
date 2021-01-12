@@ -13,6 +13,7 @@ class CommentsViewModel: ObservableObject {
     private var commentFileModel:ServerFileModel!
     private var commentFileModelURL:URL!
     private var commentFile: CommentFile!
+    let unknownUserInitials = "MT"
 
     @Published private(set) var messages: [MessageType]
     private(set) var senderUserId:String!
@@ -99,8 +100,16 @@ class CommentsViewModel: ObservableObject {
         var initials = ""
         let usernameComponents = sender.displayName.components(separatedBy: " ")
         for namePart in usernameComponents {
+            guard namePart.count > 0 else {
+                continue
+            }
+            
             let initial = String(namePart[namePart.startIndex])
             initials += initial
+        }
+        
+        if initials.count == 0 {
+            return unknownUserInitials
         }
         
         return initials

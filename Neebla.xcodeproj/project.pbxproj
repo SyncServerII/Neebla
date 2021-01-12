@@ -356,6 +356,8 @@
 		835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerInterface+Helpers.swift"; sourceTree = "<group>"; };
 		835AC8F1255B848300375084 /* ServerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInterface.swift; sourceTree = "<group>"; };
 		8371C42725AB816600E92F0D /* iOSApple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSApple; path = ../../iOSApple; sourceTree = "<group>"; };
+		837D83A325AC1BAB007938CC /* iOSSignIn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSSignIn; path = ../../iOSSignIn; sourceTree = "<group>"; };
+		837D83A725AC1E32007938CC /* iOSDropbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSDropbox; path = ../../iOSDropbox; sourceTree = "<group>"; };
 		83B1F0B6259ED836006E00FF /* EmailContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailContents.swift; sourceTree = "<group>"; };
 		83B1F4E0259F9163006E00FF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		83B657D5255B81320041B9DF /* Neebla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neebla.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -643,6 +645,8 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				837D83A725AC1E32007938CC /* iOSDropbox */,
+				837D83A325AC1BAB007938CC /* iOSSignIn */,
 				8371C42725AB816600E92F0D /* iOSApple */,
 				83EE70D225AAA1CC001EF706 /* iOSFacebook */,
 			);

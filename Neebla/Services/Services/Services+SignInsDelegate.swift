@@ -12,18 +12,21 @@ import iOSSignIn
 import iOSShared
 
 extension Services: iOSBasics.SignInsDelegate {
-    func signInCompleted(_ signIns: SignIns, userId: UserId) {
+    func signInCompleted(_ signIns: SignIns, userInfo: CheckCredsResponse.UserInfo) {
         if let priorSignedInUserId = syncServerUserId {
             // There was a user signed in before. Check if it was the same user as before, and if not if the prior user had data.
-            if priorSignedInUserId != userId {
+            if priorSignedInUserId != userInfo.userId {
                 if priorUserWithData() {
                     return
                 }
             }
         }
         // Else: No user signed in before.
-            
-        syncServerUserId = userId
+        
+        if let fullUserName = userInfo.fullUserName {
+            signInServices.manager.currentSignIn?.updateUserName(fullUserName)
+        }
+        syncServerUserId = userInfo.userId
     }
     
     func newOwningUserCreated(_ signIns: SignIns) {
