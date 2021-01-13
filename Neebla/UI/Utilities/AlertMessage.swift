@@ -90,6 +90,9 @@ extension View {
         }
         .onDisappear() {
             message.screenDisplayed = false
+            
+            // I had been getting duplicate error messages. e.g., on sharing account creation by an invitation. This is to avoid this.
+            message.userAlert = nil
         }
     }
 }
