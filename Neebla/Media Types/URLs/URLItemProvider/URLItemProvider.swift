@@ -17,6 +17,11 @@ class URLItemProvider: SXItemProvider {
     // This is what I see in the sharing extension
     static let urlUTI = "public.url"
 
+    // Doing a share operation in a particular way from Chrome, the only type identifier is: "public.plain-text"
+    // Prefix was: bplist00 -- which seems to be a binary plist. See
+    // https://stackoverflow.com/questions/65695606
+    static let plainTextUTI = "public.plain-text"
+
     private let urlAssets: URLObjectTypeAssets
 
     enum URLItemProviderError: Error {
@@ -24,6 +29,7 @@ class URLItemProvider: SXItemProvider {
         case cannotGetURL
         case couldNotCreateURLPreviewGenerator
         case cannotGetLinkData
+        case cannotGetPlainTextURL
     }
     
     required init(assets: URLObjectTypeAssets) {
@@ -31,8 +37,9 @@ class URLItemProvider: SXItemProvider {
     }
     
     static func canHandle(item: NSItemProvider) -> Bool {
-        let canHandle = item.hasItemConformingToTypeIdentifier(urlUTI)
-        logger.debug("canHandle: \(canHandle)")
+        let canHandle = item.hasItemConformingToTypeIdentifier(urlUTI) ||
+            item.hasItemConformingToTypeIdentifier(plainTextUTI)
+        logger.debug("canHandle: \(canHandle); urlUTI: \(urlUTI); item.registeredTypeIdentifiers: \(item.registeredTypeIdentifiers)")
         return canHandle
     }
     
@@ -42,7 +49,20 @@ class URLItemProvider: SXItemProvider {
         var preview:LinkPreview!
     }
     
-    static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {        
+    static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
+
+        if item.hasItemConformingToTypeIdentifier(urlUTI) {
+            return getMediaAssetsForURL(item: item, completion: completion)
+        }
+        else if item.hasItemConformingToTypeIdentifier(plainTextUTI) {
+            return getMediaAssetsForBinaryPlist(item: item, completion: completion)
+        }
+        
+        // Shouldn't get here.
+        return nil
+    }
+    
+    static func getMediaAssetsForURL(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
         guard let generator = try? URLPreviewGenerator() else {
             completion(.failure(URLItemProviderError.couldNotCreateURLPreviewGenerator))
             return nil
@@ -69,6 +89,83 @@ class URLItemProvider: SXItemProvider {
                     completion(.success(URLObjectTypeAssets(linkData: linkData, image: image)))
                 }
             }
+        }
+        
+        return support
+    }
+
+    static func getMediaAssetsForBinaryPlist(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
+
+        guard let generator = try? URLPreviewGenerator() else {
+            completion(.failure(URLItemProviderError.couldNotCreateURLPreviewGenerator))
+            return nil
+        }
+        
+        let support = URLItemProviderSupport()
+        support.generator = generator
+        
+        item.loadDataRepresentation(forTypeIdentifier: plainTextUTI) { (data, error) in
+            if let error = error {
+                logger.error("\(error)")
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                return
+            }
+
+            guard let data = data else {
+                logger.error("No data")
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                return
+            }
+            
+            guard let plist = try? PropertyListSerialization.propertyList(from: data, format: nil) else {
+                logger.error("No data")
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                return
+            }
+            
+            guard let dict = plist as? [String: Any] else {
+                logger.error("No dict")
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                return
+            }
+                        
+            guard let objects = dict["$objects"] else {
+                logger.error("No objects")
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                return
+            }
+            
+            guard let array = objects as? [String] else {
+                logger.error("No objects")
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                return
+            }
+            
+            for element in array {
+                if element.hasPrefix("http") {
+                    logger.debug("URL: \(element)")
+                    
+                    guard let url = URL(string: element) else {
+                        completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                        return
+                    }
+                    
+                    generator.getPreview(for: url) { linkData in
+                        guard let linkData = linkData else {
+                            completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                            return
+                        }
+
+                        support.preview = LinkPreview.create(with: linkData) { image in
+                            completion(.success(URLObjectTypeAssets(linkData: linkData, image: image)))
+                        }
+                    }
+                    
+                    return
+                }
+            } // end-for
+            
+            completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
         }
         
         return support
