@@ -47,10 +47,12 @@ struct Container: View {
     
     var body: some View {
         VStack {
-            if manager.userIsSignedIn {
+            switch manager.userIsSignedIn {
+            case .none:
+                EmptyView()
+            case .some(true):
                 UploadToAlbumView(viewModel: viewModel)
-            }
-            else {
+            case .some(false):
                 Text("You are not signed in. Please sign in using the Neebla app.")
                     .foregroundColor(Color(UIColor.label))
                     .font(.title)

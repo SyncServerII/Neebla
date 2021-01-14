@@ -21,7 +21,7 @@ extension Services {
             case .success(let info):
                 switch info {
                 case .invitation(let invitation):
-                    if self.signInServices.manager.userIsSignedIn {
+                    if let userIsSignedIn = self.signInServices.manager.userIsSignedIn, userIsSignedIn {
                         self.redeemForCurrentUser(invitationCode: invitationCodeUUID)
                         return
                     }
