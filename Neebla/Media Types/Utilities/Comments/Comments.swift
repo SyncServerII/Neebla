@@ -4,7 +4,9 @@ import iOSBasics
 import ChangeResolvers
 import SQLite
 
-class Comments {    
+class Comments {
+    let displayName = "comment"
+    
     // Create an initial comment file.
     // The `reconstructionDictionary` has metadata. See comment in Comments+Keys.swift. The keys should *not* conflict with the keys used in the comments.
     // Returns Data that can be uploaded to the server representing the initial comment file.
@@ -23,7 +25,10 @@ class Comments {
     // The `fileUUID` references the comment file within the object-- just a convenience. We could get it given the `object` and the file label also.
     static func queueUpload(fileUUID: UUID, comment: Data, object: ServerObjectModel) throws {
         let file = FileUpload(fileLabel: FileLabels.comments, dataSource: .data(comment), uuid: fileUUID)
-        let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: object.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, uploads: [file])
+        
+        let pushNotificationText = try PushNotificationMessage.forAddingComment(to: object)
+        let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: object.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [file])
+        
         try Services.session.syncServer.queue(upload: upload)
     }
     

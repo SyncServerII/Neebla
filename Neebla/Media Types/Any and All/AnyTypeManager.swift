@@ -40,6 +40,16 @@ class AnyTypeManager {
         return nil
     }
     
+    func displayNameArticle(forObjectType objectType: String) -> String? {
+        for type in objectTypes {
+            if type.objectType == objectType {
+                return type.displayNameArticle
+            }
+        }
+        
+        return nil
+    }
+    
     func uploadNewObject(assets: UploadableMediaAssets, sharingGroupUUID: UUID) throws {
         for type in objectTypes {
             if type.canUpload(assets: assets)  {

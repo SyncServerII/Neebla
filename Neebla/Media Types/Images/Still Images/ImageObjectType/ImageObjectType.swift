@@ -15,7 +15,8 @@ class ImageObjectType: ItemType, DeclarableObject {
         case couldNotGetImage
         case noMimeType
     }
-        
+
+    let displayNameArticle = "an"
     let displayName = "image"
 
     // Object declaration
@@ -73,7 +74,9 @@ class ImageObjectType: ItemType, DeclarableObject {
         
         let commentUpload = FileUpload(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
         let imageUpload = FileUpload(fileLabel: imageDeclaration.fileLabel, mimeType: assets.mimeType, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
-        let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, uploads: [commentUpload, imageUpload])
+        
+        let pushNotificationText = try PushNotificationMessage.forUpload(of: objectModel)
+        let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [commentUpload, imageUpload])
 
         try Services.session.serverInterface.syncServer.queue(upload:upload)
     }

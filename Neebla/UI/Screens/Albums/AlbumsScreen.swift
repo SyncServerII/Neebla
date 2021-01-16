@@ -74,6 +74,10 @@ struct AlbumsScreenBody: View {
         .onDisappear() {
             viewModel.sharingMode = false
         }
+        .onAppear() {
+            // Doing this in the Albums screen because it's the main entry point to albums and eventually adding items to albums-- which can cause push notifications to be sent.
+            viewModel.checkForNotificationAuthorization()
+        }
     }
 }
 

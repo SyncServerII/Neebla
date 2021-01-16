@@ -96,7 +96,7 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": "master",
-          "revision": "bc3a9a7e74b5268add50f4072f33858f11147b35",
+          "revision": "dbfff2648b6b81cc258141a21214fb4ed40f8cf4",
           "version": null
         }
       },
@@ -195,7 +195,7 @@
         "repositoryURL": "https://github.com/MessageKit/MessageKit",
         "state": {
           "branch": "master",
-          "revision": "a863f5f8561e5087a1c046d4b76428f9f1e45b29",
+          "revision": "69e6431db63aef641b57d33874e8bf0f48a87b46",
           "version": null
         }
       },

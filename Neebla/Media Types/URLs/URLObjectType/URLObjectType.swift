@@ -14,9 +14,10 @@ class URLObjectType: ItemType, DeclarableObject {
         case badObjectType
         case couldNotGetURLFile
     }
-    
-    static let urlFilenameExtension = "url"
 
+    static let urlFilenameExtension = "url"
+    
+    let displayNameArticle = "a"
     let displayName = "URL"
 
     // Object declaration
@@ -114,7 +115,8 @@ class URLObjectType: ItemType, DeclarableObject {
             fileUploads += [imageUpload]
         }
 
-        let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, uploads: fileUploads)
+        let pushNotificationText = try PushNotificationMessage.forUpload(of: objectModel)
+        let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: fileUploads)
 
         try Services.session.serverInterface.syncServer.queue(upload:upload)
     }

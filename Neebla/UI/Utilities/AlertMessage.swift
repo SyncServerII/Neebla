@@ -81,6 +81,18 @@ extension View {
                 )
                 return Alert(title: Text(title), message: Text(message), primaryButton: defaultButton, secondaryButton: cancel)
             
+            case .customDetailedAction(let title, let message, let actionButtonTitle, let action, let cancelTitle, let cancelAction):
+                let cancel = Alert.Button.cancel(Text(cancelTitle)) {
+                    cancelAction()
+                }
+                let defaultButton = Alert.Button.default(
+                    Text(actionButtonTitle),
+                    action: {
+                        action()
+                    }
+                )
+                return Alert(title: Text(title), message: Text(message), primaryButton: defaultButton, secondaryButton: cancel)
+
             case .none:
                 return Alert(title: Text("Error!"))
             }

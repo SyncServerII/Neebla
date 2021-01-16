@@ -133,6 +133,10 @@
 		835AC8F8255B86AA00375084 /* PersistentValue in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8F7255B86AA00375084 /* PersistentValue */; };
 		8371C42D25ABCA0100E92F0D /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8371C42C25ABCA0100E92F0D /* Toucan */; };
 		8371C43225ABCA1C00E92F0D /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8371C43125ABCA1C00E92F0D /* Toucan */; };
+		83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
+		83B0CB4725B2A51400D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
+		83B0CB4B25B2A5AF00D53B58 /* AnyTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F47D2560CE540063A67D /* AnyTypeManager.swift */; };
+		83B0CB5025B2ABF400D53B58 /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */; };
 		83B1F0B7259ED836006E00FF /* EmailContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1F0B6259ED836006E00FF /* EmailContents.swift */; };
 		83B1F4E1259F9163006E00FF /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83B1F4E0259F9163006E00FF /* Settings.bundle */; };
 		83B657D9255B81320041B9DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B657D8255B81320041B9DF /* AppDelegate.swift */; };
@@ -358,6 +362,9 @@
 		8371C42725AB816600E92F0D /* iOSApple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSApple; path = ../../iOSApple; sourceTree = "<group>"; };
 		837D83A325AC1BAB007938CC /* iOSSignIn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSSignIn; path = ../../iOSSignIn; sourceTree = "<group>"; };
 		837D83A725AC1E32007938CC /* iOSDropbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSDropbox; path = ../../iOSDropbox; sourceTree = "<group>"; };
+		83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationMessage.swift; sourceTree = "<group>"; };
+		83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
+		83B0CB6025B2B9CE00D53B58 /* iOSShared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSShared; path = ../../iOSShared; sourceTree = "<group>"; };
 		83B1F0B6259ED836006E00FF /* EmailContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailContents.swift; sourceTree = "<group>"; };
 		83B1F4E0259F9163006E00FF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		83B657D5255B81320041B9DF /* Neebla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neebla.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -645,6 +652,7 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				83B0CB6025B2B9CE00D53B58 /* iOSShared */,
 				837D83A725AC1E32007938CC /* iOSDropbox */,
 				837D83A325AC1BAB007938CC /* iOSSignIn */,
 				8371C42725AB816600E92F0D /* iOSApple */,
@@ -852,6 +860,15 @@
 			path = ServerInterface;
 			sourceTree = "<group>";
 		};
+		83B0C79725B29AE400D53B58 /* Push Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */,
+				83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */,
+			);
+			path = "Push Notifications";
+			sourceTree = "<group>";
+		};
 		83B1F0B5259ED81B006E00FF /* Mail */ = {
 			isa = PBXGroup;
 			children = (
@@ -893,6 +910,7 @@
 				835AC8E3255B83D100375084 /* Services */,
 				8320A75C256F56CF00819377 /* Media Types */,
 				8331F3B7255E428C0063A67D /* UI */,
+				83B0C79725B29AE400D53B58 /* Push Notifications */,
 				83B657DE255B81330041B9DF /* Assets.xcassets */,
 				83B657E3255B81330041B9DF /* LaunchScreen.storyboard */,
 				8331F38F255B925E0063A67D /* Resources */,
@@ -1301,7 +1319,9 @@
 				83C73506259922440073788A /* LiveImageObjectType.swift in Sources */,
 				8331F384255B8FA20063A67D /* ServerInterface.swift in Sources */,
 				83BF7CCE258575FE000E0B37 /* UploadableMediaType.swift in Sources */,
+				83B0CB4B25B2A5AF00D53B58 /* AnyTypeManager.swift in Sources */,
 				832D34542587151B00FEF094 /* Value+Extras.swift in Sources */,
+				83B0CB4725B2A51400D53B58 /* PushNotificationMessage.swift in Sources */,
 				83C73943259966470073788A /* URLItemProvider.swift in Sources */,
 				8331F34A255B8CC50063A67D /* ShareViewController.swift in Sources */,
 				8331F36B255B8DD10063A67D /* SharingGroupsView.swift in Sources */,
@@ -1380,6 +1400,7 @@
 				83BF782C257DD242000E0B37 /* ImageObjectType+Uploadable.swift in Sources */,
 				83BF7C8725849AED000E0B37 /* Comments+Keys.swift in Sources */,
 				8320A6F2256CB59700819377 /* ImageLargeMedia.swift in Sources */,
+				83B0CB5025B2ABF400D53B58 /* PushNotifications.swift in Sources */,
 				83C43FF92574371C0016BA4C /* Comments.swift in Sources */,
 				83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */,
 				8320A6E3256CB2F400819377 /* ObjectDetailsView.swift in Sources */,
@@ -1394,6 +1415,7 @@
 				832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */,
 				83F389D42590466B00610C76 /* LocalServices.swift in Sources */,
 				835AC8E9255B842E00375084 /* LocalServices+Invitation.swift in Sources */,
+				83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */,
 				8331F4852560D7100063A67D /* AnyPicker.swift in Sources */,
 				8320A73C256E170900819377 /* MessagesView.swift in Sources */,
 				83BF7824257DCFBD000E0B37 /* URLObjectType+Uploadable.swift in Sources */,

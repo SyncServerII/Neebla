@@ -248,4 +248,8 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
         
         return unreadCount
     }
+    
+    func checkForNotificationAuthorization() {
+        PushNotifications.session.checkForNotificationAuthorization(userAlertModel: userAlertModel)
+    }
 }

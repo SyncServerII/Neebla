@@ -40,8 +40,10 @@ class ObjectDetailsModel: ObservableObject, ModelAlertDisplaying {
     
     func deleteObject() -> Bool {
         do {
+            let pushNotificationText = try PushNotificationMessage.forDeletion(of: object)
+
             // Do the SyncServer call first; it's the most likely to fail of these two.
-            try Services.session.syncServer.queue(objectDeletion: object.fileGroupUUID)
+            try Services.session.syncServer.queue(objectDeletion: object.fileGroupUUID, pushNotificationMessage: pushNotificationText)
             // The actual local deletion of files occurs after the deletion request is completed on the server, and the next index update occurs.
             try object.update(setters: ServerObjectModel.deletedField.description <- true)
         } catch let error {

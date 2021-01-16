@@ -44,6 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        PushNotifications.session.application(application, didFailToRegisterForRemoteNotificationsWithError: error)
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        PushNotifications.session.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
+    }
 }
 
 extension AppDelegate: ServicesDelegate {
@@ -56,5 +64,13 @@ extension AppDelegate: ServicesDelegate {
     */
     func getCurrentViewController() -> UIViewController? {
         return UIApplication.shared.windows.first?.rootViewController
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    // This method will be called when app receives push notifications in foreground
+    // See also https://stackoverflow.com/questions/14872088/get-push-notification-while-app-in-foreground-ios
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.list, .badge, .sound])
     }
 }

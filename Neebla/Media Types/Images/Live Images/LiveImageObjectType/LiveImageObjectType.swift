@@ -19,6 +19,7 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         case couldNotGetImage
     }
     
+    let displayNameArticle = "a"
     let displayName = "live image"
 
     // Object declaration
@@ -93,7 +94,8 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         let imageUpload = FileUpload(fileLabel: imageDeclaration.fileLabel, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
         let movieUpload = FileUpload(fileLabel: movieDeclaration.fileLabel, dataSource: .immutable(movieFileURL), uuid: movieFileUUID)
         
-        let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, uploads: [commentUpload, imageUpload, movieUpload])
+        let pushNotificationText = try PushNotificationMessage.forUpload(of: objectModel)
+        let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [commentUpload, imageUpload, movieUpload])
 
         try Services.session.serverInterface.syncServer.queue(upload:upload)
     }

@@ -10,6 +10,9 @@ protocol ItemType {
     // For this object type, to display in the UI.
     var displayName: String {get}
     
+    // For this object type, the article term prefix to display in the UI. e.g., "an" for "an image".
+    var displayNameArticle: String {get}
+    
     static func createNewFile(for fileLabel: String, mimeType: MimeType?) throws -> URL
 }
 
