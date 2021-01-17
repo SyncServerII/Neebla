@@ -11,7 +11,7 @@ struct AlbumItemsScreenCell: View {
             upperRightView: viewModel.sharing ? sharingView() : nil)
     }
     
-    func sharingView() -> AnyView {
+    private func sharingView() -> AnyView {
         AnyView(
             Icon(imageName: "Share", size: CGSize(width: 25, height: 25), blueAccent: false)
                 .if(viewModel.itemsToShare.contains(object.fileGroupUUID)) {

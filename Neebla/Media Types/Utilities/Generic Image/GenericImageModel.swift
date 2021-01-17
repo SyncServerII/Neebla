@@ -73,12 +73,16 @@ class GenericImageModel: ObservableObject {
                         return
                     }
                     
+                    // Update our local model.
+                    self.fileModel = fileModel
+                    
                     switch fileModel.downloadStatus {
                     case .notDownloaded:
                         self.setImageStatus(.none)
                     case .downloading:
                         self.setImageStatus(.downloading)
                     case .downloaded:
+                        logger.debug("Image downloaded: \(fileModel.fileUUID)")
                         // Try image loading again.
                         self.removeObserver()
                         self.loadImageFromModel(scale: self.imageScale)
@@ -112,7 +116,7 @@ class GenericImageModel: ObservableObject {
             return
         }
         
-        imageStatus = .rendering
+        setImageStatus(.rendering)
         
         // Scaling
         let iconURL = self.iconURLWithScaling(scale: scale, url: fullSizeImageURL)
@@ -172,6 +176,7 @@ class GenericImageModel: ObservableObject {
             DispatchQueue.main.async {
                 self.image = scaledImage
                 self.imageStatus = .loaded
+                logger.debug("Image status: .loaded (from scaling)")
             }
         }
     }
@@ -183,6 +188,7 @@ class GenericImageModel: ObservableObject {
             DispatchQueue.main.async {
                 self.image = image
                 self.imageStatus = .loaded
+                logger.debug("Image status: .loaded")
             }
         }
         else {
