@@ -97,6 +97,11 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
                 self.getItemsForAlbum(album: sharingGroupUUID)
             }
         }
+        
+        sync()
+        
+        // Give user something to look at if there are album items already.
+        getItemsForAlbum(album: sharingGroupUUID)
     }
     
     private func getItemsForAlbum(album sharingGroupUUID: UUID) {

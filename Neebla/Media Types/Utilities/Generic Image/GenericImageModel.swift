@@ -206,7 +206,7 @@ class GenericImageModel: ObservableObject {
     // 50x75 scale (width x height), renamed with scaling: //Users/chris/Library/Developer/CoreSimulator/Devices/42DA56B4-C598-4F0C-ACA2-8B5A525CAEA6/data/Containers/Shared/AppGroup/2721EFA3-A9A5-422D-8F08-64F41C619D4F/Documents/objects/Neebla.F7936567-A93E-4EA8-B4B5-F5D2A6ED653C.50x75.jpeg
     // Removes any fractional component from width/height in scale
     // Also-- new url is in the icons directory.
-    func iconURLWithScaling(scale: CGSize, url: URL) -> URL {
+    private func iconURLWithScaling(scale: CGSize, url: URL) -> URL {
         let iconsDir = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.icons)
 

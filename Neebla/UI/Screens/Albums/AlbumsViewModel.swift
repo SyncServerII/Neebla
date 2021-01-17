@@ -58,6 +58,9 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
             self.getCurrentAlbums()
         }
         
+        sync()
+        
+        // This will happen before the `sync` finishes. But, that's OK. Will give the user the current albums to look at in any event.
         getCurrentAlbums()
     }
 
