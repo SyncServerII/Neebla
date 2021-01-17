@@ -36,14 +36,13 @@ struct AlbumItemsScreenBody: View {
     var body: some View {
         VStack {
             if viewModel.objects.count == 0 {
-                AlbumItemsScreenBodyEmptyState(viewModel: viewModel)
+                AlbumItemsScreenBodyEmptyState(viewModel: viewModel, albumName: albumName)
             }
             else {
-                AlbumItemsScreenBodyWithContent(viewModel: viewModel)
+                AlbumItemsScreenBodyWithContent(viewModel: viewModel, albumName: albumName)
             }
         }
         .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
-        .navigationBarTitle(albumName)
         .navigationBarItems(trailing:
             AlbumItemsScreenNavButtons(viewModel: viewModel)
         )
@@ -69,9 +68,11 @@ struct AlbumItemsScreenBody: View {
 
 struct AlbumItemsScreenBodyEmptyState: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
+    let albumName: String
 
-    init(viewModel:AlbumItemsViewModel) {
+    init(viewModel:AlbumItemsViewModel, albumName: String) {
         self.viewModel = viewModel
+        self.albumName = albumName
     }
     
     var body: some View {
@@ -96,6 +97,7 @@ struct AlbumItemsScreenBodyEmptyState: View {
                 MediaPickersMenu(viewModel: viewModel)
             }
         }.padding(20)
+        .navigationBarTitle(albumName)
     }
 }
 
@@ -115,13 +117,15 @@ struct AlbumItemsScreenBodyWithContent: View {
     ]
     
     @State var object: ServerObjectModel?
+    let albumName: String
     
-    init(viewModel:AlbumItemsViewModel) {
+    init(viewModel:AlbumItemsViewModel, albumName: String) {
         self.viewModel = viewModel
+        self.albumName = albumName
     }
     
     var body: some View {
-        VStack {
+        VStack {            
             RefreshableScrollView(refreshing: $viewModel.loading) {
                 LazyVGrid(columns: gridItemLayout) {
                     ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
@@ -154,6 +158,7 @@ struct AlbumItemsScreenBodyWithContent: View {
                 .disabled(true)
             } // end if
         }
+        .sortyFilterMenu(title: albumName)
     }
 }
 

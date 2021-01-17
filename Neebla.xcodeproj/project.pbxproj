@@ -138,6 +138,8 @@
 		83B0CB4B25B2A5AF00D53B58 /* AnyTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F47D2560CE540063A67D /* AnyTypeManager.swift */; };
 		83B0CB5025B2ABF400D53B58 /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */; };
 		83B0CB6925B3F55500D53B58 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0CB6825B3F55500D53B58 /* AppStore.swift */; };
+		83B0CB7225B3FDBE00D53B58 /* SortFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0CB7125B3FDBE00D53B58 /* SortFilterMenu.swift */; };
+		83B0CB7A25B411B900D53B58 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0CB7925B411B900D53B58 /* UpdateView.swift */; };
 		83B1F0B7259ED836006E00FF /* EmailContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1F0B6259ED836006E00FF /* EmailContents.swift */; };
 		83B1F4E1259F9163006E00FF /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83B1F4E0259F9163006E00FF /* Settings.bundle */; };
 		83B657D9255B81320041B9DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B657D8255B81320041B9DF /* AppDelegate.swift */; };
@@ -367,6 +369,8 @@
 		83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
 		83B0CB6025B2B9CE00D53B58 /* iOSShared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSShared; path = ../../iOSShared; sourceTree = "<group>"; };
 		83B0CB6825B3F55500D53B58 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		83B0CB7125B3FDBE00D53B58 /* SortFilterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterMenu.swift; sourceTree = "<group>"; };
+		83B0CB7925B411B900D53B58 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		83B1F0B6259ED836006E00FF /* EmailContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailContents.swift; sourceTree = "<group>"; };
 		83B1F4E0259F9163006E00FF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		83B657D5255B81320041B9DF /* Neebla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neebla.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -763,6 +767,7 @@
 				83F41686259C21EC003C7200 /* View+iPad.swift */,
 				83F41691259C3F70003C7200 /* Colors+Extras.swift */,
 				83383B6525A186BF009CA87F /* Badge.swift */,
+				83B0CB7925B411B900D53B58 /* UpdateView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -773,6 +778,7 @@
 				8331F4602560BD7D0063A67D /* AlbumItemsScreen.swift */,
 				8320A6D8256CA0DE00819377 /* AlbumItemsScreenCell.swift */,
 				8331F4662560BE0E0063A67D /* AlbumItemsViewModel.swift */,
+				83B0CB7025B3FD9F00D53B58 /* Sort Filter Menu */,
 				83F416A9259D7E47003C7200 /* Activity */,
 			);
 			path = "Album Items";
@@ -877,6 +883,14 @@
 				83B0CB6825B3F55500D53B58 /* AppStore.swift */,
 			);
 			path = "App Store";
+			sourceTree = "<group>";
+		};
+		83B0CB7025B3FD9F00D53B58 /* Sort Filter Menu */ = {
+			isa = PBXGroup;
+			children = (
+				83B0CB7125B3FDBE00D53B58 /* SortFilterMenu.swift */,
+			);
+			path = "Sort Filter Menu";
 			sourceTree = "<group>";
 		};
 		83B1F0B5259ED81B006E00FF /* Mail */ = {
@@ -1456,6 +1470,7 @@
 				8331F4F3256208320063A67D /* GenericImageIcon.swift in Sources */,
 				83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */,
 				8320A71E256E0ED500819377 /* FileLabels.swift in Sources */,
+				83B0CB7A25B411B900D53B58 /* UpdateView.swift in Sources */,
 				8331F334255B8AFD0063A67D /* Screens.swift in Sources */,
 				83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */,
 				83D5CF392564C2520018DE7C /* Downloader.swift in Sources */,
@@ -1464,6 +1479,7 @@
 				8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */,
 				83F41687259C21EC003C7200 /* View+iPad.swift in Sources */,
 				8320A6EC256CB56800819377 /* AnyLargeMedia.swift in Sources */,
+				83B0CB7225B3FDBE00D53B58 /* SortFilterMenu.swift in Sources */,
 				83C7352425992CAD0073788A /* ItemProviderFactory.swift in Sources */,
 				8331F47E2560CE540063A67D /* AnyTypeManager.swift in Sources */,
 				83BF78712580789A000E0B37 /* TextInLowerRight.swift in Sources */,
