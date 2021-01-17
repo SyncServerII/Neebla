@@ -10,10 +10,11 @@ extension Services {
     
         var signInDescriptions = [SignInDescription]()
 
-        let signInTypes = getSignIns(configPlist: configPlist)
-        for signIn in signInTypes {
+        let signInSetup = getSignIns(configPlist: configPlist)
+        
+        for signIn in signInSetup.signIns {
             signInDescriptions += [signIn.1]
-            signInsToAdd += [signIn.0]
+            currentSignIns += [signIn.0]
         }
         
         var height: CGFloat = UIConfiguration.defaultHeight

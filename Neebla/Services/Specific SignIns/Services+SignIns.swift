@@ -15,10 +15,15 @@ https://stackoverflow.com/questions/39139160/retrieve-google-user-from-ios-exten
 */
 
 extension Services {
+    struct SignInSetup {
+        let signIns: [(GenericSignIn, SignInDescription)]
+    }
+    
     // Gets (GenericSignIn, SignInDescription) pairs for each sign in type.
-    func getSignIns(configPlist: ConfigPlist) -> [(GenericSignIn, SignInDescription)] {
-        var result = [(GenericSignIn, SignInDescription)]()
-        
+    // Also sets up text that is used in an email when inviting others to an album.
+    func getSignIns(configPlist: ConfigPlist) -> SignInSetup {
+        var signIns = [(GenericSignIn, SignInDescription)]()
+
         // The `SignInDescription`'s get sorted by `signInName` before being presented in the sign-in UI, so the order they are added to `result` here doesn't really matter.
         
         if let dropboxAppKey = configPlist.getValue(for: .DropboxAppKey) {
@@ -33,7 +38,7 @@ extension Services {
                         signInName: dropboxSignIn.signInName,
                         userType: dropboxSignIn.userType,
                         button: dropboxSignInButton)
-                result += [(dropboxSignIn, dropboxDescription)]
+                signIns += [(dropboxSignIn, dropboxDescription)]
             }
         }
 
@@ -46,7 +51,7 @@ extension Services {
                     signInName:facebookSignIn.signInName,
                     userType: facebookSignIn.userType,
                     button: facebookButton)
-            result += [(facebookSignIn, facebookDescription)]
+            signIns += [(facebookSignIn, facebookDescription)]
         }
 
         if let googleClientId = configPlist.getValue(for: .GoogleClientId),
@@ -59,7 +64,7 @@ extension Services {
                         signInName:googleSignIn.signInName,
                         userType: googleSignIn.userType,
                         button: googleSignInButton)
-                result += [(googleSignIn, googleSignInDescription)]
+                signIns += [(googleSignIn, googleSignInDescription)]
             }
         }
         
@@ -70,10 +75,38 @@ extension Services {
                     signInName:appleSignIn.signInName,
                     userType: appleSignIn.userType,
                     button: appleSignInButton)
-            result += [(appleSignIn, appleSignInDescription)]
+            signIns += [(appleSignIn, appleSignInDescription)]
         }
-
-        return result
+        
+        return SignInSetup(signIns: signIns)
+    }
+    
+    // Based on `currentSignIns`
+    func emailPhraseForSharing(allowSocialAcceptance: Bool) -> String {
+        var currentSignIns = self.currentSignIns
+        if !allowSocialAcceptance {
+            currentSignIns = currentSignIns.filter {$0.cloudStorageType != nil}
+        }
+        
+        var sharingTypes = currentSignIns.map { $0.signInName }
+        sharingTypes.sort()
+        
+        var sharingEmailTypes = ""
+        
+        for (index, sharingType) in sharingTypes.enumerated() {
+            switch index {
+            case 0:
+                sharingEmailTypes = "\(sharingType)"
+                
+            case sharingTypes.count - 1:
+                sharingEmailTypes += " or \(sharingType)"
+                
+            default:
+                sharingEmailTypes += ", \(sharingType)"
+            }
+        }
+        
+        return sharingEmailTypes
     }
 }
 

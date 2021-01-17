@@ -58,9 +58,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
             self.getCurrentAlbums()
         }
         
-        sync()
-        
-        // This will happen before the `sync` finishes. But, that's OK. Will give the user the current albums to look at in any event.
+        // Give the user the current albums to look at initially. There's a `sync` in `onAppear` in the view-- which will update this if needed.
         getCurrentAlbums()
     }
 
@@ -200,11 +198,6 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     
     func emailContents(from parameters: AlbumSharingParameters) -> EmailContents {
         let sharingURLString = createSharingInvitationLink(invitationCode: parameters.invitationCode)
-        
-        var socialText = " "
-        if parameters.allowSocialAcceptance {
-            socialText = ", Facebook, "
-        }
     
         var albumName = "a media album"
         var subjectAlbumName = ""
@@ -213,15 +206,23 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
             subjectAlbumName = "\(sharingGroupName) "
         }
     
+        let accountPhrase = Services.session.emailPhraseForSharing(allowSocialAcceptance: parameters.allowSocialAcceptance)
+        
         let message = """
-            I'd like to share \(albumName) with you through the Neebla app and your Dropbox\(socialText)or Google account. To share media, you need to:
+            I'd like to share \(albumName) with you through the Neebla app and your \(accountPhrase) account.
             
-            1) Download the Neebla iOS app onto your iPhone or iPad,
-            2) Tap the link below in the Apple Mail app, and
-            3) Follow the instructions within the app to sign in to your Dropbox\(socialText)or Google account.
-            You will have \(parameters.permission.displayableText) access to media.
-
+            To share media, you need to:
+            
+            1) Download the Neebla iOS app onto your iPhone or iPad:
+                \(AppStore.neeblaAppStoreLink)
+                
+            2) Tap the link below in the Apple Mail app:
+            
                 \(sharingURLString)
+                
+            3) Then, follow the instructions within the app to sign in to your \(accountPhrase) account.
+            
+            You will have \(parameters.permission.displayableText) access to media.
 
             If you can't tap the link above, then you can copy the sharing code below:
 

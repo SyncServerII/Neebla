@@ -89,7 +89,7 @@ class Services {
     var signInServices: SignInServices!
     var serverInterface:ServerInterface!
     
-    var signInsToAdd = [GenericSignIn]()
+    var currentSignIns = [GenericSignIn]()
     private static let plistServerConfig = ("Server", "plist")
 
     enum SetupState: Equatable {
@@ -211,7 +211,7 @@ class Services {
     }
     
     func appLaunch(options: [UIApplication.LaunchOptionsKey: Any]?) {
-        for signIn in signInsToAdd {
+        for signIn in currentSignIns {
             do {
                 try signInServices.manager.addSignIn(signIn, launchOptions: options)
             } catch let error {
