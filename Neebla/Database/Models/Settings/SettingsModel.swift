@@ -4,9 +4,9 @@ import Foundation
 import iOSShared
 import CoreGraphics
 
-// This is a singleton. Just one row.
+// Support for the Settings screen.
 
-class SettingsModel: DatabaseModel {
+class SettingsModel: DatabaseModel, SingletonModel {
     let db: Connection
     var id: Int64!
 
@@ -45,37 +45,15 @@ class SettingsModel: DatabaseModel {
             Self.jpegQualityField.description <- jpegQuality
         )
     }
+    
+    // MARK: SingletonModel
+    
+    static func createSingletonRow(db: Connection) throws -> SettingsModel {
+        return try SettingsModel(db: db, jpegQuality: defaultJPEGQuality)
+    }
 }
 
-extension SettingsModel {
-    // Set up the singleton if not present.
-    static func initializeSingleton(db: Connection) throws {
-        let result = try SettingsModel.fetch(db: db)
-        switch result.count {
-        case 1:
-            return
-            
-        case 0:
-            break
-            
-        default:
-            throw DatabaseModelError.moreThanOneRowInResult
-        }
-        
-        let singleton = try SettingsModel(db: db, jpegQuality: defaultJPEGQuality)
-        try singleton.insert()
-    }
-    
-    static func getSingleton(db: Connection) throws -> SettingsModel {
-        let singleton = try SettingsModel.fetch(db: db)
-        
-        guard singleton.count == 1 else {
-            throw DatabaseModelError.notExactlyOneRow
-        }
-        
-        return singleton[0]
-    }
-    
+extension SettingsModel {    
     static func jpegQuality(db: Connection) throws -> CGFloat {
         let settings = try SettingsModel.getSingleton(db: Services.session.db)
         return settings.jpegQuality

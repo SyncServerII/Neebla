@@ -129,7 +129,7 @@ class Services {
 
         do {
             try connectToLocalDatabase()
-            try SetupLocalDatabase.setup(db: db)
+            try SetupSharedDatabase.setup(db: db)
         } catch let error {
             logger.error("\(error)")
             Self.setupState = .failure

@@ -34,3 +34,4 @@ extension ServerFileModel.DownloadStatus: Value {
         return try! encoder.encode(self).datatypeValue
     }
 }
+

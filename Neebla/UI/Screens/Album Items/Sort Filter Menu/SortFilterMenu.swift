@@ -11,7 +11,7 @@ import SwiftUI
 // Adapted from https://sarunw.com/posts/custom-navigation-bar-title-view-in-swiftui/
 // and https://www.simpleswiftguide.com/how-to-make-custom-view-modifiers-in-swiftui/
 
-// Embed in a NavigationView
+// Use as a modifier for a NavigationView
 
 extension View {
     func sortyFilterMenu(title: String) -> some View {
@@ -39,13 +39,7 @@ private struct SortFilterMenu: ViewModifier {
 
 private struct SortFilter: View {
     @EnvironmentObject var appEnv: AppEnv
-
-    enum Filter: Hashable {
-        case all
-        case onlyUnread
-    }
-    
-    @State var filter: Int = 0
+    @ObservedObject var model = SortFilterMenuModel()
     let title: String
     
     init(title: String) {
@@ -55,33 +49,37 @@ private struct SortFilter: View {
     var body: some View {
         Menu {
             Section {
-                Text("Sort").bold()
+                Text("Sort By")
 
+                // Getting no animation here: https://stackoverflow.com/questions/65766781
                 Button(action: {
+                    model.toggleSortOrder()
                 }) {
                     HStack {
                         Text("Date")
-                        SFSymbolIcon(symbol: .chevronUp)
+                        SFSymbolIcon(symbol: model.sortOrderChevron)
                     }
                 }
             }
             
             Section {
-                Text("Filter").bold()
+                Text("Discussion Filter")
 
                 Button(action: {
+                    model.select(filter: .none)
                 }) {
                     HStack {
-                        Text("All")
-                        SFSymbolIcon(symbol: .square)
+                        Text("Show All")
+                        SFSymbolIcon(symbol: model.showAllIcon)
                     }
                 }
 
                 Button(action: {
+                    model.select(filter: .onlyUnread)
                 }) {
                     HStack {
-                        Text("Only Unread")
-                        SFSymbolIcon(symbol: .squareFill)
+                        Text("Show Only Unread")
+                        SFSymbolIcon(symbol: model.showOnlyUnreadIcon)
                     }
                 }
             }

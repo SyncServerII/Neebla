@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Services.session.appLaunch(options: launchOptions)
         
         do {
-            try LocalServices.setup()
+            try LocalServices.setup(db: Services.session.db)
         }
         catch let error {
             logger.error("LocalServices: \(error)")

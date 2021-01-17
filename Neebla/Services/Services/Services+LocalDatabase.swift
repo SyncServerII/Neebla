@@ -9,6 +9,8 @@ import Foundation
 import iOSShared
 import SQLite
 
+// "Local" database in the sense of "in app" (not remote, across network)
+
 extension Services {
     func connectToLocalDatabase() throws {
         let dbURL = Files.getDocumentsDirectory().appendingPathComponent(
