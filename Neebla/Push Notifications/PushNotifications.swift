@@ -68,7 +68,6 @@ class PushNotifications {
             }
             
             let cancelAction = {
-                // TODO: Eventually, we may want to have a Settings UI feature that reverses this-- otherwise, allowing notifications in the Apple Settings app will have no effect. OR-- is it possible to get an NSNotification about this user change?
                 Self.notificationsAuthorized.value = false
             }
             
