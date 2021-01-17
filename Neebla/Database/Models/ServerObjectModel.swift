@@ -127,6 +127,11 @@ extension ServerObjectModel {
         logger.debug("fileModel.unreadCount: \(String(describing: fileModel.unreadCount))")
         return fileModel.unreadCount
     }
+    
+    // Same functionality as `getFilesFor(fileGroupUUID: UUID)` in `ServerFileModel`.
+    func fileModels() throws -> [ServerFileModel] {
+        return try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
+    }
 }
 
 extension DownloadedObject {

@@ -80,7 +80,7 @@ class URLObjectType: ItemType, DeclarableObject {
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)
         
-        let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, url: commentFileURL)
+        let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
         try commentFileModel.insert()
         
         let commentUpload = FileUpload(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
@@ -92,7 +92,7 @@ class URLObjectType: ItemType, DeclarableObject {
         let urlFileContents = URLFile.URLFileContents(url: asset.linkData.url, title: asset.linkData.title, imageType: imageType)
         try URLFile.create(contents: urlFileContents, localFile: urlFileURL)
         
-        let urlFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: urlFileUUID, fileLabel: urlDeclaration.fileLabel, url: urlFileURL)
+        let urlFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: urlFileUUID, fileLabel: urlDeclaration.fileLabel, downloadStatus: .downloaded, url: urlFileURL)
         try urlFileModel.insert()
 
         let urlFileUpload = FileUpload(fileLabel: urlDeclaration.fileLabel, dataSource: .immutable(urlFileURL), uuid: urlFileUUID)
@@ -108,7 +108,7 @@ class URLObjectType: ItemType, DeclarableObject {
             let imageFileURL = try createNewFile(for: previewImageDeclaration.fileLabel)
             try jpegData.write(to: imageFileURL)
             
-            let imageFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: imageFileUUID, fileLabel: previewImageDeclaration.fileLabel, url: imageFileURL)
+            let imageFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: imageFileUUID, fileLabel: previewImageDeclaration.fileLabel, downloadStatus: .downloaded, url: imageFileURL)
             try imageFileModel.insert()
             
             let imageUpload = FileUpload(fileLabel: previewImageDeclaration.fileLabel, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
@@ -133,6 +133,8 @@ extension URLObjectType: ObjectDownloadHandler {
         let files = object.downloads.map { FileToDownload(uuid: $0.uuid, fileVersion: $0.fileVersion) }
         let downloadObject = ObjectToDownload(fileGroupUUID: object.fileGroupUUID, downloads: files)
         try Services.session.syncServer.markAsDownloaded(object: downloadObject)
+        
+        try object.downloads.update(db: Services.session.db, downloadStatus: .downloaded)
     }
 }
 

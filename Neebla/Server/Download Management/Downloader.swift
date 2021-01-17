@@ -2,6 +2,7 @@
 import Foundation
 import iOSShared
 import iOSBasics
+import SQLite
 
 // Implements a relatively simple strategy for deciding which files need to be downloaded.
 
@@ -92,8 +93,23 @@ class Downloader {
             if let downloadable = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: objectModel.fileGroupUUID) {
                 let files = downloadable.downloads.map { FileToDownload(uuid: $0.uuid, fileVersion: $0.fileVersion) }
                 let downloadObject = ObjectToDownload(fileGroupUUID: downloadable.fileGroupUUID, downloads: files)
+                
                 try Services.session.syncServer.queue(download: downloadObject)
                 logger.info("Started download for object: \(downloadObject.fileGroupUUID)")
+                
+                // Update the dowloadStatus of these files to `.downloading`
+                
+                func downloadingFile(fileUUID: UUID) -> Bool {
+                    return files.filter( {$0.uuid == fileUUID}).count == 1
+                }
+                
+                let fileModelsForObject = try objectModel.fileModels()
+                for fileModel in fileModelsForObject {
+                    if downloadingFile(fileUUID: fileModel.fileUUID) {
+                        try fileModel.update(setters: ServerFileModel.downloadStatusField.description <- .downloading)
+                        fileModel.postDownloadStatusUpdateNotification()
+                    }
+                }
             }
         }
     }

@@ -7,7 +7,7 @@ import iOSShared
 struct GenericImageIcon: View {
     @ObservedObject var model:GenericImageModel
     static let dimension: CGFloat = 75
-    static let defaultImageName = "ImageLoading" // From Asset catalog
+    static let loadingImageIcon = "ImageLoading" // From Asset catalog
 
     enum Parameters {
         case object(fileLabel:String, object: ServerObjectModel)
@@ -26,6 +26,11 @@ struct GenericImageIcon: View {
         }
     }
     
+    // Goal for icon display:
+    // a) If no image and not downloading or preparing to show downloaded image, show white blank icon.
+    // b) If downloading or preparing to show dowloaded image, show a "busy" or "downloading" temporary icon.
+    // c) If have the image, show it.
+
     var body: some View {
         VStack {
             if let fileImage = model.image, model.imageStatus == .loaded {
@@ -33,9 +38,9 @@ struct GenericImageIcon: View {
                     image: Image(uiImage: fileImage)
                 )
             }
-            else if model.imageStatus == .loading {
+            else if model.imageStatus == .rendering || model.imageStatus == .downloading {
                 ImageSizer(
-                    image: Image(Self.defaultImageName)
+                    image: Image(Self.loadingImageIcon)
                 )
             }
             else { // imageStatus == .none

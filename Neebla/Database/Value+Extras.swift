@@ -18,3 +18,19 @@ extension CGFloat: Value {
         return try! encoder.encode(self).datatypeValue
     }
 }
+
+extension ServerFileModel.DownloadStatus: Value {
+    public static var declaredDatatype: String {
+        return Blob.declaredDatatype
+    }
+    
+    public static func fromDatatypeValue(_ blobValue: Blob) -> ServerFileModel.DownloadStatus {
+        let decoder = JSONDecoder()
+        return try! decoder.decode(ServerFileModel.DownloadStatus.self, from: Data.fromDatatypeValue(blobValue))
+    }
+    
+    public var datatypeValue: Blob {
+        let encoder = JSONEncoder()
+        return try! encoder.encode(self).datatypeValue
+    }
+}

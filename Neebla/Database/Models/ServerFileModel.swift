@@ -35,16 +35,32 @@ class ServerFileModel: DatabaseModel {
     static let readCountField = Field("readCount", \M.readCount)
     var readCount: Int?
     
+    enum DownloadStatus: String, Codable {
+        case notDownloaded
+        case downloading
+        case downloaded
+    }
+    
+    // Fires when the download status of a ServerFileModel changes. The `userInfo` of the notification received contains one key/value pair:
+    //      fileUUIDField.fieldName : file UUID
+    // Use the method `getFileModel` below to obtain the updated ServerFileModel given this notification.
+    static let downloadStatusUpdate = NSNotification.Name("ServerFileModel.downloadStatus.update")
+    
+    // For files created locally and thus not in need of downloading this will be `.downloaded`. (For files that are `gone`, this will always be `.notDownloaded`).
+    static let downloadStatusField = Field("downloadStatus", \M.downloadStatus)
+    var downloadStatus: DownloadStatus = .notDownloaded
+    
     init(db: Connection,
         id: Int64! = nil,
         fileGroupUUID: UUID,
         fileUUID: UUID,
         fileLabel: String,
+        downloadStatus: DownloadStatus,
         gone: Bool = false,
         url: URL? = nil,
         unreadCount: Int? = nil,
         readCount: Int? = nil) throws {
-
+        
         self.db = db
         self.id = id
         self.fileGroupUUID = fileGroupUUID
@@ -54,6 +70,7 @@ class ServerFileModel: DatabaseModel {
         self.url = url
         self.unreadCount = unreadCount
         self.readCount = readCount
+        self.downloadStatus = downloadStatus
     }
     
     // MARK: DatabaseModel
@@ -68,6 +85,7 @@ class ServerFileModel: DatabaseModel {
             t.column(urlField.description)
             t.column(unreadCountField.description)
             t.column(readCountField.description)
+            t.column(downloadStatusField.description)
         }
     }
     
@@ -77,6 +95,7 @@ class ServerFileModel: DatabaseModel {
             fileGroupUUID: row[Self.fileGroupUUIDField.description],
             fileUUID: row[Self.fileUUIDField.description],
             fileLabel: row[Self.fileLabelField.description],
+            downloadStatus: row[Self.downloadStatusField.description],
             gone: row[Self.goneField.description],
             url: row[Self.urlField.description],
             unreadCount: row[Self.unreadCountField.description],
@@ -92,7 +111,8 @@ class ServerFileModel: DatabaseModel {
             Self.goneField.description <- gone,
             Self.urlField.description <- url,
             Self.unreadCountField.description <- unreadCount,
-            Self.readCountField.description <- readCount
+            Self.readCountField.description <- readCount,
+            Self.downloadStatusField.description <- downloadStatus
         )
     }
 }
@@ -103,6 +123,7 @@ extension ServerFileModel {
         case noFileGroupUUID
         case noFileLabel
         case noFileForFileLabel
+        case noObject
     }
     
     // Upsert files based on index obtained from the server.
@@ -116,11 +137,14 @@ extension ServerFileModel {
             }
         }
         else {
-            let model = try ServerFileModel(db: db, fileGroupUUID: object.fileGroupUUID, fileUUID: file.uuid, fileLabel: file.fileLabel)
+            // A new file we're just learning about from the server, via an index, will have status `.notDownloaded`
+            let model = try ServerFileModel(db: db, fileGroupUUID: object.fileGroupUUID, fileUUID: file.uuid, fileLabel: file.fileLabel, downloadStatus: .notDownloaded)
             try model.insert()
         }
     }
     
+    // Same functionality as `fileModels()` in `ServerObjectModel`.
+    // This is the same as getting all `ServerFileModel`'s for a `ServerObjectModel`.
     static func getFilesFor(fileGroupUUID: UUID) throws -> [ServerFileModel] {
         return try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
     }
@@ -142,6 +166,28 @@ extension ServerFileModel {
             try FileManager.default.removeItem(at: existingFileURL)
         }
     }
+    
+    func postDownloadStatusUpdateNotification() {
+        NotificationCenter.default.post(name: Self.downloadStatusUpdate, object: nil, userInfo: [ServerFileModel.fileUUIDField.fieldName : fileUUID])
+    }
+    
+    // Use this when receiving a `downloadStatusUpdate` notification.
+    // If the fileUUID of the received notification doesn't match that given in the expectingFileUUID, nil is returned.
+    static func getFileModel(db: Connection, from notification: Notification, expectingFileUUID: UUID) throws -> ServerFileModel? {
+        guard let fileUUID = notification.userInfo?[fileUUIDField.fieldName] as? UUID else {
+            throw ServerFileModelError.noFileUUID
+        }
+        
+        guard expectingFileUUID == fileUUID else {
+            return nil
+        }
+        
+        guard let fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == fileUUID) else {
+            throw ServerFileModelError.noObject
+        }
+        
+        return fileModel
+    }
 }
 
 extension DownloadedFile {
@@ -151,14 +197,18 @@ extension DownloadedFile {
         var contentsURL: URL?
         var gone = false
 
+        let downloadStatus: ServerFileModel.DownloadStatus
+        
         switch contents {
         case .download(let url):
             let permanentURL = try itemType.createNewFile(for: fileLabel, mimeType: mimeType)
             _ = try FileManager.default.replaceItemAt(permanentURL, withItemAt: url)
             logger.debug("permanentURL: \(permanentURL)")
             contentsURL = permanentURL
+            downloadStatus = .downloaded
         case .gone:
             gone = true
+            downloadStatus = .notDownloaded
         }
 
         if var fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == uuid) {
@@ -175,7 +225,7 @@ extension DownloadedFile {
             }
         }
         else {
-            let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: uuid, fileLabel: fileLabel, gone: gone, url: contentsURL)
+            let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: uuid, fileLabel: fileLabel, downloadStatus: downloadStatus, gone: gone, url: contentsURL)
             try model.insert()
             if model.fileLabel == FileLabels.comments {
                 try Comments.updateUnreadCount(for: model)
@@ -183,3 +233,18 @@ extension DownloadedFile {
         }
     }
 }
+
+extension Array where Element == DownloadedFile {
+    // Update the downloadStatus of the associated `ServerFileModel`'s
+    func update(db: Connection, downloadStatus: ServerFileModel.DownloadStatus) throws {
+        for file in self {
+            guard let fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == file.uuid) else {
+                throw DatabaseModelError.notExactlyOneRow
+            }
+            
+            try fileModel.update(setters: ServerFileModel.downloadStatusField.description <- downloadStatus)
+            fileModel.postDownloadStatusUpdateNotification()
+        }
+    }
+}
+

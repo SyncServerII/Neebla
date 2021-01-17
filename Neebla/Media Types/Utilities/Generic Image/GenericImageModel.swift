@@ -10,31 +10,84 @@ class GenericImageModel: ObservableObject {
     
     enum ImageStatus {
         case none
-        case loading
+        case downloading // downloading file from server
+        case rendering // creating small icon image
         case loaded
     }
 
     @Published var imageStatus: ImageStatus = .none
-
+    private var fileModel:ServerFileModel?
+    private var imageScale: CGSize?
+    private var observer: AnyObject?
+    
     // Starts loading image when initialized. Image loads asynchronously, but is assigned to `image` on the main thread when finished loading.
     init(fileLabel: String, fileGroupUUID: UUID, imageScale: CGSize? = nil) {
-        loadImage(fileGroupUUID: fileGroupUUID, fileLabel: fileLabel, scale: imageScale)
+        guard let imageFileModel = try? ServerFileModel.getFileFor(fileLabel: fileLabel, withFileGroupUUID: fileGroupUUID) else {
+            logger.error("No ServerFileModel")
+            setImageStatus()
+            return
+        }
+        
+        fileModel = imageFileModel
+        self.imageScale = imageScale
+        
+        // Try a first time to load image.
+        loadImageFromModel(scale: imageScale)
     }
     
     init(fullSizeImageURL: URL, imageScale: CGSize? = nil) {
         loadImage(fullSizeImageURL: fullSizeImageURL, scale: imageScale)
     }
+    
+    deinit {
+        removeObserver()
+    }
+    
+    private func removeObserver() {
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
+            self.observer = nil
+        }
+    }
         
-    private func loadImage(fileGroupUUID: UUID, fileLabel: String, scale: CGSize? = nil) {
-        imageStatus = .loading
-                
-        guard let imageFileModel = try? ServerFileModel.getFileFor(fileLabel: fileLabel, withFileGroupUUID: fileGroupUUID) else {
-            noImageHelper()
+    // `fileModel` should be non-nil when you call this.
+    private func loadImageFromModel(scale: CGSize? = nil) {
+        guard let imageFileModel = fileModel else {
+            logger.error("No ServerFileModel")
             return
         }
         
         guard let fullSizeImageURL = imageFileModel.url else {
-            noImageHelper()
+            setImageStatus(imageFileModel.downloadStatus == .downloading ? .downloading : .none)
+            
+            // Don't have image downloaded. Wait for the image download if that happens.
+            guard observer == nil else {
+                return
+            }
+            
+            observer = NotificationCenter.default.addObserver(forName: ServerFileModel.downloadStatusUpdate, object: nil, queue: nil) { [weak self] notification in
+                guard let self = self else { return }
+                
+                do {
+                    guard let fileModel = try ServerFileModel.getFileModel(db: Services.session.db, from: notification, expectingFileUUID: imageFileModel.fileUUID) else {
+                        return
+                    }
+                    
+                    switch fileModel.downloadStatus {
+                    case .notDownloaded:
+                        self.setImageStatus(.none)
+                    case .downloading:
+                        self.setImageStatus(.downloading)
+                    case .downloaded:
+                        // Try image loading again.
+                        self.removeObserver()
+                        self.loadImageFromModel(scale: self.imageScale)
+                    }
+                } catch let error {
+                    logger.error("\(error)")
+                }
+            }
+            
             return
         }
         
@@ -43,7 +96,6 @@ class GenericImageModel: ObservableObject {
     
     // The scale is for future performance improvement when loading the image at the same scale.
     private func loadImage(fullSizeImageURL: URL, scale: CGSize?) {
-        imageStatus = .loading
         let actualScale = scale
         
         /* Not going to scale if
@@ -60,6 +112,8 @@ class GenericImageModel: ObservableObject {
             return
         }
         
+        imageStatus = .rendering
+        
         // Scaling
         let iconURL = self.iconURLWithScaling(scale: scale, url: fullSizeImageURL)
         if FileManager.default.fileExists(atPath: iconURL.path) {
@@ -74,7 +128,7 @@ class GenericImageModel: ObservableObject {
             guard let imageData = try? Data(contentsOf: fullSizeImageURL),
                 let image = UIImage(data: imageData) else {
                 logger.error("Could not load full sized image.")
-                self.noImageHelper()
+                self.setImageStatus()
                 return
             }
             
@@ -91,19 +145,19 @@ class GenericImageModel: ObservableObject {
 
             guard let scaledImage = Toucan(image: image).resize(scale, fitMode: Toucan.Resize.FitMode.crop).image else {
                 logger.error("Could not scale full sized image.")
-                self.noImageHelper()
+                self.setImageStatus()
                 return
             }
             
             guard let jpegQuality = try? SettingsModel.jpegQuality(db: Services.session.db) else {
                 logger.error("Could not get settings.")
-                self.noImageHelper()
+                self.setImageStatus()
                 return
             }
 
             guard let data = scaledImage.jpegData(compressionQuality: jpegQuality) else {
                 logger.error("Could not get jpeg data for scaled image.")
-                self.noImageHelper()
+                self.setImageStatus()
                 return
             }
             
@@ -111,7 +165,7 @@ class GenericImageModel: ObservableObject {
                 try data.write(to: iconURL)
             } catch let error {
                 logger.error("Could not write icon file: \(error)")
-                self.noImageHelper()
+                self.setImageStatus()
                 return
             }
             
@@ -132,13 +186,13 @@ class GenericImageModel: ObservableObject {
             }
         }
         else {
-            self.noImageHelper()
+            self.setImageStatus()
         }
     }
     
-    private func noImageHelper() {
+    private func setImageStatus(_ imageStatus: ImageStatus = .none) {
         DispatchQueue.main.async {
-            self.imageStatus = .none
+            self.imageStatus = imageStatus
         }
     }
     
@@ -165,6 +219,7 @@ class GenericImageModel: ObservableObject {
     }
 }
 
+#if false
 extension UIImage {
     // With centering
     func squareCropAndScaleTo(dimension: CGFloat) -> UIImage? {
@@ -253,3 +308,4 @@ extension UIImage {
         return newImage
     }
 }
+#endif
