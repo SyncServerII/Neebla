@@ -102,6 +102,14 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     private func getItemsForAlbum(album sharingGroupUUID: UUID) {
         if let objects = try? ServerObjectModel.fetch(db: Services.session.db, where: ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
             ServerObjectModel.deletedField.description == false) {
+            
+            let current = Set<ServerObjectModel>(self.objects)
+            let new = Set<ServerObjectModel>(objects)
+            if current == new {
+                // No update needed.
+                return
+            }
+            
             self.objects = objects.sorted { (object1, object2) -> Bool in
                 return object1.creationDate < object2.creationDate
             }

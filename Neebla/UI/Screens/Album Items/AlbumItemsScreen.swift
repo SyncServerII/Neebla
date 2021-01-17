@@ -98,6 +98,7 @@ struct AlbumItemsScreenBodyEmptyState: View {
         }.padding(20)
     }
 }
+
 struct AlbumItemsScreenBodyWithContent: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     

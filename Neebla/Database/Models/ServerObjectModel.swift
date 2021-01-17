@@ -7,7 +7,7 @@ import iOSBasics
 
 // Each "object" represents an image, a URL, or other top-level entity in an album.
 
-class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable {
+class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equatable, Hashable {
     let db: Connection
     var id: Int64!
 
@@ -50,6 +50,20 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable {
         self.creationDate = creationDate
         self.updateCreationDate = updateCreationDate
         self.deleted = deleted
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: ServerObjectModel, rhs: ServerObjectModel) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.fileGroupUUID == rhs.fileGroupUUID &&
+            lhs.sharingGroupUUID == rhs.sharingGroupUUID &&
+            lhs.objectType == rhs.objectType &&
+            lhs.creationDate == rhs.creationDate &&
+            lhs.updateCreationDate == rhs.updateCreationDate &&
+            lhs.deleted == rhs.deleted
     }
     
     // MARK: BasicEquatable
