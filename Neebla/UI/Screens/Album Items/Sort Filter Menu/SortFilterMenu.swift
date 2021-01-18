@@ -59,7 +59,7 @@ private struct SortFilter: View {
                     model.toggleSortOrder()
                 }) {
                     HStack {
-                        Text("Date")
+                        Text("Creation Date")
                         SFSymbolIcon(symbol: model.sortOrderChevron)
                     }
                 }
