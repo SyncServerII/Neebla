@@ -83,7 +83,6 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
                 print("settingsSortBySubscription: \(value)")
                 self?.getItemsForAlbum(album: sharingGroupUUID, sortByOrderAscending: value, force: true)
             }
-            
         } catch let error {
             logger.error("SortFilterSettings.getSingleton: \(error)")
         }
@@ -136,7 +135,6 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
 
         if let settings = sortFilterSettings {
             ascending = sortByOrderAscending ?? settings.sortByOrderAscending
-            logger.debug("getItemsForAlbum: settings/ascending: \(ascending)")
             
             switch (discussionFilterBy ?? settings.discussionFilterBy) {
             case .none:
@@ -148,9 +146,7 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
                     ServerObjectModel.unreadCountField.description > 0
             }
         }
-        
-        logger.debug("getItemsForAlbum: ascending: \(ascending)")
-        
+                
         func sortObjects(_ o1:ServerObjectModel, _ o2: ServerObjectModel) -> Bool {
             if ascending {
                 return o1.creationDate < o2.creationDate
