@@ -11,7 +11,7 @@ import iOSShared
 
 // Supporting the Sort / Filter menu on the Album Items screen
 
-class SortFilterSettings: DatabaseModel, SingletonModel {
+class SortFilterSettings: DatabaseModel, SingletonModel, ObservableObject {
     let db: Connection
     var id: Int64!
     
@@ -20,11 +20,11 @@ class SortFilterSettings: DatabaseModel, SingletonModel {
     }
     
     static let sortByField = Field("sortBy", \M.sortBy)
-    var sortBy: SortBy
+    @Published var sortBy: SortBy
     
     static let sortByOrderAscendingField = Field("sortByOrderAscending", \M.sortByOrderAscending)
     // Ascending if true; descending if false.
-    var sortByOrderAscending: Bool
+    @Published var sortByOrderAscending: Bool
     
     enum DiscussionFilterBy: String, Codable, CaseIterable {
         case none // no filtering; show all
@@ -32,7 +32,7 @@ class SortFilterSettings: DatabaseModel, SingletonModel {
     }
     
     static let discussionFilterByField = Field("discussionFilterBy", \M.discussionFilterBy)
-    var discussionFilterBy: DiscussionFilterBy
+    @Published var discussionFilterBy: DiscussionFilterBy
     
     init(db: Connection,
         id: Int64! = nil,

@@ -71,7 +71,7 @@ class Comments {
         let commentFile = try CommentFile(with: url)
         let currentUnreadCount = max(commentFile.count - currentReadCount, 0)
         
-        try fileModel.update(setters: ServerFileModel.unreadCountField.description <- currentUnreadCount)
+        try setUnreadCount(for: fileModel, unreadCount: currentUnreadCount)
     }
     
     static func resetReadCounts(for fileModel: ServerFileModel) throws {
@@ -81,8 +81,23 @@ class Comments {
         
         let commentFile = try CommentFile(with: url)
 
-        try fileModel.update(setters: ServerFileModel.unreadCountField.description <- 0)
+        try setUnreadCount(for: fileModel, unreadCount: 0)
         try fileModel.update(setters: ServerFileModel.readCountField.description <- commentFile.count)
+    }
+    
+    enum CommentsError: Error {
+        case cannotFindObjectModel
+    }
+    
+    // Also sets the unreadCount for the "parent" ServerObjectModel
+    static func setUnreadCount(for fileModel: ServerFileModel, unreadCount:Int?) throws {
+        try fileModel.update(setters: ServerFileModel.unreadCountField.description <- unreadCount)
+        
+        guard let objectModel = try ServerObjectModel.fetchSingleRow(db: fileModel.db, where: ServerObjectModel.fileGroupUUIDField.description == fileModel.fileGroupUUID) else {
+            throw CommentsError.cannotFindObjectModel
+        }
+        
+        try objectModel.update(setters: ServerObjectModel.unreadCountField.description <- unreadCount ?? 0)
     }
 }
 

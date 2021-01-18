@@ -11,19 +11,17 @@ import SFSafeSymbols
 import SQLite
 
 class SortFilterMenuModel: ObservableObject {
-    var sortFilterModel: SortFilterSettings?
+    let sortFilterModel: SortFilterSettings?
     @Published var sortOrderChevron: SFSymbol = .chevronUp
     @Published var showAllIcon: SFSymbol = .rectangle
     @Published var showOnlyUnreadIcon: SFSymbol = .rectangle
+    @Published var filtersEnabled: Bool = true
     
-    init() {
-        do {
-            sortFilterModel = try SortFilterSettings.getSingleton(db: Services.session.db)
-            setSortOrder()
-            setFilterIcons()
-        } catch let error {
-            logger.error("\(error)")
-        }
+    init(sortFilterModel: SortFilterSettings?) {
+        self.sortFilterModel = sortFilterModel
+        setSortOrder()
+        setFilterIcons()
+        updateFiltersEnabled()
     }
     
     func toggleSortOrder() {
@@ -33,7 +31,9 @@ class SortFilterMenuModel: ObservableObject {
 
         let update = !model.sortByOrderAscending
         do {
-            self.sortFilterModel = try model.update(setters: SortFilterSettings.sortByOrderAscendingField.description <- update)
+            logger.debug("toggleSortOrder: \(update)")
+            model.sortByOrderAscending = update
+            try model.update(setters: SortFilterSettings.sortByOrderAscendingField.description <- update)
             setSortOrder()
         } catch let error {
             logger.error("\(error)")
@@ -46,8 +46,10 @@ class SortFilterMenuModel: ObservableObject {
         }
         
         do {
-            self.sortFilterModel = try model.update(setters: SortFilterSettings.discussionFilterByField.description <- filter)
+            model.discussionFilterBy = filter
+            try model.update(setters: SortFilterSettings.discussionFilterByField.description <- filter)
             setFilterIcons()
+            updateFiltersEnabled()
         } catch let error {
             logger.error("\(error)")
         }
@@ -83,6 +85,26 @@ class SortFilterMenuModel: ObservableObject {
             case .onlyUnread:
                 showOnlyUnreadIcon = getIcon(filter: filterBy)
             }
+        }
+    }
+    
+    // If the screen isn't showing all media, I want a visual indication of that.
+    private func updateFiltersEnabled() {
+        guard let model = sortFilterModel else {
+            return
+        }
+        
+        var enabled = false
+        
+        switch model.discussionFilterBy {
+        case .none:
+            break
+        case .onlyUnread:
+            enabled = true
+        }
+        
+        if filtersEnabled != enabled {
+            filtersEnabled = enabled
         }
     }
 }

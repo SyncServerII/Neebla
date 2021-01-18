@@ -55,16 +55,39 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     // fileGroupUUID's of items to share
     @Published var itemsToShare = Set<UUID>()
     
+    var sortFilterSettings: SortFilterSettings?
     var activityItems = [Any]()
     
     private var syncSubscription:AnyCancellable!
     var userEventSubscription:AnyCancellable!
     private var markAsDownloadedSubscription:AnyCancellable!
     private var objectDeletedSubscription:AnyCancellable!
+    private var settingsDiscussionFilterSubscription:AnyCancellable!
+    private var settingsSortBySubscription:AnyCancellable!
 
     init(album sharingGroupUUID: UUID, userAlertModel: UserAlertModel) {
         self.userAlertModel = userAlertModel
         self.sharingGroupUUID = sharingGroupUUID
+        
+        do {
+            let sortFilterSettings = try SortFilterSettings.getSingleton(db: Services.session.db)
+            self.sortFilterSettings = sortFilterSettings
+
+            // These subscriptions seem to get fired *before* the properties on the `sortFilterSettings` object change. So, have added parameters to `getItemsForAlbum` to deal with this.
+            settingsDiscussionFilterSubscription = sortFilterSettings.$discussionFilterBy.sink { [weak self] value in
+                print("settingsDiscussionFilterSubscription: \(value)")
+                self?.getItemsForAlbum(album: sharingGroupUUID, discussionFilterBy: value, force: true)
+            }
+            
+            settingsSortBySubscription = sortFilterSettings.$sortByOrderAscending.sink { [weak self] value in
+                print("settingsSortBySubscription: \(value)")
+                self?.getItemsForAlbum(album: sharingGroupUUID, sortByOrderAscending: value, force: true)
+            }
+            
+        } catch let error {
+            logger.error("SortFilterSettings.getSingleton: \(error)")
+        }
+        
         setupHandleUserEvents()
         
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
@@ -104,26 +127,59 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
         getItemsForAlbum(album: sharingGroupUUID)
     }
     
-    private func getItemsForAlbum(album sharingGroupUUID: UUID) {
-        if let objects = try? ServerObjectModel.fetch(db: Services.session.db, where: ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
-            ServerObjectModel.deletedField.description == false) {
+    // If force is true, doesn't check if the model values have changed.
+    private func getItemsForAlbum(album sharingGroupUUID: UUID, sortByOrderAscending: Bool? = nil, discussionFilterBy: SortFilterSettings.DiscussionFilterBy? = nil, force: Bool = false) {
+        var ascending: Bool = true
+        var fetchConstraint: SQLite.Expression<Bool> =
+            ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
+            ServerObjectModel.deletedField.description == false
+
+        if let settings = sortFilterSettings {
+            ascending = sortByOrderAscending ?? settings.sortByOrderAscending
+            logger.debug("getItemsForAlbum: settings/ascending: \(ascending)")
             
-            let current = Set<ServerObjectModel>(self.objects)
-            let new = Set<ServerObjectModel>(objects)
-            if current == new {
-                // No update needed.
-                return
+            switch (discussionFilterBy ?? settings.discussionFilterBy) {
+            case .none:
+                break
+            case .onlyUnread:
+                fetchConstraint =
+                    ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
+                    ServerObjectModel.deletedField.description == false &&
+                    ServerObjectModel.unreadCountField.description > 0
+            }
+        }
+        
+        logger.debug("getItemsForAlbum: ascending: \(ascending)")
+        
+        func sortObjects(_ o1:ServerObjectModel, _ o2: ServerObjectModel) -> Bool {
+            if ascending {
+                return o1.creationDate < o2.creationDate
+            }
+            else {
+                return o1.creationDate > o2.creationDate
+            }
+        }
+        
+        if let objects = try? ServerObjectModel.fetch(db: Services.session.db, where: fetchConstraint) {
+
+            if !force {
+                let current = Set<ServerObjectModel>(self.objects)
+                let new = Set<ServerObjectModel>(objects)
+                if current == new {
+                    // No update needed.
+                    return
+                }
             }
             
             self.objects = objects.sorted { (object1, object2) -> Bool in
-                return object1.creationDate < object2.creationDate
+                return sortObjects(object1, object2)
             }
         }
         else {
             self.objects = []
         }
     }
-    
+
     func sync() {
         do {
             try Services.session.syncServer.sync(sharingGroupUUID: sharingGroupUUID)

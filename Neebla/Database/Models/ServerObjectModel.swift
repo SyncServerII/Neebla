@@ -33,6 +33,10 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
     static let deletedField = Field("deleted", \M.deleted)
     var deleted: Bool
     
+    // Redundant with the field in the associated comment ServerFileModel-- but seem to need this for searching. Not making this optional because I can't seem to search by optional fields with SQLite.
+    static let unreadCountField = Field("unreadCount", \M.unreadCount)
+    var unreadCount: Int
+    
     init(db: Connection,
         id: Int64! = nil,
         sharingGroupUUID: UUID,
@@ -40,7 +44,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
         objectType: String,
         creationDate: Date,
         updateCreationDate: Bool,
-        deleted: Bool = false) throws {
+        deleted: Bool = false,
+        unreadCount:Int = 0) throws {
 
         self.db = db
         self.id = id
@@ -50,6 +55,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
         self.creationDate = creationDate
         self.updateCreationDate = updateCreationDate
         self.deleted = deleted
+        self.unreadCount = unreadCount
     }
     
     func hash(into hasher: inout Hasher) {
@@ -63,7 +69,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             lhs.objectType == rhs.objectType &&
             lhs.creationDate == rhs.creationDate &&
             lhs.updateCreationDate == rhs.updateCreationDate &&
-            lhs.deleted == rhs.deleted
+            lhs.deleted == rhs.deleted &&
+            lhs.unreadCount == rhs.unreadCount
     }
     
     // MARK: BasicEquatable
@@ -83,6 +90,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             t.column(creationDateField.description)
             t.column(updateCreationDateField.description)
             t.column(deletedField.description)
+            t.column(unreadCountField.description)
         }
     }
     
@@ -94,7 +102,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             objectType: row[Self.objectTypeField.description],
             creationDate: row[Self.creationDateField.description],
             updateCreationDate: row[Self.updateCreationDateField.description],
-            deleted: row[Self.deletedField.description]
+            deleted: row[Self.deletedField.description],
+            unreadCount: row[Self.unreadCountField.description]
         )
     }
     
@@ -105,7 +114,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             Self.objectTypeField.description <- objectType,
             Self.creationDateField.description <- creationDate,
             Self.updateCreationDateField.description <- updateCreationDate,
-            Self.deletedField.description <- deleted
+            Self.deletedField.description <- deleted,
+            Self.unreadCountField.description <- unreadCount
         )
     }
 }

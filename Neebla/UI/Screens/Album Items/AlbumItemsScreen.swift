@@ -142,6 +142,8 @@ struct AlbumItemsScreenBodyWithContent: View {
                     } // end ForEach
                 } // end LazyVGrid
             }.padding(5)
+            // Mostly this is to animate updates from the menu. E.g., the sorting order.
+            .animation(.easeInOut)
             
             // Had a problem with return animation for a while: https://stackoverflow.com/questions/65101561
             // The solution was to take the NavigationLink out of the scrollview/LazyVGrid above.
@@ -158,7 +160,7 @@ struct AlbumItemsScreenBodyWithContent: View {
                 .disabled(true)
             } // end if
         }
-        .sortyFilterMenu(title: albumName)
+        .sortyFilterMenu(title: albumName, sortFilterModel: viewModel.sortFilterSettings)
     }
 }
 

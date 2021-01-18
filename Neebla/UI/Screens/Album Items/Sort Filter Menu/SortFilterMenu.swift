@@ -14,16 +14,18 @@ import SwiftUI
 // Use as a modifier for a NavigationView
 
 extension View {
-    func sortyFilterMenu(title: String) -> some View {
-        return self.modifier(SortFilterMenu(title: title))
+    func sortyFilterMenu(title: String, sortFilterModel: SortFilterSettings?) -> some View {
+        return self.modifier(SortFilterMenu(title: title, sortFilterModel: sortFilterModel))
     }
 }
 
 private struct SortFilterMenu: ViewModifier {
     let title: String
+    let sortFilterModel: SortFilterSettings?
     
-    init(title: String) {
+    init(title: String, sortFilterModel: SortFilterSettings?) {
         self.title = title
+        self.sortFilterModel = sortFilterModel
     }
     
     func body(content: Content) -> some View {
@@ -31,7 +33,7 @@ private struct SortFilterMenu: ViewModifier {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    SortFilter(title: title)
+                    SortFilter(title: title, sortFilterModel: sortFilterModel)
                 }
             }
     }
@@ -39,11 +41,12 @@ private struct SortFilterMenu: ViewModifier {
 
 private struct SortFilter: View {
     @EnvironmentObject var appEnv: AppEnv
-    @ObservedObject var model = SortFilterMenuModel()
+    @ObservedObject var model:SortFilterMenuModel
     let title: String
     
-    init(title: String) {
+    init(title: String, sortFilterModel: SortFilterSettings?) {
         self.title = title
+        model = SortFilterMenuModel(sortFilterModel: sortFilterModel)
     }
     
     var body: some View {
@@ -92,6 +95,10 @@ private struct SortFilter: View {
                     }
                     .if(!appEnv.isLandScape) {
                         $0.frame(maxWidth: maxTextWidth(landScape: false))
+                    }
+                    // So that the user can visually discriminate, from the title, whether or not all media items are displayed.
+                    .if(model.filtersEnabled) {
+                        $0.foregroundColor(Color.gray)
                     }
             }
         }
