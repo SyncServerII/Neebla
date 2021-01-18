@@ -94,14 +94,7 @@ class SortFilterMenuModel: ObservableObject {
             return
         }
         
-        var enabled = false
-        
-        switch model.discussionFilterBy {
-        case .none:
-            break
-        case .onlyUnread:
-            enabled = true
-        }
+        let enabled = model.filtersEnabled()
         
         if filtersEnabled != enabled {
             filtersEnabled = enabled

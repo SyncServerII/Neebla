@@ -32,10 +32,10 @@ struct AlbumItemsScreenBody: View {
         self.userAlertModel = userAlertModel
         self.albumName = albumName
     }
-    
+
     var body: some View {
         VStack {
-            if viewModel.objects.count == 0 {
+            if viewModel.unfilteredNumberObjects == 0 {
                 AlbumItemsScreenBodyEmptyState(viewModel: viewModel, albumName: albumName)
             }
             else {

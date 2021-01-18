@@ -35,6 +35,8 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     }
     
     @Published var objects = [ServerObjectModel]()
+    @Published var unfilteredNumberObjects: Int = 0
+    
     let sharingGroupUUID: UUID
     
     @Published var sharing = false {
@@ -75,12 +77,11 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
 
             // These subscriptions seem to get fired *before* the properties on the `sortFilterSettings` object change. So, have added parameters to `getItemsForAlbum` to deal with this.
             settingsDiscussionFilterSubscription = sortFilterSettings.$discussionFilterBy.sink { [weak self] value in
-                print("settingsDiscussionFilterSubscription: \(value)")
-                self?.getItemsForAlbum(album: sharingGroupUUID, discussionFilterBy: value, force: true)
+                guard let self = self else { return }
+                self.getItemsForAlbum(album: sharingGroupUUID, discussionFilterBy: value, force: true)
             }
             
             settingsSortBySubscription = sortFilterSettings.$sortByOrderAscending.sink { [weak self] value in
-                print("settingsSortBySubscription: \(value)")
                 self?.getItemsForAlbum(album: sharingGroupUUID, sortByOrderAscending: value, force: true)
             }
         } catch let error {
@@ -132,7 +133,14 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
         var fetchConstraint: SQLite.Expression<Bool> =
             ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
             ServerObjectModel.deletedField.description == false
-
+            
+        // First figure out number of rows, without any filter. Need that for screen display in some cases.
+        if let numberObjects = try? ServerObjectModel.numberRows(db: Services.session.db, where: fetchConstraint) {
+            if unfilteredNumberObjects != numberObjects {
+                unfilteredNumberObjects = numberObjects
+            }
+        }
+        
         if let settings = sortFilterSettings {
             ascending = sortByOrderAscending ?? settings.sortByOrderAscending
             
@@ -157,7 +165,6 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
         }
         
         if let objects = try? ServerObjectModel.fetch(db: Services.session.db, where: fetchConstraint) {
-
             if !force {
                 let current = Set<ServerObjectModel>(self.objects)
                 let new = Set<ServerObjectModel>(objects)

@@ -47,6 +47,19 @@ class SortFilterSettings: DatabaseModel, SingletonModel, ObservableObject {
         self.discussionFilterBy = discussionFilterBy
     }
     
+    func filtersEnabled() -> Bool {
+        return Self.filtersEnabled(for: discussionFilterBy)
+    }
+    
+    static func filtersEnabled(for discussionFilterBy: DiscussionFilterBy) -> Bool {
+        switch discussionFilterBy {
+        case .none:
+            return false
+        case .onlyUnread:
+            return true
+        }
+    }
+    
     // MARK: DatabaseModel
     
     static func createTable(db: Connection) throws {
