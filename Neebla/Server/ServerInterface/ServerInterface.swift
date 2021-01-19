@@ -102,8 +102,6 @@ extension ServerInterface: SyncServerDelegate {
         case .showAlert(title: let title, message: let message):
             self.userEvent = .showAlert(title: title, message: message)
         }
-        
-        self.userEvent = event
     }
     
     func syncCompleted(_ syncServer: SyncServer, result: SyncResult) {

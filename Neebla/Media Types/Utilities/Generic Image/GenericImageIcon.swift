@@ -46,8 +46,14 @@ struct GenericImageIcon: View {
             else { // imageStatus == .none
                 Rectangle()
                     .fill(Color.white)
-                    .border(Color.black, width: 1)
-                    .cornerRadius(ImageSizer.cornerRadius)
+                    // This doesn't give what I want. It gives clipped coners.
+                    //.border(Color.black, width: 1)
+                    //.cornerRadius(ImageSizer.cornerRadius)
+                    // The following is better. See https://www.hackingwithswift.com/quick-start/swiftui/how-to-draw-a-border-around-a-view
+                    .overlay(
+                        RoundedRectangle(cornerRadius: ImageSizer.cornerRadius)
+                            .stroke(Color.black, lineWidth: 1)
+                    )
             }
         }.frame(width:Self.dimension, height:Self.dimension)
     }

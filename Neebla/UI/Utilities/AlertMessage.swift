@@ -5,6 +5,10 @@ import iOSBasics
 import Combine
 import iOSShared
 
+// This provides two kinds of user alert mechanisms. For both of these, the `.showUserAlert` modifier must be added to the View for the screen.
+// a) Directly showing a message by a screen: Just set the `userAlert` property of the `UserAlertModel`.
+// b) Indirectly, through a subscription set up by `setupHandleUserEvents`. These are for `UserEvent`'s from the iOSBasics package.
+
 protocol UserAlertMessage: UserAlertDelegate {
     var screenDisplayed: Bool { get set }
 }
@@ -55,6 +59,11 @@ extension ModelAlertDisplaying {
     func setupHandleUserEvents() {
         userEventSubscription = Services.session.serverInterface.$userEvent.sink { [weak self] event in
             guard let self = self else { return }
+            guard self.userAlertModel.screenDisplayed else {
+                return
+            }
+            
+            logger.debug("setupHandleUserEvents: \(String(describing: event))")
             self.userAlertModel.showMessage(for: event)
         }
     }
