@@ -196,8 +196,8 @@
 		83C73494259870080073788A /* GenericImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F517256220670063A67D /* GenericImageModel.swift */; };
 		83C73498259870320073788A /* RatioModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B715256B4995007F0CEB /* RatioModifier.swift */; };
 		83C734A6259876040073788A /* ItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734A1259876000073788A /* ItemProvider.swift */; };
-		83C734F3259890AC0073788A /* LIveImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734F2259890AC0073788A /* LIveImageItemProvider.swift */; };
-		83C734F4259890AC0073788A /* LIveImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734F2259890AC0073788A /* LIveImageItemProvider.swift */; };
+		83C734F3259890AC0073788A /* LiveImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734F2259890AC0073788A /* LiveImageItemProvider.swift */; };
+		83C734F4259890AC0073788A /* LiveImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734F2259890AC0073788A /* LiveImageItemProvider.swift */; };
 		83C734FE25991B700073788A /* SXItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7345425986DB60073788A /* SXItemProvider.swift */; };
 		83C7350225991B880073788A /* ItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C734A1259876000073788A /* ItemProvider.swift */; };
 		83C73506259922440073788A /* LiveImageObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7859258061DF000E0B37 /* LiveImageObjectType.swift */; };
@@ -411,7 +411,7 @@
 		83C7345425986DB60073788A /* SXItemProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SXItemProvider.swift; sourceTree = "<group>"; };
 		83C7345525986DB60073788A /* ImageItemProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageItemProvider.swift; sourceTree = "<group>"; };
 		83C734A1259876000073788A /* ItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemProvider.swift; sourceTree = "<group>"; };
-		83C734F2259890AC0073788A /* LIveImageItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIveImageItemProvider.swift; sourceTree = "<group>"; };
+		83C734F2259890AC0073788A /* LiveImageItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageItemProvider.swift; sourceTree = "<group>"; };
 		83C73941259966470073788A /* URLItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLItemProvider.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		83CE1EAC257080EE004A418B /* BasicEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicEquatable.swift; sourceTree = "<group>"; };
@@ -1143,7 +1143,7 @@
 				83BF7C6E258469C7000E0B37 /* LiveImageObjectType */,
 				83BF7866258077F1000E0B37 /* LiveImageIcon.swift */,
 				83BF7C7525846A28000E0B37 /* LiveImageLargeMedia */,
-				83C734F2259890AC0073788A /* LIveImageItemProvider.swift */,
+				83C734F2259890AC0073788A /* LiveImageItemProvider.swift */,
 			);
 			path = "Live Images";
 			sourceTree = "<group>";
@@ -1395,7 +1395,7 @@
 				835104A5259FE91900C5A05E /* MediaPicker.swift in Sources */,
 				83C43660258F2F5400F34628 /* ConfigPlist.swift in Sources */,
 				83BF7CB025854448000E0B37 /* Comments.swift in Sources */,
-				83C734F4259890AC0073788A /* LIveImageItemProvider.swift in Sources */,
+				83C734F4259890AC0073788A /* LiveImageItemProvider.swift in Sources */,
 				83E1A98025999BE7004D4029 /* URLPreviewGenerator.swift in Sources */,
 				83C7348825986FB40073788A /* ImageObjectType.swift in Sources */,
 				8331F37E255B8F790063A67D /* Services+SignInServices.swift in Sources */,
@@ -1523,7 +1523,7 @@
 				83BF80822585F9D3000E0B37 /* Icon.swift in Sources */,
 				8331F33F255B8B8F0063A67D /* SignInViewModel.swift in Sources */,
 				83BF781F257DCE9B000E0B37 /* UploadableMediaType.swift in Sources */,
-				83C734F3259890AC0073788A /* LIveImageItemProvider.swift in Sources */,
+				83C734F3259890AC0073788A /* LiveImageItemProvider.swift in Sources */,
 				8331F51125621F7A0063A67D /* AlertMessage.swift in Sources */,
 				83383B6625A186BF009CA87F /* Badge.swift in Sources */,
 				83B657D9255B81320041B9DF /* AppDelegate.swift in Sources */,

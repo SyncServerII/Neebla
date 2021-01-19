@@ -55,8 +55,9 @@ class LiveImageItemProvider: SXItemProvider {
         logger.debug("conformsToLivePhotoBundleUTI: \(conformsToLivePhotoBundleUTI)")
         logger.debug("canLoadObject: \(canLoadObject)")
         logger.debug("canHandle: \(canHandle)")
-
-        return canHandle && item.canLoadObject(ofClass: PHLivePhoto.self)
+        logger.debug("registeredTypeIdentifiers: \(item.registeredTypeIdentifiers)")
+        
+        return canHandle
     }
     
     static func create(item: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
