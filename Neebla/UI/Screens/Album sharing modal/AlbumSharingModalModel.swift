@@ -30,6 +30,26 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
         }
     }
     
+    static let expiryDurationSingleDayInterval:TimeInterval = 60*60*24
+    static let minExpiryDurationDays:Int = 1
+    static let maxExpiryDurationDays:Int = 7
+    
+    @Published var expiryDurationDaysRaw:Float = 1 /* minExpiryDurationDays */ {
+        didSet {
+            expiryDurationDays = Int(expiryDurationDaysRaw)
+        }
+    }
+    
+    @Published var expiryDurationDays:Int = 1 {
+        didSet {
+            logger.debug("Time interval: \(getExpiryInterval())")
+        }
+    }
+    
+    private func getExpiryInterval() -> TimeInterval {
+        return Double(expiryDurationDays) * Self.expiryDurationSingleDayInterval
+    }
+    
     let displayablePermissionText: [String]
 
     init(album:AlbumModel, userAlertModel: UserAlertModel, completion:@escaping (_ parameters: AlbumSharingParameters)->()) {
@@ -66,8 +86,15 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
             logger.error("Could not get permission!!")
             return
         }
+        
+        guard expiryDurationDays >= 1 else {
+            logger.error("Expiry duration wasn't at least one day.")
+            return
+        }
+        
+        let expiry: TimeInterval = getExpiryInterval()
 
-        Services.session.syncServer.createSharingInvitation(withPermission: permission, sharingGroupUUID: album.sharingGroupUUID, numberAcceptors: UInt(numberOfPeopleToInvite), allowSocialAcceptance: allowSocialAcceptance) { [weak self] result in
+        Services.session.syncServer.createSharingInvitation(withPermission: permission, sharingGroupUUID: album.sharingGroupUUID, numberAcceptors: UInt(numberOfPeopleToInvite), allowSocialAcceptance: allowSocialAcceptance, expiryDuration: expiry) { [weak self] result in
             guard let self = self else { return }
             
             switch result {

@@ -40,6 +40,8 @@ struct AlbumSharingModal: View {
                     Divider()
                     AllowSocialAcceptance(viewModel: viewModel)
                     Divider()
+                    ExpiryDuration(viewModel: viewModel)
+                    Divider()
                     if let helpText = viewModel.helpString {
                         HelpInfo(helpStringHTML: helpText)
                     }
@@ -62,7 +64,26 @@ private struct NumberOfPeople: View {
         
         HStack {
             Slider(value: $viewModel.numberOfPeopleToInviteRaw, in: 1...Float(ServerConstants.maxNumberSharingInvitationAcceptors))
+                .padding(.leading, 10)
             Text("\($viewModel.numberOfPeopleToInvite.wrappedValue)")
+                .padding(.leading, 20)
+        }
+    }
+}
+
+private struct ExpiryDuration: View {
+    @ObservedObject var viewModel: AlbumSharingModalModel
+    
+    var body: some View {
+        HStack {
+            Text("Number of days before invitation expires:")
+            Spacer()
+        }
+        
+        HStack {
+            Slider(value: $viewModel.expiryDurationDaysRaw, in: Float(AlbumSharingModalModel.minExpiryDurationDays)...Float(AlbumSharingModalModel.maxExpiryDurationDays))
+                .padding(.leading, 10)
+            Text("\($viewModel.expiryDurationDays.wrappedValue)")
                 .padding(.leading, 20)
         }
     }
