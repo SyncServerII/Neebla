@@ -31,10 +31,11 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
     }
     
     static let expiryDurationSingleDayInterval:TimeInterval = 60*60*24
+    static let defaultExpiryDurationDays:Int = 3
     static let minExpiryDurationDays:Int = 1
     static let maxExpiryDurationDays:Int = 7
     
-    @Published var expiryDurationDaysRaw:Float = 1 /* minExpiryDurationDays */ {
+    @Published var expiryDurationDaysRaw:Float = 1 /* defaultExpiryDurationDays */ {
         didSet {
             expiryDurationDays = Int(expiryDurationDaysRaw)
         }
@@ -56,6 +57,9 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
         self.userAlertModel = userAlertModel
         self.album = album
         displayablePermissionText = Permission.allCases.map {$0.displayableText}
+        
+        expiryDurationDaysRaw = Float(Self.defaultExpiryDurationDays)
+        expiryDurationDays = Int(Self.defaultExpiryDurationDays)
         
         if let writeIndex = displayablePermissionText.firstIndex(of: Permission.write.displayableText) {
             permissionSelection = writeIndex
