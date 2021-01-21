@@ -24,19 +24,17 @@ extension EnvironmentValues {
 }
 
 struct LeftMenuView: View {
-    @Environment(\.sideMenuLeftPanelKey) var sideMenuLeftPanel
-    @Environment(\.sideMenuCenterViewKey) var sideMenuCenterView
     @ObservedObject var viewModel:SignInViewModel
     @Environment(\.menuState) var menuState
     
     var body: some View {
         VStack(alignment: .leading) {
-            MenuButtonView(viewModel: viewModel, menuItemName: "Albums", image: .rectangleStack, topPadding: 30, menuChoice: Screens.albums, canDisable: false)
-            MenuButtonView(viewModel: viewModel, menuItemName: "Album Sharing", image: .envelope, topPadding: 30, menuChoice: Screens.albumSharing)
-            MenuButtonView(viewModel: viewModel, menuItemName: "Settings", image: .gear, topPadding: 30, menuChoice: Screens.settings)
-            MenuButtonView(viewModel: viewModel, menuItemName: "SignIn/Out", image: .person2, topPadding: 30, menuChoice: Screens.signIn, canDisable: false)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Albums", image: .rectangleStack, topPadding: 30, screen: .albums, canDisable: false)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Album Sharing", image: .envelope, topPadding: 30, screen: .albumSharing)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Settings", image: .gear, topPadding: 30, screen: .settings)
+            MenuButtonView(viewModel: viewModel, menuItemName: "SignIn/Out", image: .person2, topPadding: 30, screen: .signIn, canDisable: false)
 #if DEBUG
-            MenuButtonView(viewModel: viewModel, menuItemName: "Developer", image: .eyeglasses, topPadding: 30, menuChoice: Screens.developer, canDisable: false)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Developer", image: .eyeglasses, topPadding: 30, screen: .developer, canDisable: false)
 #endif
             Spacer()
         }
@@ -61,21 +59,21 @@ struct MenuButtonView: View {
     let image: SFSymbol
     let topPadding: CGFloat
     let canDisable: Bool
-    let menuChoice: AnyView
+    let screen: Screen
     
-    init(viewModel:SignInViewModel, menuItemName: String, image: SFSymbol, topPadding: CGFloat, menuChoice: AnyView, canDisable: Bool = true) {
+    init(viewModel:SignInViewModel, menuItemName: String, image: SFSymbol, topPadding: CGFloat, screen: Screen, canDisable: Bool = true) {
         self.viewModel = viewModel
         self.menuItemName = menuItemName
         self.image = image
         self.topPadding = topPadding
         self.canDisable = canDisable
-        self.menuChoice = menuChoice
+        self.screen = screen
     }
     
     var body: some View {
         Button(action: {
             withAnimation {
-                self.sideMenuCenterView.wrappedValue = menuChoice
+                self.sideMenuCenterView.wrappedValue = screen.view
                 self.sideMenuLeftPanel.wrappedValue = false
             }
         }) {
@@ -98,4 +96,3 @@ struct MenuButtonView: View {
         return !viewModel.userSignedIn
     }
 }
-

@@ -10,21 +10,31 @@ import iOSSignIn
 import iOSBasics
 import iOSShared
 import ServerShared
+import Combine
 
 class SignInViewModel: ObservableObject {
     @Published var userSignedIn: Bool = false
     
+    // Only ever transitions from true to false and do this exactly once.
+    @Published var landingViewDisplayed: Bool = true
+    let initialDelayMS = 1500
+    
     var signIn:GenericSignIn? {
         return Services.session.signInServices.manager.currentSignIn
     }
-        
+    
+    var signInSubscription: AnyCancellable!
+    
     init() {
-        #warning("Perhaps a little weak. Maybe a SignInManagerDelegate call for a silent sign in would be better?")
-        if Services.session.signInServices.manager.currentSignIn != nil {
-            userSignedIn = true
+        signInSubscription = Services.session.signInServices.manager.$userIsSignedIn.sink { [weak self] signedIn in
+            self?.userSignedIn = signedIn ?? false
         }
         
         Services.session.signInServices.manager.delegate = self
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(initialDelayMS)) {
+            self.landingViewDisplayed = false
+        }
     }
 }
 

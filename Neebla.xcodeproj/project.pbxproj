@@ -44,7 +44,7 @@
 		8331F330255B8AFD0063A67D /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F327255B8AFD0063A67D /* MailView.swift */; };
 		8331F332255B8AFD0063A67D /* MenuNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F329255B8AFD0063A67D /* MenuNavBar.swift */; };
 		8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32A255B8AFD0063A67D /* SignInScreen.swift */; };
-		8331F334255B8AFD0063A67D /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32B255B8AFD0063A67D /* Screens.swift */; };
+		8331F334255B8AFD0063A67D /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32B255B8AFD0063A67D /* Screen.swift */; };
 		8331F336255B8AFD0063A67D /* LeftMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32E255B8AFD0063A67D /* LeftMenuView.swift */; };
 		8331F337255B8AFD0063A67D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32F255B8AFD0063A67D /* MainView.swift */; };
 		8331F33C255B8B4E0063A67D /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 8331F33B255B8B4E0063A67D /* SideMenu */; };
@@ -133,6 +133,7 @@
 		835AC8F8255B86AA00375084 /* PersistentValue in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8F7255B86AA00375084 /* PersistentValue */; };
 		8371C42D25ABCA0100E92F0D /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8371C42C25ABCA0100E92F0D /* Toucan */; };
 		8371C43225ABCA1C00E92F0D /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8371C43125ABCA1C00E92F0D /* Toucan */; };
+		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
 		83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
 		83B0CB4725B2A51400D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
 		83B0CB4B25B2A5AF00D53B58 /* AnyTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F47D2560CE540063A67D /* AnyTypeManager.swift */; };
@@ -305,7 +306,7 @@
 		8331F327255B8AFD0063A67D /* MailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		8331F329255B8AFD0063A67D /* MenuNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuNavBar.swift; sourceTree = "<group>"; };
 		8331F32A255B8AFD0063A67D /* SignInScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
-		8331F32B255B8AFD0063A67D /* Screens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screens.swift; sourceTree = "<group>"; };
+		8331F32B255B8AFD0063A67D /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		8331F32E255B8AFD0063A67D /* LeftMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuView.swift; sourceTree = "<group>"; };
 		8331F32F255B8AFD0063A67D /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8331F33E255B8B8F0063A67D /* SignInViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -369,6 +370,7 @@
 		837D83A325AC1BAB007938CC /* iOSSignIn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSSignIn; path = ../../iOSSignIn; sourceTree = "<group>"; };
 		837D83A725AC1E32007938CC /* iOSDropbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSDropbox; path = ../../iOSDropbox; sourceTree = "<group>"; };
 		83A151C525B7DA910094203B /* ServerShared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ServerShared; path = ../../ServerShared; sourceTree = "<group>"; };
+		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationMessage.swift; sourceTree = "<group>"; };
 		83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
 		83B0CB6025B2B9CE00D53B58 /* iOSShared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSShared; path = ../../iOSShared; sourceTree = "<group>"; };
@@ -691,6 +693,7 @@
 			children = (
 				8331F329255B8AFD0063A67D /* MenuNavBar.swift */,
 				8331F32E255B8AFD0063A67D /* LeftMenuView.swift */,
+				8331F32B255B8AFD0063A67D /* Screen.swift */,
 			);
 			path = "Side Menu";
 			sourceTree = "<group>";
@@ -698,7 +701,6 @@
 		8331F3BD255E43470063A67D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				8331F32B255B8AFD0063A67D /* Screens.swift */,
 				83BF80752585D8C3000E0B37 /* Sign In Screen */,
 				83BF7CE22585B73A000E0B37 /* Album Sharing */,
 				8331F447255FA7A40063A67D /* Albums */,
@@ -736,6 +738,7 @@
 			isa = PBXGroup;
 			children = (
 				8331F32F255B8AFD0063A67D /* MainView.swift */,
+				83A151D725B91F320094203B /* LandingView.swift */,
 				8331F33E255B8B8F0063A67D /* SignInViewModel.swift */,
 			);
 			path = "App Launch";
@@ -1461,6 +1464,7 @@
 				8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */,
 				8308B706256A3A53007F0CEB /* URLFile.swift in Sources */,
 				835104A4259FE91900C5A05E /* MediaPicker.swift in Sources */,
+				83A151D825B91F320094203B /* LandingView.swift in Sources */,
 				83F2C54B25A1510500D0B710 /* AddressNavigation.swift in Sources */,
 				8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */,
 				83C7352825992CC10073788A /* ImageItemProvider.swift in Sources */,
@@ -1500,7 +1504,7 @@
 				83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */,
 				8320A71E256E0ED500819377 /* FileLabels.swift in Sources */,
 				83B0CB7A25B411B900D53B58 /* UpdateView.swift in Sources */,
-				8331F334255B8AFD0063A67D /* Screens.swift in Sources */,
+				8331F334255B8AFD0063A67D /* Screen.swift in Sources */,
 				83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */,
 				83D5CF392564C2520018DE7C /* Downloader.swift in Sources */,
 				835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */,
