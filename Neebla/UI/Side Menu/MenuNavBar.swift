@@ -45,37 +45,35 @@ struct MenuNavBar<Content: View>: View {
         See also https://stackoverflow.com/questions/56503479/swiftui-how-do-you-change-the-tint-color-background-color-of-a-navigationview
      */
     var body: some View {
-        NavigationView {
-            VStack(spacing: 10) {
-                self.content
-            }
-            .navigationBarTitle(title, displayMode: .inline)
-                .navigationBarItems(
-                    leading: (
-                        VStack {
-                            if leftMenuNav {
-                                Button(action: {
-                                    withAnimation {
-                                        self.sideMenuLeftPanel.wrappedValue = !self.sideMenuLeftPanel.wrappedValue
-                                        let open = self.sideMenuLeftPanel.wrappedValue
-                                        
-                                        // Sometimes keyboard is displayed when the user opens the menu. Best to hide the keyboard because it looks odd to have he keyboard there with the menu present.
-                                        if open {
-                                            hideKeyboard()
-                                        }
-                                    }
-                                }, label: {
-                                    SFSymbolIcon(symbol: .lineHorizontal3)
-                                })
-                            }
-                            else {
-                                Rectangle().fill(Color.clear)
-                            }
-                        }
-                    ), trailing:
-                        rightNavbarButton
-            )
+        VStack(spacing: 10) {
+            self.content
         }
+        .navigationBarTitle(title, displayMode: .inline)
+        .navigationBarItems(
+            leading: (
+                VStack {
+                    if leftMenuNav {
+                        Button(action: {
+                            withAnimation {
+                                self.sideMenuLeftPanel.wrappedValue = !self.sideMenuLeftPanel.wrappedValue
+                                let open = self.sideMenuLeftPanel.wrappedValue
+                                
+                                // Sometimes keyboard is displayed when the user opens the menu. Best to hide the keyboard because it looks odd to have he keyboard there with the menu present.
+                                if open {
+                                    hideKeyboard()
+                                }
+                            }
+                        }, label: {
+                            SFSymbolIcon(symbol: .lineHorizontal3)
+                        })
+                    }
+                    else {
+                        Rectangle().fill(Color.clear)
+                    }
+                }
+            ), trailing:
+                rightNavbarButton
+        )
     }
 }
 

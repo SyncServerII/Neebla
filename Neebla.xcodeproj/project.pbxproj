@@ -47,7 +47,6 @@
 		8331F334255B8AFD0063A67D /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32B255B8AFD0063A67D /* Screen.swift */; };
 		8331F336255B8AFD0063A67D /* LeftMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32E255B8AFD0063A67D /* LeftMenuView.swift */; };
 		8331F337255B8AFD0063A67D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F32F255B8AFD0063A67D /* MainView.swift */; };
-		8331F33C255B8B4E0063A67D /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 8331F33B255B8B4E0063A67D /* SideMenu */; };
 		8331F33F255B8B8F0063A67D /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F33E255B8B8F0063A67D /* SignInViewModel.swift */; };
 		8331F34A255B8CC50063A67D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F349255B8CC50063A67D /* ShareViewController.swift */; };
 		8331F34D255B8CC50063A67D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8331F34B255B8CC50063A67D /* MainInterface.storyboard */; };
@@ -216,6 +215,7 @@
 		83CE1EB2257081BC004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
 		83CE1EBC257088F0004A418B /* PriorityQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EBB257088F0004A418B /* PriorityQueueTests.swift */; };
 		83D5CF392564C2520018DE7C /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5CF382564C2520018DE7C /* Downloader.swift */; };
+		83D8CC0425B956200069E3E5 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 83D8CC0325B956200069E3E5 /* SideMenu */; };
 		83E1A98025999BE7004D4029 /* URLPreviewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6E8256A0733007F0CEB /* URLPreviewGenerator.swift */; };
 		83E1A98425999C38004D4029 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8308B6EC256A08AB007F0CEB /* APIKeys.plist */; };
 		83E1A98D2599A36F004D4029 /* URLPreviewItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */; };
@@ -461,12 +461,12 @@
 				8371C42D25ABCA0100E92F0D /* Toucan in Frameworks */,
 				835AC8E1255B835D00375084 /* FileLogging in Frameworks */,
 				835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */,
-				8331F33C255B8B4E0063A67D /* SideMenu in Frameworks */,
 				83269F10258C4E3500D27594 /* iOSGoogle in Frameworks */,
 				8320A70E256DF07E00819377 /* MessageKit in Frameworks */,
 				835AC8D9255B831800375084 /* iOSFacebook in Frameworks */,
 				832D342D25869E2D00FEF094 /* RadioGroup in Frameworks */,
 				83BF7C652581E474000E0B37 /* ImageIOSwift in Frameworks */,
+				83D8CC0425B956200069E3E5 /* SideMenu in Frameworks */,
 				83BF7C632581E474000E0B37 /* ImageIOUIKit in Frameworks */,
 				835AC8D5255B82AD00375084 /* iOSDropbox in Frameworks */,
 				83B657F4255B820B0041B9DF /* iOSSignIn in Frameworks */,
@@ -1216,7 +1216,6 @@
 				835AC8DC255B833A00375084 /* SFSafeSymbols */,
 				835AC8E0255B835D00375084 /* FileLogging */,
 				835AC8F7255B86AA00375084 /* PersistentValue */,
-				8331F33B255B8B4E0063A67D /* SideMenu */,
 				8331F424255F8C6D0063A67D /* SwiftUIRefresh */,
 				8308B6D82569F595007F0CEB /* SMLinkPreview */,
 				8320A70D256DF07E00819377 /* MessageKit */,
@@ -1226,6 +1225,7 @@
 				83269F0F258C4E3500D27594 /* iOSGoogle */,
 				83F389C4259044ED00610C76 /* iOSApple */,
 				8371C42C25ABCA0100E92F0D /* Toucan */,
+				83D8CC0325B956200069E3E5 /* SideMenu */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -1287,7 +1287,6 @@
 				835AC8DB255B833A00375084 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				835AC8DF255B835D00375084 /* XCRemoteSwiftPackageReference "swift-log-file" */,
 				835AC8F6255B86AA00375084 /* XCRemoteSwiftPackageReference "PersistentValue" */,
-				8331F33A255B8B4E0063A67D /* XCRemoteSwiftPackageReference "SideMenu" */,
 				8331F423255F8C6D0063A67D /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
 				8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */,
 				8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */,
@@ -1296,6 +1295,7 @@
 				83269F0E258C4E3500D27594 /* XCRemoteSwiftPackageReference "iOSGoogle" */,
 				83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */,
 				8371C42B25ABCA0100E92F0D /* XCRemoteSwiftPackageReference "Toucan" */,
+				83D8CC0225B9561F0069E3E5 /* XCRemoteSwiftPackageReference "SideMenu" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -1939,14 +1939,6 @@
 				minimumVersion = 1.4.2;
 			};
 		};
-		8331F33A255B8B4E0063A67D /* XCRemoteSwiftPackageReference "SideMenu" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SyncServerII/SideMenu.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		8331F423255F8C6D0063A67D /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/timbersoftware/SwiftUIRefresh.git";
@@ -2027,6 +2019,14 @@
 				minimumVersion = 1.1.1;
 			};
 		};
+		83D8CC0225B9561F0069E3E5 /* XCRemoteSwiftPackageReference "SideMenu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/crspybits/SideMenu.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSApple.git";
@@ -2057,11 +2057,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 832D342B25869E2D00FEF094 /* XCRemoteSwiftPackageReference "RadioGroup" */;
 			productName = RadioGroup;
-		};
-		8331F33B255B8B4E0063A67D /* SideMenu */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8331F33A255B8B4E0063A67D /* XCRemoteSwiftPackageReference "SideMenu" */;
-			productName = SideMenu;
 		};
 		8331F371255B8F060063A67D /* iOSBasics */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2157,6 +2152,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */;
 			productName = ImageIOUIKit;
+		};
+		83D8CC0325B956200069E3E5 /* SideMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83D8CC0225B9561F0069E3E5 /* XCRemoteSwiftPackageReference "SideMenu" */;
+			productName = SideMenu;
 		};
 		83EE70C625AA8C4F001EF706 /* iOSApple */ = {
 			isa = XCSwiftPackageProductDependency;

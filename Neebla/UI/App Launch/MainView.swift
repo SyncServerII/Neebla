@@ -21,14 +21,21 @@ struct MainView : View {
             LandingView()
         }
         else {
-            if viewModel.userSignedIn {
-                SideMenu(leftMenu: LeftMenuView(viewModel: viewModel),
-                    centerView: Screen.albums.view)
-            }
-            else {
-                SideMenu(leftMenu: LeftMenuView(viewModel: viewModel),
-                    centerView: Screen.signIn.view)
-            }
+            LeftMenu(viewModel: viewModel,
+                screen: viewModel.userSignedIn ? .albums : .signIn)
         }
+    }
+}
+
+private struct LeftMenu: View {
+    @ObservedObject var viewModel:SignInViewModel
+    let screen: Screen
+    
+    // Not using `SideMenu` menu items. Using our own.
+    let config = SideMenuConfig(leftMenuItem: .none, rightMenuItem: .none)
+    
+    var body: some View {
+        SideMenu(leftMenu: LeftMenuView(viewModel: viewModel),
+                    centerView: screen.view, config: config)
     }
 }

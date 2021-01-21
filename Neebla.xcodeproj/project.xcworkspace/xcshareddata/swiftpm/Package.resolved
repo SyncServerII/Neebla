@@ -218,15 +218,6 @@
         }
       },
       {
-        "package": "ServerShared",
-        "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
-        "state": {
-          "branch": "master",
-          "revision": "ab5b7c0abb653d5d4cd772c3133932ad9031f18e",
-          "version": null
-        }
-      },
-      {
         "package": "SFSafeSymbols",
         "repositoryURL": "https://github.com/piknotech/SFSafeSymbols.git",
         "state": {
@@ -237,10 +228,10 @@
       },
       {
         "package": "SideMenu",
-        "repositoryURL": "https://github.com/SyncServerII/SideMenu.git",
+        "repositoryURL": "https://github.com/crspybits/SideMenu.git",
         "state": {
           "branch": "master",
-          "revision": "c5f34a11a61ab82d23a12ec0f81c1b19ebbedd30",
+          "revision": "18b133b3c33298e00a6742948dd674d872c37074",
           "version": null
         }
       },
