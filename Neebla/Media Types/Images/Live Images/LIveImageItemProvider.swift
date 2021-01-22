@@ -203,7 +203,7 @@ class LiveImageItemProvider: SXItemProvider {
 
     var preview: AnyView {
         return AnyView(
-            LiveImageIcon(.url(liveImageAssets.imageFile))
+            LiveImageIcon(.url(liveImageAssets.imageFile), config: .small)
         )
     }
     

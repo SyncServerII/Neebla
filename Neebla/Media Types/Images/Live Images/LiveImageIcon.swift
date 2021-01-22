@@ -3,16 +3,18 @@ import Foundation
 import SwiftUI
 
 struct LiveImageIcon: View {
-    let parameters: GenericImageIcon.Parameters
+    let modelSetup: GenericImageIcon.ModelSetup
+    let config: IconConfig
     
-    init(_ parameters: GenericImageIcon.Parameters) {
-        self.parameters = parameters
+    init(_ modelSetup: GenericImageIcon.ModelSetup, config: IconConfig) {
+        self.modelSetup = modelSetup
+        self.config = config
     }
     
     var body: some View {
         ZStack {
-            GenericImageIcon(parameters)
-            TextInLowerRight(text: "live")
+            GenericImageIcon(modelSetup, config: config)
+                .lowerRightText("live")
         }
     }
 }

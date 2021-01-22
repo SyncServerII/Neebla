@@ -7,14 +7,16 @@ import SwiftUI
 struct AnyIcon: View {
     let object: ServerObjectModel
     let upperRightView: AnyView?
+    let config: IconConfig
     private var badgeText: String?
     
-    init(object: ServerObjectModel, upperRightView: AnyView? = nil) {
+    init(object: ServerObjectModel, config: IconConfig, upperRightView: AnyView? = nil) {
         self.object = object
         self.upperRightView = upperRightView
         if let count = try? object.getCommentsUnreadCount(), count > 0 {
             badgeText = "\(count)"
         }
+        self.config = config
     }
     
     var body: some View {
@@ -23,29 +25,24 @@ struct AnyIcon: View {
                 switch object.objectType {
                 
                 case ImageObjectType.objectType:
-                    ImageIcon(object: object)
+                    ImageIcon(object: object, config: config)
                 
                 case URLObjectType.objectType:
-                    URLIcon(object: object)
+                    URLIcon(object: object, config: config)
                     
                 case LiveImageObjectType.objectType:
-                    LiveImageIcon(.object(fileLabel: LiveImageObjectType.imageDeclaration.fileLabel, object: object))
+                    LiveImageIcon(.object(fileLabel: LiveImageObjectType.imageDeclaration.fileLabel, object: object), config: config)
                 
                 default:
                     EmptyView()
                 }
             }
-            
-            ViewInUpperRight {
-                if let upperRightView = upperRightView {
-                    upperRightView
-                }
-            }
+        }
+        .if(upperRightView != nil) {
+            $0.upperRightView(upperRightView!)
         }
         .if(badgeText != nil) {
-            $0.overlay(
-                BadgeOverlay(text: badgeText!).padding([.leading, .top], 5),
-                alignment: .topLeading)
+            $0.upperLeftBadge(badgeText!)
         }
         .onAppear() {
             Downloader.session.objectAccessed(object: object)

@@ -7,22 +7,23 @@ struct URLIcon: View {
     let object: ServerObjectModel
     @ObservedObject var model:URLModel
     @ObservedObject var imageModel:GenericImageModel
+    let config: IconConfig
     
-    init(object: ServerObjectModel) {
+    init(object: ServerObjectModel, config: IconConfig) {
         self.object = object
         model = URLModel(urlObject: object)
-        imageModel = GenericImageModel(fileLabel: urlFileLabel, fileGroupUUID: object.fileGroupUUID, imageScale: CGSize(width: GenericImageIcon.dimension, height: GenericImageIcon.dimension))
+        imageModel = GenericImageModel(fileLabel: urlFileLabel, fileGroupUUID: object.fileGroupUUID, imageScale: config.iconSize)
+        self.config = config
         model.getDescriptionText()
     }
     
     var body: some View {
         ZStack {
-            GenericImageIcon(.model(imageModel))
-            
-            if imageModel.imageStatus == .none || imageModel.imageStatus == .loaded {
-                TextInLowerRight(text: "url")
-            }
-            
+            GenericImageIcon(.model(imageModel), config: config)
+                .if(imageModel.imageStatus == .none || imageModel.imageStatus == .loaded) {
+                    $0.lowerRightText("url")
+                }
+
             if imageModel.imageStatus == .none {
                 // If there is no image, put some text from the .url file into the icon.
                 DescriptionText(description: model.description ?? "")

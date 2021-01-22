@@ -102,7 +102,7 @@ class ImageItemProvider: SXItemProvider {
     
     var preview: AnyView {
         AnyView(
-            GenericImageIcon(.url(imageAssets.imageURL))
+            GenericImageIcon(.url(imageAssets.imageURL), config: .small)
         )
     }
     

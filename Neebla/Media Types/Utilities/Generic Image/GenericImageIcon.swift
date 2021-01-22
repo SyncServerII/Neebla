@@ -6,23 +6,24 @@ import iOSShared
 
 struct GenericImageIcon: View {
     @ObservedObject var model:GenericImageModel
-    static let dimension: CGFloat = 75
     static let loadingImageIcon = "ImageLoading" // From Asset catalog
-
-    enum Parameters {
+    let config: IconConfig
+    
+    enum ModelSetup {
         case object(fileLabel:String, object: ServerObjectModel)
         case url(URL)
         case model(GenericImageModel)
     }
     
-    init(_ parameters: Parameters) {
-        switch parameters {
+    init(_ modelSetup: ModelSetup, config: IconConfig) {
+        self.config = config
+        switch modelSetup {
         case .model(let model):
             self.model = model
         case .object(fileLabel: let fileLabel, object: let object):
-            model = GenericImageModel(fileLabel: fileLabel, fileGroupUUID: object.fileGroupUUID, imageScale: CGSize(width: Self.dimension, height: Self.dimension))
+            model = GenericImageModel(fileLabel: fileLabel, fileGroupUUID: object.fileGroupUUID, imageScale: config.iconSize)
         case .url(let url):
-            model = GenericImageModel(fullSizeImageURL: url, imageScale: CGSize(width: Self.dimension, height: Self.dimension))
+            model = GenericImageModel(fullSizeImageURL: url, imageScale: config.iconSize)
         }
     }
     
@@ -55,7 +56,7 @@ struct GenericImageIcon: View {
                             .stroke(Color.black, lineWidth: 1)
                     )
             }
-        }.frame(width:Self.dimension, height:Self.dimension)
+        }.frame(width:config.dimension, height:config.dimension)
     }
 }
 

@@ -14,10 +14,9 @@ struct AlbumItemsScreen: View {
     }
     
     var body: some View {
-        iPadConditionalScreenBodySizer {
-            AlbumItemsScreenBody(album: sharingGroupUUID, albumName: albumName)
+        // Not using `iPadConditionalScreenBodySizer` here because we use the larger screen to show larger "icons". And on smaller screen, we just show smaller icons.
+        AlbumItemsScreenBody(album: sharingGroupUUID, albumName: albumName)
                 .background(Color.screenBackground)
-        }
     }
 }
 
@@ -112,16 +111,21 @@ struct AlbumItemsScreenBodyWithContent: View {
       
       What's helping is to use the image dimension as the minimum. This is looking OK on iPhone 8 and iPhone 11.
     */
-    let gridItemLayout = [
-        GridItem(.adaptive(minimum: GenericImageIcon.dimension), spacing: 5)
-    ]
+    let gridItemLayout: [GridItem]
     
     @State var object: ServerObjectModel?
     let albumName: String
-    
+    let config: IconConfig
+
     init(viewModel:AlbumItemsViewModel, albumName: String) {
         self.viewModel = viewModel
         self.albumName = albumName
+        
+        config = UIDevice.isPad ? .large : .small
+        
+        gridItemLayout = [
+            GridItem(.adaptive(minimum: config.dimension), spacing: 5)
+        ]
     }
     
     var body: some View {
@@ -129,7 +133,7 @@ struct AlbumItemsScreenBodyWithContent: View {
             RefreshableScrollView(refreshing: $viewModel.loading) {
                 LazyVGrid(columns: gridItemLayout) {
                     ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
-                        AlbumItemsScreenCell(object: item, viewModel: viewModel)
+                        AlbumItemsScreenCell(object: item, viewModel: viewModel, config: config)
                             .onTapGesture {
                                 if viewModel.sharing {
                                     viewModel.toggleItemToShare(fileGroupUUID: item.fileGroupUUID)
