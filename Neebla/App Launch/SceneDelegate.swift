@@ -32,6 +32,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        
+        // Because on an app launch when tapping on a sharing invitation, I don't get the `openURLContexts` method called. See also https://stackoverflow.com/questions/58973143
+        let urlinfo = connectionOptions.urlContexts
+        if let url = urlinfo.first?.url {
+            _ = Services.session.application(UIApplication.shared, open: url)
+        }
     }
 
     // See https://github.com/dropbox/SwiftyDropbox/issues/259
