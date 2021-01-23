@@ -40,6 +40,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     
     private var syncSubscription:AnyCancellable!
     var userEventSubscription:AnyCancellable!
+    var userEventSubscriptionOther:AnyCancellable!
     var textInputSubscription:AnyCancellable!
     let userAlertModel:UserAlertModel
     
@@ -58,6 +59,10 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
             self.getCurrentAlbums()
         }
         
+        userEventSubscriptionOther = Services.session.serverInterface.$userEvent.sink { [weak self] _ in
+            self?.isShowingRefresh = false
+        }
+                
         // Give the user the current albums to look at initially. There's a `sync` in `onAppear` in the view-- which will update this if needed.
         getCurrentAlbums()
     }

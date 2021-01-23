@@ -63,6 +63,7 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     private var syncSubscription:AnyCancellable!
     var userEventSubscription:AnyCancellable!
     private var markAsDownloadedSubscription:AnyCancellable!
+    private var userEventSubscriptionOther:AnyCancellable!
     private var objectDeletedSubscription:AnyCancellable!
     private var settingsDiscussionFilterSubscription:AnyCancellable!
     private var settingsSortBySubscription:AnyCancellable!
@@ -119,6 +120,10 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
             if let _ = try? ServerObjectModel.fetchSingleRow(db: Services.session.db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) {
                 self.getItemsForAlbum(album: sharingGroupUUID)
             }
+        }
+        
+        userEventSubscriptionOther = Services.session.serverInterface.$userEvent.sink { [weak self] _ in
+            self?.loading = false
         }
         
         sync()
