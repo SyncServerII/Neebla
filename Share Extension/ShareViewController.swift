@@ -169,9 +169,7 @@ extension ShareViewController {
             showAlert(title: "Alert!", message: "Problem with setting up sharing.")
             return false
         }
-        
-        // Doing initial sync in ShareViewModel.
-        
+                
         return true
     }
 

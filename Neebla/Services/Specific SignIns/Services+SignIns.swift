@@ -42,18 +42,21 @@ extension Services {
             }
         }
 
-        let facebookSignIn = FacebookSyncServerSignIn()
-        let facebookSignInButton = facebookSignIn.signInButton(configuration: nil)
-        
-        if let facebookButton = facebookSignInButton {
-            let facebookDescription =
-                SignInDescription(
-                    signInName:facebookSignIn.signInName,
-                    userType: facebookSignIn.userType,
-                    button: facebookButton)
-            signIns += [(facebookSignIn, facebookDescription)]
+        // Not yet allowing Facebook signin for the sharing extension: https://github.com/facebook/facebook-ios-sdk/issues/1607
+        if !Bundle.isAppExtension {
+            let facebookSignIn = FacebookSyncServerSignIn()
+            let facebookSignInButton = facebookSignIn.signInButton(configuration: nil)
+            
+            if let facebookButton = facebookSignInButton {
+                let facebookDescription =
+                    SignInDescription(
+                        signInName:facebookSignIn.signInName,
+                        userType: facebookSignIn.userType,
+                        button: facebookButton)
+                signIns += [(facebookSignIn, facebookDescription)]
+            }
         }
-
+        
         if let googleClientId = configPlist.getValue(for: .GoogleClientId),
             let googleServerClientId = configPlist.getValue(for: .GoogleServerClientId) {
             let googleSignIn = GoogleSyncServerSignIn(serverClientId: googleServerClientId, appClientId: googleClientId, signInDelegate: self)

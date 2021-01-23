@@ -53,11 +53,21 @@ struct Container: View {
             case .some(true):
                 UploadToAlbumView(viewModel: viewModel)
             case .some(false):
-                Text("You are not signed in. Please sign in using the Neebla app.")
-                    .foregroundColor(Color(UIColor.label))
-                    .font(.title)
+                if manager.currentSignInClassName == nil {
+                    textToShow("You are not signed in. Please sign in using the Neebla app.")
+                        .font(.title)
+                }
+                else {
+                    textToShow("You are signed into Neebla, but unfortunately that sign in doesn't work with the sharing extension. Please add the media within Neebla.")
+                        .font(.title2)
+                }
             }
         }
+    }
+    
+    func textToShow(_ string: String) -> Text {
+        return Text(string)
+            .foregroundColor(Color(UIColor.label))
     }
 }
 

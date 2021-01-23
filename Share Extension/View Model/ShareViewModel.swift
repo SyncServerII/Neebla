@@ -31,7 +31,9 @@ class ShareViewModel: ObservableObject, ModelAlertDisplaying {
         // Have to do some wrangling to get an initial sync because user sign in may be async.
         userIsSignedInSubscription = Services.session.signInServices.manager.$userIsSignedIn.sink { [weak self] signedIn in
             guard let self = self else { return }
-            self.sync()
+            if let signedIn = signedIn, signedIn {
+                self.sync()
+            }
             self.userIsSignedInSubscription = nil
         }
 
