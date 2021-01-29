@@ -41,9 +41,9 @@
         "package": "ChangeResolvers",
         "repositoryURL": "https://github.com/SyncServerII/ChangeResolvers.git",
         "state": {
-          "branch": "master",
-          "revision": "30b73253204a79e036f133465005d5f16f923b9a",
-          "version": null
+          "branch": null,
+          "revision": "91e0f2a6b3121e83e1a369198d54141bb3e37b08",
+          "version": "0.0.2"
         }
       },
       {
@@ -59,9 +59,9 @@
         "package": "FileMD5Hash",
         "repositoryURL": "https://github.com/crspybits/FileMD5Hash.git",
         "state": {
-          "branch": "master",
-          "revision": "56279e6fbad92354ab6dff74afe8cb14a540902a",
-          "version": null
+          "branch": null,
+          "revision": "57861d188514a3e7a90728b1ab91020f3eb32476",
+          "version": "2.1.0"
         }
       },
       {
@@ -92,21 +92,66 @@
         }
       },
       {
+        "package": "iOSApple",
+        "repositoryURL": "http://github.com/SyncServerII/iOSApple.git",
+        "state": {
+          "branch": null,
+          "revision": "3464c371bd3c219970438dc4985f2b8874586c3b",
+          "version": "0.0.2"
+        }
+      },
+      {
         "package": "iOSBasics",
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
-          "branch": "master",
-          "revision": "1759c7e94cb9bb9caa69dd338e4bc5cbab3316fc",
-          "version": null
+          "branch": null,
+          "revision": "5ace1e754d4366ae07f970e288070fc0c03af846",
+          "version": "0.0.1"
+        }
+      },
+      {
+        "package": "iOSDropbox",
+        "repositoryURL": "http://github.com/SyncServerII/iOSDropbox.git",
+        "state": {
+          "branch": null,
+          "revision": "250cfdf83d477094333cce2dc0e713a34cc176b0",
+          "version": "0.0.3"
+        }
+      },
+      {
+        "package": "iOSFacebook",
+        "repositoryURL": "http://github.com/SyncServerII/iOSFacebook.git",
+        "state": {
+          "branch": null,
+          "revision": "0aabf44e4b5d132670bf461b3430ceb01dd83c28",
+          "version": "0.0.1"
         }
       },
       {
         "package": "iOSGoogle",
         "repositoryURL": "http://github.com/SyncServerII/iOSGoogle",
         "state": {
-          "branch": "main",
-          "revision": "e7eff53f80f595c74e06d7e564c01dc027d4753a",
-          "version": null
+          "branch": null,
+          "revision": "bc00e8cbdd1cad0b31bea598b06833a48d5952f8",
+          "version": "0.0.2"
+        }
+      },
+      {
+        "package": "iOSShared",
+        "repositoryURL": "https://github.com/SyncServerII/iOSShared.git",
+        "state": {
+          "branch": null,
+          "revision": "d610a64a56dad57bfa8fa9c21daa19f135e4f2fd",
+          "version": "0.0.2"
+        }
+      },
+      {
+        "package": "iOSSignIn",
+        "repositoryURL": "http://github.com/SyncServerII/iOSSIgnIn.git",
+        "state": {
+          "branch": null,
+          "revision": "a7679f9aeeefba4dd3ba30e33028910f934ce429",
+          "version": "0.0.3"
         }
       },
       {
@@ -185,18 +230,18 @@
         "package": "MessageKit",
         "repositoryURL": "https://github.com/MessageKit/MessageKit",
         "state": {
-          "branch": "master",
-          "revision": "69e6431db63aef641b57d33874e8bf0f48a87b46",
-          "version": null
+          "branch": null,
+          "revision": "7189e5a1af50160884bc6a5f9bdf9cb250dc139a",
+          "version": "3.5.0"
         }
       },
       {
         "package": "PersistentValue",
         "repositoryURL": "http://github.com/crspybits/PersistentValue.git",
         "state": {
-          "branch": "master",
-          "revision": "74adb41533af3e1205faf7f1852f2f7e6693f8c4",
-          "version": null
+          "branch": null,
+          "revision": "ede36cf07a63eec41f5cf100cd907d87e442843a",
+          "version": "0.7.1"
         }
       },
       {
@@ -212,9 +257,18 @@
         "package": "ServerAccount",
         "repositoryURL": "https://github.com/SyncServerII/ServerAccount.git",
         "state": {
-          "branch": "master",
-          "revision": "d15e402dfdccf49349ba2d525ff66b1167df7f0c",
-          "version": null
+          "branch": null,
+          "revision": "8dc5b24eb55f97c90bc989fac746302be53a1a0d",
+          "version": "0.0.8"
+        }
+      },
+      {
+        "package": "ServerShared",
+        "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
+        "state": {
+          "branch": null,
+          "revision": "6c725c50cdb575c183943dcfcdb7394390a5e933",
+          "version": "0.0.4"
         }
       },
       {
@@ -230,18 +284,18 @@
         "package": "SideMenu",
         "repositoryURL": "https://github.com/crspybits/SideMenu.git",
         "state": {
-          "branch": "master",
-          "revision": "18b133b3c33298e00a6742948dd674d872c37074",
-          "version": null
+          "branch": null,
+          "revision": "9a48389e29bc1abadc3971888e6942811dee06c6",
+          "version": "0.1.1"
         }
       },
       {
         "package": "SMLinkPreview",
         "repositoryURL": "https://github.com/crspybits/SMLinkPreview",
         "state": {
-          "branch": "master",
-          "revision": "11a02a4d81c31e2a05cd46989e68d3272c03d0eb",
-          "version": null
+          "branch": null,
+          "revision": "e6ea756df94f9816b5719a345488ee9b4c037564",
+          "version": "0.4.0"
         }
       },
       {
@@ -275,9 +329,9 @@
         "package": "swift-log-file",
         "repositoryURL": "http://github.com/crspybits/swift-log-file.git",
         "state": {
-          "branch": "main",
-          "revision": "7549e1247e0ea0dcd39b5a8713fbf8f7317fd30d",
-          "version": null
+          "branch": null,
+          "revision": "2992f003523ac359538120b482318bd73e3307f3",
+          "version": "0.0.2"
         }
       },
       {
@@ -318,11 +372,11 @@
       },
       {
         "package": "Toucan",
-        "repositoryURL": "https://github.com/petrpavlik/Toucan",
+        "repositoryURL": "http://github.com/SyncServerII/Toucan.git",
         "state": {
-          "branch": "develop",
-          "revision": "3755e969b0be377a62405c84d558a201e79bdacb",
-          "version": null
+          "branch": null,
+          "revision": "ed0a896d67cf111382add8dcd18d6ed8f8c05daa",
+          "version": "1.1.3"
         }
       },
       {

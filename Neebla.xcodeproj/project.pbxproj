@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8304B17E25C3ACC8009226BA /* iOSSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 8304B17D25C3ACC8009226BA /* iOSSignIn */; };
+		8304B18525C3B03D009226BA /* iOSDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 8304B18425C3B03D009226BA /* iOSDropbox */; };
+		8304B18725C3B047009226BA /* iOSGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 8304B18625C3B047009226BA /* iOSGoogle */; };
+		8304B18925C3B050009226BA /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 8304B18825C3B050009226BA /* iOSApple */; };
+		8304B18B25C3B075009226BA /* ImageIOSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8304B18A25C3B075009226BA /* ImageIOSwiftUI */; };
+		8304B18D25C3B082009226BA /* SMLinkPreview in Frameworks */ = {isa = PBXBuildFile; productRef = 8304B18C25C3B082009226BA /* SMLinkPreview */; };
 		8308B6D92569F595007F0CEB /* SMLinkPreview in Frameworks */ = {isa = PBXBuildFile; productRef = 8308B6D82569F595007F0CEB /* SMLinkPreview */; };
 		8308B6E3256A0479007F0CEB /* URLPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6E2256A0479007F0CEB /* URLPreviewView.swift */; };
 		8308B6E9256A0733007F0CEB /* URLPreviewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6E8256A0733007F0CEB /* URLPreviewGenerator.swift */; };
@@ -58,10 +64,6 @@
 		8331F36B255B8DD10063A67D /* SharingGroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F361255B8DD10063A67D /* SharingGroupsView.swift */; };
 		8331F36C255B8DD10063A67D /* SharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F362255B8DD10063A67D /* SharingView.swift */; };
 		8331F36D255B8DD10063A67D /* ItemPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F363255B8DD10063A67D /* ItemPreview.swift */; };
-		8331F372255B8F060063A67D /* iOSBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 8331F371255B8F060063A67D /* iOSBasics */; };
-		8331F374255B8F110063A67D /* FileLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 8331F373255B8F110063A67D /* FileLogging */; };
-		8331F376255B8F1C0063A67D /* iOSDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 8331F375255B8F1C0063A67D /* iOSDropbox */; };
-		8331F378255B8F2A0063A67D /* iOSFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 8331F377255B8F2A0063A67D /* iOSFacebook */; };
 		8331F37B255B8F740063A67D /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E8255B842E00375084 /* Services.swift */; };
 		8331F37E255B8F790063A67D /* Services+SignInServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E7255B842E00375084 /* Services+SignInServices.swift */; };
 		8331F381255B8F820063A67D /* Services+LoggingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */; };
@@ -106,7 +108,6 @@
 		8333E19F2567AE0200A5F79E /* URLPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8333E19E2567AE0200A5F79E /* URLPickerView.swift */; };
 		8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8333E1A62567B06D00A5F79E /* SearchBar.swift */; };
 		83383B6625A186BF009CA87F /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83383B6525A186BF009CA87F /* Badge.swift */; };
-		8340ADD1259FB4FC00AFB31E /* iOSGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 8340ADD0259FB4FC00AFB31E /* iOSGoogle */; };
 		834B259E258C5FC900F653BC /* ServerInterface+CloudHashing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B259D258C5FC900F653BC /* ServerInterface+CloudHashing.swift */; };
 		834B25A8258C60AF00F653BC /* ServerInterface+CloudHashing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B259D258C5FC900F653BC /* ServerInterface+CloudHashing.swift */; };
 		834B25AD258C613700F653BC /* Services+SignIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B25AC258C613700F653BC /* Services+SignIns.swift */; };
@@ -118,10 +119,7 @@
 		835104AD259FEBE300C5A05E /* CameraMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835104AC259FEBE300C5A05E /* CameraMediaPicker.swift */; };
 		835104B8259FF63100C5A05E /* PhotoLibraryMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835104B7259FF63100C5A05E /* PhotoLibraryMediaPicker.swift */; };
 		835104C3259FFED500C5A05E /* URLMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835104C2259FFED500C5A05E /* URLMediaPicker.swift */; };
-		835AC8D5255B82AD00375084 /* iOSDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8D4255B82AD00375084 /* iOSDropbox */; };
-		835AC8D9255B831800375084 /* iOSFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8D8255B831800375084 /* iOSFacebook */; };
 		835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8DC255B833A00375084 /* SFSafeSymbols */; };
-		835AC8E1255B835D00375084 /* FileLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8E0255B835D00375084 /* FileLogging */; };
 		835AC8E9255B842E00375084 /* LocalServices+Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E4255B842E00375084 /* LocalServices+Invitation.swift */; };
 		835AC8EA255B842E00375084 /* Services+LoggingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E5255B842E00375084 /* Services+LoggingHelpers.swift */; };
 		835AC8EB255B842E00375084 /* Services+Open.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E6255B842E00375084 /* Services+Open.swift */; };
@@ -129,9 +127,14 @@
 		835AC8ED255B842E00375084 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E8255B842E00375084 /* Services.swift */; };
 		835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */; };
 		835AC8F3255B848300375084 /* ServerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F1255B848300375084 /* ServerInterface.swift */; };
-		835AC8F8255B86AA00375084 /* PersistentValue in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8F7255B86AA00375084 /* PersistentValue */; };
-		8371C42D25ABCA0100E92F0D /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8371C42C25ABCA0100E92F0D /* Toucan */; };
-		8371C43225ABCA1C00E92F0D /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8371C43125ABCA1C00E92F0D /* Toucan */; };
+		835DB00B25C2934A00AE221F /* iOSBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 835DB00A25C2934A00AE221F /* iOSBasics */; };
+		838FC94A25C3C448008BA09A /* iOSFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 838FC94925C3C448008BA09A /* iOSFacebook */; };
+		838FC94C25C3C454008BA09A /* iOSSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 838FC94B25C3C454008BA09A /* iOSSignIn */; };
+		838FC95125C3C496008BA09A /* FileLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 838FC95025C3C496008BA09A /* FileLogging */; };
+		838FC95625C3C4E3008BA09A /* iOSBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 838FC95525C3C4E3008BA09A /* iOSBasics */; };
+		838FC96025C3C51F008BA09A /* ImageIOUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 838FC95F25C3C51F008BA09A /* ImageIOUIKit */; };
+		8399663D25C3CFBF00AD2AC8 /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8399663C25C3CFBF00AD2AC8 /* Toucan */; };
+		8399664225C3D06800AD2AC8 /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8399664125C3D06800AD2AC8 /* Toucan */; };
 		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
 		83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
 		83B0CB4725B2A51400D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
@@ -150,8 +153,6 @@
 		83B657DF255B81330041B9DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83B657DE255B81330041B9DF /* Assets.xcassets */; };
 		83B657E2255B81330041B9DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83B657E1255B81330041B9DF /* Preview Assets.xcassets */; };
 		83B657E5255B81330041B9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B657E3255B81330041B9DF /* LaunchScreen.storyboard */; };
-		83B657F0255B81EC0041B9DF /* iOSBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 83B657EF255B81EC0041B9DF /* iOSBasics */; };
-		83B657F4255B820B0041B9DF /* iOSSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 83B657F3255B820B0041B9DF /* iOSSignIn */; };
 		83BF781F257DCE9B000E0B37 /* UploadableMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */; };
 		83BF7824257DCFBD000E0B37 /* URLObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7823257DCFBD000E0B37 /* URLObjectType+Uploadable.swift */; };
 		83BF782C257DD242000E0B37 /* ImageObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF782B257DD242000E0B37 /* ImageObjectType+Uploadable.swift */; };
@@ -174,7 +175,6 @@
 		83BF7CCA258575F3000E0B37 /* URLObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7823257DCFBD000E0B37 /* URLObjectType+Uploadable.swift */; };
 		83BF7CCE258575FE000E0B37 /* UploadableMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */; };
 		83BF7CD225857611000E0B37 /* URLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B705256A3A53007F0CEB /* URLFile.swift */; };
-		83BF7CDE25857752000E0B37 /* SMLinkPreview in Frameworks */ = {isa = PBXBuildFile; productRef = 83BF7CDD25857752000E0B37 /* SMLinkPreview */; };
 		83BF7CE42585B915000E0B37 /* AlbumSharingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CE32585B915000E0B37 /* AlbumSharingScreen.swift */; };
 		83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7CE82585B99F000E0B37 /* AlbumSharingScreenModel.swift */; };
 		83BF80772585D8DA000E0B37 /* SignInScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF80762585D8DA000E0B37 /* SignInScreenModel.swift */; };
@@ -202,7 +202,6 @@
 		83C73506259922440073788A /* LiveImageObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7859258061DF000E0B37 /* LiveImageObjectType.swift */; };
 		83C7350A259922470073788A /* LiveImageObjectType+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7C692584595B000E0B37 /* LiveImageObjectType+Image.swift */; };
 		83C7350B259922490073788A /* LiveImageObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF785E258066BC000E0B37 /* LiveImageObjectType+Uploadable.swift */; };
-		83C7351A259924790073788A /* ImageIOUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 83C73519259924790073788A /* ImageIOUIKit */; };
 		83C7352425992CAD0073788A /* ItemProviderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7345325986DB60073788A /* ItemProviderFactory.swift */; };
 		83C7352825992CC10073788A /* ImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7345525986DB60073788A /* ImageItemProvider.swift */; };
 		83C73942259966470073788A /* URLItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C73941259966470073788A /* URLItemProvider.swift */; };
@@ -211,6 +210,9 @@
 		83CE1EAD257080EE004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
 		83CE1EB2257081BC004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
 		83CE1EBC257088F0004A418B /* PriorityQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EBB257088F0004A418B /* PriorityQueueTests.swift */; };
+		83D2FBE025C294B500E378F7 /* iOSDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 83D2FBDF25C294B500E378F7 /* iOSDropbox */; };
+		83D2FBE925C3A59500E378F7 /* iOSFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 83D2FBE825C3A59500E378F7 /* iOSFacebook */; };
+		83D2FBF225C3A6D500E378F7 /* FileLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 83D2FBF125C3A6D500E378F7 /* FileLogging */; };
 		83D5CF392564C2520018DE7C /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5CF382564C2520018DE7C /* Downloader.swift */; };
 		83D8CC0425B956200069E3E5 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 83D8CC0325B956200069E3E5 /* SideMenu */; };
 		83D8CC1425B97E570069E3E5 /* IconConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D8CC1325B97E570069E3E5 /* IconConfig.swift */; };
@@ -226,7 +228,6 @@
 		83E1A9912599A377004D4029 /* URLPreviewItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */; };
 		83E7B2C7257B5741008EE363 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */; };
 		83E7B2EB257D3EB9008EE363 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */; };
-		83EE70C725AA8C4F001EF706 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83EE70C625AA8C4F001EF706 /* iOSApple */; };
 		83F2C54B25A1510500D0B710 /* AddressNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2C54A25A1510500D0B710 /* AddressNavigation.swift */; };
 		83F389C5259044ED00610C76 /* iOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 83F389C4259044ED00610C76 /* iOSApple */; };
 		83F389D42590466B00610C76 /* LocalServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B6F2256A0A58007F0CEB /* LocalServices.swift */; };
@@ -241,6 +242,7 @@
 		83F416CF259E7D4E003C7200 /* Services+SignInServicesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416C4259E7BED003C7200 /* Services+SignInServicesHelper.swift */; };
 		83F416D4259E7DCE003C7200 /* Services+SignInsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */; };
 		83F416DB259E7E22003C7200 /* Services+SignInsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */; };
+		83F7EBAE25C3A7C500528B33 /* PersistentValue in Frameworks */ = {isa = PBXBuildFile; productRef = 83F7EBAD25C3A7C500528B33 /* PersistentValue */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -369,14 +371,9 @@
 		835AC8E8255B842E00375084 /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerInterface+Helpers.swift"; sourceTree = "<group>"; };
 		835AC8F1255B848300375084 /* ServerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInterface.swift; sourceTree = "<group>"; };
-		8371C42725AB816600E92F0D /* iOSApple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSApple; path = ../../iOSApple; sourceTree = "<group>"; };
-		837D83A325AC1BAB007938CC /* iOSSignIn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSSignIn; path = ../../iOSSignIn; sourceTree = "<group>"; };
-		837D83A725AC1E32007938CC /* iOSDropbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSDropbox; path = ../../iOSDropbox; sourceTree = "<group>"; };
-		83A151C525B7DA910094203B /* ServerShared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ServerShared; path = ../../ServerShared; sourceTree = "<group>"; };
 		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationMessage.swift; sourceTree = "<group>"; };
 		83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
-		83B0CB6025B2B9CE00D53B58 /* iOSShared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSShared; path = ../../iOSShared; sourceTree = "<group>"; };
 		83B0CB6825B3F55500D53B58 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		83B0CB7125B3FDBE00D53B58 /* SortFilterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterMenu.swift; sourceTree = "<group>"; };
 		83B0CB7925B411B900D53B58 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
@@ -431,7 +428,6 @@
 		83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPreviewItemProvider.swift; sourceTree = "<group>"; };
 		83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsViewModel.swift; path = "Neebla/UI/Screens/Object Details/CommentsViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
-		83EE70D225AAA1CC001EF706 /* iOSFacebook */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSFacebook; path = ../../iOSFacebook; sourceTree = "<group>"; };
 		83F2C54A25A1510500D0B710 /* AddressNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressNavigation.swift; sourceTree = "<group>"; };
 		83F4167A259C2074003C7200 /* UIDevice+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extras.swift"; sourceTree = "<group>"; };
 		83F41686259C21EC003C7200 /* View+iPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+iPad.swift"; sourceTree = "<group>"; };
@@ -447,15 +443,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8340ADD1259FB4FC00AFB31E /* iOSGoogle in Frameworks */,
-				8331F378255B8F2A0063A67D /* iOSFacebook in Frameworks */,
-				8371C43225ABCA1C00E92F0D /* Toucan in Frameworks */,
-				8331F376255B8F1C0063A67D /* iOSDropbox in Frameworks */,
-				83C7351A259924790073788A /* ImageIOUIKit in Frameworks */,
-				83BF7CDE25857752000E0B37 /* SMLinkPreview in Frameworks */,
-				83EE70C725AA8C4F001EF706 /* iOSApple in Frameworks */,
-				8331F374255B8F110063A67D /* FileLogging in Frameworks */,
-				8331F372255B8F060063A67D /* iOSBasics in Frameworks */,
+				838FC94A25C3C448008BA09A /* iOSFacebook in Frameworks */,
+				8304B18B25C3B075009226BA /* ImageIOSwiftUI in Frameworks */,
+				838FC95125C3C496008BA09A /* FileLogging in Frameworks */,
+				8304B18525C3B03D009226BA /* iOSDropbox in Frameworks */,
+				838FC96025C3C51F008BA09A /* ImageIOUIKit in Frameworks */,
+				8304B18D25C3B082009226BA /* SMLinkPreview in Frameworks */,
+				8304B18725C3B047009226BA /* iOSGoogle in Frameworks */,
+				838FC95625C3C4E3008BA09A /* iOSBasics in Frameworks */,
+				838FC94C25C3C454008BA09A /* iOSSignIn in Frameworks */,
+				8399664225C3D06800AD2AC8 /* Toucan in Frameworks */,
+				8304B18925C3B050009226BA /* iOSApple in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,22 +461,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8371C42D25ABCA0100E92F0D /* Toucan in Frameworks */,
-				835AC8E1255B835D00375084 /* FileLogging in Frameworks */,
+				8399663D25C3CFBF00AD2AC8 /* Toucan in Frameworks */,
+				83D2FBE025C294B500E378F7 /* iOSDropbox in Frameworks */,
 				835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */,
 				83269F10258C4E3500D27594 /* iOSGoogle in Frameworks */,
 				8320A70E256DF07E00819377 /* MessageKit in Frameworks */,
-				835AC8D9255B831800375084 /* iOSFacebook in Frameworks */,
 				832D342D25869E2D00FEF094 /* RadioGroup in Frameworks */,
 				83BF7C652581E474000E0B37 /* ImageIOSwift in Frameworks */,
 				83D8CC0425B956200069E3E5 /* SideMenu in Frameworks */,
 				83BF7C632581E474000E0B37 /* ImageIOUIKit in Frameworks */,
-				835AC8D5255B82AD00375084 /* iOSDropbox in Frameworks */,
-				83B657F4255B820B0041B9DF /* iOSSignIn in Frameworks */,
+				83F7EBAE25C3A7C500528B33 /* PersistentValue in Frameworks */,
+				83D2FBE925C3A59500E378F7 /* iOSFacebook in Frameworks */,
+				83D2FBF225C3A6D500E378F7 /* FileLogging in Frameworks */,
+				8304B17E25C3ACC8009226BA /* iOSSignIn in Frameworks */,
+				835DB00B25C2934A00AE221F /* iOSBasics in Frameworks */,
 				8331F425255F8C6D0063A67D /* SwiftUIRefresh in Frameworks */,
 				8308B6D92569F595007F0CEB /* SMLinkPreview in Frameworks */,
-				835AC8F8255B86AA00375084 /* PersistentValue in Frameworks */,
-				83B657F0255B81EC0041B9DF /* iOSBasics in Frameworks */,
 				83F389C5259044ED00610C76 /* iOSApple in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -672,12 +670,6 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
-				83A151C525B7DA910094203B /* ServerShared */,
-				83B0CB6025B2B9CE00D53B58 /* iOSShared */,
-				837D83A725AC1E32007938CC /* iOSDropbox */,
-				837D83A325AC1BAB007938CC /* iOSSignIn */,
-				8371C42725AB816600E92F0D /* iOSApple */,
-				83EE70D225AAA1CC001EF706 /* iOSFacebook */,
 			);
 			path = "Local Packages";
 			sourceTree = "<group>";
@@ -1193,15 +1185,17 @@
 			);
 			name = "Share Extension";
 			packageProductDependencies = (
-				8331F371255B8F060063A67D /* iOSBasics */,
-				8331F373255B8F110063A67D /* FileLogging */,
-				8331F375255B8F1C0063A67D /* iOSDropbox */,
-				8331F377255B8F2A0063A67D /* iOSFacebook */,
-				83BF7CDD25857752000E0B37 /* SMLinkPreview */,
-				83C73519259924790073788A /* ImageIOUIKit */,
-				8340ADD0259FB4FC00AFB31E /* iOSGoogle */,
-				83EE70C625AA8C4F001EF706 /* iOSApple */,
-				8371C43125ABCA1C00E92F0D /* Toucan */,
+				8304B18425C3B03D009226BA /* iOSDropbox */,
+				8304B18625C3B047009226BA /* iOSGoogle */,
+				8304B18825C3B050009226BA /* iOSApple */,
+				8304B18A25C3B075009226BA /* ImageIOSwiftUI */,
+				8304B18C25C3B082009226BA /* SMLinkPreview */,
+				838FC94925C3C448008BA09A /* iOSFacebook */,
+				838FC94B25C3C454008BA09A /* iOSSignIn */,
+				838FC95025C3C496008BA09A /* FileLogging */,
+				838FC95525C3C4E3008BA09A /* iOSBasics */,
+				838FC95F25C3C51F008BA09A /* ImageIOUIKit */,
+				8399664125C3D06800AD2AC8 /* Toucan */,
 			);
 			productName = "Share Extension";
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
@@ -1224,13 +1218,7 @@
 			);
 			name = Neebla;
 			packageProductDependencies = (
-				83B657EF255B81EC0041B9DF /* iOSBasics */,
-				83B657F3255B820B0041B9DF /* iOSSignIn */,
-				835AC8D4255B82AD00375084 /* iOSDropbox */,
-				835AC8D8255B831800375084 /* iOSFacebook */,
 				835AC8DC255B833A00375084 /* SFSafeSymbols */,
-				835AC8E0255B835D00375084 /* FileLogging */,
-				835AC8F7255B86AA00375084 /* PersistentValue */,
 				8331F424255F8C6D0063A67D /* SwiftUIRefresh */,
 				8308B6D82569F595007F0CEB /* SMLinkPreview */,
 				8320A70D256DF07E00819377 /* MessageKit */,
@@ -1239,8 +1227,14 @@
 				832D342C25869E2D00FEF094 /* RadioGroup */,
 				83269F0F258C4E3500D27594 /* iOSGoogle */,
 				83F389C4259044ED00610C76 /* iOSApple */,
-				8371C42C25ABCA0100E92F0D /* Toucan */,
 				83D8CC0325B956200069E3E5 /* SideMenu */,
+				835DB00A25C2934A00AE221F /* iOSBasics */,
+				83D2FBDF25C294B500E378F7 /* iOSDropbox */,
+				83D2FBE825C3A59500E378F7 /* iOSFacebook */,
+				83D2FBF125C3A6D500E378F7 /* FileLogging */,
+				83F7EBAD25C3A7C500528B33 /* PersistentValue */,
+				8304B17D25C3ACC8009226BA /* iOSSignIn */,
+				8399663C25C3CFBF00AD2AC8 /* Toucan */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -1295,13 +1289,7 @@
 			);
 			mainGroup = 83B657CC255B81320041B9DF;
 			packageReferences = (
-				83B657EE255B81EC0041B9DF /* XCRemoteSwiftPackageReference "iOSBasics" */,
-				83B657F2255B820B0041B9DF /* XCRemoteSwiftPackageReference "iOSSIgnIn" */,
-				835AC8D3255B82AD00375084 /* XCRemoteSwiftPackageReference "iOSDropbox" */,
-				835AC8D7255B831800375084 /* XCRemoteSwiftPackageReference "iOSFacebook" */,
 				835AC8DB255B833A00375084 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
-				835AC8DF255B835D00375084 /* XCRemoteSwiftPackageReference "swift-log-file" */,
-				835AC8F6255B86AA00375084 /* XCRemoteSwiftPackageReference "PersistentValue" */,
 				8331F423255F8C6D0063A67D /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
 				8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */,
 				8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */,
@@ -1309,8 +1297,14 @@
 				832D342B25869E2D00FEF094 /* XCRemoteSwiftPackageReference "RadioGroup" */,
 				83269F0E258C4E3500D27594 /* XCRemoteSwiftPackageReference "iOSGoogle" */,
 				83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */,
-				8371C42B25ABCA0100E92F0D /* XCRemoteSwiftPackageReference "Toucan" */,
 				83D8CC0225B9561F0069E3E5 /* XCRemoteSwiftPackageReference "SideMenu" */,
+				835DB00925C2934A00AE221F /* XCRemoteSwiftPackageReference "iOSBasics" */,
+				83D2FBDE25C294B500E378F7 /* XCRemoteSwiftPackageReference "iOSDropbox" */,
+				83D2FBE725C3A59500E378F7 /* XCRemoteSwiftPackageReference "iOSFacebook" */,
+				83D2FBF025C3A6D500E378F7 /* XCRemoteSwiftPackageReference "swift-log-file" */,
+				83F7EBAC25C3A7C500528B33 /* XCRemoteSwiftPackageReference "PersistentValue" */,
+				8304B17C25C3ACC8009226BA /* XCRemoteSwiftPackageReference "iOSSIgnIn" */,
+				8399663B25C3CFBF00AD2AC8 /* XCRemoteSwiftPackageReference "Toucan" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -1799,7 +1793,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210123.0;
+				CURRENT_PROJECT_VERSION = 20210127.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -1825,7 +1819,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210123.0;
+				CURRENT_PROJECT_VERSION = 20210127.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -1927,28 +1921,36 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8304B17C25C3ACC8009226BA /* XCRemoteSwiftPackageReference "iOSSIgnIn" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/SyncServerII/iOSSIgnIn.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
 		8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crspybits/SMLinkPreview";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
 			};
 		};
 		8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MessageKit/MessageKit";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.5.0;
 			};
 		};
 		83269F0E258C4E3500D27594 /* XCRemoteSwiftPackageReference "iOSGoogle" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSGoogle";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
 			};
 		};
 		832D342B25869E2D00FEF094 /* XCRemoteSwiftPackageReference "RadioGroup" */ = {
@@ -1967,22 +1969,6 @@
 				minimumVersion = 0.0.3;
 			};
 		};
-		835AC8D3255B82AD00375084 /* XCRemoteSwiftPackageReference "iOSDropbox" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "http://github.com/SyncServerII/iOSDropbox.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		835AC8D7255B831800375084 /* XCRemoteSwiftPackageReference "iOSFacebook" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "http://github.com/SyncServerII/iOSFacebook.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		835AC8DB255B833A00375084 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/piknotech/SFSafeSymbols.git";
@@ -1991,44 +1977,20 @@
 				minimumVersion = 2.0.2;
 			};
 		};
-		835AC8DF255B835D00375084 /* XCRemoteSwiftPackageReference "swift-log-file" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "http://github.com/crspybits/swift-log-file.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		835AC8F6255B86AA00375084 /* XCRemoteSwiftPackageReference "PersistentValue" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "http://github.com/crspybits/PersistentValue.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		8371C42B25ABCA0100E92F0D /* XCRemoteSwiftPackageReference "Toucan" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/petrpavlik/Toucan";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
-		83B657EE255B81EC0041B9DF /* XCRemoteSwiftPackageReference "iOSBasics" */ = {
+		835DB00925C2934A00AE221F /* XCRemoteSwiftPackageReference "iOSBasics" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSBasics.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.1;
 			};
 		};
-		83B657F2255B820B0041B9DF /* XCRemoteSwiftPackageReference "iOSSIgnIn" */ = {
+		8399663B25C3CFBF00AD2AC8 /* XCRemoteSwiftPackageReference "Toucan" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "http://github.com/SyncServerII/iOSSIgnIn.git";
+			repositoryURL = "http://github.com/SyncServerII/Toucan.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.3;
 			};
 		};
 		83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */ = {
@@ -2039,25 +2001,87 @@
 				minimumVersion = 1.1.1;
 			};
 		};
+		83D2FBDE25C294B500E378F7 /* XCRemoteSwiftPackageReference "iOSDropbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/SyncServerII/iOSDropbox.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
+		83D2FBE725C3A59500E378F7 /* XCRemoteSwiftPackageReference "iOSFacebook" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/SyncServerII/iOSFacebook.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.1;
+			};
+		};
+		83D2FBF025C3A6D500E378F7 /* XCRemoteSwiftPackageReference "swift-log-file" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/crspybits/swift-log-file.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
 		83D8CC0225B9561F0069E3E5 /* XCRemoteSwiftPackageReference "SideMenu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crspybits/SideMenu.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
 			};
 		};
 		83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSApple.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
+		83F7EBAC25C3A7C500528B33 /* XCRemoteSwiftPackageReference "PersistentValue" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/crspybits/PersistentValue.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8304B17D25C3ACC8009226BA /* iOSSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8304B17C25C3ACC8009226BA /* XCRemoteSwiftPackageReference "iOSSIgnIn" */;
+			productName = iOSSignIn;
+		};
+		8304B18425C3B03D009226BA /* iOSDropbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83D2FBDE25C294B500E378F7 /* XCRemoteSwiftPackageReference "iOSDropbox" */;
+			productName = iOSDropbox;
+		};
+		8304B18625C3B047009226BA /* iOSGoogle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83269F0E258C4E3500D27594 /* XCRemoteSwiftPackageReference "iOSGoogle" */;
+			productName = iOSGoogle;
+		};
+		8304B18825C3B050009226BA /* iOSApple */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */;
+			productName = iOSApple;
+		};
+		8304B18A25C3B075009226BA /* ImageIOSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */;
+			productName = ImageIOSwiftUI;
+		};
+		8304B18C25C3B082009226BA /* SMLinkPreview */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */;
+			productName = SMLinkPreview;
+		};
 		8308B6D82569F595007F0CEB /* SMLinkPreview */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */;
@@ -2078,80 +2102,55 @@
 			package = 832D342B25869E2D00FEF094 /* XCRemoteSwiftPackageReference "RadioGroup" */;
 			productName = RadioGroup;
 		};
-		8331F371255B8F060063A67D /* iOSBasics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83B657EE255B81EC0041B9DF /* XCRemoteSwiftPackageReference "iOSBasics" */;
-			productName = iOSBasics;
-		};
-		8331F373255B8F110063A67D /* FileLogging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 835AC8DF255B835D00375084 /* XCRemoteSwiftPackageReference "swift-log-file" */;
-			productName = FileLogging;
-		};
-		8331F375255B8F1C0063A67D /* iOSDropbox */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 835AC8D3255B82AD00375084 /* XCRemoteSwiftPackageReference "iOSDropbox" */;
-			productName = iOSDropbox;
-		};
-		8331F377255B8F2A0063A67D /* iOSFacebook */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 835AC8D7255B831800375084 /* XCRemoteSwiftPackageReference "iOSFacebook" */;
-			productName = iOSFacebook;
-		};
 		8331F424255F8C6D0063A67D /* SwiftUIRefresh */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8331F423255F8C6D0063A67D /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
 			productName = SwiftUIRefresh;
-		};
-		8340ADD0259FB4FC00AFB31E /* iOSGoogle */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83269F0E258C4E3500D27594 /* XCRemoteSwiftPackageReference "iOSGoogle" */;
-			productName = iOSGoogle;
-		};
-		835AC8D4255B82AD00375084 /* iOSDropbox */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 835AC8D3255B82AD00375084 /* XCRemoteSwiftPackageReference "iOSDropbox" */;
-			productName = iOSDropbox;
-		};
-		835AC8D8255B831800375084 /* iOSFacebook */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 835AC8D7255B831800375084 /* XCRemoteSwiftPackageReference "iOSFacebook" */;
-			productName = iOSFacebook;
 		};
 		835AC8DC255B833A00375084 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 835AC8DB255B833A00375084 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
 		};
-		835AC8E0255B835D00375084 /* FileLogging */ = {
+		835DB00A25C2934A00AE221F /* iOSBasics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 835AC8DF255B835D00375084 /* XCRemoteSwiftPackageReference "swift-log-file" */;
-			productName = FileLogging;
-		};
-		835AC8F7255B86AA00375084 /* PersistentValue */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 835AC8F6255B86AA00375084 /* XCRemoteSwiftPackageReference "PersistentValue" */;
-			productName = PersistentValue;
-		};
-		8371C42C25ABCA0100E92F0D /* Toucan */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8371C42B25ABCA0100E92F0D /* XCRemoteSwiftPackageReference "Toucan" */;
-			productName = Toucan;
-		};
-		8371C43125ABCA1C00E92F0D /* Toucan */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8371C42B25ABCA0100E92F0D /* XCRemoteSwiftPackageReference "Toucan" */;
-			productName = Toucan;
-		};
-		83B657EF255B81EC0041B9DF /* iOSBasics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83B657EE255B81EC0041B9DF /* XCRemoteSwiftPackageReference "iOSBasics" */;
+			package = 835DB00925C2934A00AE221F /* XCRemoteSwiftPackageReference "iOSBasics" */;
 			productName = iOSBasics;
 		};
-		83B657F3255B820B0041B9DF /* iOSSignIn */ = {
+		838FC94925C3C448008BA09A /* iOSFacebook */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 83B657F2255B820B0041B9DF /* XCRemoteSwiftPackageReference "iOSSIgnIn" */;
+			package = 83D2FBE725C3A59500E378F7 /* XCRemoteSwiftPackageReference "iOSFacebook" */;
+			productName = iOSFacebook;
+		};
+		838FC94B25C3C454008BA09A /* iOSSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8304B17C25C3ACC8009226BA /* XCRemoteSwiftPackageReference "iOSSIgnIn" */;
 			productName = iOSSignIn;
+		};
+		838FC95025C3C496008BA09A /* FileLogging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83D2FBF025C3A6D500E378F7 /* XCRemoteSwiftPackageReference "swift-log-file" */;
+			productName = FileLogging;
+		};
+		838FC95525C3C4E3008BA09A /* iOSBasics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 835DB00925C2934A00AE221F /* XCRemoteSwiftPackageReference "iOSBasics" */;
+			productName = iOSBasics;
+		};
+		838FC95F25C3C51F008BA09A /* ImageIOUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */;
+			productName = ImageIOUIKit;
+		};
+		8399663C25C3CFBF00AD2AC8 /* Toucan */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8399663B25C3CFBF00AD2AC8 /* XCRemoteSwiftPackageReference "Toucan" */;
+			productName = Toucan;
+		};
+		8399664125C3D06800AD2AC8 /* Toucan */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8399663B25C3CFBF00AD2AC8 /* XCRemoteSwiftPackageReference "Toucan" */;
+			productName = Toucan;
 		};
 		83BF7C622581E474000E0B37 /* ImageIOUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2163,30 +2162,35 @@
 			package = 83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */;
 			productName = ImageIOSwift;
 		};
-		83BF7CDD25857752000E0B37 /* SMLinkPreview */ = {
+		83D2FBDF25C294B500E378F7 /* iOSDropbox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8308B6D72569F595007F0CEB /* XCRemoteSwiftPackageReference "SMLinkPreview" */;
-			productName = SMLinkPreview;
+			package = 83D2FBDE25C294B500E378F7 /* XCRemoteSwiftPackageReference "iOSDropbox" */;
+			productName = iOSDropbox;
 		};
-		83C73519259924790073788A /* ImageIOUIKit */ = {
+		83D2FBE825C3A59500E378F7 /* iOSFacebook */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 83BF7C612581E473000E0B37 /* XCRemoteSwiftPackageReference "ImageIOSwift" */;
-			productName = ImageIOUIKit;
+			package = 83D2FBE725C3A59500E378F7 /* XCRemoteSwiftPackageReference "iOSFacebook" */;
+			productName = iOSFacebook;
+		};
+		83D2FBF125C3A6D500E378F7 /* FileLogging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83D2FBF025C3A6D500E378F7 /* XCRemoteSwiftPackageReference "swift-log-file" */;
+			productName = FileLogging;
 		};
 		83D8CC0325B956200069E3E5 /* SideMenu */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 83D8CC0225B9561F0069E3E5 /* XCRemoteSwiftPackageReference "SideMenu" */;
 			productName = SideMenu;
 		};
-		83EE70C625AA8C4F001EF706 /* iOSApple */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */;
-			productName = iOSApple;
-		};
 		83F389C4259044ED00610C76 /* iOSApple */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */;
 			productName = iOSApple;
+		};
+		83F7EBAD25C3A7C500528B33 /* PersistentValue */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83F7EBAC25C3A7C500528B33 /* XCRemoteSwiftPackageReference "PersistentValue" */;
+			productName = PersistentValue;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
