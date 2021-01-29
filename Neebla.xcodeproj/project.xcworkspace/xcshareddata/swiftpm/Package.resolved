@@ -74,15 +74,6 @@
         }
       },
       {
-        "package": "ImageIOSwift",
-        "repositoryURL": "https://github.com/davbeck/ImageIOSwift.git",
-        "state": {
-          "branch": null,
-          "revision": "6603c216dd034d31308601aacf62b7bbfd81bab5",
-          "version": "1.1.2"
-        }
-      },
-      {
         "package": "InputBarAccessoryView",
         "repositoryURL": "https://github.com/nathantannar4/InputBarAccessoryView",
         "state": {

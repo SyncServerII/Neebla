@@ -2,8 +2,6 @@
 import UIKit
 import iOSShared
 import CoreServices
-import ImageIOSwift
-import ImageIOUIKit
 
 extension LiveImageObjectType {
     static let makerAppleDictionary = kCGImagePropertyMakerAppleDictionary as String
@@ -36,13 +34,9 @@ extension LiveImageObjectType {
     // Adapted from https://github.com/OlegAba/LPLivePhotoGenerator
     private static func convertImageToLivePhotoFormat(heicURL: URL, outputJPEGImageURL: URL, assetID: String) throws {
     
-        guard let imageSource = ImageSource(url:heicURL),
-            let image = imageSource.image(at:0) else {
+        guard let image = UIImage(contentsOfFile: heicURL.path) else {
             throw LiveImageObjectTypeError.couldNotLoadHEIC
         }
-        
-        // I'm assuming this will always be 1 for our HEIC files, but want to get some data on this.
-        logger.debug("Success: imageSource.count: \(imageSource.count)")
         
         let jpegQuality = try SettingsModel.jpegQuality(db: Services.session.db)
         
