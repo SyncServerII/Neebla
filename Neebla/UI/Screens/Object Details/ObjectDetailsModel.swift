@@ -13,6 +13,9 @@ class ObjectDetailsModel: ObservableObject, ModelAlertDisplaying {
     @Published var modelInitialized: Bool
     
     init(object: ServerObjectModel, userAlertModel: UserAlertModel) {
+#if DEBUG
+        try? object.debugOutput()
+#endif
         self.object = object
         self.userAlertModel = userAlertModel
         

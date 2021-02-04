@@ -96,8 +96,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "914638e4e1d9c6ebbfc73c73d231c92d4b127b64",
-          "version": "0.0.2"
+          "revision": "d8856a06b1eedd2a6047a84e549dfd7b1061ce5b",
+          "version": "0.0.4"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "https://github.com/Kitura/Kitura-Session.git",
         "state": {
           "branch": null,
-          "revision": "774509e7fb48a01400c177c771faa5f8ff7842e4",
-          "version": "3.3.200"
+          "revision": "501de45890c6942f263a56145c9bca571002e09f",
+          "version": "3.3.201"
         }
       },
       {

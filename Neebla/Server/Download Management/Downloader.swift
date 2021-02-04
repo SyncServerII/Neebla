@@ -35,13 +35,15 @@ class Downloader {
     // The object was accessed-- i.e., presented to the user in the UI. (Not yet determined if any of the files in the object need downloading).
     func objectAccessed(object: ServerObjectModel) {
         do {
-            guard let _ = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: object.fileGroupUUID) else {
+            guard let _ = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: object.fileGroupUUID, includeGone: true) else {
                 return
             }
             
             Synchronized.block(self) {
                 priorityQueue.add(object: object)
             }
+            
+            logger.debug("priorityQueue.current.count: \(priorityQueue.current.count)")
         } catch let error {
             logger.error("\(error)")
         }
@@ -90,25 +92,28 @@ class Downloader {
         
         for objectModel in downloadsToStart {
             // Use sync server interface, just to make it simpler to get info for download.
-            if let downloadable = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: objectModel.fileGroupUUID) {
-                let files = downloadable.downloads.map { FileToDownload(uuid: $0.uuid, fileVersion: $0.fileVersion) }
-                let downloadObject = ObjectToDownload(fileGroupUUID: downloadable.fileGroupUUID, downloads: files)
-                
-                try Services.session.syncServer.queue(download: downloadObject)
-                logger.info("Started download for object: \(downloadObject.fileGroupUUID)")
-                
-                // Update the dowloadStatus of these files to `.downloading`
-                
-                func downloadingFile(fileUUID: UUID) -> Bool {
-                    return files.filter( {$0.uuid == fileUUID}).count == 1
-                }
-                
-                let fileModelsForObject = try objectModel.fileModels()
-                for fileModel in fileModelsForObject {
-                    if downloadingFile(fileUUID: fileModel.fileUUID) {
-                        try fileModel.update(setters: ServerFileModel.downloadStatusField.description <- .downloading)
-                        fileModel.postDownloadStatusUpdateNotification()
-                    }
+            guard let downloadable = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: objectModel.fileGroupUUID, includeGone: true) else {
+                logger.debug("No objectNeedsDownload")
+                continue
+            }
+
+            let files = downloadable.downloads.map { FileToDownload(uuid: $0.uuid, fileVersion: $0.fileVersion) }
+            let downloadObject = ObjectToDownload(fileGroupUUID: downloadable.fileGroupUUID, downloads: files)
+            
+            try Services.session.syncServer.queue(download: downloadObject)
+            logger.info("Started download for object: \(downloadObject.fileGroupUUID)")
+            
+            // Update the dowloadStatus of these files to `.downloading`
+            
+            func downloadingFile(fileUUID: UUID) -> Bool {
+                return files.filter( {$0.uuid == fileUUID}).count == 1
+            }
+            
+            let fileModelsForObject = try objectModel.fileModels()
+            for fileModel in fileModelsForObject {
+                if downloadingFile(fileUUID: fileModel.fileUUID) {
+                    try fileModel.update(setters: ServerFileModel.downloadStatusField.description <- .downloading)
+                    fileModel.postDownloadStatusUpdateNotification()
                 }
             }
         }

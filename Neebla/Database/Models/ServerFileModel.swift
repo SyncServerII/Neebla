@@ -238,13 +238,33 @@ extension Array where Element == DownloadedFile {
     // Update the downloadStatus of the associated `ServerFileModel`'s
     func update(db: Connection, downloadStatus: ServerFileModel.DownloadStatus) throws {
         for file in self {
+            var gone: Bool = false
+            switch file.contents {
+            case .download:
+                break
+            case .gone:
+                gone = true
+            }
+            
             guard let fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == file.uuid) else {
                 throw DatabaseModelError.notExactlyOneRow
             }
             
-            try fileModel.update(setters: ServerFileModel.downloadStatusField.description <- downloadStatus)
+            try fileModel.update(setters: ServerFileModel.downloadStatusField.description <- downloadStatus,
+                ServerFileModel.goneField.description <- gone
+            )
+            
             fileModel.postDownloadStatusUpdateNotification()
         }
     }
 }
 
+#if DEBUG
+extension ServerFileModel {
+    func debugOutput() throws {
+        logger.debug("url: \(String(describing: url)); fileLabel: \(fileLabel); gone: \(gone); downloadStatus: \(downloadStatus)")
+        let downloadsQueued = try Services.session.syncServer.numberQueued(.download)
+        logger.debug("downloadsQueued: \(downloadsQueued)")
+    }
+}
+#endif
