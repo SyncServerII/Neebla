@@ -192,7 +192,7 @@ class URLItemProvider: SXItemProvider {
         return handle
     }
     
-    var preview: AnyView {
+    func preview(for config: IconConfig) -> AnyView {
         return AnyView(
             URLPreviewItemProvider(linkData: urlAssets.linkData)
         )

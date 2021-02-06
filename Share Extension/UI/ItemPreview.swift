@@ -10,10 +10,11 @@ import SwiftUI
 
 struct ItemPreview: View {
     @ObservedObject var viewModel:ShareViewModel
+    let iconConfig: IconConfig
     
     var body: some View {
         if let sharingItem = viewModel.sharingItem {
-            sharingItem.preview
+            sharingItem.preview(for: iconConfig)
         }
         else {
             Rectangle()

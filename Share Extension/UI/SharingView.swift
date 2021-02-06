@@ -3,27 +3,24 @@ import SwiftUI
 import iOSSignIn
 
 struct SharingView: View {
-    static let itemPreviewSize = CGSize(width: 150, height: 150)
     @ObservedObject var viewModel:ShareViewModel
     @ObservedObject var userAlertModel:UserAlertModel
+    let insideViewOffset: CGFloat = 30
     
     init(viewModel: ShareViewModel) {
         self.viewModel = viewModel
         userAlertModel = viewModel.userAlertModel
     }
 
-    let insideViewOffset: CGFloat = 30
-    
     var body: some View {
-        return VStack {
+        VStack {
             VStack {
                 ButtonBar(viewModel: viewModel)
                 Spacer()
                 Spacer()
                 Container(viewModel: viewModel)
                 Spacer()
-                ItemPreview(viewModel: viewModel)
-                    .frame(width: Self.itemPreviewSize.width, height: Self.itemPreviewSize.height)
+                ItemPreview(viewModel: viewModel, iconConfig: .large)
                 Spacer()
             }
             .frame(

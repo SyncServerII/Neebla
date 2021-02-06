@@ -31,6 +31,7 @@
 		8320A73C256E170900819377 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A73B256E170900819377 /* MessagesView.swift */; };
 		8320A755256F530C00819377 /* SFSymbolIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A754256F530C00819377 /* SFSymbolIcon.swift */; };
 		8320A759256F568400819377 /* View+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A758256F568400819377 /* View+Extras.swift */; };
+		8322303B25CD0AA5006FC3EC /* View+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A758256F568400819377 /* View+Extras.swift */; };
 		832D341D258680B100FEF094 /* AlbumSharingModalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D341B258680B100FEF094 /* AlbumSharingModalModel.swift */; };
 		832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832D341C258680B100FEF094 /* AlbumSharingModal.swift */; };
 		832D342D25869E2D00FEF094 /* RadioGroup in Frameworks */ = {isa = PBXBuildFile; productRef = 832D342C25869E2D00FEF094 /* RadioGroup */; };
@@ -1433,6 +1434,7 @@
 				83F41682259C20D5003C7200 /* UIDevice+Extras.swift in Sources */,
 				83BF7CCA258575F3000E0B37 /* URLObjectType+Uploadable.swift in Sources */,
 				83C7348425986F970073788A /* ImageIcon.swift in Sources */,
+				8322303B25CD0AA5006FC3EC /* View+Extras.swift in Sources */,
 				8331F4E32561F9250063A67D /* FileInfo+Extras.swift in Sources */,
 				83CE1EB2257081BC004A418B /* BasicEquatable.swift in Sources */,
 				83C7344E25985B940073788A /* AlertMessage.swift in Sources */,

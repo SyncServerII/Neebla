@@ -109,6 +109,7 @@ extension ShareViewController {
     
     func setupView(viewModel: ShareViewModel)  {
         setViewModelSize(size: view.frame.size)
+
         hostingController = UIHostingController(rootView: SharingView(viewModel: viewModel))
         addChild(hostingController)
         
@@ -131,17 +132,25 @@ extension ShareViewController {
     }
     
     func setViewModelSize(size: CGSize) {
-        let widthProportion: CGFloat = 0.8
-        let shortHeightProportion: CGFloat = widthProportion
-        let tallHeightProportion: CGFloat = 0.7
-        
-        viewModel.width = size.width * widthProportion
-        
-        if size.height > size.width {
-            viewModel.height = size.height * tallHeightProportion
+        if UIDevice.isPad {
+            // Using a fixed size because I'm not getting good results on resizing. On iPad only?
+            let modalSize = CGSize(width: 600, height: 700)
+            viewModel.width = modalSize.width
+            viewModel.height = modalSize.height
         }
         else {
-            viewModel.height = size.height * shortHeightProportion
+            let widthProportion: CGFloat = 0.8
+            let shortHeightProportion: CGFloat = widthProportion
+            let tallHeightProportion: CGFloat = 0.7
+            
+            viewModel.width = size.width * widthProportion
+            
+            if size.height > size.width {
+                viewModel.height = size.height * tallHeightProportion
+            }
+            else {
+                viewModel.height = size.height * shortHeightProportion
+            }
         }
     }
     

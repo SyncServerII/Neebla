@@ -162,9 +162,9 @@ class ImageItemProvider: SXItemProvider {
         return nil
     }
     
-    var preview: AnyView {
+    func preview(for config: IconConfig) -> AnyView {
         AnyView(
-            GenericImageIcon(.url(imageAssets.imageURL), config: .small)
+            GenericImageIcon(.url(imageAssets.imageURL), config: config)
         )
     }
     

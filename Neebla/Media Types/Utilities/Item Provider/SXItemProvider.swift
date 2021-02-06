@@ -10,6 +10,6 @@ protocol SXItemProvider: ItemProvider {
     // Returns a handle, that if non-nil, you need to keep a strong reference to until the completion handler returns.
     static func create(item: NSItemProvider, completion:@escaping (Result<SXItemProvider, Error>)->()) -> Any?
     
-    var preview: AnyView { get }
+    func preview(for config: IconConfig) -> AnyView
     func upload(toAlbum sharingGroupUUID: UUID) throws
 }
