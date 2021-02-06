@@ -5,6 +5,7 @@ import SwiftUI
 import Combine
 import iOSShared
 import MessageUI
+import SQLite
 
 class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
     enum ShowSheet {
@@ -23,13 +24,38 @@ class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
     }
     
     var userEventSubscription: AnyCancellable!
+
     @Published var userAlertModel: UserAlertModel
     @Published var showSheet: Bool = false
     @Published var sheet: ShowSheet?
     @Published var sendMailResult: Swift.Result<MFMailComposeResult, Error>? = nil
-
+    @Published var initialUserName: String?
+    @Published var userName: String?
+    
     init(userAlertModel: UserAlertModel) {
         self.userAlertModel = userAlertModel
         setupHandleUserEvents()
+        
+        do {
+            if let userName = try SettingsModel.userName(db: Services.session.db) {
+                initialUserName = userName
+                self.userName = initialUserName
+            }
+            else if let userName = Services.session.signInServices.manager.currentSignIn?.credentials?.username {
+                updateUserName(userName: userName)
+            }
+        } catch let error {
+            logger.error("\(error)")
+        }
+    }
+    
+    func updateUserName(userName: String?) {
+        do {
+            try SettingsModel.update(userName: userName, db: Services.session.db)
+            initialUserName = userName
+            self.userName = userName
+        } catch let error {
+            logger.error("\(error)")
+        }
     }
 }

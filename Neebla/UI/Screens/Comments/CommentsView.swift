@@ -6,9 +6,11 @@ struct CommentsView: View {
     static let buttonBarHeight: CGFloat = 45
     var model: CommentsViewModel?
     @Environment(\.presentationMode) var isPresented
+    @ObservedObject var userAlertModel:UserAlertModel
     
-    init(object:ServerObjectModel) {
-        model = CommentsViewModel(object: object)
+    init(object:ServerObjectModel, userAlertModel:UserAlertModel) {
+        self.userAlertModel = userAlertModel
+        model = CommentsViewModel(object: object, userAlertModel: userAlertModel)
     }
     
     var body: some View {

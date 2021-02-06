@@ -6,7 +6,9 @@ import ChangeResolvers
 import iOSBasics
 import Combine
 
-class CommentsViewModel: ObservableObject {
+class CommentsViewModel: ObservableObject, ModelAlertDisplaying {
+    var userEventSubscription: AnyCancellable!
+    
     static let maxMessageLength = 1024
     private let commentsFileLabel = FileLabels.comments
     private let object:ServerObjectModel
@@ -16,19 +18,29 @@ class CommentsViewModel: ObservableObject {
     let unknownUserInitials = "MT"
 
     @Published private(set) var messages: [MessageType]
+    @Published var userAlertModel: UserAlertModel
+
     private(set) var senderUserId:String!
     private(set) var senderUserDisplayName:String!
     private var listener: AnyCancellable!
     
-    init?(object:ServerObjectModel) {
+    init?(object:ServerObjectModel, userAlertModel:UserAlertModel) {
         self.object = object
+        self.userAlertModel = userAlertModel
         messages = []
-        
-        guard let username = Services.session.signInServices.manager.currentSignIn?.credentials?.username else {
+
+        // Prioritizing the local setting-- but plan to propagate this local setting to the server in a new API call.
+        if let username = try? SettingsModel.userName(db: Services.session.db) {
+            senderUserDisplayName = username
+        }
+        else if let username = Services.session.signInServices.manager.currentSignIn?.credentials?.username {
+            senderUserDisplayName = username
+        }
+        else {
             logger.error("No user name for messages!")
+            // We're in the constructor. We want to show an error. But the view hasn't rendered yet. Delay a bit so the view gets rendered.
             return nil
         }
-        senderUserDisplayName = username
 
         guard let userId = Services.session.userId else {
             logger.error("No user id for messages!")
@@ -55,6 +67,8 @@ class CommentsViewModel: ObservableObject {
                 return
             }
         }
+        
+        setupHandleUserEvents()
     }
     
     private func loadDiscussion() -> Bool {

@@ -58,7 +58,7 @@ struct ObjectDetailsView: View {
             }.enabled(model.modelInitialized)
         )
         .sheet(isPresented: $showComments) {
-            CommentsView(object: object)
+            CommentsView(object: object, userAlertModel: userAlertModel)
         }
         .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
         .alert(isPresented: $showDeletion) {

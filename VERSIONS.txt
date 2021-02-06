@@ -1,10 +1,13 @@
 Neebla
 
-Version 2.0.1
+Version 2.0.0-Release
 	* Fix Push Notification error reporting
 	* Add re-retry to download failures.
 	* And other download improvements:
 		https://github.com/SyncServerII/iOSBasics/issues/2
+	
+	* Added name field to SQLite SettingsModel
+		Will this need a re-install?
 
 Version 2.0.0 (1/29/21)
 	* First successful upload of this version to iTunes Connect. 
