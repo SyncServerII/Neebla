@@ -7,6 +7,7 @@ Version 2.0.0-Release
 		https://github.com/SyncServerII/iOSBasics/issues/2
 	* Adding username support in Settings due to comments issue.
 	* Added name field to SQLite SettingsModel
+	* Enabled file logs to be sent to the developer.
 
 Version 2.0.0 (1/29/21)
 	* First successful upload of this version to iTunes Connect. 
