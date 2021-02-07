@@ -5,6 +5,7 @@ import ServerShared
 import iOSBasics
 import PersistentValue
 import SQLite
+import Logging
 
 // These services are shared with the Share Extension
 
@@ -59,9 +60,6 @@ class Services {
     
     // Going to use the literal bundle id, so it's the same across the app and the sharing extension.
     let keychainService = "biz.SpasticMuffin.SharedImages"
-
-    // In the documents directory
-    let logFileName = "LogFile.txt"
 
     static private var _session:Services!
         
@@ -188,16 +186,16 @@ class Services {
             return
         }
         
-        do {
-            try setupLogging()
-        } catch let error {
-            logger.error("Could not setup logging: \(error)")
-            Self.setupState = .failure
-            return
-        }
-        
-        // Do this *after* `setupLogging`-- the initial logger created by `iOSShared` doesn't have the file logging setup.
-        set(logLevel: .trace)
+        let loggingDir = Files.getDocumentsDirectory().appendingPathComponent(
+            LocalFiles.loggingDir)
+        let logFile = loggingDir.appendingPathComponent(LocalFiles.loggingFile)
+        let level:Logging.Logger.Level
+#if DEBUG
+        level = .trace
+#else
+        level = .notice
+#endif
+        sharedLogging.setup(logFileURL: logFile, logLevel: level)
         
         setupSignInServices(configPlist: configPlist, signIns: signIns, bundleIdentifier: bundleIdentifier, helper: self)
         

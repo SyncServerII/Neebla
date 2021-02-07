@@ -17,7 +17,17 @@ struct LocalFiles {
     // Temporary directory for image picker and other purposes. Files are not removed automatically so far.
     static let temporary = "temp"
     
+    // Directory for log files.
+    static let loggingDir = "logging"
+    
+    // File in `loggingDir`
+    static let loggingFile = "LogFile.txt"
+
     static func setup() throws {
+        let loggingDir = Files.getDocumentsDirectory().appendingPathComponent(
+            LocalFiles.loggingDir)
+        try Files.createDirectoryIfNeeded(loggingDir)
+        
         let iconsDir = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.icons)
         try Files.createDirectoryIfNeeded(iconsDir)

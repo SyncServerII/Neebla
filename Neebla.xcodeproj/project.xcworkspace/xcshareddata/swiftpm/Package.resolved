@@ -132,8 +132,8 @@
         "repositoryURL": "https://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "d610a64a56dad57bfa8fa9c21daa19f135e4f2fd",
-          "version": "0.0.2"
+          "revision": "c6d2f02791cea3a199979196d48a4c1d99bf813a",
+          "version": "0.1.1"
         }
       },
       {
@@ -321,8 +321,8 @@
         "repositoryURL": "http://github.com/crspybits/swift-log-file.git",
         "state": {
           "branch": null,
-          "revision": "2992f003523ac359538120b482318bd73e3307f3",
-          "version": "0.0.2"
+          "revision": "aa94b38bf88c7d9cbc87ceafcdffadaffbc2bffa",
+          "version": "0.1.0"
         }
       },
       {
@@ -386,6 +386,15 @@
           "branch": null,
           "revision": "fd4b0eb5756aa7f1c33977fb626cf37d2140a3a0",
           "version": "0.8.0"
+        }
+      },
+      {
+        "package": "XCGLogger",
+        "repositoryURL": "https://github.com/DaveWoodCom/XCGLogger.git",
+        "state": {
+          "branch": null,
+          "revision": "a9c4667b247928a29bdd41be2ec2c8d304215a54",
+          "version": "7.0.1"
         }
       }
     ]

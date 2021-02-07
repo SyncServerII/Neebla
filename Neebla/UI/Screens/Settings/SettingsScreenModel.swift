@@ -10,7 +10,7 @@ import SQLite
 class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
     enum ShowSheet {
         case albumList
-        case emailDeveloper
+        case emailDeveloper(addAttachments: AddEmailAttachments?)
     }
     
     var versionAndBuild:String {
@@ -70,6 +70,24 @@ class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
             } catch let error {
                 logger.error("\(error)")
             }
+        }
+    }
+}
+
+extension SettingsScreenModel: AddEmailAttachments {
+    func addAttachments(vc: MFMailComposeViewController) {
+        let archivedFileURLs = sharedLogging.archivedFileURLs
+        guard archivedFileURLs.count > 0 else {
+            return
+        }
+        
+        for logFileURL in archivedFileURLs {
+            guard let logFileData = try? Data(contentsOf: logFileURL, options: NSData.ReadingOptions()) else {
+                continue
+            }
+            
+            let fileName = logFileURL.lastPathComponent
+            vc.addAttachmentData(logFileData, mimeType: "text/plain", fileName: fileName)
         }
     }
 }

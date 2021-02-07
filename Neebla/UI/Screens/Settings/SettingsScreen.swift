@@ -54,12 +54,20 @@ struct SettingsScreenBody: View {
                 settingsModel.sheet = .albumList
                 settingsModel.showSheet = true
             }, label: {
-                Text("Remove user from album")
+                Text("Remove yourself from an album")
             })
             
             Button(action: {
-                settingsModel.sheet = .emailDeveloper
-                settingsModel.showSheet = true
+                let action = {
+                    settingsModel.sheet = .emailDeveloper(addAttachments: settingsModel)
+                    settingsModel.showSheet = true
+                }
+                let cancelAction = {
+                    settingsModel.sheet = .emailDeveloper(addAttachments: nil)
+                    settingsModel.showSheet = true
+                }
+                
+                userAlertModel.userAlert = .customDetailedAction(title: "Send logs?", message: "Would you like to send Neebla's logs to the developer?", actionButtonTitle:"Yes", action:action, cancelTitle: "No", cancelAction:cancelAction)
             }, label: {
                 Text("Contact developer")
             })
@@ -75,11 +83,13 @@ struct SettingsScreenBody: View {
             Spacer().frame(height: 20)
         } // end VStack
         .sheet(isPresented: $settingsModel.showSheet) {
-            if settingsModel.sheet == .albumList {
+            switch settingsModel.sheet {
+            case .albumList:
                 AlbumListModal()
-            }
-            else if settingsModel.sheet == .emailDeveloper {
-                MailView(emailContents: emailDeveloper, result: $settingsModel.sendMailResult)
+            case .emailDeveloper(let addAttachments):
+                MailView(emailContents: emailDeveloper, addAttachments: addAttachments, result: $settingsModel.sendMailResult)
+            case .none:
+                Text("Error: Should not appear")
             }
         }
         .showUserAlert(show: $userAlertModel.show, message: userAlertModel)

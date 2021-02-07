@@ -15,10 +15,12 @@ struct MailView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentation
     @Binding var result: Result<MFMailComposeResult, Error>?
     let emailContents: EmailContents
+    let addAttachments: AddEmailAttachments?
     
-    init(emailContents: EmailContents, result: Binding<Result<MFMailComposeResult, Error>?>) {
+    init(emailContents: EmailContents, addAttachments: AddEmailAttachments? = nil, result: Binding<Result<MFMailComposeResult, Error>?>) {
         self.emailContents = emailContents
         self._result = result
+        self.addAttachments = addAttachments
     }
     
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
@@ -62,6 +64,11 @@ struct MailView: UIViewControllerRepresentable {
             vc.setToRecipients([to])
         }
         vc.setSubject(emailContents.subject)
+        
+        if let addAttachments = addAttachments {
+            addAttachments.addAttachments(vc: vc)
+        }
+        
         return vc
     }
 

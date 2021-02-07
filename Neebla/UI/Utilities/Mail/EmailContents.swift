@@ -6,6 +6,11 @@
 //
 
 import Foundation
+import MessageUI
+
+protocol AddEmailAttachments {
+    func addAttachments(vc: MFMailComposeViewController)
+}
 
 struct EmailContents {
     let subject: String
