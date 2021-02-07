@@ -50,12 +50,26 @@ class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
     }
     
     func updateUserName(userName: String?) {
-        do {
-            try SettingsModel.update(userName: userName, db: Services.session.db)
-            initialUserName = userName
-            self.userName = userName
-        } catch let error {
-            logger.error("\(error)")
+        guard let userName = userName else {
+            return
+        }
+
+        Services.session.serverInterface.signIns.updateUser(userName: userName) { [weak self] error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                logger.error("\(error)")
+                self.userAlertModel.userAlert = .titleAndMessage(title: "Alert!", message: "Could not update user name. Please try again.")
+                return
+            }
+            
+            do {
+                try SettingsModel.update(userName: userName, db: Services.session.db)
+                self.initialUserName = userName
+                self.userName = userName
+            } catch let error {
+                logger.error("\(error)")
+            }
         }
     }
 }

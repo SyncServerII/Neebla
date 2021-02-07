@@ -37,8 +37,12 @@ class ServerInterface {
     
     // Subscribe to this to get fileGroupUUID's of objects deleted.
     @Published var deletionCompleted:UUID?
+    
+    let signIns: SignIns
 
     init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String) throws {
+        self.signIns = signIns
+        
         if deviceUUIDString.value == nil {
             let uuid = UUID().uuidString
             deviceUUIDString.value = uuid
