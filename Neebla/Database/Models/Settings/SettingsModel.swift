@@ -9,12 +9,17 @@ import CoreGraphics
 class SettingsModel: DatabaseModel, SingletonModel {
     let db: Connection
     var id: Int64!
+    
+    enum SettingsModelError: Error {
+        case badUserNameUpdate
+    }
 
     static let defaultJPEGQuality: CGFloat = 0.7
 
     static let jpegQualityField = Field("jpegQuality", \M.jpegQuality)
     var jpegQuality: CGFloat
-    
+
+    static let minimumUserNameLength = 1
     static let userNameField = Field("userName", \M.userName)
     var userName: String?
     
@@ -72,9 +77,29 @@ extension SettingsModel {
         return settings.userName
     }
     
+    // If new user name is valid, returned the trimmed new user name.
+    static func validUserNameUpdate(oldUserName: String?, newUserName: String?) -> String? {
+        guard let userName = newUserName?.trimmingCharacters(in: .whitespaces) else {
+            return nil
+        }
+        
+        guard userName.count >= minimumUserNameLength else {
+            return nil
+        }
+        
+        guard userName != oldUserName else {
+            return nil
+        }
+        
+        return userName
+    }
+    
     static func update(userName: String?, db: Connection) throws {
         let settings = try SettingsModel.getSingleton(db: Services.session.db)
-        let userName = userName?.trimmingCharacters(in: .whitespaces)
+        guard let userName = validUserNameUpdate(oldUserName: settings.userName, newUserName: userName) else {
+            throw SettingsModelError.badUserNameUpdate
+        }
+        
         try settings.update(setters: SettingsModel.userNameField.description <- userName)
     }
 }

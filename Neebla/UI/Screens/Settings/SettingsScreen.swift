@@ -41,13 +41,26 @@ struct SettingsScreenBody: View {
                         // I tried using a GeometryReader here to make this width a function of screen width, but that breaks the center alignment of the VStack. Grrrr.
                         width: textFieldWidth
                     )
-                    
-                Button(action: {
-                    settingsModel.updateUserName(userName: settingsModel.userName)
-                }, label: {
-                    Text("Update")
-                })
-                .enabled(settingsModel.initialUserName != settingsModel.userName)
+                
+                HStack {
+                    Button(action: {
+                        settingsModel.updateUserName(userName: settingsModel.userName) { success in
+                            if success {
+                                hideKeyboard()
+                            }
+                        }
+                    }, label: {
+                        Text("Update")
+                    })
+                    .enabled(settingsModel.userNameChangeIsValid)
+
+                    Button(action: {
+                        settingsModel.userName = settingsModel.initialUserName
+                    }, label: {
+                        Text("(Reset)")
+                    })
+                    .isHiddenRemove(settingsModel.userName == settingsModel.initialUserName)
+                }
             }
             
             Button(action: {
