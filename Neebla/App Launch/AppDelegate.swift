@@ -23,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
         
+        // Necessary with [1] below.
+        UNUserNotificationCenter.current().delegate = self
+        
         return Services.setupState.isComplete
     }
     
@@ -68,7 +71,7 @@ extension AppDelegate: ServicesDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    // This method will be called when app receives push notifications in foreground
+    // This method will be called when app receives push notifications in foreground. See [1] above.
     // See also https://stackoverflow.com/questions/14872088/get-push-notification-while-app-in-foreground-ios
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.list, .badge, .sound])
