@@ -27,6 +27,11 @@ class ServerFileModel: DatabaseModel {
     
     static let urlField = Field("url", \M.url)
     var url: URL?
+
+    // Fires when the unreadCount of a ServerFileModel changes. The `userInfo` of the notification received contains one key/value pair:
+    //      fileUUIDField.fieldName : file UUID
+    // Use the method `getFileModel` below to obtain the updated ServerFileModel given this notification.
+    static let unreadCountUpdate = NSNotification.Name("ServerFileModel.unreadCount.update")
     
     // The following two fields are non-nil only for files containing comments.
     static let unreadCountField = Field("unreadCount", \M.unreadCount)
@@ -169,6 +174,26 @@ extension ServerFileModel {
     
     func postDownloadStatusUpdateNotification() {
         NotificationCenter.default.post(name: Self.downloadStatusUpdate, object: nil, userInfo: [ServerFileModel.fileUUIDField.fieldName : fileUUID])
+    }
+    
+    // `sharingGroupUUID` is the sharing group for the object in which this file is contained.
+    func postUnreadCountUpdateNotification(sharingGroupUUID: UUID) {
+        NotificationCenter.default.post(name: Self.unreadCountUpdate, object: nil, userInfo: [
+            ServerFileModel.fileUUIDField.fieldName : fileUUID,
+            ServerObjectModel.sharingGroupUUIDField.fieldName: sharingGroupUUID
+        ])
+    }
+    
+    static func getUUIDs(from notification: Notification) -> (fileUUID: UUID, sharingGroupUUID: UUID?)? {
+        guard let fileValue = notification.userInfo?[ServerFileModel.fileUUIDField.fieldName],
+            let fileUUID = fileValue as? UUID else {
+            return nil
+        }
+
+        let sharingValue = notification.userInfo?[ServerObjectModel.sharingGroupUUIDField.fieldName]
+        let sharingGroupUUID = sharingValue as? UUID
+        
+        return (fileUUID, sharingGroupUUID)
     }
     
     // Use this when receiving a `downloadStatusUpdate` notification.

@@ -5,33 +5,29 @@ import SwiftUI
 // None of the icon's should have specific content in the upper right when normally rendered. This is so that `AnyIcon` can put `upperRightView` there.
 
 struct AnyIcon: View {
-    let object: ServerObjectModel
+    @ObservedObject var model:AnyIconModel
     let upperRightView: AnyView?
     let config: IconConfig
-    private var badgeText: String?
     
     init(object: ServerObjectModel, config: IconConfig, upperRightView: AnyView? = nil) {
-        self.object = object
+        model = AnyIconModel(object: object)
         self.upperRightView = upperRightView
-        if let count = try? object.getCommentsUnreadCount(), count > 0 {
-            badgeText = "\(count)"
-        }
         self.config = config
     }
     
     var body: some View {
         ZStack {
             VStack {
-                switch object.objectType {
+                switch model.object.objectType {
                 
                 case ImageObjectType.objectType:
-                    ImageIcon(object: object, config: config)
+                    ImageIcon(object: model.object, config: config)
                 
                 case URLObjectType.objectType:
-                    URLIcon(object: object, config: config)
+                    URLIcon(object: model.object, config: config)
                     
                 case LiveImageObjectType.objectType:
-                    LiveImageIcon(.object(fileLabel: LiveImageObjectType.imageDeclaration.fileLabel, object: object), config: config)
+                    LiveImageIcon(.object(fileLabel: LiveImageObjectType.imageDeclaration.fileLabel, object:  model.object), config: config)
                 
                 default:
                     EmptyView()
@@ -41,11 +37,11 @@ struct AnyIcon: View {
         .if(upperRightView != nil) {
             $0.upperRightView(upperRightView!)
         }
-        .if(badgeText != nil) {
-            $0.upperLeftBadge(badgeText!)
+        .if(model.badgeText != nil) {
+            $0.upperLeftBadge(model.badgeText!)
         }
         .onAppear() {
-            Downloader.session.objectAccessed(object: object)
+            Downloader.session.objectAccessed(object: model.object)
         }
     }
 }

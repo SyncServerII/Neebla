@@ -98,6 +98,8 @@ class Comments {
         }
         
         try objectModel.update(setters: ServerObjectModel.unreadCountField.description <- unreadCount ?? 0)
+        
+        fileModel.postUnreadCountUpdateNotification(sharingGroupUUID: objectModel.sharingGroupUUID)
     }
 }
 

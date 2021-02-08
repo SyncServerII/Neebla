@@ -207,54 +207,6 @@ private struct RightNavBarIcons: View {
     }
 }
 
-private struct AlbumsScreenRow: View {
-    @ObservedObject var album:AlbumModel
-    @ObservedObject var viewModel:AlbumsViewModel
-    var badgeText:String?
-    
-    init(album:AlbumModel, viewModel:AlbumsViewModel) {
-        self.album = album
-        self.viewModel = viewModel
-        if let unreadCount = try? viewModel.unreadCountFor(album: album.sharingGroupUUID), unreadCount > 0 {
-            badgeText = "\(unreadCount)"
-        }
-    }
-    
-    var body: some View {
-        HStack {
-            if let albumName = album.albumName {
-                Text(albumName)
-            }
-            else {
-                Text(AlbumModel.untitledAlbumName)
-            }
-
-            Spacer()
-            
-            if let badgeText = badgeText {
-                Badge(badgeText)
-            }
-            
-            // To change an album name and to share an album, you must have .admin permissions.
-            if album.permission.hasMinimumPermission(.admin) {
-                if viewModel.sharingMode {
-                    Icon(imageName: "Share", size: CGSize(width: 25, height: 25))
-                }
-                else {
-                    Button(action: {
-                        viewModel.startChangeExistingAlbumName(sharingGroupUUID: album.sharingGroupUUID, currentAlbumName: album.albumName)
-                    }, label: {
-                        Image(systemName: SFSymbol.pencil.rawValue)
-                    }).buttonStyle(PlainButtonStyle())
-                }
-            }
-
-            // I'm using the .buttonStyle above b/c otherwise, I'm not getting the button tap. See https://www.hackingwithswift.com/forums/swiftui/is-it-possible-to-have-a-button-action-in-a-list-foreach-view/1153
-            // See also https://stackoverflow.com/questions/56845670
-        }
-    }
-}
-
 private struct TextInputModal: View {
     @Environment(\.presentationMode) var isPresented
     @ObservedObject var viewModel:AlbumsViewModel
