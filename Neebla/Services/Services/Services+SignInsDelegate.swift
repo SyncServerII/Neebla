@@ -76,6 +76,7 @@ extension Services {
         if albums.count > 0 {
             logger.error("Different user attempting to sign in and there was data from the prior user.")
             serverInterface.userEvent = .showAlert(title: title, message: message)
+            logger.error("signUserOut")
             signInServices.manager.currentSignIn?.signUserOut()
             return true
         }

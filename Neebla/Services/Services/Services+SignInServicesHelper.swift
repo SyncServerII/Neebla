@@ -8,9 +8,11 @@
 import Foundation
 import iOSSignIn
 import ServerShared
+import iOSShared
 
 extension Services: iOSSignIn.SignInServicesHelper {
     public func signUserOut() {
+        logger.error("signUserOut")
         signInServices.manager.currentSignIn?.signUserOut()
     }
     
