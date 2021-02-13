@@ -119,11 +119,29 @@
         }
       },
       {
+        "package": "iOSGoogle",
+        "repositoryURL": "http://github.com/SyncServerII/iOSGoogle",
+        "state": {
+          "branch": null,
+          "revision": "e60543cbd91af15a202f0c3f95bf7f0349ffb2fe",
+          "version": "0.2.0"
+        }
+      },
+      {
         "package": "iOSShared",
         "repositoryURL": "https://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
           "revision": "c6d2f02791cea3a199979196d48a4c1d99bf813a",
+          "version": "0.1.1"
+        }
+      },
+      {
+        "package": "iOSSignIn",
+        "repositoryURL": "http://github.com/SyncServerII/iOSSIgnIn.git",
+        "state": {
+          "branch": null,
+          "revision": "b8cdd681c0bc07d3212ba7a82a6ca53f4adc4021",
           "version": "0.1.1"
         }
       },
