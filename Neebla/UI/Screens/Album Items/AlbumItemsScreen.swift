@@ -224,7 +224,7 @@ private struct AlbumItemsScreenNavRegularButtons: View {
             
             Menu {
                 Button(action: {
-                    viewModel.sharing = true
+                    viewModel.sharing.toggle()
                 }) {
                     Label("Share items", image: "Share")
                 }.enabled(viewModel.objects.count > 0)
@@ -238,7 +238,7 @@ private struct AlbumItemsScreenNavRegularButtons: View {
                 Button(action: {
                     viewModel.resetUnreadCount()
                 }) {
-                    Label("Reset unread counts", systemImage: "scissors")
+                    Label("Mark all read", systemImage: "scissors")
                 }
             } label: {
                 SFSymbolIcon(symbol: .ellipsis)
