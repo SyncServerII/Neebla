@@ -162,14 +162,8 @@ extension ShareViewController {
     
     // If false is returned an alert was given to the user.
     func setupServices() -> Bool {
-        // If the sharing extension is used twice in a row, we oddly have a state where it's already been initialized. Get a crash on multiple initialization, so be careful.
-        if Services.setupState == .none {
-            Services.setup(delegate: nil)
-        }
-        
-        if Services.setupState == .done(appLaunch: false) {
-            Services.session.appLaunch(options: nil)
-        }
+        Services.setup(delegate: nil)
+        Services.session.appLaunch(options: nil)
         
         logger.info("Services.session.setupState: \(Services.setupState)")
         

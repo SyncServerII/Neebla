@@ -234,6 +234,12 @@ private struct AlbumItemsScreenNavRegularButtons: View {
                 }) {
                     Label("Sync", systemImage: "goforward")
                 }
+                
+                Button(action: {
+                    viewModel.resetUnreadCount()
+                }) {
+                    Label("Reset unread counts", systemImage: "scissors")
+                }
             } label: {
                 SFSymbolIcon(symbol: .ellipsis)
             }

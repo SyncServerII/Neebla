@@ -239,4 +239,15 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
         
         return result
     }
+    
+    func resetUnreadCount() {
+        do {
+            for object in objects {
+                let commentFileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.comments, withFileGroupUUID: object.fileGroupUUID)
+                try Comments.resetReadCounts(commentFileModel: commentFileModel)
+            }
+        } catch let error {
+            logger.error("resetUnreadCount: \(error)")
+        }
+    }
 }

@@ -3,6 +3,7 @@ import Foundation
 import iOSBasics
 import ChangeResolvers
 import SQLite
+import iOSShared
 
 class Comments {
     let displayName = "comment"
@@ -48,7 +49,7 @@ class Comments {
         try commentFile.save(toFile: commentFileURL)
         
         // Since this a local change, we take this as "user has read all comments".
-        try Self.resetReadCounts(for: commentFileModel)
+        try Self.resetReadCounts(commentFileModel: commentFileModel)
     }
     
     // The UI-displayable title of media objects are stored in their associated comment file.
@@ -62,44 +63,53 @@ class Comments {
         return commentFile[Comments.Keys.mediaTitleKey] as? String
     }
     
-    static func updateUnreadCount(for fileModel: ServerFileModel) throws {
-        guard let url = fileModel.url else {
+    // Update the unread count for the comment file and its parent object, on the basis of the `commentFileModel.readCount`.
+    static func updateUnreadCount(commentFileModel: ServerFileModel) throws {
+        guard let url = commentFileModel.url else {
             return
         }
         
-        let currentReadCount = fileModel.readCount ?? 0
+        let currentReadCount = commentFileModel.readCount ?? 0
         let commentFile = try CommentFile(with: url)
         let currentUnreadCount = max(commentFile.count - currentReadCount, 0)
         
-        try setUnreadCount(for: fileModel, unreadCount: currentUnreadCount)
+        try setUnreadCount(commentFileModel: commentFileModel, unreadCount: currentUnreadCount)
     }
     
-    static func resetReadCounts(for fileModel: ServerFileModel) throws {
-        guard let url = fileModel.url else {
+    static func resetReadCounts(commentFileModel: ServerFileModel) throws {
+        guard let url = commentFileModel.url else {
+            logger.warning("resetReadCounts: No URL")
             return
         }
         
         let commentFile = try CommentFile(with: url)
 
-        try setUnreadCount(for: fileModel, unreadCount: 0)
-        try fileModel.update(setters: ServerFileModel.readCountField.description <- commentFile.count)
+        try setUnreadCount(commentFileModel: commentFileModel, unreadCount: 0)
+        if commentFileModel.readCount != commentFile.count {
+            try commentFileModel.update(setters: ServerFileModel.readCountField.description <- commentFile.count)
+        }
     }
     
     enum CommentsError: Error {
         case cannotFindObjectModel
     }
     
-    // Also sets the unreadCount for the "parent" ServerObjectModel
-    static func setUnreadCount(for fileModel: ServerFileModel, unreadCount:Int?) throws {
-        try fileModel.update(setters: ServerFileModel.unreadCountField.description <- unreadCount)
+    // Set the unread count to `unreadCount` for the commentFileModel and its "parent" ServerObjectModel
+    private static func setUnreadCount(commentFileModel: ServerFileModel, unreadCount:Int?) throws {
+        if commentFileModel.unreadCount != unreadCount {
+            try commentFileModel.update(setters: ServerFileModel.unreadCountField.description <- unreadCount)
+        }
         
-        guard let objectModel = try ServerObjectModel.fetchSingleRow(db: fileModel.db, where: ServerObjectModel.fileGroupUUIDField.description == fileModel.fileGroupUUID) else {
+        guard let objectModel = try ServerObjectModel.fetchSingleRow(db: commentFileModel.db, where: ServerObjectModel.fileGroupUUIDField.description == commentFileModel.fileGroupUUID) else {
             throw CommentsError.cannotFindObjectModel
         }
         
-        try objectModel.update(setters: ServerObjectModel.unreadCountField.description <- unreadCount ?? 0)
+        let unreadCount = unreadCount ?? 0
         
-        fileModel.postUnreadCountUpdateNotification(sharingGroupUUID: objectModel.sharingGroupUUID)
+        if objectModel.unreadCount != unreadCount {
+            try objectModel.update(setters: ServerObjectModel.unreadCountField.description <- unreadCount)
+            commentFileModel.postUnreadCountUpdateNotification(sharingGroupUUID: objectModel.sharingGroupUUID)
+        }
     }
 }
 

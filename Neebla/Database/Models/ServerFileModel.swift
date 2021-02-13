@@ -246,14 +246,14 @@ extension DownloadedFile {
                 ServerFileModel.urlField.description <- contentsURL)
                 
             if fileModel.fileLabel == FileLabels.comments {
-                try Comments.updateUnreadCount(for: fileModel)
+                try Comments.updateUnreadCount(commentFileModel: fileModel)
             }
         }
         else {
             let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: uuid, fileLabel: fileLabel, downloadStatus: downloadStatus, gone: gone, url: contentsURL)
             try model.insert()
             if model.fileLabel == FileLabels.comments {
-                try Comments.updateUnreadCount(for: model)
+                try Comments.updateUnreadCount(commentFileModel: model)
             }
         }
     }

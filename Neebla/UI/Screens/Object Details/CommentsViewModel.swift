@@ -166,7 +166,7 @@ class CommentsViewModel: ObservableObject, ModelAlertDisplaying {
     
     func resetUnreadCount() {
         do {
-            try Comments.resetReadCounts(for: commentFileModel)
+            try Comments.resetReadCounts(commentFileModel: commentFileModel)
         } catch let error {
             logger.error("\(error)")
         }

@@ -361,6 +361,8 @@
 		834CC64F25D0E439004A9BF1 /* AnyIconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyIconModel.swift; sourceTree = "<group>"; };
 		834CC65425D0F4D7004A9BF1 /* AlbumScreenRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumScreenRow.swift; sourceTree = "<group>"; };
 		834CC65925D0F528004A9BF1 /* AlbumScreenRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumScreenRowModel.swift; sourceTree = "<group>"; };
+		834CC67525D6318E004A9BF1 /* iOSGoogle */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSGoogle; path = ../../iOSGoogle; sourceTree = "<group>"; };
+		834CC67925D632E8004A9BF1 /* iOSSignIn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSSignIn; path = ../../iOSSignIn; sourceTree = "<group>"; };
 		835104A3259FE91900C5A05E /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
 		835104AC259FEBE300C5A05E /* CameraMediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMediaPicker.swift; sourceTree = "<group>"; };
 		835104B7259FF63100C5A05E /* PhotoLibraryMediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryMediaPicker.swift; sourceTree = "<group>"; };
@@ -671,6 +673,8 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				834CC67525D6318E004A9BF1 /* iOSGoogle */,
+				834CC67925D632E8004A9BF1 /* iOSSignIn */,
 			);
 			path = "Local Packages";
 			sourceTree = "<group>";
@@ -1661,7 +1665,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210209.0;
+				CURRENT_PROJECT_VERSION = 20210212.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1683,7 +1687,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210209.0;
+				CURRENT_PROJECT_VERSION = 20210212.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1824,7 +1828,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210209.0;
+				CURRENT_PROJECT_VERSION = 20210212.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -1850,7 +1854,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210209.0;
+				CURRENT_PROJECT_VERSION = 20210212.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
