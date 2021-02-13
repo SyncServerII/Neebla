@@ -73,8 +73,10 @@ extension AppDelegate: ServicesDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     // This method will be called when app receives push notifications in foreground. See [1] above.
     // See also https://stackoverflow.com/questions/14872088/get-push-notification-while-app-in-foreground-ios
-    // And https://stackoverflow.com/questions/30852870/displaying-a-stock-ios-notification-banner-when-your-app-is-open-and-in-the-fore (for problem when app is in fg).
+    // And https://stackoverflow.com/questions/30852870 (for problem when app is in fg).
+    // And https://stackoverflow.com/questions/59674174
+    // The solution seems to be: https://developer.apple.com/forums/thread/661953
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.list, .badge, .sound])
+        completionHandler([.banner, .badge, .sound])
     }
 }

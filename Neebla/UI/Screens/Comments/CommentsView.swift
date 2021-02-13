@@ -20,7 +20,7 @@ struct CommentsView: View {
                    Button(action: {
                         isPresented.wrappedValue.dismiss()
                     }, label: {
-                        Text("Cancel")
+                        SFSymbolIcon(symbol: .multiplyCircle)
                     })
                         
                     Spacer()
