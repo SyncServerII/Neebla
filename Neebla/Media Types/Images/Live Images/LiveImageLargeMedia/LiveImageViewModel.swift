@@ -9,6 +9,7 @@ class LiveImageViewModel {
     let movieFileLabel = LiveImageObjectType.movieDeclaration.fileLabel
     let imageURL: URL
     let movieURL: URL
+    var started = false
         
     init?(fileGroupUUID: UUID) {
         do {

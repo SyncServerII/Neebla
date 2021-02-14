@@ -2,6 +2,7 @@
 import Foundation
 import SwiftUI
 import PhotosUI
+import iOSShared
 
 struct LiveImageView: UIViewRepresentable {
     let view: PHLivePhotoView
@@ -29,6 +30,16 @@ struct LiveImageView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
+        guard let model = model else {
+            return
+        }
+        
+        guard !model.started else {
+            return
+        }
+        
+        model.started = true
+        view.startPlayback(with: .full)
     }
 }
 
