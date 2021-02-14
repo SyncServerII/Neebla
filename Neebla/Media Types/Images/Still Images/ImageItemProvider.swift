@@ -90,6 +90,8 @@ class ImageItemProvider: SXItemProvider {
                 completion(.failure(ImageItemProviderError.couldNotConvertHEICToImage))
                 return
             }
+            
+            // image.size
 
             guard let jpegQuality = try? SettingsModel.jpegQuality(db: Services.session.db) else {
                 logger.error("Could not get settings.")

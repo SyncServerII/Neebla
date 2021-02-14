@@ -34,11 +34,13 @@ class AlbumScreenRowModel: ObservableObject {
         do {
             let count = try unreadCountFor(album: self.sharingGroupUUID)
 
-            if count > 0 {
-                badgeText = "\(count)"
-            }
-            else {
-                badgeText = nil
+            DispatchQueue.main.async {
+                if count > 0 {
+                    self.badgeText = "\(count)"
+                }
+                else {
+                    self.badgeText = nil
+                }
             }
         }
         catch let error {

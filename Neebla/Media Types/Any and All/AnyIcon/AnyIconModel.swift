@@ -45,11 +45,13 @@ class AnyIconModel: ObservableObject {
     }
     
     private func updateBadge(_ count:Int?) {
-        if let count = count, count > 0 {
-            badgeText = "\(count)"
-        }
-        else {
-            badgeText = nil
+        DispatchQueue.main.async {
+            if let count = count, count > 0 {
+                self.badgeText = "\(count)"
+            }
+            else {
+                self.badgeText = nil
+            }
         }
     }
 }

@@ -124,6 +124,7 @@
 		835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */; };
 		835AC8F3255B848300375084 /* ServerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F1255B848300375084 /* ServerInterface.swift */; };
 		835DB00B25C2934A00AE221F /* iOSBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 835DB00A25C2934A00AE221F /* iOSBasics */; };
+		837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46B325D8D02100CAC322 /* CGSize+Extras.swift */; };
 		8385709325C3EDA800F872E3 /* iOSGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 8385709225C3EDA800F872E3 /* iOSGoogle */; };
 		8399663D25C3CFBF00AD2AC8 /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8399663C25C3CFBF00AD2AC8 /* Toucan */; };
 		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
@@ -198,7 +199,6 @@
 		83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EA625707E79004A418B /* PriorityQueue.swift */; };
 		83CE1EAD257080EE004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
 		83CE1EB2257081BC004A418B /* BasicEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EAC257080EE004A418B /* BasicEquatable.swift */; };
-		83CE1EBC257088F0004A418B /* PriorityQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE1EBB257088F0004A418B /* PriorityQueueTests.swift */; };
 		83D2FBE025C294B500E378F7 /* iOSDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 83D2FBDF25C294B500E378F7 /* iOSDropbox */; };
 		83D2FBE925C3A59500E378F7 /* iOSFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 83D2FBE825C3A59500E378F7 /* iOSFacebook */; };
 		83D2FBF225C3A6D500E378F7 /* FileLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 83D2FBF125C3A6D500E378F7 /* FileLogging */; };
@@ -250,13 +250,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8331F346255B8CC50063A67D;
 			remoteInfo = "Share Extension";
-		};
-		83CE1EBE257088F0004A418B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83B657CD255B81320041B9DF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83B657D4255B81320041B9DF;
-			remoteInfo = Neebla;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -371,6 +364,7 @@
 		835AC8E8255B842E00375084 /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerInterface+Helpers.swift"; sourceTree = "<group>"; };
 		835AC8F1255B848300375084 /* ServerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInterface.swift; sourceTree = "<group>"; };
+		837A46B325D8D02100CAC322 /* CGSize+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extras.swift"; sourceTree = "<group>"; };
 		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationMessage.swift; sourceTree = "<group>"; };
 		83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
@@ -417,9 +411,6 @@
 		83C73941259966470073788A /* URLItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLItemProvider.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		83CE1EAC257080EE004A418B /* BasicEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicEquatable.swift; sourceTree = "<group>"; };
-		83CE1EB9257088F0004A418B /* PriorityQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriorityQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		83CE1EBB257088F0004A418B /* PriorityQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueueTests.swift; sourceTree = "<group>"; };
-		83CE1EBD257088F0004A418B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83D5CF382564C2520018DE7C /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		83D8CC1325B97E570069E3E5 /* IconConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconConfig.swift; sourceTree = "<group>"; };
 		83D8CC1F25BA7F2B0069E3E5 /* LowerRightText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerRightText.swift; sourceTree = "<group>"; };
@@ -480,13 +471,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83CE1EB6257088F0004A418B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -505,6 +489,7 @@
 			children = (
 				8331F4782560CC610063A67D /* Item Types */,
 				83C7345225986D080073788A /* Item Provider */,
+				837A46B325D8D02100CAC322 /* CGSize+Extras.swift */,
 				83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */,
 				83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */,
 				835104A3259FE91900C5A05E /* MediaPicker.swift */,
@@ -947,7 +932,6 @@
 				8331F3AD255BADDE0063A67D /* Local Packages */,
 				83B657D7255B81320041B9DF /* Neebla */,
 				8331F348255B8CC50063A67D /* Share Extension */,
-				83CE1EBA257088F0004A418B /* PriorityQueueTests */,
 				83B657D6255B81320041B9DF /* Products */,
 				8331F370255B8F060063A67D /* Frameworks */,
 			);
@@ -958,7 +942,6 @@
 			children = (
 				83B657D5255B81320041B9DF /* Neebla.app */,
 				8331F347255B8CC50063A67D /* Share Extension.appex */,
-				83CE1EB9257088F0004A418B /* PriorityQueueTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1123,15 +1106,6 @@
 			path = "Download Management";
 			sourceTree = "<group>";
 		};
-		83CE1EBA257088F0004A418B /* PriorityQueueTests */ = {
-			isa = PBXGroup;
-			children = (
-				83CE1EBB257088F0004A418B /* PriorityQueueTests.swift */,
-				83CE1EBD257088F0004A418B /* Info.plist */,
-			);
-			path = PriorityQueueTests;
-			sourceTree = "<group>";
-		};
 		83D8CC2F25BA8BA10069E3E5 /* Corner Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1249,24 +1223,6 @@
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
 			productType = "com.apple.product-type.application";
 		};
-		83CE1EB8257088F0004A418B /* PriorityQueueTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83CE1EC0257088F0004A418B /* Build configuration list for PBXNativeTarget "PriorityQueueTests" */;
-			buildPhases = (
-				83CE1EB5257088F0004A418B /* Sources */,
-				83CE1EB6257088F0004A418B /* Frameworks */,
-				83CE1EB7257088F0004A418B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				83CE1EBF257088F0004A418B /* PBXTargetDependency */,
-			);
-			name = PriorityQueueTests;
-			productName = PriorityQueueTests;
-			productReference = 83CE1EB9257088F0004A418B /* PriorityQueueTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1281,10 +1237,6 @@
 					};
 					83B657D4255B81320041B9DF = {
 						CreatedOnToolsVersion = 12.1;
-					};
-					83CE1EB8257088F0004A418B = {
-						CreatedOnToolsVersion = 12.2;
-						TestTargetID = 83B657D4255B81320041B9DF;
 					};
 				};
 			};
@@ -1320,7 +1272,6 @@
 			targets = (
 				83B657D4255B81320041B9DF /* Neebla */,
 				8331F346255B8CC50063A67D /* Share Extension */,
-				83CE1EB8257088F0004A418B /* PriorityQueueTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1348,13 +1299,6 @@
 				8308B6ED256A08AB007F0CEB /* APIKeys.plist in Resources */,
 				83B657E2255B81330041B9DF /* Preview Assets.xcassets in Resources */,
 				83B657DF255B81330041B9DF /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83CE1EB7257088F0004A418B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1550,6 +1494,7 @@
 				83BF7867258077F1000E0B37 /* LiveImageIcon.swift in Sources */,
 				83D8CC1425B97E570069E3E5 /* IconConfig.swift in Sources */,
 				8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */,
+				837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */,
 				83F41687259C21EC003C7200 /* View+iPad.swift in Sources */,
 				8320A6EC256CB56800819377 /* AnyLargeMedia.swift in Sources */,
 				83B0CB7225B3FDBE00D53B58 /* SortFilterMenu.swift in Sources */,
@@ -1613,14 +1558,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83CE1EB5257088F0004A418B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83CE1EBC257088F0004A418B /* PriorityQueueTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1628,11 +1565,6 @@
 			isa = PBXTargetDependency;
 			target = 8331F346255B8CC50063A67D /* Share Extension */;
 			targetProxy = 8331F34F255B8CC50063A67D /* PBXContainerItemProxy */;
-		};
-		83CE1EBF257088F0004A418B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83B657D4255B81320041B9DF /* Neebla */;
-			targetProxy = 83CE1EBE257088F0004A418B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1868,48 +1800,6 @@
 			};
 			name = Release;
 		};
-		83CE1EC1257088F0004A418B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BH68R29JBE;
-				INFOPLIST_FILE = PriorityQueueTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.PriorityQueueTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Neebla.app/Neebla";
-			};
-			name = Debug;
-		};
-		83CE1EC2257088F0004A418B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BH68R29JBE;
-				INFOPLIST_FILE = PriorityQueueTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.PriorityQueueTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Neebla.app/Neebla";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1936,15 +1826,6 @@
 			buildConfigurations = (
 				83B657EA255B81330041B9DF /* Debug */,
 				83B657EB255B81330041B9DF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83CE1EC0257088F0004A418B /* Build configuration list for PBXNativeTarget "PriorityQueueTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83CE1EC1257088F0004A418B /* Debug */,
-				83CE1EC2257088F0004A418B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
