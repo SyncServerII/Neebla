@@ -40,6 +40,7 @@ struct CommentsView: View {
                 Text("No comments available")
             }
         }
+        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
         .onAppear() {
             // The user is viewing comments. Reset the (local) unread count.
             model?.resetUnreadCount()
