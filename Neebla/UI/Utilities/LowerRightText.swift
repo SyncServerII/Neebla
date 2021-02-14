@@ -27,11 +27,10 @@ struct LowerRightText: ViewModifier {
             .overlay(
                 ZStack {
                     Text(text)
-                        .foregroundColor(
-                            colorScheme == .light ?
-                                Color.white :
-                                Color(UIColor.darkGray)
-                        )
+                        // Foreground color is fine by default in light mode.
+                        .if (colorScheme == .dark) {
+                            $0.foregroundColor(Color(UIColor.darkGray))
+                        }
                         .padding([.top, .bottom], 2)
                         .padding([.leading, .trailing], 5)
                         .background(Color.white.opacity(0.7))
