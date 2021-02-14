@@ -16,10 +16,10 @@ struct SharingGroupsView: View {
 
     var selectedColor: Color {
         if colorScheme == .dark {
-            return Color(red: 0, green: 0, blue: 114, opacity: 1.0)
+            return Color.gray
         }
         else {
-            return Color(red: 0, green: 140, blue: 230, opacity: 0.2)
+            return Color(UIColor.lightGray)
         }
     }
     
@@ -29,7 +29,9 @@ struct SharingGroupsView: View {
             Section(header: Text("Album")) {
                 ForEach(viewModel.sharingGroups, id: \.self) { group in
                     Button(action: {
-                        self.viewModel.selectedSharingGroupUUID = group.id
+                        if self.viewModel.selectedSharingGroupUUID != group.id {
+                            self.viewModel.selectedSharingGroupUUID = group.id
+                        }
                     }, label: {
                         Text(group.name)
                     })
