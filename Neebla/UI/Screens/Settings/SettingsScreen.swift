@@ -14,6 +14,7 @@ struct SettingsScreen: View {
 }
 
 struct SettingsScreenBody: View {
+    @Environment(\.colorScheme) var colorScheme
     let emailDeveloper = EmailContents(subject: "Question or comment for developer of Neebla", to: "chris@SpasticMuffin.biz")
     @ObservedObject var userAlertModel: UserAlertModel
     @ObservedObject var settingsModel:SettingsScreenModel
@@ -36,12 +37,16 @@ struct SettingsScreenBody: View {
                 TextField("User name", text: $settingsModel.userName ?? "")
                     .multilineTextAlignment(.center)
                     .padding(5)
-                    .border(Color.black)
+                    .border(colorScheme == .dark ? Color.black : Color(UIColor.lightGray))
                     .frame(
                         // I tried using a GeometryReader here to make this width a function of screen width, but that breaks the center alignment of the VStack. Grrrr.
                         width: textFieldWidth
                     )
-                
+                    // Background color of TextField is fine in non-dark mode. But in dark mode, by default the user can't see the outline of the text field-- and I like them to be able to do that.
+                    .if(colorScheme == .dark) {
+                        $0.background(Color(UIColor.darkGray))
+                    }
+                    
                 HStack {
                     Button(action: {
                         settingsModel.updateUserName(userName: settingsModel.userName) { success in

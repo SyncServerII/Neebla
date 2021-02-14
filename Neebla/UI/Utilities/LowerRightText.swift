@@ -15,7 +15,9 @@ extension View {
 }
 
 struct LowerRightText: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
     let text: String
+    
     init(_ text: String) {
         self.text = text
     }
@@ -25,6 +27,11 @@ struct LowerRightText: ViewModifier {
             .overlay(
                 ZStack {
                     Text(text)
+                        .foregroundColor(
+                            colorScheme == .light ?
+                                Color.white :
+                                Color(UIColor.darkGray)
+                        )
                         .padding([.top, .bottom], 2)
                         .padding([.leading, .trailing], 5)
                         .background(Color.white.opacity(0.7))

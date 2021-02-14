@@ -6,7 +6,10 @@ import iOSShared
 
 struct GenericImageIcon: View {
     @ObservedObject var model:GenericImageModel
+    @Environment(\.colorScheme) var colorScheme
     static let loadingImageIcon = "ImageLoading" // From Asset catalog
+    static let loadingImageIconDarkMode = "ImageLoadingDarkMode" // From Asset catalog
+
     let config: IconConfig
     
     enum ModelSetup {
@@ -41,19 +44,22 @@ struct GenericImageIcon: View {
             }
             else if model.imageStatus == .rendering || model.imageStatus == .downloading {
                 ImageSizer(
-                    image: Image(Self.loadingImageIcon)
+                    image:
+                        colorScheme == .light ?
+                            Image(Self.loadingImageIcon) :
+                            Image(Self.loadingImageIconDarkMode)
                 )
             }
             else { // imageStatus == .none
                 Rectangle()
-                    .fill(Color.white)
-                    // This doesn't give what I want. It gives clipped coners.
+                    .fill(colorScheme == .light ? Color.white : Color(UIColor.darkGray))
+                    // This doesn't give what I want. It gives clipped corners.
                     //.border(Color.black, width: 1)
                     //.cornerRadius(ImageSizer.cornerRadius)
                     // The following is better. See https://www.hackingwithswift.com/quick-start/swiftui/how-to-draw-a-border-around-a-view
                     .overlay(
                         RoundedRectangle(cornerRadius: ImageSizer.cornerRadius)
-                            .stroke(Color.black, lineWidth: 1)
+                            .stroke(colorScheme == .light ? Color.black : Color.gray, lineWidth: 1)
                     )
             }
         }.frame(width:config.dimension, height:config.dimension)
