@@ -87,8 +87,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSApple.git",
         "state": {
           "branch": null,
-          "revision": "3464c371bd3c219970438dc4985f2b8874586c3b",
-          "version": "0.0.2"
+          "revision": "e2b4d335c501a756b37dba91c67e84bdf24138f9",
+          "version": "0.1.0"
         }
       },
       {
@@ -285,8 +285,8 @@
         "repositoryURL": "https://github.com/crspybits/SMLinkPreview",
         "state": {
           "branch": null,
-          "revision": "e6ea756df94f9816b5719a345488ee9b4c037564",
-          "version": "0.4.0"
+          "revision": "34802019ba34810431f59bff086b87574e53365c",
+          "version": "0.5.0"
         }
       },
       {

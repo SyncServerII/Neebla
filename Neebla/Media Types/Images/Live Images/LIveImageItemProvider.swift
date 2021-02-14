@@ -10,12 +10,22 @@ enum ImageType: String {
 }
     
 class LiveImageItemProvider: SXItemProvider {
-    enum LiveImageItemProviderError: Error {
+    enum LiveImageItemProviderError: Error, BadAspectRatio {
         case cannotGetLivePhoto
         case failedCreatingURL
         case couldNotGetImage
         case bizzareWrongType
         case couldNotConvertToJPEG
+        case badAspectRatio
+        
+        var isBadAspectRatio: Bool {
+            if case .badAspectRatio = self {
+                return true
+            }
+            else {
+                return false
+            }
+        }
     }
     
     // This is what I see in the sharing extension
@@ -170,6 +180,11 @@ class LiveImageItemProvider: SXItemProvider {
                     if let error = error {
                         logger.error("Could not write image file: \(imageFile); error: \(error)")
                         completion(.failure(LiveImageItemProviderError.couldNotGetImage))
+                        return
+                    }
+                    
+                    guard let size = UIImage.size(of: imageFile), size.aspectRatioOK() else {
+                        completion(.failure(SXItemProviderError.badAspectRatio))
                         return
                     }
                     

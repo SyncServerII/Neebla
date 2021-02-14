@@ -38,6 +38,10 @@ extension LiveImageObjectType {
             throw LiveImageObjectTypeError.couldNotLoadHEIC
         }
         
+        guard image.size.aspectRatioOK() else {
+            throw LiveImageObjectTypeError.badAspectRatio
+        }
+        
         let jpegQuality = try SettingsModel.jpegQuality(db: Services.session.db)
         
         guard let imageData = image.jpegData(compressionQuality: jpegQuality) else {

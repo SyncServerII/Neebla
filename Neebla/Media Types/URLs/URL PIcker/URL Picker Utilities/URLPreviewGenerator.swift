@@ -2,6 +2,7 @@
 import Foundation
 import SMLinkPreview
 import iOSShared
+import UIKit
 
 class URLPreviewGenerator {
     enum URLPreviewGeneratorError: Error {
@@ -11,6 +12,7 @@ class URLPreviewGenerator {
     
     init() throws {
         PreviewManager.session.reset()
+        PreviewManager.session.config = PreviewConfiguration(minimumImageAspectRatio: CGSize.minimumAspectRatio)
 
         guard let requestKeyName = MicrosoftURLPreview.requestKeyName,
             let microsoftKey = APIKey.getFromPlist(plistKeyName: "MicrosoftURLPreview", requestKeyName: requestKeyName, plistName: "APIKeys") else {

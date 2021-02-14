@@ -21,6 +21,7 @@ Version 2.0.0-Release
 	* Added dark mode support.
 	* Live images now starting to play when you go to details screen.
 	* Fix issue: Show error messages on sharing screen.
+	* Adding aspect ratio constraint for images.
 
 Version 2.0.0 (1/29/21)
 	* First successful upload of this version to iTunes Connect. 

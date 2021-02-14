@@ -48,6 +48,16 @@
                ReferencedContainer = "container:Neebla.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "837A46C325D8D2DA00CAC322"
+               BuildableName = "NeeblaTests.xctest"
+               BlueprintName = "NeeblaTests"
+               ReferencedContainer = "container:Neebla.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

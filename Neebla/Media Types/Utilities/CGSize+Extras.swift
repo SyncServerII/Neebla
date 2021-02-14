@@ -8,12 +8,16 @@
 import Foundation
 import UIKit
 
-private let minimumAspectRatio: CGFloat = 0.05
-
 extension CGSize {
-    var aspectRatioOK: Bool {
+    static let minimumAspectRatio: CGFloat = 0.1
+    
+    func aspectRatioOK(minimumAspectRatio: CGFloat = Self.minimumAspectRatio) -> Bool {
+        if width == 0 || height == 0 {
+            return false
+        }
+        
         let maxDim = max(width, height)
         let minDim = min(width, height)
-        return (minDim / maxDim) < minimumAspectRatio
+        return (minDim / maxDim) >= minimumAspectRatio
     }
 }

@@ -66,7 +66,13 @@ class ShareViewController: UIViewController {
                 }
 
             case .failure(let error):
-                self?.showAlert(title: "Alert!", message: "Could not load item! Perhaps you selected more than one?")
+                if let sxError = error as? BadAspectRatio, sxError.isBadAspectRatio {
+                    self?.showAlert(title: "Alert!", message: "That image has a bad aspect ratio and cannot be added to an album. Please select a different image.")
+                }
+                else {
+                    self?.showAlert(title: "Alert!", message: "Could not load item! Perhaps you selected more than one?")
+                }
+                
                 logger.error("\(error)")
             }
         }

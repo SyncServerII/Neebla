@@ -125,6 +125,11 @@
 		835AC8F3255B848300375084 /* ServerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F1255B848300375084 /* ServerInterface.swift */; };
 		835DB00B25C2934A00AE221F /* iOSBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 835DB00A25C2934A00AE221F /* iOSBasics */; };
 		837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46B325D8D02100CAC322 /* CGSize+Extras.swift */; };
+		837A46D225D8D30E00CAC322 /* PriorityQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46D125D8D30E00CAC322 /* PriorityQueueTests.swift */; };
+		837A46D725D8D40D00CAC322 /* MediaTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46D625D8D40D00CAC322 /* MediaTypeTests.swift */; };
+		837A46DB25D8D77400CAC322 /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46B325D8D02100CAC322 /* CGSize+Extras.swift */; };
+		837A46E025D8DD7900CAC322 /* UIImage+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46DF25D8DD7900CAC322 /* UIImage+Extras.swift */; };
+		837A46E425D8DEB200CAC322 /* UIImage+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46DF25D8DD7900CAC322 /* UIImage+Extras.swift */; };
 		8385709325C3EDA800F872E3 /* iOSGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 8385709225C3EDA800F872E3 /* iOSGoogle */; };
 		8399663D25C3CFBF00AD2AC8 /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8399663C25C3CFBF00AD2AC8 /* Toucan */; };
 		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
@@ -251,6 +256,13 @@
 			remoteGlobalIDString = 8331F346255B8CC50063A67D;
 			remoteInfo = "Share Extension";
 		};
+		837A46C925D8D2DB00CAC322 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83B657CD255B81320041B9DF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83B657D4255B81320041B9DF;
+			remoteInfo = Neebla;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -365,6 +377,11 @@
 		835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerInterface+Helpers.swift"; sourceTree = "<group>"; };
 		835AC8F1255B848300375084 /* ServerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInterface.swift; sourceTree = "<group>"; };
 		837A46B325D8D02100CAC322 /* CGSize+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extras.swift"; sourceTree = "<group>"; };
+		837A46C425D8D2DA00CAC322 /* NeeblaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeeblaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		837A46C825D8D2DB00CAC322 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		837A46D125D8D30E00CAC322 /* PriorityQueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueueTests.swift; sourceTree = "<group>"; };
+		837A46D625D8D40D00CAC322 /* MediaTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeTests.swift; sourceTree = "<group>"; };
+		837A46DF25D8DD7900CAC322 /* UIImage+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extras.swift"; sourceTree = "<group>"; };
 		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationMessage.swift; sourceTree = "<group>"; };
 		83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
@@ -448,6 +465,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		837A46C125D8D2DA00CAC322 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83B657D2255B81320041B9DF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -490,6 +514,7 @@
 				8331F4782560CC610063A67D /* Item Types */,
 				83C7345225986D080073788A /* Item Provider */,
 				837A46B325D8D02100CAC322 /* CGSize+Extras.swift */,
+				837A46DF25D8DD7900CAC322 /* UIImage+Extras.swift */,
 				83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */,
 				83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */,
 				835104A3259FE91900C5A05E /* MediaPicker.swift */,
@@ -873,6 +898,16 @@
 			path = ServerInterface;
 			sourceTree = "<group>";
 		};
+		837A46C525D8D2DB00CAC322 /* NeeblaTests */ = {
+			isa = PBXGroup;
+			children = (
+				837A46D625D8D40D00CAC322 /* MediaTypeTests.swift */,
+				837A46D125D8D30E00CAC322 /* PriorityQueueTests.swift */,
+				837A46C825D8D2DB00CAC322 /* Info.plist */,
+			);
+			path = NeeblaTests;
+			sourceTree = "<group>";
+		};
 		83B0C79725B29AE400D53B58 /* Push Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -932,6 +967,7 @@
 				8331F3AD255BADDE0063A67D /* Local Packages */,
 				83B657D7255B81320041B9DF /* Neebla */,
 				8331F348255B8CC50063A67D /* Share Extension */,
+				837A46C525D8D2DB00CAC322 /* NeeblaTests */,
 				83B657D6255B81320041B9DF /* Products */,
 				8331F370255B8F060063A67D /* Frameworks */,
 			);
@@ -942,6 +978,7 @@
 			children = (
 				83B657D5255B81320041B9DF /* Neebla.app */,
 				8331F347255B8CC50063A67D /* Share Extension.appex */,
+				837A46C425D8D2DA00CAC322 /* NeeblaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1184,6 +1221,24 @@
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		837A46C325D8D2DA00CAC322 /* NeeblaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 837A46CB25D8D2DB00CAC322 /* Build configuration list for PBXNativeTarget "NeeblaTests" */;
+			buildPhases = (
+				837A46C025D8D2DA00CAC322 /* Sources */,
+				837A46C125D8D2DA00CAC322 /* Frameworks */,
+				837A46C225D8D2DA00CAC322 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				837A46CA25D8D2DB00CAC322 /* PBXTargetDependency */,
+			);
+			name = NeeblaTests;
+			productName = NeeblaTests;
+			productReference = 837A46C425D8D2DA00CAC322 /* NeeblaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		83B657D4255B81320041B9DF /* Neebla */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83B657E9255B81330041B9DF /* Build configuration list for PBXNativeTarget "Neebla" */;
@@ -1229,11 +1284,16 @@
 		83B657CD255B81320041B9DF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1220;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					8331F346255B8CC50063A67D = {
 						CreatedOnToolsVersion = 12.1;
+					};
+					837A46C325D8D2DA00CAC322 = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
+						TestTargetID = 83B657D4255B81320041B9DF;
 					};
 					83B657D4255B81320041B9DF = {
 						CreatedOnToolsVersion = 12.1;
@@ -1272,6 +1332,7 @@
 			targets = (
 				83B657D4255B81320041B9DF /* Neebla */,
 				8331F346255B8CC50063A67D /* Share Extension */,
+				837A46C325D8D2DA00CAC322 /* NeeblaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1285,6 +1346,13 @@
 				8331F3A2255B9E8C0063A67D /* Server.plist in Resources */,
 				8331F365255B8DD10063A67D /* Media.xcassets in Resources */,
 				8331F34D255B8CC50063A67D /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		837A46C225D8D2DA00CAC322 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1364,6 +1432,7 @@
 				8331F4CE2561168B0063A67D /* ServerFileModel.swift in Sources */,
 				8331F37B255B8F740063A67D /* Services.swift in Sources */,
 				83C73498259870320073788A /* RatioModifier.swift in Sources */,
+				837A46E425D8DEB200CAC322 /* UIImage+Extras.swift in Sources */,
 				83D8CC2725BA895E0069E3E5 /* LiveImageIcon.swift in Sources */,
 				83BF7CB425854484000E0B37 /* FileLabels.swift in Sources */,
 				832D34482587112000FEF094 /* SettingsModel.swift in Sources */,
@@ -1403,6 +1472,7 @@
 				83C7345E25986DBE0073788A /* SXItemProvider.swift in Sources */,
 				8331F4E72561FAEF0063A67D /* ShareViewModel.swift in Sources */,
 				8331F36A255B8DD10063A67D /* SharingGroupData.swift in Sources */,
+				837A46DB25D8D77400CAC322 /* CGSize+Extras.swift in Sources */,
 				83C734A6259876040073788A /* ItemProvider.swift in Sources */,
 				8331F4E02561F8160063A67D /* ServerInterface+Helpers.swift in Sources */,
 				83BF7CD225857611000E0B37 /* URLFile.swift in Sources */,
@@ -1413,6 +1483,15 @@
 				83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */,
 				83C7347D25986E2C0073788A /* ImageItemProvider.swift in Sources */,
 				8331F43E255F9C8B0063A67D /* SetupSharedDatabase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		837A46C025D8D2DA00CAC322 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				837A46D725D8D40D00CAC322 /* MediaTypeTests.swift in Sources */,
+				837A46D225D8D30E00CAC322 /* PriorityQueueTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1542,6 +1621,7 @@
 				834B25AD258C613700F653BC /* Services+SignIns.swift in Sources */,
 				83B657DB255B81320041B9DF /* SceneDelegate.swift in Sources */,
 				8331F415255F857E0063A67D /* AlbumModel.swift in Sources */,
+				837A46E025D8DD7900CAC322 /* UIImage+Extras.swift in Sources */,
 				83F416B3259D821D003C7200 /* MediaTypeActivityItems.swift in Sources */,
 				83BF80772585D8DA000E0B37 /* SignInScreenModel.swift in Sources */,
 				8331F4A32560F0A90063A67D /* CameraPickerView.swift in Sources */,
@@ -1565,6 +1645,11 @@
 			isa = PBXTargetDependency;
 			target = 8331F346255B8CC50063A67D /* Share Extension */;
 			targetProxy = 8331F34F255B8CC50063A67D /* PBXContainerItemProxy */;
+		};
+		837A46CA25D8D2DB00CAC322 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83B657D4255B81320041B9DF /* Neebla */;
+			targetProxy = 837A46C925D8D2DB00CAC322 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1629,6 +1714,51 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		837A46CC25D8D2DB00CAC322 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BH68R29JBE;
+				INFOPLIST_FILE = NeeblaTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.NeeblaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Neebla.app/Neebla";
+			};
+			name = Debug;
+		};
+		837A46CD25D8D2DB00CAC322 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BH68R29JBE;
+				INFOPLIST_FILE = NeeblaTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.NeeblaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Neebla.app/Neebla";
 			};
 			name = Release;
 		};
@@ -1812,6 +1942,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		837A46CB25D8D2DB00CAC322 /* Build configuration list for PBXNativeTarget "NeeblaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				837A46CC25D8D2DB00CAC322 /* Debug */,
+				837A46CD25D8D2DB00CAC322 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		83B657D0255B81320041B9DF /* Build configuration list for PBXProject "Neebla" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1846,7 +1985,7 @@
 			repositoryURL = "https://github.com/crspybits/SMLinkPreview";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.4.0;
+				minimumVersion = 0.5.0;
 			};
 		};
 		8320A70C256DF07E00819377 /* XCRemoteSwiftPackageReference "MessageKit" */ = {

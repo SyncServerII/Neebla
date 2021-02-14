@@ -81,7 +81,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
             
             logger.debug("results: \(results)")
             
-            let alert = UIAlertController(title: "Add image?", message: "Is this the image you to add to album?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Add image?", message: "Is this the image you want to add to album?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
                 self.addImage(result: results[0])
             }))
@@ -94,7 +94,9 @@ struct PhotoPicker: UIViewControllerRepresentable {
         // See https://docs.google.com/document/d/190FBElJHbzCqvI9-pZGuHOg4jC2gbMh3lB6INCaiQcs/edit#bookmark=id.m29y98rl7vw8
         func addImage(result: PHPickerResult) {
             do {
-                try itemProviderFactory.create(using: result.itemProvider) { result in
+                try itemProviderFactory.create(using: result.itemProvider) { [weak self] result in
+                    guard let self = self else { return }
+                    
                     switch result {
                     case .success(let itemProvider):
                         logger.debug("liveImage: pickedImage: \(itemProvider)")
@@ -105,17 +107,33 @@ struct PhotoPicker: UIViewControllerRepresentable {
                         
                     case .failure(let error):
                         logger.error("error: \(error)")
+                        if let sxError = error as? BadAspectRatio, sxError.isBadAspectRatio {
+                            self.parent.showError(title: "Alert!", message: "That image has a bad aspect ratio and cannot be added. Please pick another.")
+                        }
+                        else {
+                            self.parent.showError(title: "Alert!", message: "Could not add that image.")
+                        }
                         DispatchQueue.main.async {
                             self.parent.completion(.failure(error))
                         }
                     }
                 }
             } catch let error {
+                parent.showError(title: "Alert!", message: "Could not add that image.")
                 logger.error("error: \(error)")
                 DispatchQueue.main.async {
                     self.parent.completion(.failure(error))
                 }
             }
+        }
+    }
+    
+    func showError(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+        }))
+        DispatchQueue.main.async {
+            controller?.present(alert, animated: true)
         }
     }
 }

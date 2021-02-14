@@ -91,7 +91,10 @@ class ImageItemProvider: SXItemProvider {
                 return
             }
             
-            // image.size
+            guard image.size.aspectRatioOK() else {
+                completion(.failure(SXItemProviderError.badAspectRatio))
+                return
+            }
 
             guard let jpegQuality = try? SettingsModel.jpegQuality(db: Services.session.db) else {
                 logger.error("Could not get settings.")
@@ -136,6 +139,11 @@ class ImageItemProvider: SXItemProvider {
             
             guard let url = url else {
                 completion(.failure(ImageItemProviderError.cannotGetImage))
+                return
+            }
+            
+            guard let size = UIImage.size(of: url), size.aspectRatioOK() else {
+                completion(.failure(SXItemProviderError.badAspectRatio))
                 return
             }
             

@@ -58,7 +58,7 @@ class PriorityQueue<T: AnyObject & BasicEquatable> {
     // and those are removed from head, reducing the number of objects in the queue by
     // this number.
     @discardableResult
-    private func reset(first: UInt? = nil) throws -> [T] {
+    func reset(first: UInt? = nil) throws -> [T] {
         if let first = first {
             guard first <= current.count else {
                 throw PriorityQueueError.badResetLength
