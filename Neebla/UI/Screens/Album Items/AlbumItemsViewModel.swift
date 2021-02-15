@@ -86,7 +86,7 @@ class AlbumItemsViewModel: ObservableObject {
             logger.error("SortFilterSettings.getSingleton: \(error)")
         }
                 
-        syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
+        syncSubscription = Services.session.serverInterface.sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             
             self.loading = false
@@ -95,7 +95,7 @@ class AlbumItemsViewModel: ObservableObject {
         }
 
         // Once files are downloaded, update our list. Debounce to avoid too many updates too quickly.
-        markAsDownloadedSubscription = Services.session.serverInterface.$objectMarkedAsDownloaded
+        markAsDownloadedSubscription = Services.session.serverInterface.objectMarkedAsDownloaded
                 .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
                 .sink { [weak self] fileGroupUUID in
             guard let self = self else { return }
@@ -103,7 +103,7 @@ class AlbumItemsViewModel: ObservableObject {
         }
         
         // If an object is deleted that we're displaying, update the UI. Want to listen to both (a) a queue/deletion completing, and (b) a download deletion completing.
-        objectDeletedSubscription = Services.session.serverInterface.$deletionCompleted.sink { [weak self] fileGroupUUID in
+        objectDeletedSubscription = Services.session.serverInterface.deletionCompleted.sink { [weak self] fileGroupUUID in
             guard let self = self else { return }
 
             guard let fileGroupUUID = fileGroupUUID else {
@@ -117,7 +117,7 @@ class AlbumItemsViewModel: ObservableObject {
             }
         }
         
-        userEventSubscriptionOther = Services.session.serverInterface.$userEvent.sink { [weak self] _ in
+        userEventSubscriptionOther = Services.session.userEvents.alerty.sink { [weak self] _ in
             self?.loading = false
         }
         

@@ -31,13 +31,13 @@ extension Services: iOSBasics.SignInsDelegate {
     
     func newOwningUserCreated(_ signIns: SignIns) {
         if !priorUserWithData(additionalMessage: "A new owning user was created") {
-            serverInterface.userEvent = .showAlert(title: "Success!", message: "Created new owning user! You are now signed in too!")
+            showAlert(AlertyHelper.alert(title: "Success!", message: "Created new owning user! You are now signed in too!"))
         }
     }
     
     func invitationAcceptedAndUserCreated(_ signIns: SignIns) {
         if !priorUserWithData(additionalMessage: "A new sharing user was created") {
-            serverInterface.userEvent = .showAlert(title: "Success!", message: "Created new sharing user! You are now signed in too!")
+            showAlert(AlertyHelper.alert(title: "Success!", message: "Created new sharing user! You are now signed in too!"))
         }
     }
     
@@ -75,7 +75,7 @@ extension Services {
         
         if albums.count > 0 {
             logger.error("Different user attempting to sign in and there was data from the prior user.")
-            serverInterface.userEvent = .showAlert(title: title, message: message)
+            showAlert(AlertyHelper.alert(title: title, message: message))
             logger.error("signUserOut")
             signInServices.manager.currentSignIn?.signUserOut()
             return true

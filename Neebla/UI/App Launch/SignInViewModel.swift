@@ -42,7 +42,7 @@ extension SignInViewModel: SignInManagerDelegate {
     func sharingInvitationForSignedInUser(_ manager: SignInManager, invitation: Invitation) {
         guard let invitationCodeUUID = UUID(uuidString: invitation.code) else {
             DispatchQueue.main.async {
-                Services.session.serverInterface.userEvent = .showAlert(title: "Alert!", message: "Bad invitation code")
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Bad invitation code"))
             }
             return
         }

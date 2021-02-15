@@ -12,7 +12,7 @@ class AlbumListModalModel: ObservableObject {
     init() {
         fetchAlbums()
         
-        syncSubscription = Services.session.serverInterface.$sync.sink { _ in        
+        syncSubscription = Services.session.serverInterface.sync.sink { _ in
             // Propagate any sharing group changes to our AlbumModel.
             do {
                 let sharingGroups = try Services.session.syncServer.sharingGroups()

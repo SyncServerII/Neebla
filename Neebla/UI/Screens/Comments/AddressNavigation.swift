@@ -19,12 +19,12 @@ class AddressNavigation {
         geocoder.geocodeAddressString(address) { placemarks, error in
             if let error = error {
                 logger.error("\(error)")
-                Services.session.serverInterface.userEvent = .showAlert(title: "Alert!", message: "Could not lookup address.")
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Could not lookup address."))
                 return
             }
             
             guard let placemarks = placemarks, placemarks.count > 0 else {
-                Services.session.serverInterface.userEvent = .showAlert(title: "Alert!", message: "Problem looking up address.")
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Problem looking up address."))
                 return
             }
                         
@@ -33,7 +33,7 @@ class AddressNavigation {
             }
             
             guard MKMapItem.openMaps(with: mapItems, launchOptions: nil) else {
-                Services.session.serverInterface.userEvent = .showAlert(title: "Alert!", message: "Could not open maps app.")
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Could not open maps app."))
                 return
             }
         }

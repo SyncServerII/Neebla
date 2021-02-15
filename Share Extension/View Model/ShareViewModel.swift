@@ -34,7 +34,7 @@ class ShareViewModel: ObservableObject {
             self.userIsSignedInSubscription = nil
         }
 
-        syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
+        syncSubscription = Services.session.serverInterface.sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             self.syncCompletionHelper()
         }

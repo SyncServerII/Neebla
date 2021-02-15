@@ -26,7 +26,7 @@ struct PhotoLibraryMediaPicker: MediaPicker {
                     itemPicked(assets)
                 case .failure(let error):
                     logger.error("\(error)")
-                    Services.session.serverInterface.userEvent = .error(error)
+                    showAlert(AlertyHelper.error(message: "Error picking photo"))
                 }
             }
         )

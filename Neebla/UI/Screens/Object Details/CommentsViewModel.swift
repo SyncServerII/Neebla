@@ -50,7 +50,7 @@ class CommentsViewModel: ObservableObject {
         }
         
         // So if an object gets downloaded while we're on a screen using this model.
-        listener = Services.session.serverInterface.$objectMarkedAsDownloaded.sink { [weak self] downloadedFileGroupUUID in
+        listener = Services.session.serverInterface.objectMarkedAsDownloaded.sink { [weak self] downloadedFileGroupUUID in
             guard let self = self else { return }
             
             guard downloadedFileGroupUUID == object.fileGroupUUID else {

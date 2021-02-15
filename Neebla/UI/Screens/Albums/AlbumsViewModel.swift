@@ -47,14 +47,14 @@ class AlbumsViewModel: ObservableObject {
             self?.textInputKeyPressed?(text)
         }
         
-        syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
+        syncSubscription = Services.session.serverInterface.sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             
             self.isShowingRefresh = false
             self.getCurrentAlbums()
         }
         
-        userEventSubscriptionOther = Services.session.serverInterface.$userEvent.sink { [weak self] _ in
+        userEventSubscriptionOther = Services.session.userEvents.alerty.sink { [weak self] _ in
             self?.isShowingRefresh = false
         }
                 

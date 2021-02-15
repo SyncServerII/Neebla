@@ -7,6 +7,7 @@ import iOSSignIn
 import PersistentValue
 import ServerShared
 import Version
+import Combine
 
 enum ServerInterfaceError: Error {
     case cannotFindFile
@@ -27,16 +28,13 @@ class ServerInterface {
     let syncServer:SyncServer
         
     // Subscribe to this to get sync completions.
-    @Published var sync: SyncResult?
-    
-    // Subscribe to this to get user event completions.
-    @Published var userEvent: UserEvent?
+    let sync = PassthroughSubject<SyncResult?, Never>()
     
     // Subscribe to this to get fileGroupUUID's of objects marked as downloaded.
-    @Published var objectMarkedAsDownloaded: UUID?
+    let objectMarkedAsDownloaded = PassthroughSubject<UUID?, Never>()
     
     // Subscribe to this to get fileGroupUUID's of objects deleted.
-    @Published var deletionCompleted:UUID?
+    let deletionCompleted = PassthroughSubject<UUID?, Never>()
     
     let signIns: SignIns
 
@@ -90,9 +88,9 @@ extension ServerInterface: SyncServerDelegate {
         DispatchQueue.main.async {
             switch version {
             case .badServerVersion:
-                self.userEvent = .showAlert(title: "Alert!", message: "The server version is bad. This is likely a developer problem. Whoops.")
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "The server version is bad. This is likely a developer problem. Whoops."))
             case .badClientAppVersion:
-                self.userEvent = .showAlert(title: "Alert!", message: "The Neebla app is out of date. You need to update it from the Apple App store.")
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "The Neebla app is out of date. You need to update it from the Apple App store."))
             }
         }
     }
@@ -101,10 +99,10 @@ extension ServerInterface: SyncServerDelegate {
         switch event {
         case .error(let error):
             logger.error("\(String(describing: error))")
-            self.userEvent = .showAlert(title: "Alert!", message: "There was a server error.")
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "There was a server error."))
 
         case .showAlert(title: let title, message: let message):
-            self.userEvent = .showAlert(title: title, message: message)
+            showAlert(AlertyHelper.alert(title: title, message: message))
         }
     }
     
@@ -114,10 +112,10 @@ extension ServerInterface: SyncServerDelegate {
             try syncHelper(result: result)
         } catch let error {
             logger.error("\(String(describing: error))")
-            self.userEvent = .showAlert(title: "Alert!", message: "There was a server error.")
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "There was a server error."))
         }
         
-        self.sync = result
+        self.sync.send(result)
     }
 
     func uuidCollision(_ syncServer: SyncServer, type: UUIDCollisionType, from: UUID, to: UUID) {
@@ -134,13 +132,13 @@ extension ServerInterface: SyncServerDelegate {
     }
     
     func objectMarkedAsDownloaded(_ syncServer: SyncServer, fileGroupUUID: UUID) {
-        self.objectMarkedAsDownloaded = fileGroupUUID
+        self.objectMarkedAsDownloaded.send(fileGroupUUID)
     }
 
     // Request to server for upload deletion completed successfully.
     func deletionCompleted(_ syncServer: SyncServer, forObjectWith fileGroupUUID: UUID) {
         logger.info("deletionCompleted")
-        self.deletionCompleted = fileGroupUUID
+        self.deletionCompleted.send(fileGroupUUID)
     }
 
     // Called when vN deferred upload(s), or deferred deletions, successfully completed, is/are detected.

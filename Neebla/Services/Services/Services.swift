@@ -227,6 +227,6 @@ extension Services: SharingInvitationHelper {
     }
     
     func sharingInvitationUserAlert(_ sharingInvitation: SharingInvitation, title: String, message: String) {
-        serverInterface.userEvent = .showAlert(title: title, message: message)
+        showAlert(AlertyHelper.alert(title: title, message: message))
     }
 }

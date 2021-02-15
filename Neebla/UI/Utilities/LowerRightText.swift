@@ -29,7 +29,7 @@ struct LowerRightText: ViewModifier {
                     Text(text)
                         // Foreground color is fine by default in light mode.
                         .if (colorScheme == .dark) {
-                            $0.foregroundColor(Color(UIColor.darkGray))
+                            $0.foregroundColor(Color(UIColor.black))
                         }
                         .padding([.top, .bottom], 2)
                         .padding([.leading, .trailing], 5)
