@@ -211,7 +211,8 @@ struct MediaPickersMenu: View {
 
 private struct AlbumItemsScreenNavRegularButtons: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
-        
+    @Environment(\.colorScheme) var colorScheme
+
     init(viewModel:AlbumItemsViewModel) {
         self.viewModel = viewModel
     }
@@ -224,7 +225,8 @@ private struct AlbumItemsScreenNavRegularButtons: View {
                 Button(action: {
                     viewModel.sharing.toggle()
                 }) {
-                    Label("Share items", image: "Share")
+                    Label("Share items",
+                        image: colorScheme == .light ? "Share" : "ShareWhite")
                 }.enabled(viewModel.objects.count > 0)
                 
                 Button(action: {

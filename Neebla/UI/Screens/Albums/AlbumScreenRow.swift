@@ -13,6 +13,7 @@ struct AlbumsScreenRow: View {
     @ObservedObject var album:AlbumModel
     @ObservedObject var viewModel:AlbumsViewModel
     @ObservedObject var rowModel:AlbumScreenRowModel
+    @Environment(\.colorScheme) var colorScheme
     
     init(album:AlbumModel, viewModel:AlbumsViewModel) {
         self.album = album
@@ -38,7 +39,8 @@ struct AlbumsScreenRow: View {
             // To change an album name and to share an album, you must have .admin permissions.
             if album.permission.hasMinimumPermission(.admin) {
                 if viewModel.sharingMode {
-                    Icon(imageName: "Share", size: CGSize(width: 25, height: 25))
+                    Icon(imageName: Images.shareIcon(lightMode:colorScheme == .light),
+                    size: CGSize(width: 25, height: 25))
                 }
                 else {
                     Button(action: {

@@ -173,7 +173,8 @@ struct AlbumsScreenAlbumList: View {
 
 private struct RightNavBarIcons: View {
     @ObservedObject var viewModel:AlbumsViewModel
-    
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         HStack(spacing: 0) {
             Button(
@@ -181,7 +182,8 @@ private struct RightNavBarIcons: View {
                     viewModel.sharingMode.toggle()
                 },
                 label: {
-                    Icon(imageName: "Share", size: CGSize(width: 25, height: 25), blueAccent: false)
+                    Icon(imageName: Images.shareIcon(lightMode:colorScheme == .light),
+                        size: CGSize(width: 25, height: 25), blueAccent: false)
                         .accentColor(viewModel.sharingMode ? .gray : .blue)
                 }
             )
