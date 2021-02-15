@@ -6,9 +6,7 @@ import ChangeResolvers
 import iOSBasics
 import Combine
 
-class CommentsViewModel: ObservableObject, ModelAlertDisplaying {
-    var userEventSubscription: AnyCancellable!
-    
+class CommentsViewModel: ObservableObject {
     static let maxMessageLength = 1024
     private let commentsFileLabel = FileLabels.comments
     private let object:ServerObjectModel
@@ -18,15 +16,13 @@ class CommentsViewModel: ObservableObject, ModelAlertDisplaying {
     let unknownUserInitials = "MT"
 
     @Published private(set) var messages: [MessageType]
-    @Published var userAlertModel: UserAlertModel
 
     private(set) var senderUserId:String!
     private(set) var senderUserDisplayName:String!
     private var listener: AnyCancellable!
     
-    init?(object:ServerObjectModel, userAlertModel:UserAlertModel) {
+    init?(object:ServerObjectModel) {
         self.object = object
-        self.userAlertModel = userAlertModel
         messages = []
 
         // Prioritizing the local setting-- but plan to propagate this local setting to the server in a new API call.
@@ -67,8 +63,6 @@ class CommentsViewModel: ObservableObject, ModelAlertDisplaying {
                 return
             }
         }
-        
-        setupHandleUserEvents()
     }
     
     private func loadDiscussion() -> Bool {

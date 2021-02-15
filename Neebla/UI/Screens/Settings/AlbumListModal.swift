@@ -4,14 +4,8 @@ import SwiftUI
 import iOSShared
 
 struct AlbumListModal: View {
-    @ObservedObject var model:AlbumListModalModel
-    @ObservedObject var userAlertModel: UserAlertModel
-    
-    init() {
-        let userAlertModel = UserAlertModel()
-        self.model = AlbumListModalModel(userAlertModel: userAlertModel)
-        self.userAlertModel = userAlertModel
-    }
+    @ObservedObject var model = AlbumListModalModel()
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     
     var body: some View {
         VStack(spacing: 20) {
@@ -26,7 +20,7 @@ struct AlbumListModal: View {
             }
         }
         .padding(20)
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+        .alertyDisplayer(show: $alerty.show, subscriber: alerty)
     }
 }
 
@@ -45,9 +39,15 @@ private struct AlbumRow: View {
     
     var body: some View {
         Button(action: {
-            model.userAlertModel.userAlert = .customAction(title: "Delete album?", message: "This will remove you from the album \"\(albumName)\". And if you are the last one using the album, will entirely remove the album.", actionButtonTitle: "Remove", action: {
-                model.removeUserFromAlbum(album: album)
-            })
+            let alert = AlertyHelper.customAction(
+                title: "Delete album?",
+                message: "This will remove you from the album \"\(albumName)\". And if you are the last one using the album, will entirely remove the album.",
+                actionButtonTitle: "Remove",
+                action: {
+                    model.removeUserFromAlbum(album: album)
+                },
+                cancelTitle: "Cancel")
+            showAlert(alert)
         }, label: {
             Text(albumName)
         })

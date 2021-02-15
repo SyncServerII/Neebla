@@ -4,10 +4,7 @@ import SwiftUI
 import iOSShared
 import Combine
 
-class AlbumSharingScreenModel: ObservableObject, ModelAlertDisplaying {
-    var userEventSubscription: AnyCancellable!
-    @ObservedObject var userAlertModel:UserAlertModel
-
+class AlbumSharingScreenModel: ObservableObject {
     @Published var sharingCode: String? {
         didSet {
             if let trimmedSharingCode = getTrimmedSharingCode() {
@@ -30,15 +27,10 @@ class AlbumSharingScreenModel: ObservableObject, ModelAlertDisplaying {
     
     @Published var enableAcceptSharingInvitation: Bool = false
     
-    init(userAlertModel:UserAlertModel) {
-        self.userAlertModel = userAlertModel
-        setupHandleUserEvents()
-    }
-    
     func acceptSharingInvitation() {
         guard let trimmedSharingCode = getTrimmedSharingCode(),
             let sharingCodeUUID = UUID(uuidString: trimmedSharingCode) else {
-            userAlertModel.userAlert = .error(message: "Bad sharing code.")
+            showAlert(AlertyHelper.error(message: "Bad sharing code."))
             return
         }
         
@@ -48,12 +40,12 @@ class AlbumSharingScreenModel: ObservableObject, ModelAlertDisplaying {
             switch result {
             case .success:
                 // The index was automatically synced. Don't need to do it again.
-                self.userAlertModel.userAlert = .titleAndMessage(title: "Success!", message: "You have a new sharing album!")
+                showAlert(AlertyHelper.alert(title: "Success!", message: "You have a new sharing album!"))
                 self.sharingCode = nil
                 
             case .failure(let error):
                 logger.error("\(error)")
-                self.userAlertModel.userAlert = .error(message: "Failure redeeming sharing code.")
+                showAlert(AlertyHelper.error(message: "Failure redeeming sharing code."))
             }
         }
     }

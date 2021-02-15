@@ -16,16 +16,10 @@ struct SettingsScreen: View {
 struct SettingsScreenBody: View {
     @Environment(\.colorScheme) var colorScheme
     let emailDeveloper = EmailContents(subject: "Question or comment for developer of Neebla", to: "chris@SpasticMuffin.biz")
-    @ObservedObject var userAlertModel: UserAlertModel
-    @ObservedObject var settingsModel:SettingsScreenModel
+    @ObservedObject var settingsModel = SettingsScreenModel()
     let textFieldWidth: CGFloat = 250
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     
-    init() {
-        let userAlertModel = UserAlertModel()
-        self.settingsModel = SettingsScreenModel(userAlertModel: userAlertModel)
-        self.userAlertModel = userAlertModel
-    }
-        
     var body: some View {
         VStack(spacing: 40) {
             Spacer().frame(height: 20)
@@ -70,7 +64,6 @@ struct SettingsScreenBody: View {
             
             Button(action: {
                 settingsModel.sheet = .albumList
-                settingsModel.showSheet = true
             }, label: {
                 Text("Remove yourself from an album")
             })
@@ -78,14 +71,11 @@ struct SettingsScreenBody: View {
             Button(action: {
                 let action = {
                     settingsModel.sheet = .emailDeveloper(addAttachments: settingsModel)
-                    settingsModel.showSheet = true
                 }
                 let cancelAction = {
                     settingsModel.sheet = .emailDeveloper(addAttachments: nil)
-                    settingsModel.showSheet = true
                 }
-                
-                userAlertModel.userAlert = .customDetailedAction(title: "Send logs?", message: "Would you like to send Neebla's logs to the developer?", actionButtonTitle:"Yes", action:action, cancelTitle: "No", cancelAction:cancelAction)
+                showAlert(AlertyHelper.customAction(title: "Send logs?", message: "Would you like to send Neebla's logs to the developer?", actionButtonTitle: "Yes", action: action, cancelTitle: "No", cancelAction: cancelAction))
             }, label: {
                 Text("Contact developer")
             })
@@ -100,16 +90,14 @@ struct SettingsScreenBody: View {
             
             Spacer().frame(height: 20)
         } // end VStack
-        .sheet(isPresented: $settingsModel.showSheet) {
-            switch settingsModel.sheet {
+        .alertyDisplayer(show: $alerty.show, subscriber: alerty)
+        .sheetyDisplayer(item: $settingsModel.sheet, subscriber: alerty) { sheet in
+            switch sheet {
             case .albumList:
                 AlbumListModal()
             case .emailDeveloper(let addAttachments):
                 MailView(emailContents: emailDeveloper, addAttachments: addAttachments, result: $settingsModel.sendMailResult)
-            case .none:
-                Text("Error: Should not appear")
             }
         }
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
     }
 }

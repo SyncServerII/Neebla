@@ -1,16 +1,16 @@
 
 import SwiftUI
 import MessageKit
+import iOSShared
 
 struct CommentsView: View {
     static let buttonBarHeight: CGFloat = 45
     var model: CommentsViewModel?
     @Environment(\.presentationMode) var isPresented
-    @ObservedObject var userAlertModel:UserAlertModel
-    
-    init(object:ServerObjectModel, userAlertModel:UserAlertModel) {
-        self.userAlertModel = userAlertModel
-        model = CommentsViewModel(object: object, userAlertModel: userAlertModel)
+    @StateObject var alerty = AlertySubscriber(debugMessage: "CommentsView", publisher: Services.session.userEvents)
+
+    init(object:ServerObjectModel) {
+        model = CommentsViewModel(object: object)
     }
     
     var body: some View {
@@ -40,7 +40,7 @@ struct CommentsView: View {
                 Text("No comments available")
             }
         }
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+        .alertyDisplayer(show: $alerty.show, subscriber: alerty)
         .onAppear() {
             // The user is viewing comments. Reset the (local) unread count.
             model?.resetUnreadCount()

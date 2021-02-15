@@ -9,14 +9,11 @@ struct ObjectDetailsView: View {
     let object:ServerObjectModel
     @ObservedObject var model:ObjectDetailsModel
     @State var showComments = false
-    @State var showDeletion = false
-    @ObservedObject var userAlertModel:UserAlertModel
-
+    @StateObject var alerty = AlertySubscriber(debugMessage: "ObjectDetailsView", publisher: Services.session.userEvents)
+    
     init(object:ServerObjectModel) {
         self.object = object
-        let userAlertModel = UserAlertModel()
-        model = ObjectDetailsModel(object: object, userAlertModel: userAlertModel)
-        self.userAlertModel = userAlertModel
+        model = ObjectDetailsModel(object: object)
     }
     
     var body: some View {
@@ -40,7 +37,9 @@ struct ObjectDetailsView: View {
             HStack(spacing: 0) {
                 Button(
                     action: {
-                        showDeletion = true
+                        model.promptForDeletion(dismiss: {
+                            isPresented.wrappedValue.dismiss()
+                        })
                     },
                     label: {
                         SFSymbolIcon(symbol: .trash)
@@ -57,29 +56,7 @@ struct ObjectDetailsView: View {
                 )
             }.enabled(model.modelInitialized)
         )
-        .sheet(isPresented: $showComments) {
-            CommentsView(object: object, userAlertModel: userAlertModel)
-        }
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
-        .alert(isPresented: $showDeletion) {
-            // Should never default to "item"
-            let displayName = model.objectTypeDisplayName ?? "item"
-            return Alert(
-                title:
-                    Text("Really delete this \(displayName)?"),
-                primaryButton: .cancel(),
-                secondaryButton:
-                    .destructive(
-                        Text("Delete"),
-                        action: {
-                            if model.modelInitialized {
-                                if model.deleteObject() {
-                                    isPresented.wrappedValue.dismiss()
-                                }
-                            }
-                        }
-                    )
-                )
-        }
+        .alertyDisplayer(show: $alerty.show, subscriber: alerty)
+        .sheetyDisplayer(show: $showComments, subscriber: alerty, view: CommentsView(object: object))
     }
 }

@@ -1,15 +1,15 @@
 
 import SwiftUI
 import iOSSignIn
+import iOSShared
 
 struct SharingView: View {
     @ObservedObject var viewModel:ShareViewModel
-    @ObservedObject var userAlertModel:UserAlertModel
     let insideViewOffset: CGFloat = 30
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     
     init(viewModel: ShareViewModel) {
         self.viewModel = viewModel
-        userAlertModel = viewModel.userAlertModel
     }
 
     var body: some View {
@@ -29,7 +29,7 @@ struct SharingView: View {
         }
         .frame(width: viewModel.width, height: viewModel.height)
         .background(Color(UIColor.systemBackground))
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+        .alertyDisplayer(show: $alerty.show, subscriber: alerty)
     }
 }
 

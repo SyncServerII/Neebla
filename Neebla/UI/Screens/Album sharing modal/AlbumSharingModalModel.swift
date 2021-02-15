@@ -6,9 +6,7 @@ import SQLite
 import iOSShared
 import ServerShared
 
-class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
-    var userEventSubscription: AnyCancellable!
-    @Published var userAlertModel: UserAlertModel
+class AlbumSharingModalModel: ObservableObject {
     let album:AlbumModel
     let helpDocs = ("SharingInvitationHelp", "html")
     @Published var helpString: String?
@@ -53,8 +51,7 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
     
     let displayablePermissionText: [String]
 
-    init(album:AlbumModel, userAlertModel: UserAlertModel, completion:@escaping (_ parameters: AlbumSharingParameters)->()) {
-        self.userAlertModel = userAlertModel
+    init(album:AlbumModel, completion:@escaping (_ parameters: AlbumSharingParameters)->()) {
         self.album = album
         displayablePermissionText = Permission.allCases.map {$0.displayableText}
         
@@ -66,8 +63,6 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
         }
         
         self.completion = completion
-
-        setupHandleUserEvents()
         
         guard let helpFileURL = Bundle.main.url(forResource: helpDocs.0, withExtension: helpDocs.1) else {
             logger.error("Could not load help file from bundle: \(helpDocs)")
@@ -109,7 +104,7 @@ class AlbumSharingModalModel: ObservableObject, ModelAlertDisplaying {
                 
             case .failure(let error):
                 logger.error("\(error)")
-                self.userAlertModel.userAlert = .titleAndMessage(title: "Alert!", message: "Failed to create sharing invitation!")
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed to create sharing invitation!"))
             }
         }
     }

@@ -7,10 +7,19 @@ import iOSShared
 import MessageUI
 import SQLite
 
-class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {    
-    enum ShowSheet {
+class SettingsScreenModel:ObservableObject {
+    enum ShowSheet: Identifiable {        
         case albumList
         case emailDeveloper(addAttachments: AddEmailAttachments?)
+        
+        var id: Int {
+            switch self {
+            case .albumList:
+                return 0
+            case .emailDeveloper:
+                return 1
+            }
+        }
     }
     
     var versionAndBuild:String {
@@ -23,10 +32,6 @@ class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
         }
     }
     
-    var userEventSubscription: AnyCancellable!
-
-    @Published var userAlertModel: UserAlertModel
-    @Published var showSheet: Bool = false
     @Published var sheet: ShowSheet?
     @Published var sendMailResult: Swift.Result<MFMailComposeResult, Error>? = nil
     @Published var initialUserName: String?
@@ -42,10 +47,7 @@ class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
     }
     @Published var userNameChangeIsValid: Bool = false
     
-    init(userAlertModel: UserAlertModel) {
-        self.userAlertModel = userAlertModel
-        setupHandleUserEvents()
-        
+    init() {
         do {
             if let userName = try SettingsModel.userName(db: Services.session.db) {
                 initialUserName = userName
@@ -70,7 +72,7 @@ class SettingsScreenModel:ObservableObject, ModelAlertDisplaying {
             
             if let error = error {
                 logger.error("\(error)")
-                self.userAlertModel.userAlert = .titleAndMessage(title: "Alert!", message: "Could not update user name. Please try again.")
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Could not update user name. Please try again."))
                 completion?(false)
                 return
             }

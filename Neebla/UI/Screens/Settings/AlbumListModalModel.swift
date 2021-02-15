@@ -5,16 +5,11 @@ import iOSShared
 import Combine
 import SQLite
 
-class AlbumListModalModel: ObservableObject, ModelAlertDisplaying {
-    var userEventSubscription: AnyCancellable!
+class AlbumListModalModel: ObservableObject {
     var syncSubscription: AnyCancellable!
-    @Published var userAlertModel: UserAlertModel
-    
     @Published var albums:[AlbumModel] = []
     
-    init(userAlertModel: UserAlertModel) {
-        self.userAlertModel = userAlertModel
-        setupHandleUserEvents()
+    init() {
         fetchAlbums()
         
         syncSubscription = Services.session.serverInterface.$sync.sink { _ in        
@@ -37,7 +32,7 @@ class AlbumListModalModel: ObservableObject, ModelAlertDisplaying {
             albums = try AlbumModel.fetch(db: Services.session.db, where: AlbumModel.deletedField.description == false)
         } catch let error {
             logger.error("\(error)")
-            userAlertModel.userAlert = .titleAndMessage(title: "Alert!", message: "Failed to fetch albums.")
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed to fetch albums."))
             return
         }
         
@@ -45,12 +40,10 @@ class AlbumListModalModel: ObservableObject, ModelAlertDisplaying {
     }
     
     func removeUserFromAlbum(album: AlbumModel) {
-        Services.session.syncServer.removeFromSharingGroup(sharingGroupUUID: album.sharingGroupUUID) { [weak self] error in
-            guard let self = self else { return }
-            
+        Services.session.syncServer.removeFromSharingGroup(sharingGroupUUID: album.sharingGroupUUID) { error in
             if let error = error {
                 logger.error("\(error)")
-                self.userAlertModel.userAlert = .titleAndMessage(title: "Alert!", message: "Failed to remove user from album.")
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed to remove user from album."))
                 return
             }
             

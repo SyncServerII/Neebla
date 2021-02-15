@@ -67,7 +67,6 @@ class Downloader {
 
         try Synchronized.block(self) {
             guard priorityQueue.current.count > 0 else {
-                logger.info("Not starting more downloads: None in priority queue")
                 return
             }
             

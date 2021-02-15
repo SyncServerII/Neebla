@@ -22,13 +22,11 @@ struct AlbumItemsScreen: View {
 
 struct AlbumItemsScreenBody: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
-    @ObservedObject var userAlertModel:UserAlertModel
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     let albumName: String
     
     init(album sharingGroupUUID: UUID, albumName: String) {
-        let userAlertModel = UserAlertModel()
-        self.viewModel = AlbumItemsViewModel(album: sharingGroupUUID, userAlertModel: userAlertModel)
-        self.userAlertModel = userAlertModel
+        self.viewModel = AlbumItemsViewModel(album: sharingGroupUUID)
         self.albumName = albumName
     }
 
@@ -41,11 +39,11 @@ struct AlbumItemsScreenBody: View {
                 AlbumItemsScreenBodyWithContent(viewModel: viewModel, albumName: albumName)
             }
         }
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+        .alertyDisplayer(show: $alerty.show, subscriber: alerty)
         .navigationBarItems(trailing:
             AlbumItemsScreenNavButtons(viewModel: viewModel)
         )
-        .sheet(item: $viewModel.sheetToShow) { sheet in
+        .sheetyDisplayer(item: $viewModel.sheetToShow, subscriber: alerty) { sheet in
             switch sheet {
             case .activityController:
                 ActivityViewController(activityItems: viewModel.shareActivityItems())

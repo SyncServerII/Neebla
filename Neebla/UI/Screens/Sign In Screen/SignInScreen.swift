@@ -6,16 +6,11 @@ import SwiftUI
 import iOSShared
 
 struct SignInScreen: View {
-    @ObservedObject var userAlertModel:UserAlertModel
-    @ObservedObject var model:SignInScreenModel
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
 
     init() {
-        let userAlertModel = UserAlertModel()
-        model = SignInScreenModel(userAlertModel: userAlertModel)
-        self.userAlertModel = userAlertModel
-        
-        // so the `signInView` can show alerts.
-        Services.session.signInServices.userAlertDelegate = userAlertModel
+        // So the `signInView` can show alerts.
+        Services.session.signInServices.userEvents = Services.session.userEvents
     }
     
     var body: some View {
@@ -28,7 +23,7 @@ struct SignInScreen: View {
 
                 Services.session.signInServices.signInView
             }
-            .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+            .alertyDisplayer(show: $alerty.show, subscriber: alerty)
         }
     }
 }

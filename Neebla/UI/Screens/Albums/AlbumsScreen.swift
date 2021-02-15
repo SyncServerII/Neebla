@@ -6,15 +6,8 @@ import SFSafeSymbols
 import iOSShared
 
 struct AlbumsScreen: View {
-    @ObservedObject var viewModel:AlbumsViewModel
-    @ObservedObject var userAlertModel:UserAlertModel
+    @StateObject var viewModel = AlbumsViewModel()
     
-    init() {
-        let userAlertModel = UserAlertModel()
-        self.viewModel = AlbumsViewModel(userAlertModel: userAlertModel)
-        self.userAlertModel = userAlertModel
-    }
-
     var body: some View {
         MenuNavBar(title: "Albums",
             rightNavbarButton:
@@ -24,15 +17,15 @@ struct AlbumsScreen: View {
             ) {
             
             iPadConditionalScreenBodySizer {
-                AlbumsScreenBody(viewModel: viewModel, userAlertModel: userAlertModel)
+                AlbumsScreenBody(viewModel: viewModel)
             }
         }
     }
 }
 
 struct AlbumsScreenBody: View {
-    @ObservedObject var viewModel:AlbumsViewModel
-    @ObservedObject var userAlertModel:UserAlertModel
+    @StateObject var viewModel:AlbumsViewModel
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     
     var body: some View {
         VStack {
@@ -48,9 +41,9 @@ struct AlbumsScreenBody: View {
                 viewModel.sync()
             }
         }
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+        .alertyDisplayer(show: $alerty.show, subscriber: alerty)
         // Fail to get the sheets displaying properly when there is more than one .sheet modifier. Working around this. See also https://stackoverflow.com/questions/58837007
-        .sheet(item: $viewModel.activeSheet) { item in
+        .sheetyDisplayer(item: $viewModel.activeSheet, subscriber: alerty) { item in
             switch item {
             case .textInput:
                 // Using this both for creating an album and for changing an existing album's name.

@@ -16,7 +16,7 @@ enum AlbumsScreenActiveSheet: Identifiable {
     }
 }
 
-class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
+class AlbumsViewModel: ObservableObject {
     @Published var isShowingRefresh = false
     
     @Published var activeSheet:AlbumsScreenActiveSheet?
@@ -39,15 +39,10 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     var textInputKeyPressed:((String?)->())?
     
     private var syncSubscription:AnyCancellable!
-    var userEventSubscription:AnyCancellable!
     var userEventSubscriptionOther:AnyCancellable!
     var textInputSubscription:AnyCancellable!
-    let userAlertModel:UserAlertModel
     
-    init(userAlertModel:UserAlertModel) {
-        self.userAlertModel = userAlertModel
-        setupHandleUserEvents()
-        
+    init() {
         textInputSubscription = $textInputAlbumName.sink { [weak self] text in
             self?.textInputKeyPressed?(text)
         }
@@ -83,11 +78,10 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     private func createNewAlbum(newAlbumName: String?) {
         let newSharingGroupUUID = UUID()
         
-        Services.session.serverInterface.syncServer.createSharingGroup(sharingGroupUUID: newSharingGroupUUID, sharingGroupName: newAlbumName) { [weak self] error in
-            guard let self = self else { return }
+        Services.session.serverInterface.syncServer.createSharingGroup(sharingGroupUUID: newSharingGroupUUID, sharingGroupName: newAlbumName) { error in
 
             guard error == nil else {
-                self.userAlertModel.userAlert = .error(message: "Failed to create album.")
+                showAlert(AlertyHelper.error(message: "Failed to create album."))
                 return
             }
             
@@ -99,7 +93,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     private func changeAlbumName(sharingGroupUUID: UUID, changedAlbumName: String) {
         Services.session.serverInterface.syncServer.updateSharingGroup(sharingGroupUUID: sharingGroupUUID, newSharingGroupName: changedAlbumName) { error in
             guard error == nil else {
-                self.userAlertModel.userAlert = .error(message: "Failed to change album name.")
+                showAlert(AlertyHelper.error(message: "Failed to change album name."))
                 return
             }
             
@@ -113,7 +107,7 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
         } catch let error {
             logger.error("\(error)")
             isShowingRefresh = false
-            userAlertModel.userAlert = .error(message: "Failed to sync.")
+            showAlert(AlertyHelper.error(message: "Failed to sync."))
         }
     }
     
@@ -242,6 +236,6 @@ class AlbumsViewModel: ObservableObject, ModelAlertDisplaying {
     }
     
     func checkForNotificationAuthorization() {
-        PushNotifications.session.checkForNotificationAuthorization(userAlertModel: userAlertModel)
+        PushNotifications.session.checkForNotificationAuthorization()
     }
 }

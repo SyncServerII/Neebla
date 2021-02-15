@@ -14,15 +14,13 @@ struct AlbumSharingParameters {
 }
 
 struct AlbumSharingModal: View {
-    @ObservedObject var userAlertModel: UserAlertModel
     @ObservedObject var viewModel: AlbumSharingModalModel
     let albumName: String
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     
     // The completion is only called on a successful creation of an invitaton code. This is why a nil invitation code cannot passed.
     init(album: AlbumModel, completion:@escaping (_ parameters: AlbumSharingParameters)->()) {
-        let userAlertModel = UserAlertModel()
-        self.userAlertModel = userAlertModel
-        self.viewModel = AlbumSharingModalModel(album: album, userAlertModel: userAlertModel, completion: completion)
+        self.viewModel = AlbumSharingModalModel(album: album, completion: completion)
         albumName = album.albumName ?? AlbumModel.untitledAlbumName
     }
     
@@ -49,7 +47,7 @@ struct AlbumSharingModal: View {
             }
         }
         .padding([.leading, .trailing, .bottom], 10)
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+        .alertyDisplayer(show: $alerty.show, subscriber: alerty)
     }
 }
 

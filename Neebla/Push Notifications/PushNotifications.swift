@@ -46,7 +46,7 @@ class PushNotifications {
         }
     }
     
-    func checkForNotificationAuthorization(userAlertModel:UserAlertModel) {
+    func checkForNotificationAuthorization() {
         if let asked = Self.askedUserAboutNotifications.value, asked {
             if let authorized = Self.notificationsAuthorized.value {
                 if authorized {
@@ -71,7 +71,7 @@ class PushNotifications {
                 Self.notificationsAuthorized.value = false
             }
             
-            userAlertModel.userAlert = .customDetailedAction(title: title, message: message, actionButtonTitle: "OK", action: okAction, cancelTitle: "Cancel", cancelAction: cancelAction)
+            showAlert(AlertyHelper.customAction(title: title, message: message, actionButtonTitle: "OK", action: okAction, cancelTitle: "Cancel", cancelAction: cancelAction))
         }
     }
     

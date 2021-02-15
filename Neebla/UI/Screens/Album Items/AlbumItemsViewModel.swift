@@ -4,8 +4,9 @@ import SQLite
 import Combine
 import iOSShared
 import iOSBasics
+import SwiftUI
 
-class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
+class AlbumItemsViewModel: ObservableObject {
     enum SheetToShow: Identifiable {        
         case activityController
         case picker(MediaPicker)
@@ -21,8 +22,6 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     }
     
     @Published var sheetToShow: SheetToShow?
-    
-    let userAlertModel: UserAlertModel
     @Published var showCellDetails: Bool = false
     @Published var loading: Bool = false {
         didSet {
@@ -61,15 +60,13 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
     var activityItems = [Any]()
     
     private var syncSubscription:AnyCancellable!
-    var userEventSubscription:AnyCancellable!
     private var markAsDownloadedSubscription:AnyCancellable!
     private var userEventSubscriptionOther:AnyCancellable!
     private var objectDeletedSubscription:AnyCancellable!
     private var settingsDiscussionFilterSubscription:AnyCancellable!
     private var settingsSortBySubscription:AnyCancellable!
 
-    init(album sharingGroupUUID: UUID, userAlertModel: UserAlertModel) {
-        self.userAlertModel = userAlertModel
+    init(album sharingGroupUUID: UUID) {
         self.sharingGroupUUID = sharingGroupUUID
         
         do {
@@ -88,9 +85,7 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
         } catch let error {
             logger.error("SortFilterSettings.getSingleton: \(error)")
         }
-        
-        setupHandleUserEvents()
-        
+                
         syncSubscription = Services.session.serverInterface.$sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             
@@ -194,7 +189,7 @@ class AlbumItemsViewModel: ObservableObject, ModelAlertDisplaying {
         } catch let error {
             logger.error("\(error)")
             loading = false
-            userAlertModel.userAlert = .error(message: "Failed to sync.")
+            showAlert(AlertyHelper.error(message: "Failed to sync."))
         }
     }
     

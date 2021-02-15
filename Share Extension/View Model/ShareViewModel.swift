@@ -10,13 +10,12 @@ import iOSShared
 import Combine
 import CoreGraphics
 
-class ShareViewModel: ObservableObject, ModelAlertDisplaying {
+class ShareViewModel: ObservableObject {
     @Published var width: CGFloat = 0
     @Published var height: CGFloat = 0
     @Published var sharingGroups = [SharingGroupData]()
     @Published var selectedSharingGroupUUID: UUID?
     @Published var sharingItem: SXItemProvider?
-    @Published var userAlertModel = UserAlertModel()
     
     var userEventSubscription: AnyCancellable!
     var userIsSignedInSubscription: AnyCancellable!
@@ -26,8 +25,6 @@ class ShareViewModel: ObservableObject, ModelAlertDisplaying {
     
     // Make sure `Services.session` is setup before calling this.
     func setupAfterServicesInitialized() {
-        setupHandleUserEvents()
-
         // Have to do some wrangling to get an initial sync because user sign in may be async.
         userIsSignedInSubscription = Services.session.signInServices.manager.$userIsSignedIn.sink { [weak self] signedIn in
             guard let self = self else { return }

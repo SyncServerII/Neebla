@@ -3,15 +3,6 @@ import SwiftUI
 import iOSShared
 
 struct AlbumSharingScreen: View {
-    @ObservedObject var model:AlbumSharingScreenModel
-    @ObservedObject var userAlertModel:UserAlertModel
-    
-    init() {
-        let userAlertModel = UserAlertModel()
-        model = AlbumSharingScreenModel(userAlertModel: userAlertModel)
-        self.userAlertModel = userAlertModel
-    }
-    
     var body: some View {
         MenuNavBar(title: "Album Sharing") {
             iPadConditionalScreenBodySizer {
@@ -23,15 +14,9 @@ struct AlbumSharingScreen: View {
 }
 
 struct AlbumSharingScreenBody: View {
-    @ObservedObject var model:AlbumSharingScreenModel
-    @ObservedObject var userAlertModel:UserAlertModel
-    
-    init() {
-        let userAlertModel = UserAlertModel()
-        model = AlbumSharingScreenModel(userAlertModel: userAlertModel)
-        self.userAlertModel = userAlertModel
-    }
-    
+    @StateObject var model = AlbumSharingScreenModel()
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
+
     var body: some View {
         VStack {
             HStack {
@@ -57,7 +42,7 @@ struct AlbumSharingScreenBody: View {
             Spacer()
         }
         .padding(30)
-        .showUserAlert(show: $userAlertModel.show, message: userAlertModel)
+        .alertyDisplayer(show: $alerty.show, subscriber: alerty)
     }
 }
 

@@ -105,6 +105,8 @@ class Services {
     // Neebla database
     var db:Connection!
     weak var delegate: ServicesDelegate?
+    
+    var userEvents = AlertyPublisher()
 
     private init(delegate: ServicesDelegate?) {
         self.delegate = delegate

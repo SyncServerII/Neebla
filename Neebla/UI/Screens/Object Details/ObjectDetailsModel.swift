@@ -3,21 +3,19 @@ import Foundation
 import iOSShared
 import SQLite
 import Combine
+import SwiftUI
 
-class ObjectDetailsModel: ObservableObject, ModelAlertDisplaying {
-    var userEventSubscription: AnyCancellable!
+class ObjectDetailsModel: ObservableObject {
     let object: ServerObjectModel
     private(set) var objectTypeDisplayName:String?
     var mediaTitle: String?
-    @Published var userAlertModel: UserAlertModel
     @Published var modelInitialized: Bool
     
-    init(object: ServerObjectModel, userAlertModel: UserAlertModel) {
+    init(object: ServerObjectModel) {
 #if DEBUG
         try? object.debugOutput()
 #endif
         self.object = object
-        self.userAlertModel = userAlertModel
         
         var success = true
         
@@ -37,11 +35,9 @@ class ObjectDetailsModel: ObservableObject, ModelAlertDisplaying {
         }
         
         modelInitialized = success
-        
-        setupHandleUserEvents()
     }
     
-    func deleteObject() -> Bool {
+    private func deleteObject() -> Bool {
         do {
             let pushNotificationText = try PushNotificationMessage.forDeletion(of: object)
 
@@ -55,5 +51,26 @@ class ObjectDetailsModel: ObservableObject, ModelAlertDisplaying {
         }
         
         return true
+    }
+    
+    func promptForDeletion(dismiss: @escaping ()->()) {
+        guard modelInitialized else {
+            logger.error("promptForDeletion: Model not initialized")
+            return
+        }
+        
+        let displayName = objectTypeDisplayName ?? "item"
+        
+        let alert = AlertyHelper.customAction(
+            title: "Delete?",
+            message: "Really delete this \(displayName)?",
+            actionButtonTitle: "Delete",
+            action: {
+                if self.deleteObject() {
+                    dismiss()
+                }
+            },
+            cancelTitle: "Cancel")
+        showAlert(alert)
     }
 }
