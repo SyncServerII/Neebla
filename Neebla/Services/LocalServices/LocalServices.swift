@@ -12,7 +12,6 @@ class LocalServices {
     
     init() throws {
         previewGenerator = try URLPreviewGenerator()
-        try AnyTypeManager.session.setup()
     }
     
     static func setup(db: Connection) throws {

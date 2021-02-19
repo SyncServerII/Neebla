@@ -148,7 +148,6 @@ extension ServerObjectModel {
     
     func getCommentsUnreadCount() throws -> Int? {
         let fileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.comments, withFileGroupUUID: fileGroupUUID)
-        logger.debug("fileModel.unreadCount: \(String(describing: fileModel.unreadCount))")
         return fileModel.unreadCount
     }
     

@@ -51,6 +51,11 @@ class ShareViewModel: ObservableObject {
     
     private func syncCompletionHelper() {
         if let sharingGroups = try? Services.session.syncServer.sharingGroups() {
+            let sharingGroups = sharingGroups.sorted { (s1, s2) -> Bool in
+                let name1 = s1.sharingGroupName ?? AlbumModel.untitledAlbumName
+                let name2 = s2.sharingGroupName ?? AlbumModel.untitledAlbumName
+                return name1 < name2
+            }
             self.sharingGroups = sharingGroups.enumerated().map { index, group in
                 return SharingGroupData(id: group.sharingGroupUUID, name: group.sharingGroupName ?? "Album \(index)")
             }

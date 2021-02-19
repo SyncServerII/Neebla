@@ -217,6 +217,16 @@ class Services {
             logger.error("\(error)")
         }
         
+        // I was previously doing this in `LocalServices`-- but then we can't handle downloads in the sharing extension. See https://github.com/SyncServerII/Neebla/issues/4
+        // But `AnyTypeManager.session.setup` uses `Services.session`, so do it after that initialization.
+        do {
+            try AnyTypeManager.session.setup()
+        } catch let error {
+            logger.error("Could not initialize AnyTypeManager: \(error)")
+            Self.setupState = .failure
+            return
+        }
+        
         Self.setupState = .done(appLaunch: true)
     }
 }

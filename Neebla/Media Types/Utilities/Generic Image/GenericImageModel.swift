@@ -188,7 +188,6 @@ class GenericImageModel: ObservableObject {
             DispatchQueue.main.async {
                 self.image = image
                 self.imageStatus = .loaded
-                logger.debug("Image status: .loaded")
             }
         }
         else {

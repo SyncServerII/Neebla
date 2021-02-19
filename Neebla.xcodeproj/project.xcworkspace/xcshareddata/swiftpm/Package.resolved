@@ -96,8 +96,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "0bb6f98233145f1d9b2f0ddfc0630ff92b10bbe5",
-          "version": "0.2.0"
+          "revision": "0f7f2bec78dc4d9cb131de25ea5ccdb1247e6f04",
+          "version": "0.3.1"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSDropbox.git",
         "state": {
           "branch": null,
-          "revision": "250cfdf83d477094333cce2dc0e713a34cc176b0",
-          "version": "0.0.3"
+          "revision": "f78664365026108c0ed4a1d89c7b12a336502923",
+          "version": "0.1.0"
         }
       },
       {
