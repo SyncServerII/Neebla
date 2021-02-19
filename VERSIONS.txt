@@ -23,6 +23,9 @@ Version 2.0.0-Release
 	* Fix issue: Show error messages on sharing screen.
 	* Adding aspect ratio constraint for images.
 	* Improving user alerts. And changed to using pass through subjects.
+	* Fix sorting order of album names in sharing extension.
+	* Using iOSBasics improvements for download re-downloading.
+	* Fixing downloading while in sharing extension.
 
 Version 2.0.0 (1/29/21)
 	* First successful upload of this version to iTunes Connect. 
