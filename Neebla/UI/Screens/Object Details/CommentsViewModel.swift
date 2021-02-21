@@ -13,7 +13,11 @@ class CommentsViewModel: ObservableObject {
     private var commentFileModel:ServerFileModel!
     private var commentFileModelURL:URL!
     private var commentFile: CommentFile!
+    
+    private(set) var allowingSending = true
+
     let unknownUserInitials = "MT"
+    let unknownUserID = -1
 
     @Published private(set) var messages: [MessageType]
 
@@ -24,7 +28,14 @@ class CommentsViewModel: ObservableObject {
     init?(object:ServerObjectModel) {
         self.object = object
         messages = []
+        
+        // If the user is signed in, allow user to view and send messages.
+        // If the user is *not* signed in, allow user to view but not send messages.
 
+        if !Services.session.userIsSignedIn {
+            allowingSending = false
+        }
+        
         // Prioritizing the local setting-- but plan to propagate this local setting to the server in a new API call.
         if let username = try? SettingsModel.userName(db: Services.session.db) {
             senderUserDisplayName = username
@@ -33,17 +44,20 @@ class CommentsViewModel: ObservableObject {
             senderUserDisplayName = username
         }
         else {
-            logger.error("No user name for messages!")
-            // We're in the constructor. We want to show an error. But the view hasn't rendered yet. Delay a bit so the view gets rendered.
-            return nil
+            logger.warning("No user name for messages")
+            senderUserDisplayName = unknownUserInitials
+            allowingSending = false
         }
 
-        guard let userId = Services.session.userId else {
-            logger.error("No user id for messages!")
-            return nil
+        if let userId = Services.session.userId {
+            senderUserId = "\(userId)"
         }
-        senderUserId = "\(userId)"
-
+        else {
+            logger.warning("No user id for messages!")
+            senderUserId = "\(unknownUserID)"
+            allowingSending = false
+        }
+        
         guard loadDiscussion() else {
             logger.error("Could not load discussion!")
             return nil

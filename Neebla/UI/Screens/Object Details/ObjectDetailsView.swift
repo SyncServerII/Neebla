@@ -10,6 +10,7 @@ struct ObjectDetailsView: View {
     @ObservedObject var model:ObjectDetailsModel
     @State var showComments = false
     @StateObject var alerty = AlertySubscriber(debugMessage: "ObjectDetailsView", publisher: Services.session.userEvents)
+    @StateObject var signInManager = Services.session.signInServices.manager
     
     init(object:ServerObjectModel) {
         self.object = object
@@ -45,6 +46,7 @@ struct ObjectDetailsView: View {
                         SFSymbolIcon(symbol: .trash)
                     }
                 )
+                .enabled(signInManager.userIsSignedIn == true)
                 
                 Button(
                     action: {
