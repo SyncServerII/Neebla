@@ -57,7 +57,7 @@ class AlbumsViewModel: ObservableObject {
         userEventSubscriptionOther = Services.session.userEvents.alerty.sink { [weak self] _ in
             self?.isShowingRefresh = false
         }
-                
+        
         // Give the user the current albums to look at initially. There's a `sync` in `onAppear` in the view-- which will update this if needed.
         getCurrentAlbums()
     }
@@ -101,7 +101,18 @@ class AlbumsViewModel: ObservableObject {
         }
     }
     
-    func sync() {
+    func sync(userTriggered: Bool = false) {
+        if userTriggered && !Services.session.userIsSignedIn {
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "Please sign in to sync!"))
+            isShowingRefresh = false
+            return
+        }
+        
+        guard Services.session.userIsSignedIn else {
+            logger.warning("sync: Not doing. User is not signed in.")
+            return
+        }
+        
         do {
             try Services.session.syncServer.sync()
         } catch let error {
@@ -236,6 +247,12 @@ class AlbumsViewModel: ObservableObject {
     }
     
     func checkForNotificationAuthorization() {
+        // Not much point in doing this if user isn't signed in. This may require server communication. And notifications themselves only make sense if a user is signed in.
+        guard Services.session.userIsSignedIn else {
+            logger.warning("checkForNotificationAuthorization: Not doing. User is not signed in.")
+            return
+        }
+        
         PushNotifications.session.checkForNotificationAuthorization()
     }
 }

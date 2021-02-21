@@ -85,6 +85,12 @@ class Services {
     
     var configuration:UIConfiguration!
     var signInServices: SignInServices!
+    
+    // Shorthand to determine if a user is signed in. Don't use this at app launch.
+    var userIsSignedIn: Bool {
+        Services.session.signInServices.manager.userIsSignedIn ?? false
+    }
+    
     var serverInterface:ServerInterface!
     
     var currentSignIns = [GenericSignIn]()

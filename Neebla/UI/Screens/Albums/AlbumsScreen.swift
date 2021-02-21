@@ -4,6 +4,7 @@ import SwiftUI
 import SwiftUIRefresh
 import SFSafeSymbols
 import iOSShared
+import iOSSignIn
 
 struct AlbumsScreen: View {
     @StateObject var viewModel = AlbumsViewModel()
@@ -38,7 +39,7 @@ struct AlbumsScreenBody: View {
         }
         .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                viewModel.sync()
+                viewModel.sync(userTriggered: true)
             }
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
@@ -173,7 +174,13 @@ struct AlbumsScreenAlbumList: View {
 
 private struct RightNavBarIcons: View {
     @ObservedObject var viewModel:AlbumsViewModel
+    @ObservedObject var signInManager: SignInManager
     @Environment(\.colorScheme) var colorScheme
+    
+    init(viewModel:AlbumsViewModel) {
+        self.viewModel = viewModel
+        signInManager = Services.session.signInServices.manager
+    }
 
     var body: some View {
         HStack(spacing: 0) {
@@ -188,7 +195,7 @@ private struct RightNavBarIcons: View {
                 }
             )
             .frame(width: Icon.dimension, height: Icon.dimension)
-            .enabled(viewModel.canSendMail && viewModel.albums.count > 0)
+            .enabled(viewModel.canSendMail && viewModel.albums.count > 0 && signInManager.userIsSignedIn == true)
                                     
             Button(
                 action: {
@@ -198,6 +205,7 @@ private struct RightNavBarIcons: View {
                     SFSymbolIcon(symbol: .plusCircle)
                 }
             )
+            .enabled(signInManager.userIsSignedIn == true)
         }
     }
 }

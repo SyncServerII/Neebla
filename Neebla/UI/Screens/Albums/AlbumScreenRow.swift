@@ -8,14 +8,17 @@
 import Foundation
 import SwiftUI
 import SFSafeSymbols
+import iOSSignIn
 
 struct AlbumsScreenRow: View {
     @ObservedObject var album:AlbumModel
     @ObservedObject var viewModel:AlbumsViewModel
     @ObservedObject var rowModel:AlbumScreenRowModel
     @Environment(\.colorScheme) var colorScheme
+    @ObservedObject var signInManager: SignInManager
     
     init(album:AlbumModel, viewModel:AlbumsViewModel) {
+        signInManager = Services.session.signInServices.manager
         self.album = album
         self.viewModel = viewModel
         rowModel = AlbumScreenRowModel(sharingGroupUUID: album.sharingGroupUUID)
@@ -48,6 +51,7 @@ struct AlbumsScreenRow: View {
                     }, label: {
                         Image(systemName: SFSymbol.pencil.rawValue)
                     }).buttonStyle(PlainButtonStyle())
+                    .enabled(signInManager.userIsSignedIn == true)
                 }
             }
 
