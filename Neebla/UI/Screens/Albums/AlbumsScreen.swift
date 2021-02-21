@@ -80,7 +80,8 @@ struct AlbumsScreenBody: View {
 
 struct AlbumsScreenEmptyState: View {
     @ObservedObject var viewModel:AlbumsViewModel
-    
+    @StateObject var signInManager = Services.session.signInServices.manager
+
     var body: some View {
         VStack(spacing: 20) {
             Text("No albums found.")
@@ -89,25 +90,34 @@ struct AlbumsScreenEmptyState: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(maxHeight: 120)
             
-            VStack {
-                Text("Do you just need to refresh?")
-                Button(
-                    action: {
-                        viewModel.sync()
-                    },
-                    label: {
-                        SFSymbolIcon(symbol: .goforward)
-                    }
-                )
-            }
             
-            VStack {
-                Text("Or perhaps you have none?")
-                Button(action: {
-                    viewModel.startCreateNewAlbum()
-                }, label: {
-                    SFSymbolIcon(symbol: .plusCircle)
-                })
+            switch signInManager.userIsSignedIn {
+            case .some(true):
+                VStack {
+                    Text("Do you just need to refresh?")
+                    Button(
+                        action: {
+                            viewModel.sync()
+                        },
+                        label: {
+                            SFSymbolIcon(symbol: .goforward)
+                        }
+                    )
+                }
+                
+                VStack {
+                    Text("Or perhaps you have none?")
+                    Button(action: {
+                        viewModel.startCreateNewAlbum()
+                    }, label: {
+                        SFSymbolIcon(symbol: .plusCircle)
+                    })
+                }
+            
+            default:
+                VStack {
+                    Text("Please sign in to refresh or add an album.")
+                }
             }
         }
     }

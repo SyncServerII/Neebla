@@ -27,6 +27,12 @@ class AlbumItemsViewModel: ObservableObject {
         didSet {
             if oldValue == false && loading == true {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    if !Services.session.userIsSignedIn {
+                        showAlert(AlertyHelper.alert(title: "Alert!", message: "Please sign in to sync!"))
+                        self.loading = false
+                        return
+                    }
+                    
                     self.sync()
                 }
             }
@@ -121,7 +127,9 @@ class AlbumItemsViewModel: ObservableObject {
             self?.loading = false
         }
         
-        sync()
+        if Services.session.userIsSignedIn {
+            sync()
+        }
         
         // Give user something to look at if there are album items already.
         getItemsForAlbum(album: sharingGroupUUID)

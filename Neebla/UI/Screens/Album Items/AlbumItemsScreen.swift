@@ -65,6 +65,8 @@ struct AlbumItemsScreenBody: View {
 
 struct AlbumItemsScreenBodyEmptyState: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
+    @StateObject var signInManager = Services.session.signInServices.manager
+
     let albumName: String
 
     init(viewModel:AlbumItemsViewModel, albumName: String) {
@@ -77,21 +79,29 @@ struct AlbumItemsScreenBodyEmptyState: View {
             Text("No media items found in album.")
             Image("client-icon")
             
-            VStack {
-                Text("Do you just need to refresh?")
-                Button(
-                    action: {
-                        viewModel.sync()
-                    },
-                    label: {
-                        SFSymbolIcon(symbol: .goforward)
-                    }
-                )
-            }
-            
-            VStack {
-                Text("Or perhaps you need to add some?")
-                MediaPickersMenu(viewModel: viewModel)
+            switch signInManager.userIsSignedIn {
+            case .some(true):
+                VStack {
+                    Text("Do you just need to refresh?")
+                    Button(
+                        action: {
+                            viewModel.sync()
+                        },
+                        label: {
+                            SFSymbolIcon(symbol: .goforward)
+                        }
+                    )
+                }
+                
+                VStack {
+                    Text("Or perhaps you need to add some?")
+                    MediaPickersMenu(viewModel: viewModel)
+                }
+                
+            default:
+                VStack {
+                    Text("Please sign in to refresh or add media items.")
+                }
             }
         }.padding(20)
         .navigationBarTitle(albumName)
@@ -182,6 +192,7 @@ private struct AlbumItemsScreenNavButtons: View {
 struct MediaPickersMenu: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     let pickers:[MediaPicker]
+    @StateObject var signInManager = Services.session.signInServices.manager
     
     init(viewModel:AlbumItemsViewModel) {
         self.viewModel = viewModel
@@ -205,6 +216,7 @@ struct MediaPickersMenu: View {
             } label: {
                 SFSymbolIcon(symbol: .plusCircle)
             }
+            .enabled(signInManager.userIsSignedIn == true)
         }
     }
 }
@@ -212,6 +224,7 @@ struct MediaPickersMenu: View {
 private struct AlbumItemsScreenNavRegularButtons: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     @Environment(\.colorScheme) var colorScheme
+    @StateObject var signInManager = Services.session.signInServices.manager
 
     init(viewModel:AlbumItemsViewModel) {
         self.viewModel = viewModel
@@ -243,6 +256,7 @@ private struct AlbumItemsScreenNavRegularButtons: View {
             } label: {
                 SFSymbolIcon(symbol: .ellipsis)
             }
+            .enabled(signInManager.userIsSignedIn == true)
         }
     }
 }
