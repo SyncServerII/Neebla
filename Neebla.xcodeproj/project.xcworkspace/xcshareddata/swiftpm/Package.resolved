@@ -74,6 +74,15 @@
         }
       },
       {
+        "package": "Hyperconnectivity",
+        "repositoryURL": "https://github.com/rwbutler/Hyperconnectivity.git",
+        "state": {
+          "branch": null,
+          "revision": "000171e456c3ea26a2a6fed6b7f363b131862221",
+          "version": "1.1.0"
+        }
+      },
+      {
         "package": "InputBarAccessoryView",
         "repositoryURL": "https://github.com/nathantannar4/InputBarAccessoryView",
         "state": {
@@ -96,8 +105,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "0f7f2bec78dc4d9cb131de25ea5ccdb1247e6f04",
-          "version": "0.3.1"
+          "revision": "378b6a552498efe27078428a6525fd9348e5686c",
+          "version": "0.4.1"
         }
       },
       {
@@ -129,11 +138,11 @@
       },
       {
         "package": "iOSShared",
-        "repositoryURL": "https://github.com/SyncServerII/iOSShared.git",
+        "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "631db3a4c59d52bce40a32326e416fc0f8c0270c",
-          "version": "0.2.0"
+          "revision": "39ced317d617ce2795a143d490ad02d6c7fd886c",
+          "version": "0.3.0"
         }
       },
       {
@@ -267,8 +276,8 @@
         "repositoryURL": "https://github.com/piknotech/SFSafeSymbols.git",
         "state": {
           "branch": null,
-          "revision": "fee7cc51851b7a1c8f6d0da340e9cf71169b1e7e",
-          "version": "2.1.1"
+          "revision": "9d66af8ebfafca1cb21b77f3c5e3f43189174403",
+          "version": "2.1.2"
         }
       },
       {

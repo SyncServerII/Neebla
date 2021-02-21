@@ -41,6 +41,12 @@ class AlbumListModalModel: ObservableObject {
     
     func removeUserFromAlbum(album: AlbumModel) {
         Services.session.syncServer.removeFromSharingGroup(sharingGroupUUID: album.sharingGroupUUID) { error in
+        
+            if let noNetwork = error as? Errors, noNetwork.networkIsNotReachable {
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
+                return
+            }
+                
             if let error = error {
                 logger.error("\(error)")
                 showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed to remove user from album."))

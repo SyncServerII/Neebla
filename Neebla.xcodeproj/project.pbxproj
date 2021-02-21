@@ -110,6 +110,7 @@
 		834CC65025D0E439004A9BF1 /* AnyIconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC64F25D0E439004A9BF1 /* AnyIconModel.swift */; };
 		834CC65525D0F4D7004A9BF1 /* AlbumScreenRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC65425D0F4D7004A9BF1 /* AlbumScreenRow.swift */; };
 		834CC65A25D0F528004A9BF1 /* AlbumScreenRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC65925D0F528004A9BF1 /* AlbumScreenRowModel.swift */; };
+		834E4FF725E21942002C0ED2 /* iOSShared in Frameworks */ = {isa = PBXBuildFile; productRef = 834E4FF625E21942002C0ED2 /* iOSShared */; };
 		835104A4259FE91900C5A05E /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835104A3259FE91900C5A05E /* MediaPicker.swift */; };
 		835104A5259FE91900C5A05E /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835104A3259FE91900C5A05E /* MediaPicker.swift */; };
 		835104AD259FEBE300C5A05E /* CameraMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835104AC259FEBE300C5A05E /* CameraMediaPicker.swift */; };
@@ -482,6 +483,7 @@
 				835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */,
 				8320A70E256DF07E00819377 /* MessageKit in Frameworks */,
 				832D342D25869E2D00FEF094 /* RadioGroup in Frameworks */,
+				834E4FF725E21942002C0ED2 /* iOSShared in Frameworks */,
 				83F1E0B225C50EE000DA4A80 /* GSignIn in Frameworks */,
 				83D8CC0425B956200069E3E5 /* SideMenu in Frameworks */,
 				83F7EBAE25C3A7C500528B33 /* PersistentValue in Frameworks */,
@@ -1273,6 +1275,7 @@
 				8399663C25C3CFBF00AD2AC8 /* Toucan */,
 				8385709225C3EDA800F872E3 /* iOSGoogle */,
 				83F1E0B125C50EE000DA4A80 /* GSignIn */,
+				834E4FF625E21942002C0ED2 /* iOSShared */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -1325,6 +1328,7 @@
 				8304B17C25C3ACC8009226BA /* XCRemoteSwiftPackageReference "iOSSIgnIn" */,
 				8399663B25C3CFBF00AD2AC8 /* XCRemoteSwiftPackageReference "Toucan" */,
 				8385708F25C3EDA700F872E3 /* XCRemoteSwiftPackageReference "iOSGoogle" */,
+				834E4FF525E21942002C0ED2 /* XCRemoteSwiftPackageReference "iOSShared" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -2012,6 +2016,14 @@
 				minimumVersion = 0.0.3;
 			};
 		};
+		834E4FF525E21942002C0ED2 /* XCRemoteSwiftPackageReference "iOSShared" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/SyncServerII/iOSShared.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
 		835AC8DB255B833A00375084 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/piknotech/SFSafeSymbols.git";
@@ -2119,6 +2131,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8331F423255F8C6D0063A67D /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
 			productName = SwiftUIRefresh;
+		};
+		834E4FF625E21942002C0ED2 /* iOSShared */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 834E4FF525E21942002C0ED2 /* XCRemoteSwiftPackageReference "iOSShared" */;
+			productName = iOSShared;
 		};
 		835AC8DC255B833A00375084 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;

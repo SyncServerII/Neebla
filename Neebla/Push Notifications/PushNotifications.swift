@@ -86,6 +86,11 @@ class PushNotifications {
         }
         
         Services.session.serverInterface.syncServer.registerPushNotificationToken(deviceTokenString) { error in
+            if let noNetwork = error as? Errors, noNetwork.networkIsNotReachable {
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
+                return
+            }
+            
             if let error = error {
                 logger.error("registerPushNotificationToken: \(error)")
                 return

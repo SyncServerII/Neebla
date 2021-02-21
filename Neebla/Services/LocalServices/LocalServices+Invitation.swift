@@ -38,7 +38,12 @@ extension Services {
                 }
                 
             case .failure(let error):
-                message = "\(error)"
+                if let networkError = error as? Errors, networkError.networkIsNotReachable {
+                    showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
+                }
+                else {
+                    message = "\(error)"
+                }
             }
             
             if let message = message {
@@ -59,6 +64,11 @@ extension Services {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
+                    if let noNetwork = error as? Errors, noNetwork.networkIsNotReachable {
+                        showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
+                        return
+                    }
+
                     showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed redeeming sharing invitation. Has it expired? Have you redeemded it already?"))
                     logger.error("\(error)")
                 }

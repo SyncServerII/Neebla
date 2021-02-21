@@ -104,6 +104,12 @@ class AlbumSharingModalModel: ObservableObject {
                 
             case .failure(let error):
                 logger.error("\(error)")
+                
+                if let noNetwork = error as? Errors, noNetwork.networkIsNotReachable {
+                    showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
+                    return
+                }
+                
                 showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed to create sharing invitation!"))
             }
         }

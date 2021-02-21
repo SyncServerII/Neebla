@@ -3,6 +3,7 @@ import Foundation
 import SwiftUI
 import iOSShared
 import Combine
+import iOSBasics
 
 class AlbumSharingScreenModel: ObservableObject {
     @Published var sharingCode: String? {
@@ -45,6 +46,12 @@ class AlbumSharingScreenModel: ObservableObject {
                 
             case .failure(let error):
                 logger.error("\(error)")
+                
+                if let noNetwork = error as? Errors, noNetwork.networkIsNotReachable {
+                    showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
+                    return
+                }
+                
                 showAlert(AlertyHelper.error(message: "Failure redeeming sharing code."))
             }
         }
