@@ -126,9 +126,17 @@ class AlbumsViewModel: ObservableObject {
         
         do {
             try Services.session.syncServer.sync()
-        } catch let error {            
-            logger.error("\(error)")
+        } catch let error {
             isShowingRefresh = false
+            logger.error("\(error)")
+            
+            if let networkError = error as? Errors, networkError.networkIsNotReachable {
+                if userTriggered {
+                    showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
+                }
+                return
+            }
+            
             showAlert(AlertyHelper.error(message: "Failed to sync."))
         }
     }

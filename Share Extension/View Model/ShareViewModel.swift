@@ -46,6 +46,11 @@ class ShareViewModel: ObservableObject {
         }
         catch let error {
             logger.error("\(error)")
+            
+            if let networkError = error as? Errors, networkError.networkIsNotReachable {
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
+                return
+            }
         }
     }
     

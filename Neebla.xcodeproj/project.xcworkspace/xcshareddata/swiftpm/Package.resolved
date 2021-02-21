@@ -105,8 +105,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "378b6a552498efe27078428a6525fd9348e5686c",
-          "version": "0.4.1"
+          "revision": "d2941b28dddc228afbbd3a80f66fd401656f8c06",
+          "version": "0.6.0"
         }
       },
       {
@@ -150,8 +150,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSSIgnIn.git",
         "state": {
           "branch": null,
-          "revision": "f986002fc948c320c259206aab8bbc7f6bb7101f",
-          "version": "0.2.0"
+          "revision": "7a451212e110e21e4cc6f719eedb0931a9ff34f8",
+          "version": "0.3.0"
         }
       },
       {

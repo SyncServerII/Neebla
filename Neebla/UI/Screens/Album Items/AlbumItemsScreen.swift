@@ -85,7 +85,7 @@ struct AlbumItemsScreenBodyEmptyState: View {
                     Text("Do you just need to refresh?")
                     Button(
                         action: {
-                            viewModel.sync()
+                            viewModel.sync(userTriggered: true)
                         },
                         label: {
                             SFSymbolIcon(symbol: .goforward)
@@ -243,7 +243,7 @@ private struct AlbumItemsScreenNavRegularButtons: View {
                 }.enabled(viewModel.objects.count > 0)
                 
                 Button(action: {
-                    viewModel.sync()
+                    viewModel.sync(userTriggered: true)
                 }) {
                     Label("Sync", systemImage: "goforward")
                 }

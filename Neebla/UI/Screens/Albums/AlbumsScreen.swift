@@ -97,7 +97,7 @@ struct AlbumsScreenEmptyState: View {
                     Text("Do you just need to refresh?")
                     Button(
                         action: {
-                            viewModel.sync()
+                            viewModel.sync(userTriggered: true)
                         },
                         label: {
                             SFSymbolIcon(symbol: .goforward)

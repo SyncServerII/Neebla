@@ -33,7 +33,8 @@ class AlbumItemsViewModel: ObservableObject {
                         return
                     }
                     
-                    self.sync()
+                    // Calling this user triggered. User initiated the pull to refresh.
+                    self.sync(userTriggered: true)
                 }
             }
         }
@@ -191,12 +192,20 @@ class AlbumItemsViewModel: ObservableObject {
         }
     }
 
-    func sync() {
+    func sync(userTriggered: Bool = false) {
         do {
             try Services.session.syncServer.sync(sharingGroupUUID: sharingGroupUUID)
         } catch let error {
             logger.error("\(error)")
             loading = false
+
+            if let networkError = error as? Errors, networkError.networkIsNotReachable {
+                if userTriggered {
+                    showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
+                }
+                return
+            }
+            
             showAlert(AlertyHelper.error(message: "Failed to sync."))
         }
     }
@@ -210,6 +219,7 @@ class AlbumItemsViewModel: ObservableObject {
             // This more directly updates the view from the local file that was added.
             getItemsForAlbum(album: sharingGroupUUID)
             
+            // Indicating this as *not* user triggered as it's not *directly* user triggered, and I don't want a no-network error showing up in this case. The upload, if we get this far, should have been successfully queued.
             sync()
         }
         catch let error {
