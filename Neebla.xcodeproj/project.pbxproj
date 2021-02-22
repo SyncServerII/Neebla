@@ -124,6 +124,10 @@
 		835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */; };
 		835AC8F3255B848300375084 /* ServerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F1255B848300375084 /* ServerInterface.swift */; };
 		835DB00B25C2934A00AE221F /* iOSBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 835DB00A25C2934A00AE221F /* iOSBasics */; };
+		8367503525E31F0C003957BE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8367503425E31F0C003957BE /* Reachability.swift */; };
+		8367503925E31FD6003957BE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8367503425E31F0C003957BE /* Reachability.swift */; };
+		8367503F25E320CE003957BE /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 8367503E25E320CE003957BE /* Hyperconnectivity */; };
+		8367504A25E326D7003957BE /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 8367504925E326D7003957BE /* Hyperconnectivity */; };
 		837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46B325D8D02100CAC322 /* CGSize+Extras.swift */; };
 		837A46D225D8D30E00CAC322 /* PriorityQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46D125D8D30E00CAC322 /* PriorityQueueTests.swift */; };
 		837A46D725D8D40D00CAC322 /* MediaTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46D625D8D40D00CAC322 /* MediaTypeTests.swift */; };
@@ -376,6 +380,7 @@
 		835AC8E8255B842E00375084 /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerInterface+Helpers.swift"; sourceTree = "<group>"; };
 		835AC8F1255B848300375084 /* ServerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInterface.swift; sourceTree = "<group>"; };
+		8367503425E31F0C003957BE /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		837A46B325D8D02100CAC322 /* CGSize+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extras.swift"; sourceTree = "<group>"; };
 		837A46C425D8D2DA00CAC322 /* NeeblaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeeblaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		837A46C825D8D2DB00CAC322 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -460,6 +465,7 @@
 				83F1E0D625C5188800DA4A80 /* FileLogging in Frameworks */,
 				83F1E0DB25C5189800DA4A80 /* SMLinkPreview in Frameworks */,
 				83F1E0D125C5185200DA4A80 /* iOSFacebook in Frameworks */,
+				8367504A25E326D7003957BE /* Hyperconnectivity in Frameworks */,
 				83F1E0EF25C518E100DA4A80 /* iOSGoogle in Frameworks */,
 				83F1E0EA25C518D300DA4A80 /* iOSDropbox in Frameworks */,
 				83F1E0CC25C5183C00DA4A80 /* iOSBasics in Frameworks */,
@@ -491,6 +497,7 @@
 				83D2FBF225C3A6D500E378F7 /* FileLogging in Frameworks */,
 				8304B17E25C3ACC8009226BA /* iOSSignIn in Frameworks */,
 				835DB00B25C2934A00AE221F /* iOSBasics in Frameworks */,
+				8367503F25E320CE003957BE /* Hyperconnectivity in Frameworks */,
 				8331F425255F8C6D0063A67D /* SwiftUIRefresh in Frameworks */,
 				8308B6D92569F595007F0CEB /* SMLinkPreview in Frameworks */,
 				83F389C5259044ED00610C76 /* iOSApple in Frameworks */,
@@ -896,6 +903,7 @@
 			isa = PBXGroup;
 			children = (
 				835AC8F1255B848300375084 /* ServerInterface.swift */,
+				8367503425E31F0C003957BE /* Reachability.swift */,
 				835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */,
 			);
 			path = ServerInterface;
@@ -1218,6 +1226,7 @@
 				83F1E0EE25C518E100DA4A80 /* iOSGoogle */,
 				83F1E0F325C518EF00DA4A80 /* iOSApple */,
 				83F1E0F825C518FE00DA4A80 /* Toucan */,
+				8367504925E326D7003957BE /* Hyperconnectivity */,
 			);
 			productName = "Share Extension";
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
@@ -1276,6 +1285,7 @@
 				8385709225C3EDA800F872E3 /* iOSGoogle */,
 				83F1E0B125C50EE000DA4A80 /* GSignIn */,
 				834E4FF625E21942002C0ED2 /* iOSShared */,
+				8367503E25E320CE003957BE /* Hyperconnectivity */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -1329,6 +1339,7 @@
 				8399663B25C3CFBF00AD2AC8 /* XCRemoteSwiftPackageReference "Toucan" */,
 				8385708F25C3EDA700F872E3 /* XCRemoteSwiftPackageReference "iOSGoogle" */,
 				834E4FF525E21942002C0ED2 /* XCRemoteSwiftPackageReference "iOSShared" */,
+				8367503D25E320CE003957BE /* XCRemoteSwiftPackageReference "Hyperconnectivity" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -1484,6 +1495,7 @@
 				834B25CC258C7C2200F653BC /* ServicesDelegate.swift in Sources */,
 				8331F444255F9C920063A67D /* ServerObjectModel.swift in Sources */,
 				83BF7CA6258543B4000E0B37 /* Comments+Keys.swift in Sources */,
+				8367503925E31FD6003957BE /* Reachability.swift in Sources */,
 				83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */,
 				83C7347D25986E2C0073788A /* ImageItemProvider.swift in Sources */,
 				8331F43E255F9C8B0063A67D /* SetupSharedDatabase.swift in Sources */,
@@ -1511,6 +1523,7 @@
 				83F4167B259C2074003C7200 /* UIDevice+Extras.swift in Sources */,
 				83E1A98D2599A36F004D4029 /* URLPreviewItemProvider.swift in Sources */,
 				8331F337255B8AFD0063A67D /* MainView.swift in Sources */,
+				8367503525E31F0C003957BE /* Reachability.swift in Sources */,
 				8308B6E9256A0733007F0CEB /* URLPreviewGenerator.swift in Sources */,
 				8331F433255F97A50063A67D /* Services+LocalDatabase.swift in Sources */,
 				83F416D4259E7DCE003C7200 /* Services+SignInsDelegate.swift in Sources */,
@@ -2042,6 +2055,14 @@
 				minimumVersion = 0.0.2;
 			};
 		};
+		8367503D25E320CE003957BE /* XCRemoteSwiftPackageReference "Hyperconnectivity" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rwbutler/Hyperconnectivity.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 		8385708F25C3EDA700F872E3 /* XCRemoteSwiftPackageReference "iOSGoogle" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSGoogle";
@@ -2148,6 +2169,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 835DB00925C2934A00AE221F /* XCRemoteSwiftPackageReference "iOSBasics" */;
 			productName = iOSBasics;
+		};
+		8367503E25E320CE003957BE /* Hyperconnectivity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8367503D25E320CE003957BE /* XCRemoteSwiftPackageReference "Hyperconnectivity" */;
+			productName = Hyperconnectivity;
+		};
+		8367504925E326D7003957BE /* Hyperconnectivity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8367503D25E320CE003957BE /* XCRemoteSwiftPackageReference "Hyperconnectivity" */;
+			productName = Hyperconnectivity;
 		};
 		8385709225C3EDA800F872E3 /* iOSGoogle */ = {
 			isa = XCSwiftPackageProductDependency;
