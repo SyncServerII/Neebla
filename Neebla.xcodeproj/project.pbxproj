@@ -139,6 +139,8 @@
 		837A472725DA37DA00CAC322 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A472625DA37DA00CAC322 /* Images.swift */; };
 		8385709325C3EDA800F872E3 /* iOSGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 8385709225C3EDA800F872E3 /* iOSGoogle */; };
 		8399663D25C3CFBF00AD2AC8 /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8399663C25C3CFBF00AD2AC8 /* Toucan */; };
+		839ADC1225E3869A00618581 /* AlbumsViewModel+Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC1125E3869A00618581 /* AlbumsViewModel+Index.swift */; };
+		839ADC1F25E4AF2A00618581 /* ServerShared in Frameworks */ = {isa = PBXBuildFile; productRef = 839ADC1E25E4AF2A00618581 /* ServerShared */; };
 		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
 		83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
 		83B0CB4725B2A51400D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
@@ -389,6 +391,7 @@
 		837A46DF25D8DD7900CAC322 /* UIImage+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extras.swift"; sourceTree = "<group>"; };
 		837A471025D9FF5200CAC322 /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
 		837A472625DA37DA00CAC322 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		839ADC1125E3869A00618581 /* AlbumsViewModel+Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumsViewModel+Index.swift"; sourceTree = "<group>"; };
 		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationMessage.swift; sourceTree = "<group>"; };
 		83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
@@ -500,6 +503,7 @@
 				8367503F25E320CE003957BE /* Hyperconnectivity in Frameworks */,
 				8331F425255F8C6D0063A67D /* SwiftUIRefresh in Frameworks */,
 				8308B6D92569F595007F0CEB /* SMLinkPreview in Frameworks */,
+				839ADC1F25E4AF2A00618581 /* ServerShared in Frameworks */,
 				83F389C5259044ED00610C76 /* iOSApple in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -775,7 +779,7 @@
 			isa = PBXGroup;
 			children = (
 				8331F401255F83790063A67D /* AlbumsScreen.swift */,
-				8331F44A255FA7BA0063A67D /* AlbumsViewModel.swift */,
+				839ADC1025E3868A00618581 /* AlbumsViewModel */,
 				834CC65425D0F4D7004A9BF1 /* AlbumScreenRow.swift */,
 				834CC65925D0F528004A9BF1 /* AlbumScreenRowModel.swift */,
 			);
@@ -917,6 +921,15 @@
 				837A46C825D8D2DB00CAC322 /* Info.plist */,
 			);
 			path = NeeblaTests;
+			sourceTree = "<group>";
+		};
+		839ADC1025E3868A00618581 /* AlbumsViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8331F44A255FA7BA0063A67D /* AlbumsViewModel.swift */,
+				839ADC1125E3869A00618581 /* AlbumsViewModel+Index.swift */,
+			);
+			path = AlbumsViewModel;
 			sourceTree = "<group>";
 		};
 		83B0C79725B29AE400D53B58 /* Push Notifications */ = {
@@ -1286,6 +1299,7 @@
 				83F1E0B125C50EE000DA4A80 /* GSignIn */,
 				834E4FF625E21942002C0ED2 /* iOSShared */,
 				8367503E25E320CE003957BE /* Hyperconnectivity */,
+				839ADC1E25E4AF2A00618581 /* ServerShared */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -1340,6 +1354,7 @@
 				8385708F25C3EDA700F872E3 /* XCRemoteSwiftPackageReference "iOSGoogle" */,
 				834E4FF525E21942002C0ED2 /* XCRemoteSwiftPackageReference "iOSShared" */,
 				8367503D25E320CE003957BE /* XCRemoteSwiftPackageReference "Hyperconnectivity" */,
+				839ADC1D25E4AF2A00618581 /* XCRemoteSwiftPackageReference "ServerShared" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -1636,6 +1651,7 @@
 				832D346425871B8800FEF094 /* AlbumListModalModel.swift in Sources */,
 				835AC8ED255B842E00375084 /* Services.swift in Sources */,
 				834B25AD258C613700F653BC /* Services+SignIns.swift in Sources */,
+				839ADC1225E3869A00618581 /* AlbumsViewModel+Index.swift in Sources */,
 				83B657DB255B81320041B9DF /* SceneDelegate.swift in Sources */,
 				8331F415255F857E0063A67D /* AlbumModel.swift in Sources */,
 				837A46E025D8DD7900CAC322 /* UIImage+Extras.swift in Sources */,
@@ -2079,6 +2095,14 @@
 				minimumVersion = 1.1.3;
 			};
 		};
+		839ADC1D25E4AF2A00618581 /* XCRemoteSwiftPackageReference "ServerShared" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SyncServerII/ServerShared.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
 		83D2FBDE25C294B500E378F7 /* XCRemoteSwiftPackageReference "iOSDropbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSDropbox.git";
@@ -2189,6 +2213,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8399663B25C3CFBF00AD2AC8 /* XCRemoteSwiftPackageReference "Toucan" */;
 			productName = Toucan;
+		};
+		839ADC1E25E4AF2A00618581 /* ServerShared */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 839ADC1D25E4AF2A00618581 /* XCRemoteSwiftPackageReference "ServerShared" */;
+			productName = ServerShared;
 		};
 		83D2FBDF25C294B500E378F7 /* iOSDropbox */ = {
 			isa = XCSwiftPackageProductDependency;

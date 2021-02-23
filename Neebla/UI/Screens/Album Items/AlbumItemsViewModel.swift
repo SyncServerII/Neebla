@@ -96,6 +96,16 @@ class AlbumItemsViewModel: ObservableObject {
         syncSubscription = Services.session.serverInterface.sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             
+            do {
+                // Reset the `needsDownload` field after a successful sync.
+                if let albumModel = try AlbumModel.fetchSingleRow(db: Services.session.db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID) {
+                    try albumModel.update(setters: AlbumModel.needsDownloadField.description <- false)
+                }
+            }
+            catch let error {
+                logger.error("\(error)")
+            }
+            
             self.loading = false
             self.getItemsForAlbum(album: sharingGroupUUID)
             logger.debug("Sync done")            

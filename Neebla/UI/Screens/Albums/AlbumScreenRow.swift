@@ -42,8 +42,9 @@ struct AlbumsScreenRow: View {
             // To change an album name and to share an album, you must have .admin permissions.
             if album.permission.hasMinimumPermission(.admin) {
                 if viewModel.sharingMode {
-                    Icon(imageName: Images.shareIcon(lightMode:colorScheme == .light),
-                    size: CGSize(width: 25, height: 25))
+                    Icon(imageName:
+                        Images.shareIcon(lightMode:colorScheme == .light),
+                        size: CGSize(width: 25, height: 25))
                 }
                 else {
                     Button(action: {
@@ -53,6 +54,14 @@ struct AlbumsScreenRow: View {
                     }).buttonStyle(PlainButtonStyle())
                     .enabled(signInManager.userIsSignedIn == true)
                 }
+            }
+            
+            // Indicate whether or not there are updates available to download for this album.
+            if album.needsDownload {
+                Icon(imageName:
+                    "Download.White",
+                    size: CGSize(width: 25, height: 25), blueAccent: false)
+                    .accentColor(colorScheme == .light ? .black : .white)
             }
 
             // I'm using the .buttonStyle above b/c otherwise, I'm not getting the button tap. See https://www.hackingwithswift.com/forums/swiftui/is-it-possible-to-have-a-button-action-in-a-list-foreach-view/1153

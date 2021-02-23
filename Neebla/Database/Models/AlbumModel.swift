@@ -22,13 +22,23 @@ class AlbumModel: DatabaseModel, ObservableObject {
     // This is for when the album itself is deleted. Not for just when the user is removed from the album.
     static let deletedField = Field("deleted", \M.deleted)
     var deleted: Bool
+
+    // If this is true, indicates some items need downloading for album.
+    static let needsDownloadField = Field("needsDownload", \M.needsDownload)
+    var needsDownload: Bool
+    
+    // This serves as a kind of serial number for an album. It is the most recent date of any item in the `contentsSummary` for the sharing group.
+    static let mostRecentDateField = Field("mostRecentDate", \M.mostRecentDate)
+    var mostRecentDate: Date?
     
     init(db: Connection,
         id: Int64! = nil,
         sharingGroupUUID: UUID,
         albumName: String?,
         permission: Permission,
-        deleted: Bool = false) throws {
+        deleted: Bool = false,
+        needsDownload: Bool = false,
+        mostRecentDate: Date? = nil) throws {
 
         self.db = db
         self.id = id
@@ -36,6 +46,8 @@ class AlbumModel: DatabaseModel, ObservableObject {
         self.albumName = albumName
         self.permission = permission
         self.deleted = deleted
+        self.needsDownload = needsDownload
+        self.mostRecentDate = mostRecentDate
     }
     
     // MARK: DatabaseModel
@@ -47,6 +59,8 @@ class AlbumModel: DatabaseModel, ObservableObject {
             t.column(albumNameField.description)
             t.column(permissionField.description)
             t.column(deletedField.description)
+            t.column(needsDownloadField.description)
+            t.column(mostRecentDateField.description)
         }
     }
     
@@ -56,7 +70,9 @@ class AlbumModel: DatabaseModel, ObservableObject {
             sharingGroupUUID: row[Self.sharingGroupUUIDField.description],
             albumName: row[Self.albumNameField.description],
             permission: row[Self.permissionField.description],
-            deleted: row[Self.deletedField.description]
+            deleted: row[Self.deletedField.description],
+            needsDownload: row[Self.needsDownloadField.description],
+            mostRecentDate: row[Self.mostRecentDateField.description]
         )
     }
     
@@ -65,34 +81,96 @@ class AlbumModel: DatabaseModel, ObservableObject {
             Self.sharingGroupUUIDField.description <- sharingGroupUUID,
             Self.albumNameField.description <- albumName,
             Self.permissionField.description <- permission,
-            Self.deletedField.description <- deleted
+            Self.deletedField.description <- deleted,
+            Self.needsDownloadField.description <- needsDownload,
+            Self.mostRecentDateField.description <- mostRecentDate
         )
     }
 }
 
+extension Array where Element == iOSBasics.SharingGroup.FileGroupSummary {
+    // Get the most recent date from all `FileGroupSummary`'s.
+    func mostRecentDate() -> Date? {
+        var current:Date!
+        
+        for summary in self {
+            if let curr = current {
+                current = Swift.max(curr, summary.mostRecentDate)
+            }
+            else {
+                current = summary.mostRecentDate
+            }
+        }
+        
+        return current
+    }
+}
+
 extension AlbumModel {
+    // If `contentsSummary` is present in SharingGroup's, they will be updated.
     static func upsertSharingGroup(db: Connection, sharingGroup: iOSBasics.SharingGroup) throws {
-        if let model = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroup.sharingGroupUUID) {
-            if sharingGroup.sharingGroupName != model.albumName {
-                try model.update(setters:
+        if let albumModel = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroup.sharingGroupUUID) {
+            if sharingGroup.sharingGroupName != albumModel.albumName {
+                try albumModel.update(setters:
                     AlbumModel.albumNameField.description <- sharingGroup.sharingGroupName)
             }
-            
+
             if sharingGroup.deleted {
-                try model.update(setters:
-                    AlbumModel.deletedField.description <- sharingGroup.deleted)
+                try albumModel.update(setters:
+                    AlbumModel.deletedField.description <- sharingGroup.deleted,
+                    AlbumModel.needsDownloadField.description <- false)
                 try albumDeletionCleanup(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID)
+            }
+            else if let contentsSummary = sharingGroup.contentsSummary {
+                guard let idDate = contentsSummary.mostRecentDate() else {
+                    return
+                }
+                
+                var needsUpdate = false
+                
+                if let albumModelMostRecentDate = albumModel.mostRecentDate {
+                    if idDate > albumModelMostRecentDate {
+                        needsUpdate = true
+                    }
+                }
+                else {
+                    needsUpdate = true
+                }
+                
+                guard needsUpdate else {
+                    return
+                }
+                
+                try albumModel.update(setters:
+                    AlbumModel.mostRecentDateField.description <- idDate)
+                        
+                // For each file group, check if the server has more recent info. If so, we need to set the `needsDownload` flag.
+                for fileGroup in contentsSummary {
+                    if try fileGroup.serverHasUpdate(db: db) {
+                        try albumModel.update(setters:
+                            AlbumModel.needsDownloadField.description <- true)
+                        break
+                    }
+                }
             }
         }
         else {
             let model = try AlbumModel(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID, albumName: sharingGroup.sharingGroupName, permission: sharingGroup.permission, deleted: sharingGroup.deleted)
             try model.insert()
+            
+            if !sharingGroup.deleted,
+                let contentsSummary = sharingGroup.contentsSummary,
+                contentsSummary.count > 0 {
+                try model.update(setters:
+                        AlbumModel.needsDownloadField.description <- true)
+            }
         }
     }
     
+    // If `contentsSummary` is present in SharingGroup's, they will be updated.
     static func upsertSharingGroups(db: Connection, sharingGroups: [iOSBasics.SharingGroup]) throws {
     
-        // Need to deal with case of albums that we have locally but which are not listed on server. Those have been deleted.
+        // First, need to deal with case of albums that we have locally but which are not listed on server. Those have been deleted.
         let localAlbums = try AlbumModel.fetch(db: db)
         
         for localAlbum in localAlbums {
@@ -105,6 +183,7 @@ extension AlbumModel {
             }
         }
         
+        // Second, update albums on the basis of the sharing groups.
         for sharingGroup in sharingGroups {
             try upsertSharingGroup(db: db, sharingGroup: sharingGroup)
         }

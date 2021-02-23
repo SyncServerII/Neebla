@@ -15,6 +15,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
     static let sharingGroupUUIDField = Field("sharingGroupUUID", \M.sharingGroupUUID)
     @Published var sharingGroupUUID: UUID
     
+    // The file group of the object.
     static let fileGroupUUIDField = Field("fileGroupUUID", \M.fileGroupUUID)
     var fileGroupUUID: UUID
     
@@ -30,6 +31,9 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
     static let updateCreationDateField = Field("updateCreationDate", \M.updateCreationDate)
     var updateCreationDate: Bool
     
+    static let updateDateField = Field("updateDate", \M.updateDate)
+    var updateDate: Date?
+    
     static let deletedField = Field("deleted", \M.deleted)
     var deleted: Bool
     
@@ -44,6 +48,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
         objectType: String,
         creationDate: Date,
         updateCreationDate: Bool,
+        updateDate: Date? = nil,
         deleted: Bool = false,
         unreadCount:Int = 0) throws {
 
@@ -53,6 +58,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
         self.sharingGroupUUID = sharingGroupUUID
         self.objectType = objectType
         self.creationDate = creationDate
+        self.updateDate = updateDate
         self.updateCreationDate = updateCreationDate
         self.deleted = deleted
         self.unreadCount = unreadCount
@@ -70,7 +76,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             lhs.creationDate == rhs.creationDate &&
             lhs.updateCreationDate == rhs.updateCreationDate &&
             lhs.deleted == rhs.deleted &&
-            lhs.unreadCount == rhs.unreadCount
+            lhs.unreadCount == rhs.unreadCount &&
+            lhs.updateDate == rhs.updateDate
     }
     
     // MARK: BasicEquatable
@@ -91,6 +98,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             t.column(updateCreationDateField.description)
             t.column(deletedField.description)
             t.column(unreadCountField.description)
+            t.column(updateDateField.description)
         }
     }
     
@@ -102,6 +110,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             objectType: row[Self.objectTypeField.description],
             creationDate: row[Self.creationDateField.description],
             updateCreationDate: row[Self.updateCreationDateField.description],
+            updateDate: row[Self.updateDateField.description],
             deleted: row[Self.deletedField.description],
             unreadCount: row[Self.unreadCountField.description]
         )
@@ -114,6 +123,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             Self.objectTypeField.description <- objectType,
             Self.creationDateField.description <- creationDate,
             Self.updateCreationDateField.description <- updateCreationDate,
+            Self.updateDateField.description <- updateDate,
             Self.deletedField.description <- deleted,
             Self.unreadCountField.description <- unreadCount
         )
@@ -177,6 +187,27 @@ extension DownloadedObject {
         for file in downloads {
             try file.upsert(db: db, fileGroupUUID: fileGroupUUID, itemType: itemType)
         }
+    }
+}
+
+extension iOSBasics.SharingGroup.FileGroupSummary {
+    // Does the `FileGroupSummary` (from the server) have a more recent date than any of the dates in the local representation of that file group?
+    func serverHasUpdate(db: Connection) throws -> Bool {
+        // Get the object corresponding to this file group.
+        guard let objectModel = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) else {
+            // `ServerObjectModel` not in database yet. It needs downloading.
+            return true
+        }
+        
+        let mostRecentObjectModelDate: Date
+        if let updateDate = objectModel.updateDate {
+            mostRecentObjectModelDate = max(updateDate, objectModel.creationDate)
+        }
+        else {
+            mostRecentObjectModelDate = objectModel.creationDate
+        }
+        
+        return mostRecentDate > mostRecentObjectModelDate
     }
 }
 
