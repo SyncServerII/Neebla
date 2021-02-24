@@ -10,29 +10,46 @@ import SQLite
 import iOSShared
 
 class AlbumScreenRowModel: ObservableObject {
-    private var observer: AnyObject?
+    private var unreadCountUpdateObserver: AnyObject?
     @Published var badgeText:String?
-    let sharingGroupUUID: UUID
+    @Published var needsDownload: Bool = false
+    private var needsDownloadUpdateObserver: AnyObject?
+    var album:AlbumModel!
     
-    init(sharingGroupUUID: UUID) {
-        self.sharingGroupUUID = sharingGroupUUID
+    init(album:AlbumModel) {
+        self.album = album
         
-        observer = NotificationCenter.default.addObserver(forName: ServerFileModel.unreadCountUpdate, object: nil, queue: nil) { [weak self] notification in
+        unreadCountUpdateObserver = NotificationCenter.default.addObserver(forName: ServerFileModel.unreadCountUpdate, object: nil, queue: nil) { [weak self] notification in
             guard let self = self else { return }
             
-            guard let (_, sharingGroupUUID) = ServerFileModel.getUUIDs(from: notification), self.sharingGroupUUID == sharingGroupUUID else {
+            guard let (_, sharingGroupUUID) = ServerFileModel.getUUIDs(from: notification), self.album.sharingGroupUUID == sharingGroupUUID else {
                 return
             }
             
             self.updateBadge()
         }
         
+        needsDownloadUpdateObserver = NotificationCenter.default.addObserver(forName: AlbumModel.needsDownloadUpdate, object: nil, queue: nil) { [weak self] notification in
+            guard let self = self else { return }
+            
+            do {
+                if let album = try AlbumModel.getAlbumModel(db: Services.session.db, from: notification, expectingSharingGroupUUID: album.sharingGroupUUID) {
+                    self.album = album
+                    logger.debug("album.needsDownload: \(album.needsDownload)")
+                    self.needsDownload = album.needsDownload
+                }
+            } catch let error {
+                logger.error("\(error)")
+            }
+        }
+        
         updateBadge()
+        needsDownload = album.needsDownload
     }
     
     private func updateBadge() {
         do {
-            let count = try unreadCountFor(album: self.sharingGroupUUID)
+            let count = try unreadCountFor(album: self.album.sharingGroupUUID)
 
             DispatchQueue.main.async {
                 if count > 0 {

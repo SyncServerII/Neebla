@@ -21,7 +21,7 @@ struct AlbumsScreenRow: View {
         signInManager = Services.session.signInServices.manager
         self.album = album
         self.viewModel = viewModel
-        rowModel = AlbumScreenRowModel(sharingGroupUUID: album.sharingGroupUUID)
+        rowModel = AlbumScreenRowModel(album: album)
     }
     
     var body: some View {

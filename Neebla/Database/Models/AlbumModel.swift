@@ -6,9 +6,14 @@ import iOSShared
 import iOSBasics
 
 class AlbumModel: DatabaseModel, ObservableObject {
+    enum AlbumModelError: Error {
+        case noSharingGroupUUID
+        case noObject
+    }
+    
     let db: Connection
     var id: Int64!
-
+    
     static let sharingGroupUUIDField = Field("sharingGroupUUID", \M.sharingGroupUUID)
     @Published var sharingGroupUUID: UUID
 
@@ -26,6 +31,11 @@ class AlbumModel: DatabaseModel, ObservableObject {
     // If this is true, indicates some items need downloading for album.
     static let needsDownloadField = Field("needsDownload", \M.needsDownload)
     var needsDownload: Bool
+    
+    // Fires when the needsDownload of a AlbumModel changes. The `userInfo` of the notification received contains one key/value pair:
+    //      sharingGroupUUIDField.fieldName : sharing group UUID
+    // Use the method `getAlbumModel` below to obtain the updated AlbumModel given this notification.
+    static let needsDownloadUpdate = NSNotification.Name("AlbumModel.needsDownload.update")
     
     // This serves as a kind of serial number for an album. It is the most recent date of any item in the `contentsSummary` for the sharing group.
     static let mostRecentDateField = Field("mostRecentDate", \M.mostRecentDate)
@@ -120,6 +130,7 @@ extension AlbumModel {
                     AlbumModel.deletedField.description <- sharingGroup.deleted,
                     AlbumModel.needsDownloadField.description <- false)
                 try albumDeletionCleanup(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID)
+                albumModel.postNeedsDownloadUpdateNotification()
             }
             else if let contentsSummary = sharingGroup.contentsSummary {
                 guard let idDate = contentsSummary.mostRecentDate() else {
@@ -147,8 +158,11 @@ extension AlbumModel {
                 // For each file group, check if the server has more recent info. If so, we need to set the `needsDownload` flag.
                 for fileGroup in contentsSummary {
                     if try fileGroup.serverHasUpdate(db: db) {
-                        try albumModel.update(setters:
-                            AlbumModel.needsDownloadField.description <- true)
+                        if !albumModel.needsDownload {
+                            try albumModel.update(setters:
+                                AlbumModel.needsDownloadField.description <- true)
+                            albumModel.postNeedsDownloadUpdateNotification()
+                        }
                         break
                     }
                 }
@@ -162,7 +176,8 @@ extension AlbumModel {
                 let contentsSummary = sharingGroup.contentsSummary,
                 contentsSummary.count > 0 {
                 try model.update(setters:
-                        AlbumModel.needsDownloadField.description <- true)
+                    AlbumModel.needsDownloadField.description <- true)
+                model.postNeedsDownloadUpdateNotification()
             }
         }
     }
@@ -203,5 +218,29 @@ extension AlbumModel {
             }
             try objectModel.delete()
         }
+    }
+    
+    func postNeedsDownloadUpdateNotification() {
+        NotificationCenter.default.post(name: Self.needsDownloadUpdate, object: nil, userInfo: [
+            AlbumModel.sharingGroupUUIDField.fieldName : sharingGroupUUID,
+        ])
+    }
+    
+    // Use this when receiving a `needsDownloadUpdate` notification.
+    // If the sharingGroupUUID of the received notification doesn't match that given in the expectingSharingGroupUUID, nil is returned.
+    static func getAlbumModel(db: Connection, from notification: Notification, expectingSharingGroupUUID: UUID) throws -> AlbumModel? {
+        guard let sharingGroupUUID = notification.userInfo?[sharingGroupUUIDField.fieldName] as? UUID else {
+            throw AlbumModelError.noSharingGroupUUID
+        }
+        
+        guard expectingSharingGroupUUID == sharingGroupUUID else {
+            return nil
+        }
+        
+        guard let albumModel = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID) else {
+            throw AlbumModelError.noObject
+        }
+        
+        return albumModel
     }
 }

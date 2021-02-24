@@ -72,7 +72,10 @@ class AlbumItemsViewModel: ObservableObject {
     private var objectDeletedSubscription:AnyCancellable!
     private var settingsDiscussionFilterSubscription:AnyCancellable!
     private var settingsSortBySubscription:AnyCancellable!
-
+    
+    // Not quite sure why this is needed, but seemingly after navigating away from the album items screen for an album, the screen/model isn't necessarily deallocated. Retain cycle? Darn if I can see it though.
+    var screenDisplayed = false
+    
     init(album sharingGroupUUID: UUID) {
         self.sharingGroupUUID = sharingGroupUUID
         
@@ -98,8 +101,10 @@ class AlbumItemsViewModel: ObservableObject {
             
             do {
                 // Reset the `needsDownload` field after a successful sync.
-                if let albumModel = try AlbumModel.fetchSingleRow(db: Services.session.db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID) {
+                if self.screenDisplayed,
+                    let albumModel = try AlbumModel.fetchSingleRow(db: Services.session.db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID) {
                     try albumModel.update(setters: AlbumModel.needsDownloadField.description <- false)
+                    albumModel.postNeedsDownloadUpdateNotification()
                 }
             }
             catch let error {

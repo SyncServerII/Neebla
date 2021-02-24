@@ -60,6 +60,12 @@ struct AlbumItemsScreenBody: View {
                     }
             }
         }
+        .onAppear() {
+            viewModel.screenDisplayed = true
+        }
+        .onDisappear() {
+            viewModel.screenDisplayed = false
+        }
     }
 }
 
