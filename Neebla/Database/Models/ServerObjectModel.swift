@@ -191,7 +191,7 @@ extension DownloadedObject {
 }
 
 extension iOSBasics.SharingGroup.FileGroupSummary {
-    // Does the `FileGroupSummary` (from the server) have a more recent date than any of the dates in the local representation of that file group?
+    // See also https://github.com/SyncServerII/Neebla/issues/5
     func serverHasUpdate(db: Connection) throws -> Bool {
         // Get the object corresponding to this file group.
         guard let objectModel = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) else {

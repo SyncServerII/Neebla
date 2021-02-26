@@ -23,4 +23,18 @@ extension ServerInterface {
             try AlbumModel.upsertSharingGroups(db: Services.session.db, sharingGroups: sharingGroups)
         }
     }
+    
+    // Figure out if this file group needs downloading.
+    func triggerDownloadIfNeeded(forFileGroupUUID fileGroupUUID: UUID) throws {
+       guard let downloadable = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: fileGroupUUID, includeGone: true) else {
+            logger.debug("No objectNeedsDownload")
+            return
+        }
+
+        let files = downloadable.downloads.map { FileToDownload(uuid: $0.uuid, fileVersion: $0.fileVersion) }
+        let downloadObject = ObjectToDownload(fileGroupUUID: downloadable.fileGroupUUID, downloads: files)
+        
+        try Services.session.syncServer.queue(download: downloadObject)
+        logger.info("Started download for object: \(downloadObject.fileGroupUUID)")
+    }
 }

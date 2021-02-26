@@ -37,6 +37,8 @@ class ServerInterface {
     let deletionCompleted = PassthroughSubject<UUID?, Never>()
     
     let signIns: SignIns
+    
+    private var syncCompletion:((Error?)->())?
 
     init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String) throws {
         self.signIns = signIns
@@ -81,6 +83,17 @@ class ServerInterface {
         syncServer.delegate = self
         syncServer.helperDelegate = self
     }
+    
+    private func sync(completion: @escaping (Error?)->()) {
+        do {
+            syncCompletion = completion
+            try syncServer.sync()
+        } catch let error {
+            logger.error("\(error)")
+            syncCompletion = nil
+            completion(error)
+        }
+    }
 }
 
 extension ServerInterface: SyncServerDelegate {
@@ -108,11 +121,18 @@ extension ServerInterface: SyncServerDelegate {
     
     func syncCompleted(_ syncServer: SyncServer, result: SyncResult) {
         logger.info("syncCompleted: \(result)")
+        
         do {
             try syncHelper(result: result)
         } catch let error {
             logger.error("\(String(describing: error))")
             showAlert(AlertyHelper.alert(title: "Alert!", message: "There was a server error."))
+        }
+
+        if let syncCompletion = syncCompletion {
+            self.syncCompletion = nil
+            syncCompletion(nil)
+            return
         }
         
         self.sync.send(result)
@@ -142,8 +162,21 @@ extension ServerInterface: SyncServerDelegate {
     }
 
     // Called when vN deferred upload(s), or deferred deletions, successfully completed, is/are detected.
-    func deferredCompleted(_ syncServer: SyncServer, operation: DeferredOperation, numberCompleted: Int) {
-        logger.info("deferredCompleted: \(operation); numberCompleted: \(numberCompleted)")
+    func deferredCompleted(_ syncServer: SyncServer, operation: DeferredOperation, fileGroupUUIDs: [UUID]) {
+        logger.info("deferredCompleted: \(operation); numberCompleted: \(fileGroupUUIDs.count)")
+        
+        // Dealing with: https://github.com/SyncServerII/Neebla/issues/5
+        sync { [weak self] error in
+            guard let self = self else { return }
+
+            for fileGroupUUID in fileGroupUUIDs {
+                do {
+                    try self.triggerDownloadIfNeeded(forFileGroupUUID: fileGroupUUID)
+                } catch let error {
+                    logger.error("\(error)")
+                }
+            }
+        }
     }
     
     // Another client deleted a file/file group.
