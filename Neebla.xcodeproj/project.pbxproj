@@ -141,6 +141,8 @@
 		8399663D25C3CFBF00AD2AC8 /* Toucan in Frameworks */ = {isa = PBXBuildFile; productRef = 8399663C25C3CFBF00AD2AC8 /* Toucan */; };
 		839ADC1225E3869A00618581 /* AlbumsViewModel+Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC1125E3869A00618581 /* AlbumsViewModel+Index.swift */; };
 		839ADC1F25E4AF2A00618581 /* ServerShared in Frameworks */ = {isa = PBXBuildFile; productRef = 839ADC1E25E4AF2A00618581 /* ServerShared */; };
+		839ADC3125EB09DD00618581 /* MutableDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC3025EB09DC00618581 /* MutableDownloads.swift */; };
+		839ADC3825EB0AEE00618581 /* MutableDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC3025EB09DC00618581 /* MutableDownloads.swift */; };
 		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
 		83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
 		83B0CB4725B2A51400D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
@@ -392,6 +394,8 @@
 		837A471025D9FF5200CAC322 /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
 		837A472625DA37DA00CAC322 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		839ADC1125E3869A00618581 /* AlbumsViewModel+Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumsViewModel+Index.swift"; sourceTree = "<group>"; };
+		839ADC2C25EAF3A300618581 /* iOSBasics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSBasics; path = ../../iOSBasics; sourceTree = "<group>"; };
+		839ADC3025EB09DC00618581 /* MutableDownloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableDownloads.swift; sourceTree = "<group>"; };
 		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationMessage.swift; sourceTree = "<group>"; };
 		83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
@@ -695,6 +699,7 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				839ADC2C25EAF3A300618581 /* iOSBasics */,
 			);
 			path = "Local Packages";
 			sourceTree = "<group>";
@@ -1161,6 +1166,7 @@
 			isa = PBXGroup;
 			children = (
 				83D5CF382564C2520018DE7C /* Downloader.swift */,
+				839ADC3025EB09DC00618581 /* MutableDownloads.swift */,
 				83CE1EA625707E79004A418B /* PriorityQueue.swift */,
 			);
 			path = "Download Management";
@@ -1455,6 +1461,7 @@
 				83BF7CCE258575FE000E0B37 /* UploadableMediaType.swift in Sources */,
 				83B0CB4B25B2A5AF00D53B58 /* AnyTypeManager.swift in Sources */,
 				832D34542587151B00FEF094 /* Value+Extras.swift in Sources */,
+				839ADC3825EB0AEE00618581 /* MutableDownloads.swift in Sources */,
 				83B0CB4725B2A51400D53B58 /* PushNotificationMessage.swift in Sources */,
 				83C73943259966470073788A /* URLItemProvider.swift in Sources */,
 				8331F34A255B8CC50063A67D /* ShareViewController.swift in Sources */,
@@ -1643,6 +1650,7 @@
 				83B0CB9225B4E5D900D53B58 /* SetupLocalDatabase.swift in Sources */,
 				83BF7CE42585B915000E0B37 /* AlbumSharingScreen.swift in Sources */,
 				834B259E258C5FC900F653BC /* ServerInterface+CloudHashing.swift in Sources */,
+				839ADC3125EB09DD00618581 /* MutableDownloads.swift in Sources */,
 				83D8CC3425BA8BC80069E3E5 /* UpperLeftBadge.swift in Sources */,
 				8331F42B255F95E80063A67D /* SetupSharedDatabase.swift in Sources */,
 				8333E19F2567AE0200A5F79E /* URLPickerView.swift in Sources */,

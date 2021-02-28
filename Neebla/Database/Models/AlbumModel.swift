@@ -117,7 +117,7 @@ extension Array where Element == iOSBasics.SharingGroup.FileGroupSummary {
 }
 
 extension AlbumModel {
-    // If `contentsSummary` is present in SharingGroup's, they will be updated.
+    // If `contentsSummary`'s are present in `sharingGroup`, they will be used to update.
     static func upsertSharingGroup(db: Connection, sharingGroup: iOSBasics.SharingGroup) throws {
         if let albumModel = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroup.sharingGroupUUID) {
             if sharingGroup.sharingGroupName != albumModel.albumName {

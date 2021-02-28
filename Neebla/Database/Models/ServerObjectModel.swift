@@ -31,6 +31,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
     static let updateCreationDateField = Field("updateCreationDate", \M.updateCreationDate)
     var updateCreationDate: Bool
     
+    // Set as the max update date of all files in the object when object updates downloaded, and when an index/sync is done.
     static let updateDateField = Field("updateDate", \M.updateDate)
     var updateDate: Date?
     
@@ -149,6 +150,11 @@ extension ServerObjectModel {
             
             try model.update(setters:
                 ServerObjectModel.deletedField.description <- indexObject.deleted)
+                
+            if let updateDate = indexObject.updateDate {
+                try model.update(setters:
+                    ServerObjectModel.updateDateField.description <- updateDate)
+            }
         }
         else {
             let model = try ServerObjectModel(db: db, sharingGroupUUID: indexObject.sharingGroupUUID, fileGroupUUID: indexObject.fileGroupUUID, objectType: indexObject.objectType, creationDate: indexObject.creationDate, updateCreationDate: false, deleted: indexObject.deleted)
@@ -165,17 +171,34 @@ extension ServerObjectModel {
     func fileModels() throws -> [ServerFileModel] {
         return try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
     }
+    
+    static func albumFor(fileGroupUUID: UUID, db: Connection) throws -> AlbumModel {
+        guard let objectModel = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) else {
+            throw DatabaseModelError.notExactlyOneRow
+        }
+        
+        guard let albumModel = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == objectModel.sharingGroupUUID) else {
+            throw DatabaseModelError.notExactlyOneRow
+        }
+        
+        return albumModel
+    }
 }
 
 extension DownloadedObject {
     // Upsert based on a downloaded object
     func upsert(db: Connection, itemType: ItemType.Type) throws {
         if let model = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) {
-        
+
             if model.updateCreationDate {
                 try model.update(setters:
                     ServerObjectModel.creationDateField.description <- creationDate,
                     ServerObjectModel.updateCreationDateField.description <- false)
+            }
+            
+            if let updateDate = (downloads.compactMap {$0.updateDate}).max() {
+                try model.update(setters:
+                    ServerObjectModel.updateDateField.description <- updateDate)
             }
         }
         else {
@@ -207,7 +230,13 @@ extension iOSBasics.SharingGroup.FileGroupSummary {
             mostRecentObjectModelDate = objectModel.creationDate
         }
         
-        return mostRecentDate > mostRecentObjectModelDate
+        let result = mostRecentDate > mostRecentObjectModelDate
+        
+        if result {
+            logger.debug("\(mostRecentDate) > \(mostRecentObjectModelDate)")
+        }
+        
+        return result
     }
 }
 

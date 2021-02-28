@@ -16,25 +16,15 @@ extension ServerInterface {
         case .noIndex(let sharingGroups):
             try AlbumModel.upsertSharingGroups(db: Services.session.db, sharingGroups: sharingGroups)
             
-        case .index(sharingGroupUUID: _, index: let index):
+        case .index(sharingGroupUUID: let sharingGroupUUID, index: let index):
             try index.upsert(db: Services.session.db)
             
             let sharingGroups:[iOSBasics.SharingGroup] = try self.syncServer.sharingGroups()
             try AlbumModel.upsertSharingGroups(db: Services.session.db, sharingGroups: sharingGroups)
+            
+            // Always attempting *some* downloads here. Mutable file uploads have the property that we can't adjust the local version number of the file until we do a download. In user terms what we're trying to deal with is the situation where (a) a user locally added a comment and (b) when a sync occurs it looks like the album needs downloading just to bring that comment file up to date with *the users own comment*.
+            try MutableDownloads.triggerMutableFileDownloadsIfNeeded(
+                forSharingGroupUUID: sharingGroupUUID)
         }
-    }
-    
-    // Figure out if this file group needs downloading.
-    func triggerDownloadIfNeeded(forFileGroupUUID fileGroupUUID: UUID) throws {
-       guard let downloadable = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: fileGroupUUID, includeGone: true) else {
-            logger.debug("No objectNeedsDownload")
-            return
-        }
-
-        let files = downloadable.downloads.map { FileToDownload(uuid: $0.uuid, fileVersion: $0.fileVersion) }
-        let downloadObject = ObjectToDownload(fileGroupUUID: downloadable.fileGroupUUID, downloads: files)
-        
-        try Services.session.syncServer.queue(download: downloadObject)
-        logger.info("Started download for object: \(downloadObject.fileGroupUUID)")
     }
 }
