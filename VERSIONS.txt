@@ -30,6 +30,7 @@ Version 2.0.0-Release
 	* Added error messaging for no-networking.
 	* Added download indicator per album.
 	* Using update of iOSBasics: To automatically fetch mutable file updates. This is for user updates of local comments, and others updates of comments.
+	* Fixes for badges updates. iOSBasics has been improved to use serialQueue for sync.
 
 Version 2.0.0 (1/29/21)
 	* First successful upload of this version to iTunes Connect. 
