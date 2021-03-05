@@ -222,6 +222,20 @@ extension iOSBasics.SharingGroup.FileGroupSummary {
             return true
         }
         
+        let maxLocalFileVersion = (try objectModel.fileModels().map { file -> (FileVersionInt?) in
+            let fileInfo = try Services.session.syncServer.localFileInfo(
+                    forFileUUID:file.fileUUID)
+            return fileInfo.fileVersion
+        }).compactMap {$0}.max()
+        
+        if let maxLocalFileVersion = maxLocalFileVersion {
+            // If our max file version locally is 0 and the max file version on the server is 0, then we don't need an update locally.
+            // This deals with the case of the client uploading a new file, and not yet having an index downloaded for the album yet.
+            if maxLocalFileVersion == 0 && fileVersion == 0 {
+                return false
+            }
+        }
+        
         let mostRecentObjectModelDate: Date
         if let updateDate = objectModel.updateDate {
             mostRecentObjectModelDate = max(updateDate, objectModel.creationDate)
