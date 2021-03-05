@@ -107,7 +107,7 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         let pushNotificationText = try PushNotificationMessage.forUpload(of: objectModel)
         let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [commentUpload, imageUpload, movieUpload])
 
-        try Services.session.serverInterface.syncServer.queue(upload:upload)
+        try Services.session.syncServer.queue(upload:upload)
     }
 }
 

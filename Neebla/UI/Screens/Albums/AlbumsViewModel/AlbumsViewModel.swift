@@ -78,7 +78,7 @@ class AlbumsViewModel: ObservableObject {
     private func createNewAlbum(newAlbumName: String?) {
         let newSharingGroupUUID = UUID()
         
-        Services.session.serverInterface.syncServer.createSharingGroup(sharingGroupUUID: newSharingGroupUUID, sharingGroupName: newAlbumName) { error in
+        Services.session.syncServer.createSharingGroup(sharingGroupUUID: newSharingGroupUUID, sharingGroupName: newAlbumName) { error in
         
             if let noNetwork = error as? Errors, noNetwork.networkIsNotReachable {
                 showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
@@ -96,7 +96,7 @@ class AlbumsViewModel: ObservableObject {
     
     // SyncServer doesn't let you change an album name back to nil.
     private func changeAlbumName(sharingGroupUUID: UUID, changedAlbumName: String) {
-        Services.session.serverInterface.syncServer.updateSharingGroup(sharingGroupUUID: sharingGroupUUID, newSharingGroupName: changedAlbumName) { error in
+        Services.session.syncServer.updateSharingGroup(sharingGroupUUID: sharingGroupUUID, newSharingGroupName: changedAlbumName) { error in
         
             if let noNetwork = error as? Errors, noNetwork.networkIsNotReachable {
                 showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))

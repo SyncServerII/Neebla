@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // While some of the AppDelegate methods don't seem to work when using SwiftUI and the SceneDelegate (e.g., see https://github.com/dropbox/SwiftyDropbox/issues/259), this method *does* work.
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
-        Services.session.serverInterface.syncServer.application(application, handleEventsForBackgroundURLSession: identifier, completionHandler: completionHandler)
+        Services.session.syncServer.application(application, handleEventsForBackgroundURLSession: identifier, completionHandler: completionHandler)
     }
 
     // MARK: UISceneSession Lifecycle

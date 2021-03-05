@@ -12,7 +12,7 @@ import iOSShared
 extension Services {
     // Call this if the user pastes an invitation code into the UI and needs to redeem it.
     func copyPaste(invitationCodeUUID: UUID) {
-        serverInterface.syncServer.getSharingInvitationInfo(sharingInvitationUUID: invitationCodeUUID) { [weak self] result in
+        syncServer.getSharingInvitationInfo(sharingInvitationUUID: invitationCodeUUID) { [weak self] result in
             guard let self = self else { return }
             
             var message: String?
@@ -55,7 +55,7 @@ extension Services {
     }
     
     func redeemForCurrentUser(invitationCode: UUID) {
-        serverInterface.syncServer.redeemSharingInvitation(sharingInvitationUUID: invitationCode) { result in
+        syncServer.redeemSharingInvitation(sharingInvitationUUID: invitationCode) { result in
             
             switch result {
             case .success:

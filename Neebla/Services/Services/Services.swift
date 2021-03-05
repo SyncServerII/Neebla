@@ -239,7 +239,7 @@ class Services {
 
 extension Services: SharingInvitationHelper {
     func getSharingInvitationInfo(sharingInvitationUUID: UUID, completion: @escaping (Swift.Result<SharingInvitationInfo, Error>) -> ()) {
-        serverInterface.syncServer.getSharingInvitationInfo(sharingInvitationUUID: sharingInvitationUUID, completion: completion)
+        syncServer.getSharingInvitationInfo(sharingInvitationUUID: sharingInvitationUUID, completion: completion)
     }
     
     func sharingInvitationUserAlert(_ sharingInvitation: SharingInvitation, title: String, message: String) {

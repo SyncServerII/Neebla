@@ -26,7 +26,7 @@ class AnyTypeManager {
         }
         
         for objectType in objectTypes {
-            try Services.session.serverInterface.syncServer.register(object: objectType)
+            try Services.session.syncServer.register(object: objectType)
         }
     }
     
