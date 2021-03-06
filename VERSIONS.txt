@@ -1,6 +1,9 @@
 Neebla
 
-Version 2.0.0-Release
+Version 2.0.0 (TestFlight builds)
+	* Improve sharing invitation help text.
+
+Version 2.0.0 (TestFlight builds)
 	* Fix Push Notification error reporting
 	* Add re-retry to download failures.
 	* And other download improvements:
