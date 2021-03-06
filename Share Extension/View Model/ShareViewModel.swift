@@ -29,6 +29,7 @@ class ShareViewModel: ObservableObject {
         userIsSignedInSubscription = Services.session.signInServices.manager.$userIsSignedIn.sink { [weak self] signedIn in
             guard let self = self else { return }
             if let signedIn = signedIn, signedIn {
+                logger.debug("userIsSignedInSubscription: about to do sync")
                 self.sync()
             }
             self.userIsSignedInSubscription = nil
@@ -36,10 +37,12 @@ class ShareViewModel: ObservableObject {
 
         syncSubscription = Services.session.serverInterface.sync.sink { [weak self] syncResult in
             guard let self = self else { return }
+            logger.debug("syncSubscription: sync completed")
             self.syncCompletionHelper()
         }
     }
     
+    // This was failing with a lack of a network connection until I changed the default on network reachability to `true`. See https://github.com/rwbutler/Hyperconnectivity/issues/1
     func sync() {
         do {
             try Services.session.syncServer.sync()

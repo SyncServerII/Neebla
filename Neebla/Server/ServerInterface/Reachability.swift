@@ -11,7 +11,9 @@ import Hyperconnectivity
 import iOSShared
 
 class Reachability: ObservableObject, NetworkReachability {
-    @Published private(set) var isReachable: Bool = false
+    // Using a default value of `true`: Hope for the best. This is related to detecting network connectivity in the sharing extension when it first starts. https://github.com/rwbutler/Hyperconnectivity/issues/1
+    @Published private(set) var isReachable: Bool = true
+    
     private var cancellable: AnyCancellable!
     
     init() {
