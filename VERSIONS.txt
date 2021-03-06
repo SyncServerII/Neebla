@@ -34,6 +34,7 @@ Version 2.0.0-Release
 	* Improve the serverHasUpdate method-- using a max local file version.
 	* iOSBasics improvements to retry uploading.
 	* Fix issue with sharing extension not populating album list initially.
+	* Fix issue with Apple Sign In-- e.g., restarting app no longer signs user out.
 
 Version 2.0.0 (1/29/21)
 	* First successful upload of this version to iTunes Connect. 
