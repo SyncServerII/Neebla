@@ -141,8 +141,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "ebf1ab60205b4844ce3cf50ed54a8b49cfc14ec3",
-          "version": "0.4.0"
+          "revision": "27de2b792420a90aedd05e8165939cb781379025",
+          "version": "0.4.1"
         }
       },
       {

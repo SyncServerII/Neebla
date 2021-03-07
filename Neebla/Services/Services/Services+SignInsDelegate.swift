@@ -25,6 +25,12 @@ extension Services: iOSBasics.SignInsDelegate {
         
         if let fullUserName = userInfo.fullUserName {
             signInServices.manager.currentSignIn?.updateUserName(fullUserName)
+            
+            do {
+                try SettingsModel.setupUserName(userName: fullUserName)
+            } catch let error {
+                logger.error("\(error)")
+            }
         }
         syncServerUserId = userInfo.userId
     }

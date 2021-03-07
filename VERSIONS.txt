@@ -2,6 +2,8 @@ Neebla
 
 Version 2.0.0 (TestFlight builds)
 	* Improve sharing invitation help text.
+	* Fix username issue: Username changes retained across app re-installs.
+	* Fixed sharing invitation redeeming alert text.
 
 Version 2.0.0 (TestFlight builds)
 	* Fix Push Notification error reporting

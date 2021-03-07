@@ -78,7 +78,7 @@ extension SettingsModel {
     }
     
     // If new user name is valid, returned the trimmed new user name.
-    static func validUserNameUpdate(oldUserName: String?, newUserName: String?) -> String? {
+    static func checkForValidUserNameUpdate(oldUserName: String?, newUserName: String?) -> String? {
         guard let userName = newUserName?.trimmingCharacters(in: .whitespaces) else {
             return nil
         }
@@ -96,10 +96,16 @@ extension SettingsModel {
     
     static func update(userName: String?, db: Connection) throws {
         let settings = try SettingsModel.getSingleton(db: Services.session.db)
-        guard let userName = validUserNameUpdate(oldUserName: settings.userName, newUserName: userName) else {
+        guard let userName = checkForValidUserNameUpdate(oldUserName: settings.userName, newUserName: userName) else {
             throw SettingsModelError.badUserNameUpdate
         }
         
         try settings.update(setters: SettingsModel.userNameField.description <- userName)
+    }
+    
+    static func setupUserName(userName: String?) throws {
+        let currentUserName = try SettingsModel.userName(db: Services.session.db)
+        logger.debug("setupUserName: update: \(String(describing: userName)); currentUserName: \(String(describing: currentUserName))")
+        try SettingsModel.update(userName: userName, db: Services.session.db)
     }
 }

@@ -28,6 +28,12 @@ class SignInViewModel: ObservableObject {
     init() {
         signInSubscription = Services.session.signInServices.manager.$userIsSignedIn.sink { [weak self] signedIn in
             self?.userSignedIn = signedIn ?? false
+            
+            do {
+                try SettingsModel.setupUserName(userName: Services.session.username)
+            } catch let error {
+                logger.error("\(error)")
+            }
         }
         
         Services.session.signInServices.manager.delegate = self

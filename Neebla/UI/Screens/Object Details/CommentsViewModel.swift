@@ -36,11 +36,7 @@ class CommentsViewModel: ObservableObject {
             allowingSending = false
         }
         
-        // Prioritizing the local setting-- but plan to propagate this local setting to the server in a new API call.
         if let username = try? SettingsModel.userName(db: Services.session.db) {
-            senderUserDisplayName = username
-        }
-        else if let username = Services.session.signInServices.manager.currentSignIn?.credentials?.username {
             senderUserDisplayName = username
         }
         else {

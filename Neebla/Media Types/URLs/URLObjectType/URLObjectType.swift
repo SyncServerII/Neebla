@@ -76,7 +76,8 @@ class URLObjectType: ItemType, DeclarableObject {
             reconstructionDictionary[Comments.Keys.urlPreviewImageUUIDKey] = imageFileUUID.uuidString
         }
         
-        let commentFileData = try Comments.createInitialFile(mediaTitle: Services.session.username, reconstructionDictionary: reconstructionDictionary)
+        let currentUserName = try SettingsModel.userName(db: Services.session.db)
+        let commentFileData = try Comments.createInitialFile(mediaTitle: currentUserName, reconstructionDictionary: reconstructionDictionary)
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)
         

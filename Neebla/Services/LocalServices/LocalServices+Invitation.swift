@@ -56,11 +56,10 @@ extension Services {
     
     func redeemForCurrentUser(invitationCode: UUID) {
         syncServer.redeemSharingInvitation(sharingInvitationUUID: invitationCode) { result in
-            
             switch result {
             case .success:
                 DispatchQueue.main.async {
-                    showAlert(AlertyHelper.alert(title: "Success!", message: "You are now in another sharing group!"))
+                    showAlert(AlertyHelper.alert(title: "Success!", message: "You now have access to another album!"))
                 }
             case .failure(let error):
                 DispatchQueue.main.async {

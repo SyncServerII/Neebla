@@ -34,10 +34,10 @@ class SettingsScreenModel:ObservableObject {
     
     @Published var sheet: ShowSheet?
     @Published var sendMailResult: Swift.Result<MFMailComposeResult, Error>? = nil
-    @Published var initialUserName: String?
+    @Published private(set) var initialUserName: String?
     @Published var userName: String? {
         didSet {
-            guard let _ = SettingsModel.validUserNameUpdate(oldUserName: initialUserName, newUserName: userName) else {
+            guard let _ = SettingsModel.checkForValidUserNameUpdate(oldUserName: initialUserName, newUserName: userName) else {
                 userNameChangeIsValid = false
                 return
             }
@@ -45,23 +45,21 @@ class SettingsScreenModel:ObservableObject {
             userNameChangeIsValid = true
         }
     }
+    
     @Published var userNameChangeIsValid: Bool = false
     
     init() {
         do {
             if let userName = try SettingsModel.userName(db: Services.session.db) {
                 initialUserName = userName
-                self.userName = initialUserName
-            }
-            else if let userName = Services.session.signInServices.manager.currentSignIn?.credentials?.username {
-                updateUserName(userName: userName)
+                self.userName = userName
             }
         } catch let error {
             logger.error("\(error)")
         }
     }
     
-    func updateUserName(userName: String?, completion:((_ success:Bool)->())? = nil) {
+    func updateUserNameOnServer(userName: String?, completion:((_ success:Bool)->())? = nil) {
         guard let userName = userName else {
             completion?(false)
             return
@@ -81,7 +79,7 @@ class SettingsScreenModel:ObservableObject {
                 try SettingsModel.update(userName: userName, db: Services.session.db)
                 self.initialUserName = userName
                 self.userName = userName
-                // Don't have to directly update `userNameChangeIsValid`-- these two above changes will do that.
+                // `userName` setter also changes `userNameChangeIsValid`.
                 completion?(true)
             } catch let error {
                 logger.error("\(error)")

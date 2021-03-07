@@ -43,7 +43,7 @@ struct SettingsScreenBody: View {
                     
                 HStack {
                     Button(action: {
-                        settingsModel.updateUserName(userName: settingsModel.userName) { success in
+                        settingsModel.updateUserNameOnServer(userName: settingsModel.userName) { success in
                             if success {
                                 hideKeyboard()
                             }
