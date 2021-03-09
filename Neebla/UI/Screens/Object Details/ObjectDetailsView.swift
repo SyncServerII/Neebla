@@ -35,6 +35,12 @@ struct ObjectDetailsView: View {
             Spacer()
         }
         .toolbar {
+            // Without this, I don't get the "< Back" in the uppper left.
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {}) {
+                }
+            }
+            
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack(spacing: 0) {
                     Button(

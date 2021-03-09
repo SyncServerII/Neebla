@@ -17,6 +17,7 @@ enum AlbumsScreenActiveSheet: Identifiable {
 }
 
 class AlbumsViewModel: ObservableObject {
+    var firstAppearance = false
     @Published var isShowingRefresh = false
     
     @Published var activeSheet:AlbumsScreenActiveSheet?
@@ -50,28 +51,50 @@ class AlbumsViewModel: ObservableObject {
         syncSubscription = Services.session.serverInterface.sync.sink { [weak self] syncResult in
             guard let self = self else { return }
             
-            self.isShowingRefresh = false
-            self.getCurrentAlbums()
+            guard case .noIndex = syncResult else {
+                return
+            }
+
+            if self.isShowingRefresh {
+                self.isShowingRefresh = false
+            }
+            
+            self.updateIfNeeded(self.getCurrentAlbums())
         }
         
         userEventSubscriptionOther = Services.session.userEvents.alerty.sink { [weak self] _ in
-            self?.isShowingRefresh = false
+            guard let self = self else { return }
+
+            if self.isShowingRefresh {
+                self.isShowingRefresh = false
+            }
         }
         
         // Give the user the current albums to look at initially. There's a `sync` in `onAppear` in the view-- which will update this if needed.
-        getCurrentAlbums()
+        updateIfNeeded(getCurrentAlbums())
+    }
+    
+    private func updateIfNeeded(_ update: [AlbumModel]) {
+        let current = Set<AlbumModel>(albums)
+        let new = Set<AlbumModel>(update)
+        if current == new {
+            // No update needed.
+            return
+        }
+                
+        self.albums = update
     }
 
-    func getCurrentAlbums() {
+    func getCurrentAlbums() -> [AlbumModel] {
         if let albums = try? AlbumModel.fetch(db: Services.session.db, where: AlbumModel.deletedField.description == false) {
-            self.albums = albums.sorted(by: { (a1, a2) -> Bool in
+            return albums.sorted(by: { (a1, a2) -> Bool in
                 let name1 = a1.albumName ?? AlbumModel.untitledAlbumName
                 let name2 = a2.albumName ?? AlbumModel.untitledAlbumName
                 return name1 < name2
             })
         }
         else {
-            self.albums = []
+            return []
         }
     }
     

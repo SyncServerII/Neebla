@@ -5,7 +5,7 @@ import ServerShared
 import iOSShared
 import iOSBasics
 
-class AlbumModel: DatabaseModel, ObservableObject {
+class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
     enum AlbumModelError: Error {
         case noSharingGroupUUID
         case noObject
@@ -58,6 +58,20 @@ class AlbumModel: DatabaseModel, ObservableObject {
         self.deleted = deleted
         self.needsDownload = needsDownload
         self.mostRecentDate = mostRecentDate
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: AlbumModel, rhs: AlbumModel) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.sharingGroupUUID == rhs.sharingGroupUUID &&
+            lhs.albumName == rhs.albumName &&
+            lhs.permission == rhs.permission &&
+            lhs.deleted == rhs.deleted &&
+            lhs.needsDownload == rhs.needsDownload &&
+            lhs.mostRecentDate == rhs.mostRecentDate
     }
     
     // MARK: DatabaseModel

@@ -35,8 +35,10 @@ class AlbumScreenRowModel: ObservableObject {
             do {
                 if let album = try AlbumModel.getAlbumModel(db: Services.session.db, from: notification, expectingSharingGroupUUID: album.sharingGroupUUID) {
                     self.album = album
-                    logger.debug("album.needsDownload: \(album.needsDownload)")
-                    self.needsDownload = album.needsDownload
+                    if self.needsDownload != album.needsDownload {
+                        logger.debug("album.needsDownload: \(album.needsDownload)")
+                        self.needsDownload = album.needsDownload
+                    }
                 }
             } catch let error {
                 logger.error("\(error)")
@@ -44,19 +46,28 @@ class AlbumScreenRowModel: ObservableObject {
         }
         
         updateBadge()
-        needsDownload = album.needsDownload
+        
+        if needsDownload != album.needsDownload {
+            needsDownload = album.needsDownload
+        }
     }
     
     private func updateBadge() {
         do {
             let count = try unreadCountFor(album: self.album.sharingGroupUUID)
 
-            DispatchQueue.main.async {
-                if count > 0 {
-                    self.badgeText = "\(count)"
-                }
-                else {
-                    self.badgeText = nil
+            var newBadgeText: String?
+            
+            if count > 0 {
+                newBadgeText = "\(count)"
+            }
+            else {
+                newBadgeText = nil
+            }
+            
+            if self.badgeText != newBadgeText {
+                DispatchQueue.main.async {
+                    self.badgeText = newBadgeText
                 }
             }
         }

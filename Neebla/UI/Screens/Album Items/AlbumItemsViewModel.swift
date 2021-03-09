@@ -118,7 +118,10 @@ class AlbumItemsViewModel: ObservableObject {
                 logger.error("\(error)")
             }
             
-            self.loading = false
+            if self.loading {
+                self.loading = false
+            }
+            
             self.updateIfNeeded(self.getItemsForAlbum(album: sharingGroupUUID))
             logger.debug("Sync done")            
         }

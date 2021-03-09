@@ -66,14 +66,20 @@ struct AlbumsScreenBody: View {
             }
         }
         .onDisappear() {
-            viewModel.sharingMode = false
+            if viewModel.sharingMode {
+                viewModel.sharingMode = false
+            }
         }
         .onAppear() {
-            // Don't do this in the model `init`: Because of the way the code is structured the model init can occur before a user is signed in.
-            viewModel.sync()
-            
-            // Doing this in the Albums screen because it's the main entry point to albums and eventually adding items to albums-- which can cause push notifications to be sent.
-            viewModel.checkForNotificationAuthorization()
+            if viewModel.firstAppearance {
+                // Don't do this in the model `init`: Because of the way the code is structured the model init can occur before a user is signed in.
+                viewModel.sync()
+                
+                // Doing this in the Albums screen because it's the main entry point to albums and eventually adding items to albums-- which can cause push notifications to be sent.
+                viewModel.checkForNotificationAuthorization()
+                
+                viewModel.firstAppearance = false
+            }
         }
     }
 }
