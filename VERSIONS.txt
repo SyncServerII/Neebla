@@ -1,11 +1,12 @@
 Neebla
 
-Version 2.0.0 (TestFlight builds)
+Version 2.0.0 (TestFlight Build 20210308.0)
 	* Improve sharing invitation help text.
 	* Fix username issue: Username changes retained across app re-installs.
 	* Fixed sharing invitation redeeming alert text.
 	* Fixed memory leak due to navigationBarItems-- change to toolbar.
 	* Improved album items refresh-- getting rid of flicker
+	* Fixed flashing issue on albums item screen.
 	
 Version 2.0.0 (TestFlight builds)
 	* Fix Push Notification error reporting
