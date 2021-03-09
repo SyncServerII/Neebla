@@ -4,6 +4,9 @@ import SwiftUI
 import SFSafeSymbols
 import iOSShared
 
+// Gnarly memory leak when I was using `navigationBarItems`. Now using `toolbar`.
+// See https://stackoverflow.com/questions/61303466
+
 struct AlbumItemsScreen: View {
     let sharingGroupUUID: UUID
     let albumName: String
@@ -16,7 +19,7 @@ struct AlbumItemsScreen: View {
     var body: some View {
         // Not using `iPadConditionalScreenBodySizer` here because we use the larger screen to show larger "icons". And on smaller screen, we just show smaller icons.
         AlbumItemsScreenBody(album: sharingGroupUUID, albumName: albumName)
-                .background(Color.screenBackground)
+            .background(Color.screenBackground)
     }
 }
 
@@ -24,7 +27,7 @@ struct AlbumItemsScreenBody: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     let albumName: String
-    
+
     init(album sharingGroupUUID: UUID, albumName: String) {
         self.viewModel = AlbumItemsViewModel(album: sharingGroupUUID)
         self.albumName = albumName
@@ -40,9 +43,11 @@ struct AlbumItemsScreenBody: View {
             }
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
-        .navigationBarItems(trailing:
-            AlbumItemsScreenNavButtons(viewModel: viewModel)
-        )
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                AlbumItemsScreenNavButtons(viewModel: viewModel)
+            }
+        }
         .sheetyDisplayer(item: $viewModel.sheetToShow, subscriber: alerty) { sheet in
             switch sheet {
             case .activityController:
@@ -182,19 +187,6 @@ struct AlbumItemsScreenBodyWithContent: View {
     }
 }
 
-private struct AlbumItemsScreenNavButtons: View {
-    @ObservedObject var viewModel:AlbumItemsViewModel
-    
-    var body: some View {
-        if viewModel.sharing && viewModel.itemsToShare.count > 0 {
-            AlbumItemsScreenNavSharingButtons(viewModel: viewModel)
-        }
-        else {
-            AlbumItemsScreenNavRegularButtons(viewModel: viewModel)
-        }
-    }
-}
-
 struct MediaPickersMenu: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     let pickers:[MediaPicker]
@@ -227,69 +219,60 @@ struct MediaPickersMenu: View {
     }
 }
 
-private struct AlbumItemsScreenNavRegularButtons: View {
+private struct AlbumItemsScreenNavButtons: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     @Environment(\.colorScheme) var colorScheme
     @StateObject var signInManager = Services.session.signInServices.manager
-
-    init(viewModel:AlbumItemsViewModel) {
-        self.viewModel = viewModel
-    }
-
-    var body: some View {
-        HStack(spacing: 0) {
-            MediaPickersMenu(viewModel: viewModel)
-            
-            Menu {
-                Button(action: {
-                    viewModel.sharing.toggle()
-                }) {
-                    Label("Share items",
-                        image: colorScheme == .light ? "Share" : "ShareWhite")
-                }.enabled(viewModel.objects.count > 0)
-                
-                Button(action: {
-                    viewModel.sync(userTriggered: true)
-                }) {
-                    Label("Sync", systemImage: "goforward")
-                }
-                
-                Button(action: {
-                    viewModel.resetUnreadCount()
-                }) {
-                    Label("Mark all read", systemImage: "scissors")
-                }
-            } label: {
-                SFSymbolIcon(symbol: .ellipsis)
-            }
-            .enabled(signInManager.userIsSignedIn == true)
-        }
-    }
-}
-
-private struct AlbumItemsScreenNavSharingButtons: View {
-    @ObservedObject var viewModel:AlbumItemsViewModel
     
     var body: some View {
-        HStack {
-            Button(
-                action: {
-                    viewModel.sheetToShow = .activityController
-                },
-                label: {
-                    SFSymbolIcon(symbol: .squareAndArrowUp)
-                }
-            )
+        HStack(spacing: 0) {
+            if viewModel.sharing && viewModel.itemsToShare.count > 0 {
+                Button(
+                    action: {
+                        viewModel.sheetToShow = .activityController
+                    },
+                    label: {
+                        SFSymbolIcon(symbol: .squareAndArrowUp)
+                    }
+                )
+
+                Button(
+                    action: {
+                        viewModel.sharing = false
+                        viewModel.itemsToShare.removeAll()
+                    },
+                    label: {
+                        SFSymbolIcon(symbol: .xmark)
+                    }
+                )
+            }
+            else {
+                MediaPickersMenu(viewModel: viewModel)
             
-            Button(
-                action: {
-                    viewModel.sharing = false
-                    viewModel.itemsToShare.removeAll()
-                },
-                label: {
-                    SFSymbolIcon(symbol: .xmark)
+                Menu {
+                    Button(action: {
+                        viewModel.sharing.toggle()
+                    }) {
+                        Label("Share items",
+                            image: colorScheme == .light ? "Share" : "ShareWhite")
+                    }.enabled(viewModel.objects.count > 0)
+                    
+                    Button(action: {
+                        viewModel.sync(userTriggered: true)
+                    }) {
+                        Label("Sync", systemImage: "goforward")
+                    }
+                    
+                    Button(action: {
+                        viewModel.resetUnreadCount()
+                    }) {
+                        Label("Mark all read", systemImage: "scissors")
+                    }
+                } label: {
+                    SFSymbolIcon(symbol: .ellipsis)
                 }
-            )
+                .enabled(signInManager.userIsSignedIn == true)
+            }
         }
     }
 }

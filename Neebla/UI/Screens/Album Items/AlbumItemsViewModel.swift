@@ -151,6 +151,10 @@ class AlbumItemsViewModel: ObservableObject {
         getItemsForAlbum(album: sharingGroupUUID)
     }
     
+    deinit {
+        logger.debug("AlbumItemsViewModel: deinit")
+    }
+    
     // If force is true, doesn't check if the model values have changed.
     private func getItemsForAlbum(album sharingGroupUUID: UUID, sortByOrderAscending: Bool? = nil, discussionFilterBy: SortFilterSettings.DiscussionFilterBy? = nil, force: Bool = false) {
         var ascending: Bool = true
