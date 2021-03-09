@@ -34,30 +34,32 @@ struct ObjectDetailsView: View {
             // To push the `AnyLargeMedia` to the top.
             Spacer()
         }
-        .navigationBarItems(trailing:
-            HStack(spacing: 0) {
-                Button(
-                    action: {
-                        model.promptForDeletion(dismiss: {
-                            isPresented.wrappedValue.dismiss()
-                        })
-                    },
-                    label: {
-                        SFSymbolIcon(symbol: .trash)
-                    }
-                )
-                .enabled(signInManager.userIsSignedIn == true)
-                
-                Button(
-                    action: {
-                        showComments = true
-                    },
-                    label: {
-                        SFSymbolIcon(symbol: .message)
-                    }
-                )
-            }.enabled(model.modelInitialized)
-        )
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                HStack(spacing: 0) {
+                    Button(
+                        action: {
+                            model.promptForDeletion(dismiss: {
+                                isPresented.wrappedValue.dismiss()
+                            })
+                        },
+                        label: {
+                            SFSymbolIcon(symbol: .trash)
+                        }
+                    )
+                    .enabled(signInManager.userIsSignedIn == true)
+                    
+                    Button(
+                        action: {
+                            showComments = true
+                        },
+                        label: {
+                            SFSymbolIcon(symbol: .message)
+                        }
+                    )
+                }.enabled(model.modelInitialized)
+            }
+        }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
         .sheetyDisplayer(show: $showComments, subscriber: alerty, view: CommentsView(object: object))
     }

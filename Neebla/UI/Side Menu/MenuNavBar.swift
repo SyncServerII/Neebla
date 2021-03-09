@@ -49,8 +49,8 @@ struct MenuNavBar<Content: View>: View {
             self.content
         }
         .navigationBarTitle(title, displayMode: .inline)
-        .navigationBarItems(
-            leading: (
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarLeading) {
                 VStack {
                     if leftMenuNav {
                         Button(action: {
@@ -71,9 +71,12 @@ struct MenuNavBar<Content: View>: View {
                         Rectangle().fill(Color.clear)
                     }
                 }
-            ), trailing:
+            }
+            
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
                 rightNavbarButton
-        )
+            }
+        }
     }
 }
 
