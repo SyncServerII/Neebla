@@ -8,6 +8,7 @@
 import SQLite
 import Foundation
 import iOSShared
+import Combine
 
 // Supporting the Sort / Filter menu on the Album Items screen
 
@@ -24,7 +25,8 @@ class SortFilterSettings: DatabaseModel, SingletonModel, ObservableObject {
     
     static let sortByOrderAscendingField = Field("sortByOrderAscending", \M.sortByOrderAscending)
     // Ascending if true; descending if false.
-    @Published var sortByOrderAscending: Bool
+    var sortByOrderAscending: Bool
+    let sortByOrderAscendingChanged = PassthroughSubject<Bool, Never>()
     
     enum DiscussionFilterBy: String, Codable, CaseIterable {
         case none // no filtering; show all
@@ -32,7 +34,8 @@ class SortFilterSettings: DatabaseModel, SingletonModel, ObservableObject {
     }
     
     static let discussionFilterByField = Field("discussionFilterBy", \M.discussionFilterBy)
-    @Published var discussionFilterBy: DiscussionFilterBy
+    var discussionFilterBy: DiscussionFilterBy
+    let discussionFilterByChanged = PassthroughSubject<DiscussionFilterBy, Never>()
     
     init(db: Connection,
         id: Int64! = nil,

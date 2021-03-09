@@ -34,6 +34,7 @@ class SortFilterMenuModel: ObservableObject {
             logger.debug("toggleSortOrder: \(update)")
             model.sortByOrderAscending = update
             try model.update(setters: SortFilterSettings.sortByOrderAscendingField.description <- update)
+            model.sortByOrderAscendingChanged.send(update)
             setSortOrder()
         } catch let error {
             logger.error("\(error)")
@@ -48,6 +49,7 @@ class SortFilterMenuModel: ObservableObject {
         do {
             model.discussionFilterBy = filter
             try model.update(setters: SortFilterSettings.discussionFilterByField.description <- filter)
+            model.discussionFilterByChanged.send(filter)
             setFilterIcons()
             updateFiltersEnabled()
         } catch let error {

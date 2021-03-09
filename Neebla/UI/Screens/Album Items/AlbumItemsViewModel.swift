@@ -84,13 +84,15 @@ class AlbumItemsViewModel: ObservableObject {
             self.sortFilterSettings = sortFilterSettings
 
             // These subscriptions seem to get fired *before* the properties on the `sortFilterSettings` object change. So, have added parameters to `getItemsForAlbum` to deal with this.
-            settingsDiscussionFilterSubscription = sortFilterSettings.$discussionFilterBy.sink { [weak self] value in
+            settingsDiscussionFilterSubscription = sortFilterSettings.discussionFilterByChanged.sink { [weak self] value in
                 guard let self = self else { return }
-                self.getItemsForAlbum(album: sharingGroupUUID, discussionFilterBy: value, force: true)
+                self.updateIfNeeded(self.getItemsForAlbum(album: sharingGroupUUID, discussionFilterBy: value))
             }
             
-            settingsSortBySubscription = sortFilterSettings.$sortByOrderAscending.sink { [weak self] value in
-                self?.getItemsForAlbum(album: sharingGroupUUID, sortByOrderAscending: value, force: true)
+            settingsSortBySubscription = sortFilterSettings.sortByOrderAscendingChanged.sink { [weak self] value in
+                guard let self = self else { return }
+                
+                self.updateIfNeeded(self.getItemsForAlbum(album: sharingGroupUUID, sortByOrderAscending: value))
             }
         } catch let error {
             logger.error("SortFilterSettings.getSingleton: \(error)")
@@ -98,6 +100,11 @@ class AlbumItemsViewModel: ObservableObject {
                 
         syncSubscription = Services.session.serverInterface.sync.sink { [weak self] syncResult in
             guard let self = self else { return }
+            
+            guard case .index(let sharingGroupUUID, _) = syncResult,
+                sharingGroupUUID == self.sharingGroupUUID else {
+                return
+            }
             
             do {
                 // Reset the `needsDownload` field after a successful sync.
@@ -112,7 +119,7 @@ class AlbumItemsViewModel: ObservableObject {
             }
             
             self.loading = false
-            self.getItemsForAlbum(album: sharingGroupUUID)
+            self.updateIfNeeded(self.getItemsForAlbum(album: sharingGroupUUID))
             logger.debug("Sync done")            
         }
 
@@ -121,7 +128,7 @@ class AlbumItemsViewModel: ObservableObject {
                 .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
                 .sink { [weak self] fileGroupUUID in
             guard let self = self else { return }
-            self.getItemsForAlbum(album: sharingGroupUUID)
+            self.updateIfNeeded(self.getItemsForAlbum(album: sharingGroupUUID))
         }
         
         // If an object is deleted that we're displaying, update the UI. Want to listen to both (a) a queue/deletion completing, and (b) a download deletion completing.
@@ -135,7 +142,7 @@ class AlbumItemsViewModel: ObservableObject {
             // Is this an object we care about on this screen?
             
             if let _ = try? ServerObjectModel.fetchSingleRow(db: Services.session.db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) {
-                self.getItemsForAlbum(album: sharingGroupUUID)
+                self.updateIfNeeded(self.getItemsForAlbum(album: sharingGroupUUID))
             }
         }
         
@@ -148,15 +155,29 @@ class AlbumItemsViewModel: ObservableObject {
         }
         
         // Give user something to look at if there are album items already.
-        getItemsForAlbum(album: sharingGroupUUID)
+        self.objects = getItemsForAlbum(album: sharingGroupUUID)
     }
     
     deinit {
         logger.debug("AlbumItemsViewModel: deinit")
     }
     
+    private func updateIfNeeded(_ update: [ServerObjectModel]) {
+        let current = Set<ServerObjectModel>(objects)
+        let new = Set<ServerObjectModel>(update)
+        if current == new {
+            // No update needed.
+            return
+        }
+                
+        self.objects = update
+    }
+    
     // If force is true, doesn't check if the model values have changed.
-    private func getItemsForAlbum(album sharingGroupUUID: UUID, sortByOrderAscending: Bool? = nil, discussionFilterBy: SortFilterSettings.DiscussionFilterBy? = nil, force: Bool = false) {
+    private func getItemsForAlbum(album sharingGroupUUID: UUID, sortByOrderAscending: Bool? = nil, discussionFilterBy: SortFilterSettings.DiscussionFilterBy? = nil) -> [ServerObjectModel] {
+    
+        logger.debug("getItemsForAlbum")
+        
         var ascending: Bool = true
         var fetchConstraint: SQLite.Expression<Bool> =
             ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
@@ -193,21 +214,12 @@ class AlbumItemsViewModel: ObservableObject {
         }
         
         if let objects = try? ServerObjectModel.fetch(db: Services.session.db, where: fetchConstraint) {
-            if !force {
-                let current = Set<ServerObjectModel>(self.objects)
-                let new = Set<ServerObjectModel>(objects)
-                if current == new {
-                    // No update needed.
-                    return
-                }
-            }
-            
-            self.objects = objects.sorted { (object1, object2) -> Bool in
+            return objects.sorted { (object1, object2) -> Bool in
                 return sortObjects(object1, object2)
             }
         }
         else {
-            self.objects = []
+            return []
         }
     }
 
@@ -236,7 +248,7 @@ class AlbumItemsViewModel: ObservableObject {
             // Don't rely on only a sync to update the view with the new media item. If there isn't a network connection, a sync won't do what we want.
         
             // This more directly updates the view from the local file that was added.
-            getItemsForAlbum(album: sharingGroupUUID)
+            updateIfNeeded(getItemsForAlbum(album: sharingGroupUUID))
             
             // Indicating this as *not* user triggered as it's not *directly* user triggered, and I don't want a no-network error showing up in this case. The upload, if we get this far, should have been successfully queued.
             sync()

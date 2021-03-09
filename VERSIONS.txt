@@ -4,7 +4,9 @@ Version 2.0.0 (TestFlight builds)
 	* Improve sharing invitation help text.
 	* Fix username issue: Username changes retained across app re-installs.
 	* Fixed sharing invitation redeeming alert text.
-
+	* Fixed memory leak due to navigationBarItems-- change to toolbar.
+	* Improved album items refresh-- getting rid of flicker
+	
 Version 2.0.0 (TestFlight builds)
 	* Fix Push Notification error reporting
 	* Add re-retry to download failures.
