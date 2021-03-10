@@ -17,7 +17,7 @@ enum AlbumsScreenActiveSheet: Identifiable {
 }
 
 class AlbumsViewModel: ObservableObject {
-    var firstAppearance = false
+    var firstAppearance = true
     @Published var isShowingRefresh = false
     
     @Published var activeSheet:AlbumsScreenActiveSheet?
