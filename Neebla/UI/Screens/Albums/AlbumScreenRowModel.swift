@@ -35,8 +35,8 @@ class AlbumScreenRowModel: ObservableObject {
             do {
                 if let album = try AlbumModel.getAlbumModel(db: Services.session.db, from: notification, expectingSharingGroupUUID: album.sharingGroupUUID) {
                     self.album = album
+                    logger.debug("album.needsDownload: \(album.needsDownload)")
                     if self.needsDownload != album.needsDownload {
-                        logger.debug("album.needsDownload: \(album.needsDownload)")
                         self.needsDownload = album.needsDownload
                     }
                 }

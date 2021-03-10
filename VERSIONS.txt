@@ -1,5 +1,12 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build XXX)
+	* Fix download indicators:
+		I wasn't relying on the row model flag-- fixed that.
+	* Fix push notifications
+	* Fix album screen reload-- having to tap on reload to get initial load.
+	* Fix album items screen-- why flashing on empty state initially?
+
 Version 2.0.0 (TestFlight Build 20210308.0)
 	* Improve sharing invitation help text.
 	* Fix username issue: Username changes retained across app re-installs.

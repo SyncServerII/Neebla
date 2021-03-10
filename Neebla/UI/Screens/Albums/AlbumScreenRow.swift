@@ -40,7 +40,7 @@ struct AlbumsScreenRow: View {
             }
             
             // Indicate whether or not there are updates available to download for this album.
-            if album.needsDownload {
+            if rowModel.needsDownload {
                 Icon(imageName:
                     "Download.White",
                     size: CGSize(width: 25, height: 25), blueAccent: false)
