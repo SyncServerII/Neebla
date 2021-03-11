@@ -159,17 +159,17 @@ struct AlbumsScreenAlbumList: View {
                                 // So when we come back from album sharing, the screen isn't in sharing mode.
                                 viewModel.sharingMode = false
                             }, label: {
-                                AlbumsScreenRow(album: album, viewModel: viewModel)
+                                AlbumsScreenRow(sharingGroupUUID: album.sharingGroupUUID, viewModel: viewModel)
                             })
                         }
                         else {
-                            AlbumsScreenRow(album: album, viewModel: viewModel)
+                            AlbumsScreenRow(sharingGroupUUID: album.sharingGroupUUID, viewModel: viewModel)
                         }
                     }
                     else {
                         Button(action: {
                         }, label: {
-                            AlbumsScreenRow(album: album, viewModel: viewModel)
+                            AlbumsScreenRow(sharingGroupUUID: album.sharingGroupUUID, viewModel: viewModel)
                         })
                     }
 

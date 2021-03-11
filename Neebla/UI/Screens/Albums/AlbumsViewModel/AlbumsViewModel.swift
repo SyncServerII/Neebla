@@ -268,4 +268,8 @@ class AlbumsViewModel: ObservableObject {
         
         PushNotifications.session.checkForNotificationAuthorization()
     }
+    
+    static func getAlbum(sharingGroupUUID: UUID) throws -> AlbumModel? {
+        return try AlbumModel.fetchSingleRow(db: Services.session.db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID)
+    }
 }

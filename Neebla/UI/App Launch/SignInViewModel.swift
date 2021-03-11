@@ -30,7 +30,8 @@ class SignInViewModel: ObservableObject {
             self?.userSignedIn = signedIn ?? false
             
             do {
-                try SettingsModel.setupUserName(userName: Services.session.username)
+                // Allowing nil user name because user creds may supply a nil user name.
+                try SettingsModel.setupUserName(userName: Services.session.username, allowNilUserName: true)
             } catch let error {
                 logger.error("\(error)")
             }

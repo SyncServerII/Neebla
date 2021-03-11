@@ -9,8 +9,34 @@ import Foundation
 import SwiftUI
 import SFSafeSymbols
 import iOSSignIn
+import iOSShared
 
 struct AlbumsScreenRow: View {
+    var album:AlbumModel?
+    let viewModel:AlbumsViewModel
+    
+    // I'm passing in the sharingGroupUUID and loading the album, instead of passing in the album, to make sure the album updates if the view reloads. Otherwise, may have a problem with an incorrect value for the download indicator.
+    init(sharingGroupUUID:UUID, viewModel:AlbumsViewModel) {
+        self.viewModel = viewModel
+        
+        do {
+            album = try AlbumsViewModel.getAlbum(sharingGroupUUID: sharingGroupUUID)
+        } catch let error {
+            logger.error("\(error)")
+        }
+    }
+    
+    var body: some View {
+        if let album = album {
+            AlbumsScreenRowContent(album: album, viewModel: viewModel)
+        }
+        else {
+            Text("Error getting Album")
+        }
+    }
+}
+
+private struct AlbumsScreenRowContent: View {
     @ObservedObject var album:AlbumModel
     @ObservedObject var viewModel:AlbumsViewModel
     @ObservedObject var rowModel:AlbumScreenRowModel

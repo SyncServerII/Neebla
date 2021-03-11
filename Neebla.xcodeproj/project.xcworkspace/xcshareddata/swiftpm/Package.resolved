@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/facebook/facebook-ios-sdk.git",
         "state": {
           "branch": null,
-          "revision": "fa5fab33bb440eed75122459965b82c7b944d9d8",
-          "version": "8.2.0"
+          "revision": "ad850211b5b9aaec2355d18b4ecb6c0f481448e2",
+          "version": "9.0.1"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/nathantannar4/InputBarAccessoryView",
         "state": {
           "branch": null,
-          "revision": "a2983f8728bf7aefc7da8a17ffc0e382479ce001",
-          "version": "5.2.3"
+          "revision": "999423a8d7e29520ef0777f71af689cf4f25d65d",
+          "version": "5.3.0"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "425c5b5bcf16efb55fe7a548ebe560e071fa296c",
-          "version": "0.13.0"
+          "revision": "6068c8c56ea455071af67798ec58359be0e36603",
+          "version": "0.13.1"
         }
       },
       {
@@ -123,8 +123,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSFacebook.git",
         "state": {
           "branch": null,
-          "revision": "0aabf44e4b5d132670bf461b3430ceb01dd83c28",
-          "version": "0.0.1"
+          "revision": "d0ed263717a30596a3cf405c9c8ec6d7a2ee2b18",
+          "version": "0.1.2"
         }
       },
       {
@@ -141,8 +141,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "27de2b792420a90aedd05e8165939cb781379025",
-          "version": "0.4.1"
+          "revision": "793833ae43672fc799f39992d863fcce03f24602",
+          "version": "0.5.0"
         }
       },
       {
@@ -231,8 +231,8 @@
         "repositoryURL": "https://github.com/MessageKit/MessageKit",
         "state": {
           "branch": null,
-          "revision": "7189e5a1af50160884bc6a5f9bdf9cb250dc139a",
-          "version": "3.5.0"
+          "revision": "4e97e02d85a69a8af609b6861a8d176c4387aaea",
+          "version": "3.5.1"
         }
       },
       {
@@ -276,8 +276,8 @@
         "repositoryURL": "https://github.com/piknotech/SFSafeSymbols.git",
         "state": {
           "branch": null,
-          "revision": "9d66af8ebfafca1cb21b77f3c5e3f43189174403",
-          "version": "2.1.2"
+          "revision": "c61de7a6e9eb1520d32316b06d5932accd974e70",
+          "version": "2.1.3"
         }
       },
       {

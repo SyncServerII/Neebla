@@ -290,6 +290,10 @@ extension ServerFileModel {
         logger.debug("url: \(String(describing: url)); fileLabel: \(fileLabel); gone: \(gone); downloadStatus: \(downloadStatus)")
         let downloadsQueued = try Services.session.syncServer.numberQueued(.download)
         logger.debug("downloadsQueued: \(downloadsQueued)")
+        try Services.session.syncServer.debug(fileUUID: fileUUID)
+        try Services.session.syncServer.debug(fileGroupUUID: fileGroupUUID)
+        let needsDownload = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: fileGroupUUID, includeGone: true)
+        logger.debug("objectNeedsDownload: \(String(describing: needsDownload))")
     }
 }
 #endif

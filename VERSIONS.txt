@@ -1,5 +1,14 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build)
+	* I have one item, in the Cats album, that won't download.
+		There is no DownloadFileTracker. I'm not sure why it's not counted as something needing download. There *is* a DownloadObjectTracker. It seems like that ought to have been removed. Not sure why. Due to some crash? Going to put in some recovery code. Made change to fix in iOSBasics.
+	* Fix Facebook sign in issues.
+	* Download indicator-- Is on in some cases, but doesn't actually indicate downloads available. I.e., going to the album and refreshing doesn't clear it. This suggests that the album refresh isn't resetting the download indicator.
+		Made a change that attempts to fix this.
+	* Crash when put app in the background and its downloading.
+		- Fixed one issue in Neebla and one issue in iOSFacebook package
+
 Version 2.0.0 (TestFlight Build 20210309.0)
 	* Fix download indicators:
 		I wasn't relying on the row model flag-- fixed that.

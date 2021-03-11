@@ -112,7 +112,7 @@ class AlbumItemsViewModel: ObservableObject {
                     let albumModel = try AlbumModel.fetchSingleRow(db: Services.session.db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID),
                     albumModel.needsDownload {
                     try albumModel.update(setters: AlbumModel.needsDownloadField.description <- false)
-                        albumModel.postNeedsDownloadUpdateNotification()
+                    albumModel.postNeedsDownloadUpdateNotification()
                 }
             }
             catch let error {
