@@ -15,18 +15,23 @@ struct AnyLargeMedia: View {
     
     var body: some View {
         VStack {
-            switch object.objectType {
-            case ImageObjectType.objectType:
-                ImageLargeMedia(object: object)
+            ZoomableScrollView {
+                switch object.objectType {
+                case ImageObjectType.objectType:
+                    ImageLargeMedia(object: object)
 
-            case URLObjectType.objectType:
-                URLLargeMedia(object: object)
+                case URLObjectType.objectType:
+                    URLLargeMedia(object: object)
+                    
+                case LiveImageObjectType.objectType:
+                    LiveImageLargeMedia(object: object)
+                    
+                default:
+                    EmptyView()
+                }
                 
-            case LiveImageObjectType.objectType:
-                LiveImageLargeMedia(object: object)
-                
-            default:
-                EmptyView()
+                // Pushes the large media to the top. Needed this when I added in `ZoomableScrollView`.
+                Spacer()
             }
         }
         // The badge is not showing up the way I want it on `LiveImageLargeMedia`. It is not showing up within the image. Just the upper/left of the screen. Not sure how to resolve that.

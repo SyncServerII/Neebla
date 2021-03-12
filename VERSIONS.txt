@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build)
+	* Added in scrolling/panning with large images.
+	
 Version 2.0.0 (TestFlight Build 20210311.0)
 	* Changed file protection attributes of database-- to enable access in background.
 		Trying to see if this is what was causing crashes.
