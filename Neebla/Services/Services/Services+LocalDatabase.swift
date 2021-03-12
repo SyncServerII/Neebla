@@ -17,6 +17,7 @@ extension Services {
             LocalFiles.neeblaDatabase)
         logger.info("Neebla SQLite db: \(dbURL.path)")
         db = try Connection(dbURL.path)
+        dbURL.enableAccessInBackground()
     }
 }
 

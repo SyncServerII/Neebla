@@ -64,7 +64,8 @@ class ServerInterface {
             LocalFiles.syncServerDatabase)
         logger.info("SyncServer SQLite db: \(dbURL.path)")
         let db = try Connection(dbURL.path)
-
+        dbURL.enableAccessInBackground()
+        
         // The version in `CFBundleShortVersionString` needs to have format X.Y.Z.
         var currentClientAppVersion: Version?
         if let versionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
