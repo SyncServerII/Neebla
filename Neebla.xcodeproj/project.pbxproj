@@ -151,6 +151,15 @@
 		839ADC3125EB09DD00618581 /* MutableDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC3025EB09DC00618581 /* MutableDownloads.swift */; };
 		839ADC3825EB0AEE00618581 /* MutableDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC3025EB09DC00618581 /* MutableDownloads.swift */; };
 		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
+		83A2DF2225FC63DE0072A557 /* GIFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A2DF2125FC63DE0072A557 /* GIFModel.swift */; };
+		83A2DF2925FC68410072A557 /* GIFObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2725FB368700A5439F /* GIFObjectType.swift */; };
+		83A2DF2F25FC68970072A557 /* GIFObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A2DF2E25FC68970072A557 /* GIFObjectType+Uploadable.swift */; };
+		83A2DF3325FC692B0072A557 /* GIFObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A2DF2E25FC68970072A557 /* GIFObjectType+Uploadable.swift */; };
+		83A2DF3C25FC6A350072A557 /* GIFItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2C25FB36AD00A5439F /* GIFItemProvider.swift */; };
+		83A2DF4125FC71A80072A557 /* SwiftyGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A2DF4025FC71A80072A557 /* SwiftyGif.swift */; };
+		83A2DF6A25FC80860072A557 /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 83A2DF6925FC80860072A557 /* Gifu */; };
+		83A2DF7925FC881E0072A557 /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 83A2DF7825FC881E0072A557 /* Gifu */; };
+		83A2DF7D25FC88A20072A557 /* GIFIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B1A25FB365600A5439F /* GIFIcon.swift */; };
 		83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
 		83B0CB4725B2A51400D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
 		83B0CB4B25B2A5AF00D53B58 /* AnyTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F47D2560CE540063A67D /* AnyTypeManager.swift */; };
@@ -409,6 +418,9 @@
 		839ADC1125E3869A00618581 /* AlbumsViewModel+Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumsViewModel+Index.swift"; sourceTree = "<group>"; };
 		839ADC3025EB09DC00618581 /* MutableDownloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableDownloads.swift; sourceTree = "<group>"; };
 		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
+		83A2DF2125FC63DE0072A557 /* GIFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFModel.swift; sourceTree = "<group>"; };
+		83A2DF2E25FC68970072A557 /* GIFObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GIFObjectType+Uploadable.swift"; sourceTree = "<group>"; };
+		83A2DF4025FC71A80072A557 /* SwiftyGif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyGif.swift; sourceTree = "<group>"; };
 		83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationMessage.swift; sourceTree = "<group>"; };
 		83B0CB4F25B2ABF400D53B58 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
 		83B0CB6825B3F55500D53B58 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
@@ -482,6 +494,7 @@
 				83F1E0F925C518FE00DA4A80 /* Toucan in Frameworks */,
 				83F1E0F425C518EF00DA4A80 /* iOSApple in Frameworks */,
 				83F1E0D625C5188800DA4A80 /* FileLogging in Frameworks */,
+				83A2DF7925FC881E0072A557 /* Gifu in Frameworks */,
 				83F1E0DB25C5189800DA4A80 /* SMLinkPreview in Frameworks */,
 				83F1E0D125C5185200DA4A80 /* iOSFacebook in Frameworks */,
 				8367504A25E326D7003957BE /* Hyperconnectivity in Frameworks */,
@@ -521,6 +534,7 @@
 				8308B6D92569F595007F0CEB /* SMLinkPreview in Frameworks */,
 				839ADC1F25E4AF2A00618581 /* ServerShared in Frameworks */,
 				83F389C5259044ED00610C76 /* iOSApple in Frameworks */,
+				83A2DF6A25FC80860072A557 /* Gifu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,8 +586,8 @@
 			isa = PBXGroup;
 			children = (
 				83152B1A25FB365600A5439F /* GIFIcon.swift */,
-				83152B2225FB366700A5439F /* GIFLargeMedia.swift */,
-				83152B2725FB368700A5439F /* GIFObjectType.swift */,
+				83A2DF8825FD2C380072A557 /* GIFLargeMedia */,
+				83A2DF2D25FC68800072A557 /* GIFObjectType */,
 				83152B2C25FB36AD00A5439F /* GIFItemProvider.swift */,
 			);
 			path = "GIF Images";
@@ -961,6 +975,25 @@
 			path = AlbumsViewModel;
 			sourceTree = "<group>";
 		};
+		83A2DF2D25FC68800072A557 /* GIFObjectType */ = {
+			isa = PBXGroup;
+			children = (
+				83152B2725FB368700A5439F /* GIFObjectType.swift */,
+				83A2DF2E25FC68970072A557 /* GIFObjectType+Uploadable.swift */,
+			);
+			path = GIFObjectType;
+			sourceTree = "<group>";
+		};
+		83A2DF8825FD2C380072A557 /* GIFLargeMedia */ = {
+			isa = PBXGroup;
+			children = (
+				83A2DF2125FC63DE0072A557 /* GIFModel.swift */,
+				83152B2225FB366700A5439F /* GIFLargeMedia.swift */,
+				83A2DF4025FC71A80072A557 /* SwiftyGif.swift */,
+			);
+			path = GIFLargeMedia;
+			sourceTree = "<group>";
+		};
 		83B0C79725B29AE400D53B58 /* Push Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -1271,6 +1304,7 @@
 				83F1E0F325C518EF00DA4A80 /* iOSApple */,
 				83F1E0F825C518FE00DA4A80 /* Toucan */,
 				8367504925E326D7003957BE /* Hyperconnectivity */,
+				83A2DF7825FC881E0072A557 /* Gifu */,
 			);
 			productName = "Share Extension";
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
@@ -1331,6 +1365,7 @@
 				834E4FF625E21942002C0ED2 /* iOSShared */,
 				8367503E25E320CE003957BE /* Hyperconnectivity */,
 				839ADC1E25E4AF2A00618581 /* ServerShared */,
+				83A2DF6925FC80860072A557 /* Gifu */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -1386,6 +1421,7 @@
 				834E4FF525E21942002C0ED2 /* XCRemoteSwiftPackageReference "iOSShared" */,
 				8367503D25E320CE003957BE /* XCRemoteSwiftPackageReference "Hyperconnectivity" */,
 				839ADC1D25E4AF2A00618581 /* XCRemoteSwiftPackageReference "ServerShared" */,
+				83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -1493,6 +1529,7 @@
 				8331F34A255B8CC50063A67D /* ShareViewController.swift in Sources */,
 				8331F36B255B8DD10063A67D /* SharingGroupsView.swift in Sources */,
 				8331F4CE2561168B0063A67D /* ServerFileModel.swift in Sources */,
+				83A2DF3325FC692B0072A557 /* GIFObjectType+Uploadable.swift in Sources */,
 				8331F37B255B8F740063A67D /* Services.swift in Sources */,
 				83C73498259870320073788A /* RatioModifier.swift in Sources */,
 				837A46E425D8DEB200CAC322 /* UIImage+Extras.swift in Sources */,
@@ -1507,6 +1544,7 @@
 				83C7349025986FFD0073788A /* GenericImageIcon.swift in Sources */,
 				8331F36D255B8DD10063A67D /* ItemPreview.swift in Sources */,
 				8331F439255F9AF70063A67D /* Services+LocalDatabase.swift in Sources */,
+				83A2DF2925FC68410072A557 /* GIFObjectType.swift in Sources */,
 				83E1A9912599A377004D4029 /* URLPreviewItemProvider.swift in Sources */,
 				83BF7CC6258575DD000E0B37 /* URLObjectType.swift in Sources */,
 				8331F36C255B8DD10063A67D /* SharingView.swift in Sources */,
@@ -1527,6 +1565,7 @@
 				8322303B25CD0AA5006FC3EC /* View+Extras.swift in Sources */,
 				8331F4E32561F9250063A67D /* FileInfo+Extras.swift in Sources */,
 				83CE1EB2257081BC004A418B /* BasicEquatable.swift in Sources */,
+				83A2DF3C25FC6A350072A557 /* GIFItemProvider.swift in Sources */,
 				834B25A8258C60AF00F653BC /* ServerInterface+CloudHashing.swift in Sources */,
 				8331F369255B8DD10063A67D /* UploadToAlbumView.swift in Sources */,
 				8331F441255F9C8E0063A67D /* AlbumModel.swift in Sources */,
@@ -1542,6 +1581,7 @@
 				83C7350B259922490073788A /* LiveImageObjectType+Uploadable.swift in Sources */,
 				834B25CC258C7C2200F653BC /* ServicesDelegate.swift in Sources */,
 				8331F444255F9C920063A67D /* ServerObjectModel.swift in Sources */,
+				83A2DF7D25FC88A20072A557 /* GIFIcon.swift in Sources */,
 				83BF7CA6258543B4000E0B37 /* Comments+Keys.swift in Sources */,
 				8367503925E31FD6003957BE /* Reachability.swift in Sources */,
 				83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */,
@@ -1637,9 +1677,11 @@
 				83152B0025FB1B7600A5439F /* URL+Extras.swift in Sources */,
 				83B0CB7A25B411B900D53B58 /* UpdateView.swift in Sources */,
 				8331F334255B8AFD0063A67D /* Screen.swift in Sources */,
+				83A2DF4125FC71A80072A557 /* SwiftyGif.swift in Sources */,
 				83C43FF425734E020016BA4C /* DiscussionMessage.swift in Sources */,
 				83D5CF392564C2520018DE7C /* Downloader.swift in Sources */,
 				835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */,
+				83A2DF2F25FC68970072A557 /* GIFObjectType+Uploadable.swift in Sources */,
 				83BF7867258077F1000E0B37 /* LiveImageIcon.swift in Sources */,
 				83D8CC1425B97E570069E3E5 /* IconConfig.swift in Sources */,
 				8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */,
@@ -1672,6 +1714,7 @@
 				835AC8F3255B848300375084 /* ServerInterface.swift in Sources */,
 				8331F44B255FA7BA0063A67D /* AlbumsViewModel.swift in Sources */,
 				834B25C8258C7B9800F653BC /* ServicesDelegate.swift in Sources */,
+				83A2DF2225FC63DE0072A557 /* GIFModel.swift in Sources */,
 				8320A71A256E0E0500819377 /* ObjectDetailsModel.swift in Sources */,
 				83152B2825FB368700A5439F /* GIFObjectType.swift in Sources */,
 				8308B716256B4995007F0CEB /* RatioModifier.swift in Sources */,
@@ -1751,7 +1794,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210311.0;
+				CURRENT_PROJECT_VERSION = 20210313.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1773,7 +1816,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210311.0;
+				CURRENT_PROJECT_VERSION = 20210313.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1959,7 +2002,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210311.0;
+				CURRENT_PROJECT_VERSION = 20210313.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -1986,7 +2029,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210311.0;
+				CURRENT_PROJECT_VERSION = 20210313.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2143,6 +2186,14 @@
 				minimumVersion = 0.2.0;
 			};
 		};
+		83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kaishin/Gifu";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.3.0;
+			};
+		};
 		83D2FBDE25C294B500E378F7 /* XCRemoteSwiftPackageReference "iOSDropbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSDropbox.git";
@@ -2258,6 +2309,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 839ADC1D25E4AF2A00618581 /* XCRemoteSwiftPackageReference "ServerShared" */;
 			productName = ServerShared;
+		};
+		83A2DF6925FC80860072A557 /* Gifu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */;
+			productName = Gifu;
+		};
+		83A2DF7825FC881E0072A557 /* Gifu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */;
+			productName = Gifu;
 		};
 		83D2FBDF25C294B500E378F7 /* iOSDropbox */ = {
 			isa = XCSwiftPackageProductDependency;

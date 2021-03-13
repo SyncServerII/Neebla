@@ -16,6 +16,8 @@ extension Comments {
         // For the same reasons as `mediaUUIDKey`, this is a comment.
         static let urlPreviewImageUUIDKey = "urlPreviewImageUUID"
         
+        static let gifPreviewImageUUIDKey = "gifPreviewImageUUID"
+        
         // 4/17/18; For some early files, image titles were stored in appMetaData. After server version 0.14.0, they are stored in "discussion" files. While the image title is stored in the "discussion" file-- that's for purposes of upload and download. Normally, we access the image title from the Core Data Image object title property.
         static let mediaTitleKey = "imageTitle"
     }

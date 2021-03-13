@@ -11,29 +11,7 @@ import ChangeResolvers
 import UIKit
 import iOSShared
 import ServerShared
-
-struct GIFObjectTypeAssets: UploadableMediaAssets {
-    enum GIFObjectTypeAssetsError: Error {
-        case badMimeType
-    }
-    
-    static let allowedMimeTypes: Set<MimeType> = [.gif]
-    
-    // Mime type of the image
-    let mimeType: MimeType
-    
-    // File reference to gif. This needs to be movied/copied to a permanent location in the app.
-    let gifURL: URL
-    
-    init(mimeType: MimeType, gifURL: URL) throws {
-        guard Self.allowedMimeTypes.contains(mimeType) else {
-            throw GIFObjectTypeAssetsError.badMimeType
-        }
-        
-        self.mimeType = mimeType
-        self.gifURL = gifURL
-    }
-}
+import Gifu
 
 class GIFObjectType: ItemType, DeclarableObject {
     enum GIFObjectTypeError: Error {
@@ -42,6 +20,10 @@ class GIFObjectType: ItemType, DeclarableObject {
         case badObjectType
         case couldNotGetImage
         case noMimeType
+        case couldNotGetData
+        case noImagesInGIF
+        case couldNotGetSettings
+        case couldNotConvertToJPEG
     }
 
     let displayNameArticle = "a"
@@ -49,9 +31,14 @@ class GIFObjectType: ItemType, DeclarableObject {
 
     // Object declaration
     static let objectType: String = "gif"
-    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
-    static let gifDeclaration = FileDeclaration(fileLabel: "gif", mimeTypes: [.gif], changeResolverName: nil)
     
+    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
+    
+    // Aside from a comment, GIF objects are structured with a GIF image file, and with a still image jpeg file. The still image is just one image extracted from the GIF.
+
+    static let gifDeclaration = FileDeclaration(fileLabel: "gif", mimeTypes: [GIFObjectTypeAssets.gifMimeType], changeResolverName: nil)
+    static let iconDeclaration = FileDeclaration(fileLabel: "icon", mimeTypes: [GIFObjectTypeAssets.iconMimeType], changeResolverName: nil)
+
     static func createNewFile(for fileLabel: String, mimeType: MimeType? = nil) throws -> URL {
         let localObjectsDir = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.objectsDir)
@@ -60,11 +47,19 @@ class GIFObjectType: ItemType, DeclarableObject {
         switch fileLabel {
         case Self.commentDeclaration.fileLabel:
             fileExtension = Self.commentFilenameExtension
+            
         case Self.gifDeclaration.fileLabel:
             guard let mimeType = mimeType else {
                 throw GIFObjectTypeError.noMimeType
             }
             fileExtension = mimeType.fileNameExtension
+        
+        case Self.iconDeclaration.fileLabel:
+            guard let mimeType = mimeType else {
+                throw GIFObjectTypeError.noMimeType
+            }
+            fileExtension = mimeType.fileNameExtension
+            
         default:
             throw GIFObjectTypeError.invalidFileLabel
         }
@@ -78,19 +73,24 @@ class GIFObjectType: ItemType, DeclarableObject {
         // Need to first save these files locally. And reference them by ServerFileModel's.
 
         let gifFileUUID = UUID()
+        let iconFileUUID = UUID()
         let commentFileUUID = UUID()
         let fileGroupUUID = UUID()
         
         let currentUserName = try SettingsModel.userName(db: Services.session.db)
         let commentFileData = try Comments.createInitialFile(mediaTitle: currentUserName, reconstructionDictionary: [
-            Comments.Keys.mediaUUIDKey:gifFileUUID.uuidString
+            Comments.Keys.mediaUUIDKey:gifFileUUID.uuidString,
+            Comments.Keys.gifPreviewImageUUIDKey:iconFileUUID.uuidString
         ])
         
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)
         
-        let gifFileURL = try createNewFile(for: gifDeclaration.fileLabel, mimeType: assets.mimeType)
-        _ = try FileManager.default.replaceItemAt(gifFileURL, withItemAt: assets.gifURL, backupItemName: nil, options: [])
+        let gifFileURL = try createNewFile(for: gifDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.gifMimeType)
+        _ = try FileManager.default.replaceItemAt(gifFileURL, withItemAt: assets.gifFile, backupItemName: nil, options: [])
+        
+        let iconFileURL = try createNewFile(for: iconDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.iconMimeType)
+        _ = try FileManager.default.replaceItemAt(iconFileURL, withItemAt: assets.iconFile, backupItemName: nil, options: [])
 
         let objectModel = try ServerObjectModel(db: Services.session.db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: objectType, creationDate: Date(), updateCreationDate: true)
         try objectModel.insert()
@@ -98,20 +98,24 @@ class GIFObjectType: ItemType, DeclarableObject {
         let gifFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: gifFileUUID, fileLabel: gifDeclaration.fileLabel, downloadStatus: .downloaded, url: gifFileURL)
         try gifFileModel.insert()
         
+        let iconFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: iconFileUUID, fileLabel: iconDeclaration.fileLabel, downloadStatus: .downloaded, url: iconFileURL)
+        try iconFileModel.insert()
+        
         let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
         try commentFileModel.insert()
         
         let commentUpload = FileUpload(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
-        let gifUpload = FileUpload(fileLabel: gifDeclaration.fileLabel, mimeType: assets.mimeType, dataSource: .immutable(gifFileURL), uuid: gifFileUUID)
-        
+        let gifUpload = FileUpload(fileLabel: gifDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.gifMimeType, dataSource: .immutable(gifFileURL), uuid: gifFileUUID)
+        let iconUpload = FileUpload(fileLabel: iconDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.iconMimeType, dataSource: .immutable(iconFileURL), uuid: iconFileUUID)
+
         let pushNotificationText = try PushNotificationMessage.forUpload(of: objectModel)
-        let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [commentUpload, gifUpload])
+        let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [commentUpload, gifUpload, iconUpload])
 
         try Services.session.syncServer.queue(upload:upload)
     }
 
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.gifDeclaration]
+        declaredFiles = [Self.commentDeclaration, Self.gifDeclaration, Self.iconDeclaration]
     }
 }
 
@@ -145,12 +149,8 @@ extension GIFObjectType: MediaTypeActivityItems {
             throw GIFObjectTypeError.couldNotGetImage
         }
         
-        #warning("Change for GIF?")
-        guard let imageData = try? Data(contentsOf: fullSizeGIFURL),
-            let image = UIImage(data: imageData) else {
-            throw GIFObjectTypeError.couldNotGetImage
-        }
- 
-        return [image]
+        // See https://stackoverflow.com/questions/31765148/sharing-gifs-swift
+        let data = try Data(contentsOf: fullSizeGIFURL)
+        return [data]
     }
 }

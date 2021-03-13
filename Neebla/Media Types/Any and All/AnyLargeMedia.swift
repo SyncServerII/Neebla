@@ -26,6 +26,9 @@ struct AnyLargeMedia: View {
             case LiveImageObjectType.objectType:
                 LiveImageLargeMedia(object: object)
                 
+            case GIFObjectType.objectType:
+                GIFLargeMedia(object: object)
+                
             default:
                 EmptyView()
             }

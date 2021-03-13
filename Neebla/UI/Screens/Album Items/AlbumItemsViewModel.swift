@@ -160,6 +160,7 @@ class AlbumItemsViewModel: ObservableObject {
         
         // Give user something to look at if there are album items already. If this is the first time loading the album, user will see empty state for moment first.
         self.objects = getItemsForAlbum(album: sharingGroupUUID)
+        logger.debug("self.objects.count: \(self.objects.count)")
     }
     
     deinit {

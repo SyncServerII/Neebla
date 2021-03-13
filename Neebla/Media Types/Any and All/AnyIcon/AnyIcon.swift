@@ -28,6 +28,9 @@ struct AnyIcon: View {
                     
                 case LiveImageObjectType.objectType:
                     LiveImageIcon(.object(fileLabel: LiveImageObjectType.imageDeclaration.fileLabel, object:  model.object), config: config)
+                    
+                case GIFObjectType.objectType:
+                    GIFIcon(object: model.object, config: config)
                 
                 default:
                     EmptyView()

@@ -58,7 +58,8 @@
                     $extensionItem.attachments,
                     $attachment,
                     ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg" ||
-                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.png"
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.png" ||
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.compuserve.gif"
                 ).@count == 1
             ).@count == 1
             AND
@@ -69,7 +70,8 @@
                     $extensionItem.attachments,
                     $attachment,
                     ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg" ||
-                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.png"
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.png" ||
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.compuserve.gif"
                 ).@count == $extensionItem.attachments.@count
             ).@count == 1
         )

@@ -21,7 +21,8 @@ class ItemProviderFactory {
         LiveImageItemProvider.self,
 
         ImageItemProvider.self,
-        URLItemProvider.self
+        URLItemProvider.self,
+        GIFItemProvider.self
     ]
     
     func create(using attachment: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>)->()) throws {

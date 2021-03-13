@@ -17,6 +17,9 @@ class GIFItemProvider: SXItemProvider {
         case bizzareWrongType
         case couldNotConvertToGIF
         case couldNotGetSettings
+        case couldNotGetData
+        case noImagesInGIF
+        case couldNotConvertToJPEG
     }
 
     var assets: UploadableMediaAssets {
@@ -58,11 +61,41 @@ class GIFItemProvider: SXItemProvider {
 
     static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
         if item.hasItemConformingToTypeIdentifier(gifUTI) {
-            return getMediaAsset(item: item, mimeType: .gif, typeIdentifier: gifUTI, completion: completion)
+            return getMediaAsset(item: item, mimeType: GIFObjectTypeAssets.gifMimeType, typeIdentifier: gifUTI, completion: completion)
         }
 
         // Shouldn't get here.
         return nil
+    }
+    
+    private static func getImageFrom(gifURL: URL, andSaveTo jpegURL: URL) throws {
+        guard let gifData = try? Data(contentsOf: gifURL),
+            let source =  CGImageSourceCreateWithData(gifData as CFData, nil) else {
+            throw GIFItemProviderError.couldNotGetData
+        }
+        
+        let imageCount = CGImageSourceGetCount(source)
+        
+        guard imageCount > 0 else {
+            throw GIFItemProviderError.noImagesInGIF
+        }
+        
+        // Just arbitrarily using the 0th image from the GIF
+        guard let cgImage = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
+            throw GIFItemProviderError.noImagesInGIF
+        }
+        
+        let image = UIImage(cgImage: cgImage)
+
+        guard let jpegQuality = try? SettingsModel.jpegQuality(db: Services.session.db) else {
+            throw GIFItemProviderError.couldNotGetSettings
+        }
+        
+        guard let jpegData = image.jpegData(compressionQuality: jpegQuality) else {
+            throw GIFItemProviderError.couldNotConvertToJPEG
+        }
+
+        try jpegData.write(to: jpegURL)
     }
     
     private static func getMediaAsset(item: NSItemProvider, mimeType: MimeType, typeIdentifier: String, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
@@ -78,40 +111,33 @@ class GIFItemProvider: SXItemProvider {
                 return
             }
             
-            guard let size = UIImage.size(of: url), size.aspectRatioOK() else {
-                completion(.failure(SXItemProviderError.badAspectRatio))
-                return
-            }
-            
             // The file we get back isn't one we can do just anything with. E.g., we can't use the FileManager replaceItemAt method with it. Copy it.
             
             let gifFileCopy:URL
+            let jpegIcon:URL
+            
             do {
                 gifFileCopy = try Files.createTemporary(withPrefix: "gif", andExtension: mimeType.fileNameExtension, inDirectory: tempDir, create: false)
                 try FileManager.default.copyItem(at: url, to: gifFileCopy)
+                
+                jpegIcon = try Files.createTemporary(withPrefix: "icon", andExtension: GIFObjectTypeAssets.iconMimeType.fileNameExtension, inDirectory: tempDir, create: false)
+                try getImageFrom(gifURL: gifFileCopy, andSaveTo: jpegIcon)
             } catch let error {
                 logger.error("\(error)")
                 completion(.failure(GIFItemProviderError.cannotGetImage))
                 return
             }
                 
-            do {
-                let assets = try GIFObjectTypeAssets(mimeType: mimeType, gifURL: gifFileCopy)
-                completion(.success(assets))
-            }
-            catch let error {
-                logger.error("\(error)")
-                completion(.failure(GIFItemProviderError.cannotGetImage))
-            }
+            let assets = GIFObjectTypeAssets(iconFile: jpegIcon, gifFile: gifFileCopy)
+            completion(.success(assets))
         }
         
         return nil
     }
     
-    #warning("Need to fix this. I don't think this will work for a GIF.")
     func preview(for config: IconConfig) -> AnyView {
         AnyView(
-            GenericImageIcon(.url(gifAssets.gifURL), config: config)
+            GenericImageIcon(.url(gifAssets.iconFile), config: config)
         )
     }
     

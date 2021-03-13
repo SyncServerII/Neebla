@@ -15,7 +15,8 @@ class AnyTypeManager {
     let objectTypes:[DeclarableObject & ObjectDownloadHandler & ItemType & UploadableMediaType & MediaTypeActivityItems] = [
         ImageObjectType(),
         URLObjectType(),
-        LiveImageObjectType()
+        LiveImageObjectType(),
+        GIFObjectType()
     ]
     
     // Call this at app launch, only once.

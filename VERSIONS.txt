@@ -1,7 +1,8 @@
 Neebla
 
-Version 2.0.0 (TestFlight Build)
+Version 2.0.0 (TestFlight Build 20210313.0)
 	* Added in scrolling/panning with large images.
+	* Added support for GIF media type!
 	
 Version 2.0.0 (TestFlight Build 20210311.0)
 	* Changed file protection attributes of database-- to enable access in background.
