@@ -8,6 +8,7 @@
 import Foundation
 import iOSShared
 import SQLite
+import SQLiteObjc
 
 // "Local" database in the sense of "in app" (not remote, across network)
 
@@ -16,8 +17,10 @@ extension Services {
         let dbURL = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.neeblaDatabase)
         logger.info("Neebla SQLite db: \(dbURL.path)")
-        db = try Connection(dbURL.path)
-        dbURL.enableAccessInBackground()
+        
+        // For rationale for flag: https://github.com/stephencelis/SQLite.swift/issues/1042
+        db = try Connection(dbURL.path, additionalFlags: SQLITE_OPEN_FILEPROTECTION_NONE)
+        //dbURL.enableAccessInBackground()
     }
 }
 

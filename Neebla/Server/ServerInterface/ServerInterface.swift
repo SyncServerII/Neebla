@@ -8,6 +8,7 @@ import PersistentValue
 import ServerShared
 import Version
 import Combine
+import SQLiteObjc
 
 enum ServerInterfaceError: Error {
     case cannotFindFile
@@ -63,8 +64,10 @@ class ServerInterface {
         let dbURL = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.syncServerDatabase)
         logger.info("SyncServer SQLite db: \(dbURL.path)")
-        let db = try Connection(dbURL.path)
-        dbURL.enableAccessInBackground()
+        
+        // For rationale for flag: https://github.com/stephencelis/SQLite.swift/issues/1042
+        let db = try Connection(dbURL.path, additionalFlags: SQLITE_OPEN_FILEPROTECTION_NONE)
+        // dbURL.enableAccessInBackground()
         
         // The version in `CFBundleShortVersionString` needs to have format X.Y.Z.
         var currentClientAppVersion: Version?

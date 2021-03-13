@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "Bugsnag",
+        "repositoryURL": "https://github.com/bugsnag/bugsnag-cocoa",
+        "state": {
+          "branch": null,
+          "revision": "bb114d83e676db6a40fbd7911b78a1490b0d57b1",
+          "version": "6.7.1"
+        }
+      },
+      {
         "package": "ChangeResolvers",
         "repositoryURL": "https://github.com/SyncServerII/ChangeResolvers.git",
         "state": {
@@ -107,15 +116,6 @@
           "branch": null,
           "revision": "e2b4d335c501a756b37dba91c67e84bdf24138f9",
           "version": "0.1.0"
-        }
-      },
-      {
-        "package": "iOSBasics",
-        "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
-        "state": {
-          "branch": null,
-          "revision": "6068c8c56ea455071af67798ec58359be0e36603",
-          "version": "0.13.1"
         }
       },
       {
@@ -309,11 +309,11 @@
       },
       {
         "package": "SQLite.swift",
-        "repositoryURL": "https://github.com/stephencelis/SQLite.swift.git",
+        "repositoryURL": "https://github.com/SyncServerII/SQLite.swift",
         "state": {
-          "branch": null,
-          "revision": "0a9893ec030501a3956bee572d6b4fdd3ae158a1",
-          "version": "0.12.2"
+          "branch": "master",
+          "revision": "110868cfbd6c37cb21562db6565afaa5f22107e7",
+          "version": null
         }
       },
       {

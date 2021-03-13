@@ -150,6 +150,7 @@
 		839ADC1F25E4AF2A00618581 /* ServerShared in Frameworks */ = {isa = PBXBuildFile; productRef = 839ADC1E25E4AF2A00618581 /* ServerShared */; };
 		839ADC3125EB09DD00618581 /* MutableDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC3025EB09DC00618581 /* MutableDownloads.swift */; };
 		839ADC3825EB0AEE00618581 /* MutableDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC3025EB09DC00618581 /* MutableDownloads.swift */; };
+		839F1DC325FD7D080089C13F /* Bugsnag in Frameworks */ = {isa = PBXBuildFile; productRef = 839F1DC225FD7D080089C13F /* Bugsnag */; };
 		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
 		83A2DF2225FC63DE0072A557 /* GIFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A2DF2125FC63DE0072A557 /* GIFModel.swift */; };
 		83A2DF2925FC68410072A557 /* GIFObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2725FB368700A5439F /* GIFObjectType.swift */; };
@@ -160,6 +161,7 @@
 		83A2DF6A25FC80860072A557 /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 83A2DF6925FC80860072A557 /* Gifu */; };
 		83A2DF7925FC881E0072A557 /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 83A2DF7825FC881E0072A557 /* Gifu */; };
 		83A2DF7D25FC88A20072A557 /* GIFIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B1A25FB365600A5439F /* GIFIcon.swift */; };
+		83A2DF9A25FD5C5E0072A557 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 83A2DF9925FD5C5E0072A557 /* SQLite */; };
 		83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
 		83B0CB4725B2A51400D53B58 /* PushNotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0C79825B29B1500D53B58 /* PushNotificationMessage.swift */; };
 		83B0CB4B25B2A5AF00D53B58 /* AnyTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F47D2560CE540063A67D /* AnyTypeManager.swift */; };
@@ -417,6 +419,7 @@
 		837A472625DA37DA00CAC322 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		839ADC1125E3869A00618581 /* AlbumsViewModel+Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumsViewModel+Index.swift"; sourceTree = "<group>"; };
 		839ADC3025EB09DC00618581 /* MutableDownloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableDownloads.swift; sourceTree = "<group>"; };
+		839F1DBD25FD5C760089C13F /* iOSBasics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSBasics; path = ../../iOSBasics; sourceTree = "<group>"; };
 		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		83A2DF2125FC63DE0072A557 /* GIFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFModel.swift; sourceTree = "<group>"; };
 		83A2DF2E25FC68970072A557 /* GIFObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GIFObjectType+Uploadable.swift"; sourceTree = "<group>"; };
@@ -533,7 +536,9 @@
 				8331F425255F8C6D0063A67D /* SwiftUIRefresh in Frameworks */,
 				8308B6D92569F595007F0CEB /* SMLinkPreview in Frameworks */,
 				839ADC1F25E4AF2A00618581 /* ServerShared in Frameworks */,
+				83A2DF9A25FD5C5E0072A557 /* SQLite in Frameworks */,
 				83F389C5259044ED00610C76 /* iOSApple in Frameworks */,
+				839F1DC325FD7D080089C13F /* Bugsnag in Frameworks */,
 				83A2DF6A25FC80860072A557 /* Gifu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -738,6 +743,7 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				839F1DBD25FD5C760089C13F /* iOSBasics */,
 			);
 			path = "Local Packages";
 			sourceTree = "<group>";
@@ -1366,6 +1372,8 @@
 				8367503E25E320CE003957BE /* Hyperconnectivity */,
 				839ADC1E25E4AF2A00618581 /* ServerShared */,
 				83A2DF6925FC80860072A557 /* Gifu */,
+				83A2DF9925FD5C5E0072A557 /* SQLite */,
+				839F1DC225FD7D080089C13F /* Bugsnag */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -1422,6 +1430,8 @@
 				8367503D25E320CE003957BE /* XCRemoteSwiftPackageReference "Hyperconnectivity" */,
 				839ADC1D25E4AF2A00618581 /* XCRemoteSwiftPackageReference "ServerShared" */,
 				83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */,
+				83A2DF9825FD5C5B0072A557 /* XCRemoteSwiftPackageReference "SQLite" */,
+				839F1DC125FD7D070089C13F /* XCRemoteSwiftPackageReference "bugsnag-cocoa" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -1794,7 +1804,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210313.0;
+				CURRENT_PROJECT_VERSION = 20210313.1;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1816,7 +1826,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210313.0;
+				CURRENT_PROJECT_VERSION = 20210313.1;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2002,7 +2012,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210313.0;
+				CURRENT_PROJECT_VERSION = 20210313.1;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2029,7 +2039,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210313.0;
+				CURRENT_PROJECT_VERSION = 20210313.1;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2186,12 +2196,28 @@
 				minimumVersion = 0.2.0;
 			};
 		};
+		839F1DC125FD7D070089C13F /* XCRemoteSwiftPackageReference "bugsnag-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bugsnag/bugsnag-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
 		83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kaishin/Gifu";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.3.0;
+			};
+		};
+		83A2DF9825FD5C5B0072A557 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SyncServerII/SQLite.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 		83D2FBDE25C294B500E378F7 /* XCRemoteSwiftPackageReference "iOSDropbox" */ = {
@@ -2310,6 +2336,11 @@
 			package = 839ADC1D25E4AF2A00618581 /* XCRemoteSwiftPackageReference "ServerShared" */;
 			productName = ServerShared;
 		};
+		839F1DC225FD7D080089C13F /* Bugsnag */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 839F1DC125FD7D070089C13F /* XCRemoteSwiftPackageReference "bugsnag-cocoa" */;
+			productName = Bugsnag;
+		};
 		83A2DF6925FC80860072A557 /* Gifu */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */;
@@ -2319,6 +2350,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */;
 			productName = Gifu;
+		};
+		83A2DF9925FD5C5E0072A557 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83A2DF9825FD5C5B0072A557 /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
 		};
 		83D2FBDF25C294B500E378F7 /* iOSDropbox */ = {
 			isa = XCSwiftPackageProductDependency;

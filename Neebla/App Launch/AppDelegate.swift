@@ -7,11 +7,14 @@
 
 import UIKit
 import iOSShared
+import Bugsnag
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
+        Bugsnag.start()
+            
         Services.setup(delegate: self)
         Services.session.appLaunch(options: launchOptions)
         
