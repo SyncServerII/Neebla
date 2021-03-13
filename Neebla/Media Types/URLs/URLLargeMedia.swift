@@ -17,19 +17,23 @@ struct URLLargeMedia: View {
     
     var body: some View {
         VStack {
-            if let image = model.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }
-            else {
-                EmptyView()
-            }
-            
-            if let contents = urlModel.contents, let url = contents.url {
-                Link(url.absoluteString, destination: url)
-                    .font(.title)
-                    .foregroundColor(.blue)
+            ZoomableScrollView {
+                if let image = model.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+                else {
+                    EmptyView()
+                }
+                
+                if let contents = urlModel.contents, let url = contents.url {
+                    Link(url.absoluteString, destination: url)
+                        .font(.title)
+                        .foregroundColor(.blue)
+                }
+                
+                Spacer()
             }
         }
     }

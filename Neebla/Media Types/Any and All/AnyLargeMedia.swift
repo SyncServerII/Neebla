@@ -15,23 +15,19 @@ struct AnyLargeMedia: View {
     
     var body: some View {
         VStack {
-            ZoomableScrollView {
-                switch object.objectType {
-                case ImageObjectType.objectType:
-                    ImageLargeMedia(object: object)
+            // Each large media view needs to deal with zooming. When I take care it at this top level, with URL media, when I return from the browser with a URL, it's showing a comment.
+            switch object.objectType {
+            case ImageObjectType.objectType:
+                ImageLargeMedia(object: object)
 
-                case URLObjectType.objectType:
-                    URLLargeMedia(object: object)
-                    
-                case LiveImageObjectType.objectType:
-                    LiveImageLargeMedia(object: object)
-                    
-                default:
-                    EmptyView()
-                }
+            case URLObjectType.objectType:
+                URLLargeMedia(object: object)
                 
-                // Pushes the large media to the top. Needed this when I added in `ZoomableScrollView`.
-                Spacer()
+            case LiveImageObjectType.objectType:
+                LiveImageLargeMedia(object: object)
+                
+            default:
+                EmptyView()
             }
         }
         // The badge is not showing up the way I want it on `LiveImageLargeMedia`. It is not showing up within the image. Just the upper/left of the screen. Not sure how to resolve that.

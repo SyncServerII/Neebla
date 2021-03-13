@@ -22,6 +22,10 @@
 		83152B0025FB1B7600A5439F /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152AFF25FB1B7600A5439F /* URL+Extras.swift */; };
 		83152B0725FB1C6200A5439F /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152AFF25FB1B7600A5439F /* URL+Extras.swift */; };
 		83152B1225FB2D3600A5439F /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B1125FB2D3600A5439F /* ZoomableScrollView.swift */; };
+		83152B1B25FB365600A5439F /* GIFIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B1A25FB365600A5439F /* GIFIcon.swift */; };
+		83152B2325FB366700A5439F /* GIFLargeMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2225FB366700A5439F /* GIFLargeMedia.swift */; };
+		83152B2825FB368700A5439F /* GIFObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2725FB368700A5439F /* GIFObjectType.swift */; };
+		83152B2D25FB36AD00A5439F /* GIFItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2C25FB36AD00A5439F /* GIFItemProvider.swift */; };
 		8320A6D9256CA0DE00819377 /* AlbumItemsScreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A6D8256CA0DE00819377 /* AlbumItemsScreenCell.swift */; };
 		8320A6E3256CB2F400819377 /* ObjectDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A6E2256CB2F400819377 /* ObjectDetailsView.swift */; };
 		8320A6EC256CB56800819377 /* AnyLargeMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A6EB256CB56800819377 /* AnyLargeMedia.swift */; };
@@ -305,6 +309,10 @@
 		8308B737256B6EF6007F0CEB /* URLModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLModel.swift; sourceTree = "<group>"; };
 		83152AFF25FB1B7600A5439F /* URL+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extras.swift"; sourceTree = "<group>"; };
 		83152B1125FB2D3600A5439F /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
+		83152B1A25FB365600A5439F /* GIFIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFIcon.swift; sourceTree = "<group>"; };
+		83152B2225FB366700A5439F /* GIFLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFLargeMedia.swift; sourceTree = "<group>"; };
+		83152B2725FB368700A5439F /* GIFObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFObjectType.swift; sourceTree = "<group>"; };
+		83152B2C25FB36AD00A5439F /* GIFItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFItemProvider.swift; sourceTree = "<group>"; };
 		8320A6D8256CA0DE00819377 /* AlbumItemsScreenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumItemsScreenCell.swift; sourceTree = "<group>"; };
 		8320A6E2256CB2F400819377 /* ObjectDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsView.swift; sourceTree = "<group>"; };
 		8320A6EB256CB56800819377 /* AnyLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyLargeMedia.swift; sourceTree = "<group>"; };
@@ -558,6 +566,17 @@
 				83F2C54A25A1510500D0B710 /* AddressNavigation.swift */,
 			);
 			path = Comments;
+			sourceTree = "<group>";
+		};
+		83152B1925FB35FE00A5439F /* GIF Images */ = {
+			isa = PBXGroup;
+			children = (
+				83152B1A25FB365600A5439F /* GIFIcon.swift */,
+				83152B2225FB366700A5439F /* GIFLargeMedia.swift */,
+				83152B2725FB368700A5439F /* GIFObjectType.swift */,
+				83152B2C25FB36AD00A5439F /* GIFItemProvider.swift */,
+			);
+			path = "GIF Images";
 			sourceTree = "<group>";
 		};
 		831CF122259B031200A6475A /* Services */ = {
@@ -1200,6 +1219,7 @@
 			isa = PBXGroup;
 			children = (
 				8320A760256F57F300819377 /* Pickers */,
+				83152B1925FB35FE00A5439F /* GIF Images */,
 				8320A75D256F56EA00819377 /* Still Images */,
 				83E7B2DB257CA7EB008EE363 /* Live Images */,
 			);
@@ -1575,6 +1595,7 @@
 				83C7352825992CC10073788A /* ImageItemProvider.swift in Sources */,
 				832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */,
 				83F389D42590466B00610C76 /* LocalServices.swift in Sources */,
+				83152B2325FB366700A5439F /* GIFLargeMedia.swift in Sources */,
 				835AC8E9255B842E00375084 /* LocalServices+Invitation.swift in Sources */,
 				83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */,
 				8331F4852560D7100063A67D /* AnyPicker.swift in Sources */,
@@ -1610,6 +1631,7 @@
 				8331F330255B8AFD0063A67D /* MailView.swift in Sources */,
 				8331F4F3256208320063A67D /* GenericImageIcon.swift in Sources */,
 				83B0CB9D25B4ECD200D53B58 /* SortFilterMenuModel.swift in Sources */,
+				83152B2D25FB36AD00A5439F /* GIFItemProvider.swift in Sources */,
 				83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */,
 				8320A71E256E0ED500819377 /* FileLabels.swift in Sources */,
 				83152B0025FB1B7600A5439F /* URL+Extras.swift in Sources */,
@@ -1651,6 +1673,7 @@
 				8331F44B255FA7BA0063A67D /* AlbumsViewModel.swift in Sources */,
 				834B25C8258C7B9800F653BC /* ServicesDelegate.swift in Sources */,
 				8320A71A256E0E0500819377 /* ObjectDetailsModel.swift in Sources */,
+				83152B2825FB368700A5439F /* GIFObjectType.swift in Sources */,
 				8308B716256B4995007F0CEB /* RatioModifier.swift in Sources */,
 				8331F402255F83790063A67D /* AlbumsScreen.swift in Sources */,
 				835104B8259FF63100C5A05E /* PhotoLibraryMediaPicker.swift in Sources */,
@@ -1674,6 +1697,7 @@
 				83F416B3259D821D003C7200 /* MediaTypeActivityItems.swift in Sources */,
 				8331F4A32560F0A90063A67D /* CameraPickerView.swift in Sources */,
 				8331F4612560BD7D0063A67D /* AlbumItemsScreen.swift in Sources */,
+				83152B1B25FB365600A5439F /* GIFIcon.swift in Sources */,
 				83BF785A258061DF000E0B37 /* LiveImageObjectType.swift in Sources */,
 				8308B6FF256A318E007F0CEB /* URLObjectType.swift in Sources */,
 				8331F3C9255E4D7D0063A67D /* ServerObjectModel.swift in Sources */,

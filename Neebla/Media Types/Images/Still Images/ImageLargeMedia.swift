@@ -15,9 +15,12 @@ struct ImageLargeMedia: View {
     var body: some View {
         VStack {
             if let image = model.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+                ZoomableScrollView {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    Spacer()
+                }
             }
             else {
                 EmptyView()

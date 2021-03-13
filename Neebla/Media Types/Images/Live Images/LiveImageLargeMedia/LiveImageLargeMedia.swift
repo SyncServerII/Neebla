@@ -10,6 +10,8 @@ struct LiveImageLargeMedia: View {
     }
     
     var body: some View {
-        LiveImageView(fileGroupUUID: object.fileGroupUUID)
+        ZoomableScrollView {
+            LiveImageView(fileGroupUUID: object.fileGroupUUID)
+        }
     }
 }
