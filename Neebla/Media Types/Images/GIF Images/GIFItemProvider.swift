@@ -68,6 +68,7 @@ class GIFItemProvider: SXItemProvider {
         return nil
     }
     
+    // Adapted from https://stackoverflow.com/questions/27919620
     private static func getImageFrom(gifURL: URL, andSaveTo jpegURL: URL) throws {
         guard let gifData = try? Data(contentsOf: gifURL),
             let source =  CGImageSourceCreateWithData(gifData as CFData, nil) else {
