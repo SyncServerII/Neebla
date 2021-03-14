@@ -10,7 +10,7 @@ enum ImageType: String {
 }
     
 class LiveImageItemProvider: SXItemProvider {
-    enum LiveImageItemProviderError: Error, BadAspectRatio {
+    enum LiveImageItemProviderError: Error, UserDisplayable {
         case cannotGetLivePhoto
         case failedCreatingURL
         case couldNotGetImage
@@ -18,13 +18,11 @@ class LiveImageItemProvider: SXItemProvider {
         case couldNotConvertToJPEG
         case badAspectRatio
         
-        var isBadAspectRatio: Bool {
-            if case .badAspectRatio = self {
-                return true
+        var userDisplayableMessage: (title: String, message: String)? {
+            if self == .badAspectRatio {
+                return LiveImageItemProviderError.badAspectRatio
             }
-            else {
-                return false
-            }
+            return nil
         }
     }
     

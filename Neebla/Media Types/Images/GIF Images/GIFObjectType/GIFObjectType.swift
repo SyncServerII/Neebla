@@ -21,9 +21,6 @@ class GIFObjectType: ItemType, DeclarableObject {
         case couldNotGetImage
         case noMimeType
         case couldNotGetData
-        case noImagesInGIF
-        case couldNotGetSettings
-        case couldNotConvertToJPEG
     }
 
     let displayNameArticle = "a"

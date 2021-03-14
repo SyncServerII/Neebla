@@ -107,12 +107,14 @@ struct PhotoPicker: UIViewControllerRepresentable {
                         
                     case .failure(let error):
                         logger.error("error: \(error)")
-                        if let sxError = error as? BadAspectRatio, sxError.isBadAspectRatio {
-                            self.parent.showError(title: "Alert!", message: "That image has a bad aspect ratio and cannot be added. Please pick another.")
+                        if let displayableError = error as? UserDisplayable,
+                            let displayable = displayableError.userDisplayableMessage {
+                            self.parent.showError(title: displayable.title, message: displayable.message)
                         }
                         else {
                             self.parent.showError(title: "Alert!", message: "Could not add that image.")
                         }
+                        
                         DispatchQueue.main.async {
                             self.parent.completion(.failure(error))
                         }

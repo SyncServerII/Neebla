@@ -5,15 +5,14 @@ import ServerShared
 
 // Sharing Extension Item Provider
 
-protocol BadAspectRatio: Error {
-    var isBadAspectRatio: Bool {get}
-}
-
-enum SXItemProviderError: Error, BadAspectRatio {
+enum SXItemProviderError: Error, UserDisplayable {
     case badAspectRatio
     
-    var isBadAspectRatio: Bool {
-        return self == .badAspectRatio
+    var userDisplayableMessage: (title: String, message: String)? {
+        if self == .badAspectRatio {
+            return SXItemProviderError.badAspectRatio
+        }
+        return nil
     }
 }
 

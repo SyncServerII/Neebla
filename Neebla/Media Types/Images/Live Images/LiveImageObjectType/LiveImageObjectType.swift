@@ -9,7 +9,7 @@ import ServerShared
 class LiveImageObjectType: ItemType, DeclarableObject {
     let declaredFiles: [DeclarableFile]
     
-    enum LiveImageObjectTypeError: Error, BadAspectRatio {
+    enum LiveImageObjectTypeError: Error, UserDisplayable {
         case invalidFileLabel
         case badAssetType
         case couldNotLoadHEIC
@@ -19,13 +19,11 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         case couldNotGetImage
         case badAspectRatio
         
-        var isBadAspectRatio: Bool {
+        var userDisplayableMessage: (title: String, message: String)? {
             if case .badAspectRatio = self {
-                return true
+                return LiveImageObjectTypeError.badAspectRatio
             }
-            else {
-                return false
-            }
+            return nil
         }
     }
     

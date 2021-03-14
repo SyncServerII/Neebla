@@ -18,7 +18,7 @@ class GIFItemProvider: SXItemProvider {
         case couldNotConvertToGIF
         case couldNotGetSettings
         case couldNotGetData
-        case noImagesInGIF
+        //case noImagesInGIF
         case couldNotConvertToJPEG
     }
 
@@ -68,37 +68,6 @@ class GIFItemProvider: SXItemProvider {
         return nil
     }
     
-    // Adapted from https://stackoverflow.com/questions/27919620
-    private static func getImageFrom(gifURL: URL, andSaveTo jpegURL: URL) throws {
-        guard let gifData = try? Data(contentsOf: gifURL),
-            let source =  CGImageSourceCreateWithData(gifData as CFData, nil) else {
-            throw GIFItemProviderError.couldNotGetData
-        }
-        
-        let imageCount = CGImageSourceGetCount(source)
-        
-        guard imageCount > 0 else {
-            throw GIFItemProviderError.noImagesInGIF
-        }
-        
-        // Just arbitrarily using the 0th image from the GIF
-        guard let cgImage = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
-            throw GIFItemProviderError.noImagesInGIF
-        }
-        
-        let image = UIImage(cgImage: cgImage)
-
-        guard let jpegQuality = try? SettingsModel.jpegQuality(db: Services.session.db) else {
-            throw GIFItemProviderError.couldNotGetSettings
-        }
-        
-        guard let jpegData = image.jpegData(compressionQuality: jpegQuality) else {
-            throw GIFItemProviderError.couldNotConvertToJPEG
-        }
-
-        try jpegData.write(to: jpegURL)
-    }
-    
     private static func getMediaAsset(item: NSItemProvider, mimeType: MimeType, typeIdentifier: String, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
         let tempDir = Files.getDocumentsDirectory().appendingPathComponent(LocalFiles.temporary)
         item.loadFileRepresentation(forTypeIdentifier: typeIdentifier) { (url, error) in
@@ -120,12 +89,15 @@ class GIFItemProvider: SXItemProvider {
             do {
                 gifFileCopy = try Files.createTemporary(withPrefix: "gif", andExtension: mimeType.fileNameExtension, inDirectory: tempDir, create: false)
                 try FileManager.default.copyItem(at: url, to: gifFileCopy)
-                
+
+                let gifHelper = try GIFHelper(gifURL: gifFileCopy)
+
                 jpegIcon = try Files.createTemporary(withPrefix: "icon", andExtension: GIFObjectTypeAssets.iconMimeType.fileNameExtension, inDirectory: tempDir, create: false)
-                try getImageFrom(gifURL: gifFileCopy, andSaveTo: jpegIcon)
+                
+                try gifHelper.saveJPEGIcon(to: jpegIcon)
             } catch let error {
                 logger.error("\(error)")
-                completion(.failure(GIFItemProviderError.cannotGetImage))
+                completion(.failure(error))
                 return
             }
                 
