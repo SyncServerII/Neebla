@@ -1,7 +1,8 @@
 
 import Foundation
- import SQLite
+import SQLite
 import iOSBasics
+import iOSShared
 
 extension Array where Element == IndexObject {
     func upsert(db: Connection) throws {
@@ -10,10 +11,22 @@ extension Array where Element == IndexObject {
         }
         
         for object in self {
-            try ServerObjectModel.upsert(db: db, indexObject: object)
-            
+            let objectUpsertResult = try ServerObjectModel.upsert(db: db, indexObject: object)
+
             for file in object.downloads {
                 try ServerFileModel.upsert(db: db, file: file, object: object)
+            }
+            
+            // This doesn't have to come after `ServerFileModel.upsert`, but just seems to make sense in reading.
+            switch objectUpsertResult {
+            case .firstTimeDeletion:
+                do {
+                    try Services.session.syncServer.markAsDeletedLocally(object: object.fileGroupUUID)
+                } catch let error {
+                    logger.error("Error calling markAsDeletedLocally: \(error)")
+                }
+            case .none:
+                break
             }
         }
     }

@@ -138,8 +138,15 @@ extension ServerObjectModel {
         case noObjectType
         case noCreationDate
     }
+
+    enum UpsertResult {
+        case firstTimeDeletion
+    }
     
-    static func upsert(db: Connection, indexObject: IndexObject) throws {
+    // Returns `firstTimeDeletion` iff the `IndexObject` indicated that the object is deleted, and this call marks the `ServerObjectModel` as deleted for the first time. i.e., prior to this call the `ServerObjectModel` was not marked as deleted.
+    static func upsert(db: Connection, indexObject: IndexObject) throws -> UpsertResult? {
+        var result: UpsertResult?
+        
         if let model = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == indexObject.fileGroupUUID) {
             
             if model.updateCreationDate {
@@ -148,9 +155,15 @@ extension ServerObjectModel {
                     ServerObjectModel.updateCreationDateField.description <- false)
             }
             
-            try model.update(setters:
-                ServerObjectModel.deletedField.description <- indexObject.deleted)
+            if indexObject.deleted && !model.deleted {
+                result = .firstTimeDeletion
                 
+                try model.update(setters:
+                    ServerObjectModel.deletedField.description <- indexObject.deleted)
+            }
+            
+            logger.debug("model.deleted: \(model.deleted)")
+            
             if let updateDate = indexObject.updateDate {
                 try model.update(setters:
                     ServerObjectModel.updateDateField.description <- updateDate)
@@ -160,6 +173,8 @@ extension ServerObjectModel {
             let model = try ServerObjectModel(db: db, sharingGroupUUID: indexObject.sharingGroupUUID, fileGroupUUID: indexObject.fileGroupUUID, objectType: indexObject.objectType, creationDate: indexObject.creationDate, updateCreationDate: false, deleted: indexObject.deleted)
             try model.insert()
         }
+        
+        return result
     }
     
     func getCommentsUnreadCount() throws -> Int? {

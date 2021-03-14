@@ -1,5 +1,12 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build)
+	* Fixed: Consistent server errors in dealers choice album.
+		Seems to be: attemptToQueueADeletedFile; happening when attempting to queue downloads. This is the file: iOSBasics.DownloadFile(uuid: 25D6D1DF-5F4B-4F56-A816-6B841EA63F38, fileVersion: 4, fileLabel: "comments"). This was a problem with files being indicated as downloadable from iOSBasics, which had already been deleted.
+	* Fix GIF error where sometimes a GIF seems like it uploads, but there's no actual GIF. And I've had problems deleting these too.
+	* Need Info in Settings explaining some basic facts: 1) Every image you upload goes into your Drive/Dropbox. 2) Others adding comments to what you uploaded originally goes into yours.
+
+
 Version 2.0.0 (TestFlight Build 20210313.2)
 	* Added check box to enable/disable GIF playback.
 	* Fix issue with tapping on URL media link and coming back showing you comments.
