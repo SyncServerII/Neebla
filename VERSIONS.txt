@@ -1,8 +1,9 @@
 Neebla
 
-Version 2.0.0 (TestFlight Build)
-	Added check box to enable/disable GIF playback.
-
+Version 2.0.0 (TestFlight Build 20210313.2)
+	* Added check box to enable/disable GIF playback.
+	* Fix issue with tapping on URL media link and coming back showing you comments.
+	
 Version 2.0.0 (TestFlight Build 20210313.1)
 	* Added use of Bugsnag-- crash reporting.
 	* Trying to fix background crash issue with change to SQLite

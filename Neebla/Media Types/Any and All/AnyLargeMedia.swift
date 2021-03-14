@@ -17,7 +17,7 @@ struct AnyLargeMedia: View {
     
     var body: some View {
         VStack {
-            // Each large media view needs to deal with zooming. When I take care it at this top level, with URL media, when I return from the browser with a URL, it's showing a comment.
+            // Each large media view needs to deal with zooming. When I take care of it at this top level, with URL media, when I return from the browser with a URL, it's showing a comment.
             switch object.objectType {
             case ImageObjectType.objectType:
                 ImageLargeMedia(object: object)
