@@ -24,12 +24,11 @@ struct ObjectDetailsView: View {
                     .padding(.top, 10)
             }
             
-            AnyLargeMedia(object: object)
-                .onTapGesture {
-                    if model.modelInitialized {
-                        showComments = true
-                    }
+            AnyLargeMedia(object: object, tapOnLargeMedia: {
+                if model.modelInitialized {
+                    showComments = true
                 }
+            })
             
             // To push the `AnyLargeMedia` to the top.
             Spacer()

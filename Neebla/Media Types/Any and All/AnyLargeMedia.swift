@@ -5,9 +5,11 @@ import SwiftUI
 struct AnyLargeMedia: View {
     let object: ServerObjectModel
     private var badgeText: String?
+    let tapOnLargeMedia: ()->()
     
-    init(object: ServerObjectModel) {
+    init(object: ServerObjectModel, tapOnLargeMedia: @escaping ()->()) {
         self.object = object
+        self.tapOnLargeMedia = tapOnLargeMedia
         if let count = try? object.getCommentsUnreadCount(), count > 0 {
             badgeText = "\(count)"
         }
@@ -19,16 +21,26 @@ struct AnyLargeMedia: View {
             switch object.objectType {
             case ImageObjectType.objectType:
                 ImageLargeMedia(object: object)
+                    .onTapGesture {
+                        tapOnLargeMedia()
+                    }
 
             case URLObjectType.objectType:
                 URLLargeMedia(object: object)
-                
+                    .onTapGesture {
+                        tapOnLargeMedia()
+                    }
+                    
             case LiveImageObjectType.objectType:
-                LiveImageLargeMedia(object: object)
-                
+                LiveImageLargeMedia(object: object, tapOnLargeMedia: {
+                    tapOnLargeMedia()
+                })
+                    
             case GIFObjectType.objectType:
-                GIFLargeMedia(object: object)
-                
+                GIFLargeMedia(object: object, tapOnLargeMedia: {
+                    tapOnLargeMedia()
+                })
+                    
             default:
                 EmptyView()
             }

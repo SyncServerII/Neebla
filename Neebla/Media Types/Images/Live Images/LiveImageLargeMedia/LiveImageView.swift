@@ -7,6 +7,7 @@ import iOSShared
 struct LiveImageView: UIViewRepresentable {
     let view: PHLivePhotoView
     let model:LiveImageViewModel?
+    // let delegate = LiveImageLargeMediaDelegate()
     
     init(fileGroupUUID: UUID) {
         let view = PHLivePhotoView()
@@ -14,6 +15,10 @@ struct LiveImageView: UIViewRepresentable {
         view.contentMode = .scaleAspectFit
         
         self.view = view
+        
+        // Using this to (try to) replay live image repeatedly.
+        // view.delegate = delegate
+        
         model = LiveImageViewModel(fileGroupUUID: fileGroupUUID)
         
         guard let model = model else {
@@ -43,3 +48,12 @@ struct LiveImageView: UIViewRepresentable {
     }
 }
 
+// This isn't working: https://stackoverflow.com/questions/66620332
+private class LiveImageLargeMediaDelegate: NSObject, PHLivePhotoViewDelegate {
+    func livePhotoView(_ livePhotoView: PHLivePhotoView, didEndPlaybackWith playbackStyle: PHLivePhotoViewPlaybackStyle) {
+//        livePhotoView.stopPlayback()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+//            livePhotoView.startPlayback(with: .full)
+//        }
+    }
+}

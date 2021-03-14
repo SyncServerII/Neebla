@@ -13,10 +13,12 @@ import Gifu
 struct SwiftyGif: UIViewRepresentable {
     let gifData:Data
     let size: CGSize
+    @Binding var loop: Bool
     
-    init(gifData: Data, size: CGSize) {
+    init(gifData: Data, size: CGSize, loop: Binding<Bool>) {
         self.gifData = gifData
         self.size = size
+        self._loop = loop
     }
     
     func makeUIView(context: Context) -> GIFImageView {
@@ -32,5 +34,11 @@ struct SwiftyGif: UIViewRepresentable {
     }
 
     func updateUIView(_ gifImageView: GIFImageView, context: Context) {
+        if loop {
+            gifImageView.startAnimatingGIF()
+        }
+        else {
+            gifImageView.stopAnimatingGIF()
+        }
     }
 }

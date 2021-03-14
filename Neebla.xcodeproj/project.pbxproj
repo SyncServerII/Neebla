@@ -151,6 +151,7 @@
 		839ADC3125EB09DD00618581 /* MutableDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC3025EB09DC00618581 /* MutableDownloads.swift */; };
 		839ADC3825EB0AEE00618581 /* MutableDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC3025EB09DC00618581 /* MutableDownloads.swift */; };
 		839F1DC325FD7D080089C13F /* Bugsnag in Frameworks */ = {isa = PBXBuildFile; productRef = 839F1DC225FD7D080089C13F /* Bugsnag */; };
+		839F1DD125FD97870089C13F /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DD025FD97870089C13F /* CheckBoxView.swift */; };
 		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
 		83A2DF2225FC63DE0072A557 /* GIFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A2DF2125FC63DE0072A557 /* GIFModel.swift */; };
 		83A2DF2925FC68410072A557 /* GIFObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2725FB368700A5439F /* GIFObjectType.swift */; };
@@ -420,6 +421,7 @@
 		839ADC1125E3869A00618581 /* AlbumsViewModel+Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlbumsViewModel+Index.swift"; sourceTree = "<group>"; };
 		839ADC3025EB09DC00618581 /* MutableDownloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableDownloads.swift; sourceTree = "<group>"; };
 		839F1DBD25FD5C760089C13F /* iOSBasics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSBasics; path = ../../iOSBasics; sourceTree = "<group>"; };
+		839F1DD025FD97870089C13F /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		83A2DF2125FC63DE0072A557 /* GIFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFModel.swift; sourceTree = "<group>"; };
 		83A2DF2E25FC68970072A557 /* GIFObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GIFObjectType+Uploadable.swift"; sourceTree = "<group>"; };
@@ -566,6 +568,7 @@
 				83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */,
 				83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */,
 				835104A3259FE91900C5A05E /* MediaPicker.swift */,
+				839F1DD025FD97870089C13F /* CheckBoxView.swift */,
 				83152B1125FB2D3600A5439F /* ZoomableScrollView.swift */,
 				83C734C1259883C00073788A /* Generic Image */,
 				8308B715256B4995007F0CEB /* RatioModifier.swift */,
@@ -1682,6 +1685,7 @@
 				8331F4F3256208320063A67D /* GenericImageIcon.swift in Sources */,
 				83B0CB9D25B4ECD200D53B58 /* SortFilterMenuModel.swift in Sources */,
 				83152B2D25FB36AD00A5439F /* GIFItemProvider.swift in Sources */,
+				839F1DD125FD97870089C13F /* CheckBoxView.swift in Sources */,
 				83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */,
 				8320A71E256E0ED500819377 /* FileLabels.swift in Sources */,
 				83152B0025FB1B7600A5439F /* URL+Extras.swift in Sources */,
