@@ -26,10 +26,9 @@ struct AnyLargeMedia: View {
                     }
 
             case URLObjectType.objectType:
-                URLLargeMedia(object: object)
-                    .onTapGesture {
-                        tapOnLargeMedia()
-                    }
+                URLLargeMedia(object: object, tapOnLargeMedia: {
+                    tapOnLargeMedia()
+                })
                     
             case LiveImageObjectType.objectType:
                 LiveImageLargeMedia(object: object, tapOnLargeMedia: {

@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build)
+	Added check box to enable/disable GIF playback.
+
 Version 2.0.0 (TestFlight Build 20210313.1)
 	* Added use of Bugsnag-- crash reporting.
 	* Trying to fix background crash issue with change to SQLite

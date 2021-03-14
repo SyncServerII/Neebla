@@ -7,9 +7,11 @@ struct URLLargeMedia: View {
     static let imageFileLabel = URLObjectType.previewImageDeclaration.fileLabel
     @ObservedObject var model:GenericImageModel
     @ObservedObject var urlModel:URLModel
+    let tapOnLargeMedia: ()->()
 
-    init(object: ServerObjectModel) {
+    init(object: ServerObjectModel, tapOnLargeMedia: @escaping ()->()) {
         self.object = object
+        self.tapOnLargeMedia = tapOnLargeMedia
         model = GenericImageModel(fileLabel: Self.imageFileLabel, fileGroupUUID: object.fileGroupUUID)
         urlModel = URLModel(urlObject: object)
         urlModel.getContents()
@@ -18,13 +20,18 @@ struct URLLargeMedia: View {
     var body: some View {
         VStack {
             ZoomableScrollView {
-                if let image = model.image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                VStack {
+                    if let image = model.image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    else {
+                        EmptyView()
+                    }
                 }
-                else {
-                    EmptyView()
+                .onTapGesture {
+                    tapOnLargeMedia()
                 }
                 
                 if let contents = urlModel.contents, let url = contents.url {
