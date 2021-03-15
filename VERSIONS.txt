@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210314.1)
+	* Fixed issue with unread counts for albums-- make sure they aren't counting deleted objects.
+
 Version 2.0.0 (TestFlight Build 20210314.0)
 	* Fixed: Consistent server errors in dealers choice album.
 		Seems to be: attemptToQueueADeletedFile; happening when attempting to queue downloads. This is the file: iOSBasics.DownloadFile(uuid: 25D6D1DF-5F4B-4F56-A816-6B841EA63F38, fileVersion: 4, fileLabel: "comments"). This was a problem with files being indicated as downloadable from iOSBasics, which had already been deleted.

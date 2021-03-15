@@ -77,14 +77,19 @@ class AlbumScreenRowModel: ObservableObject {
     }
     
     func unreadCountFor(album sharingGroupUUID: UUID) throws -> Int {
-        // 1) Get the file groups for the album.
-        let objectModels = try ServerObjectModel.fetch(db: Services.session.db, where: ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID)
+        // 1) Get the file groups for the album. Make sure those are not deleted.
+        let objectModels = try ServerObjectModel.fetch(db: Services.session.db, where:
+            ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
+            ServerObjectModel.deletedField.description == false)
         let fileGroups = objectModels.map {$0.fileGroupUUID}
 
         // 2) Get the comment files for each file group and add their unread counts into tally
         var unreadCount = 0
         for fileGroup in fileGroups {
-            let fileModel = try ServerFileModel.fetchSingleRow(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroup && ServerFileModel.fileLabelField.description == FileLabels.comments)
+            let fileModel = try ServerFileModel.fetchSingleRow(db: Services.session.db, where:
+                ServerFileModel.fileGroupUUIDField.description == fileGroup &&
+                ServerFileModel.fileLabelField.description == FileLabels.comments)
+            
             if let count = fileModel?.unreadCount {
                 unreadCount += count
             }
