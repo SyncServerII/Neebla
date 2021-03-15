@@ -82,6 +82,12 @@ struct SettingsScreenBody: View {
             
             Spacer()
             
+            Button(action: {
+                settingsModel.sheet = .aboutApp
+            }, label: {
+                Text("About")
+            })
+            
             VStack {
                 Text("Version/Build")
                     .bold()
@@ -97,6 +103,8 @@ struct SettingsScreenBody: View {
                 AlbumListModal()
             case .emailDeveloper(let addAttachments):
                 MailView(emailContents: emailDeveloper, addAttachments: addAttachments, result: $settingsModel.sendMailResult)
+            case .aboutApp:
+                AboutApp()
             }
         }
     }

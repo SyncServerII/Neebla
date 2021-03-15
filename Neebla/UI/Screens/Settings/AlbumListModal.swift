@@ -9,7 +9,7 @@ struct AlbumListModal: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            ScreenButtons(model: model)
+            ScreenButtons()
             
             Text("Select album to delete:")
 
@@ -56,7 +56,6 @@ private struct AlbumRow: View {
 
 private struct ScreenButtons: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var model:AlbumListModalModel
     
     var body: some View {
         HStack {

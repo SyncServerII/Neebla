@@ -156,6 +156,10 @@
 		839F1DE425FEBA1D0089C13F /* GIFHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DDC25FEBA160089C13F /* GIFHelper.swift */; };
 		839F1DE925FEBE710089C13F /* UserDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DE825FEBE710089C13F /* UserDisplayable.swift */; };
 		839F1DED25FEBED70089C13F /* UserDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DE825FEBE710089C13F /* UserDisplayable.swift */; };
+		839F1DF225FEC52B0089C13F /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DF125FEC52B0089C13F /* AboutApp.swift */; };
+		839F1DF725FEC59E0089C13F /* HTMLViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DF625FEC59E0089C13F /* HTMLViewer.swift */; };
+		839F1DFD25FEC6C60089C13F /* AboutAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DFC25FEC6C60089C13F /* AboutAppModel.swift */; };
+		839F1E0A25FEC91F0089C13F /* AboutApp.html in Resources */ = {isa = PBXBuildFile; fileRef = 839F1E0925FEC91F0089C13F /* AboutApp.html */; };
 		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
 		83A2DF2225FC63DE0072A557 /* GIFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A2DF2125FC63DE0072A557 /* GIFModel.swift */; };
 		83A2DF2925FC68410072A557 /* GIFObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2725FB368700A5439F /* GIFObjectType.swift */; };
@@ -428,6 +432,10 @@
 		839F1DD025FD97870089C13F /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		839F1DDC25FEBA160089C13F /* GIFHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFHelper.swift; sourceTree = "<group>"; };
 		839F1DE825FEBE710089C13F /* UserDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDisplayable.swift; sourceTree = "<group>"; };
+		839F1DF125FEC52B0089C13F /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
+		839F1DF625FEC59E0089C13F /* HTMLViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLViewer.swift; sourceTree = "<group>"; };
+		839F1DFC25FEC6C60089C13F /* AboutAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppModel.swift; sourceTree = "<group>"; };
+		839F1E0925FEC91F0089C13F /* AboutApp.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = AboutApp.html; sourceTree = "<group>"; };
 		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		83A2DF2125FC63DE0072A557 /* GIFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFModel.swift; sourceTree = "<group>"; };
 		83A2DF2E25FC68970072A557 /* GIFObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GIFObjectType+Uploadable.swift"; sourceTree = "<group>"; };
@@ -743,6 +751,7 @@
 			children = (
 				83B1F4E0259F9163006E00FF /* Settings.bundle */,
 				832D34312586B0B000FEF094 /* SharingInvitationHelp.html */,
+				839F1E0925FEC91F0089C13F /* AboutApp.html */,
 				8308B6EC256A08AB007F0CEB /* APIKeys.plist */,
 				8331F390255B931F0063A67D /* Server.plist */,
 				83B657E6255B81330041B9DF /* Info.plist */,
@@ -861,6 +870,7 @@
 				83383B6525A186BF009CA87F /* Badge.swift */,
 				83B0CB7925B411B900D53B58 /* UpdateView.swift */,
 				83D8CC1325B97E570069E3E5 /* IconConfig.swift */,
+				839F1DF625FEC59E0089C13F /* HTMLViewer.swift */,
 				83D8CC2F25BA8BA10069E3E5 /* Corner Views */,
 			);
 			path = Utilities;
@@ -893,6 +903,7 @@
 				8331F3FB255F82ED0063A67D /* SettingsScreen.swift */,
 				8331F4C02560FFC70063A67D /* SettingsScreenModel.swift */,
 				832D345B25871AFE00FEF094 /* AlbumListModal.swift */,
+				839F1DFB25FEC6AF0089C13F /* AboutApp */,
 				832D346325871B8800FEF094 /* AlbumListModalModel.swift */,
 			);
 			path = Settings;
@@ -998,6 +1009,15 @@
 				839F1DDC25FEBA160089C13F /* GIFHelper.swift */,
 			);
 			path = GIFItemProvider;
+			sourceTree = "<group>";
+		};
+		839F1DFB25FEC6AF0089C13F /* AboutApp */ = {
+			isa = PBXGroup;
+			children = (
+				839F1DF125FEC52B0089C13F /* AboutApp.swift */,
+				839F1DFC25FEC6C60089C13F /* AboutAppModel.swift */,
+			);
+			path = AboutApp;
 			sourceTree = "<group>";
 		};
 		83A2DF2D25FC68800072A557 /* GIFObjectType */ = {
@@ -1490,6 +1510,7 @@
 				83B657E5255B81330041B9DF /* LaunchScreen.storyboard in Resources */,
 				8331F39D255B9E7B0063A67D /* Server.plist in Resources */,
 				832D34322586B0B100FEF094 /* SharingInvitationHelp.html in Resources */,
+				839F1E0A25FEC91F0089C13F /* AboutApp.html in Resources */,
 				8308B6ED256A08AB007F0CEB /* APIKeys.plist in Resources */,
 				83B657E2255B81330041B9DF /* Preview Assets.xcassets in Resources */,
 				83B657DF255B81330041B9DF /* Assets.xcassets in Resources */,
@@ -1637,6 +1658,7 @@
 				83BF7CBD25854D91000E0B37 /* DeveloperScreen.swift in Sources */,
 				8320A755256F530C00819377 /* SFSymbolIcon.swift in Sources */,
 				83CE1EAD257080EE004A418B /* BasicEquatable.swift in Sources */,
+				839F1DFD25FEC6C60089C13F /* AboutAppModel.swift in Sources */,
 				8331F42F255F96AB0063A67D /* LocalFiles.swift in Sources */,
 				8331F53025623A170063A67D /* RefreshableScrollView.swift in Sources */,
 				83F4167B259C2074003C7200 /* UIDevice+Extras.swift in Sources */,
@@ -1687,6 +1709,7 @@
 				83B0CB6925B3F55500D53B58 /* AppStore.swift in Sources */,
 				8331F4B42560F5B90063A67D /* ItemType.swift in Sources */,
 				83D8CC2025BA7F2B0069E3E5 /* LowerRightText.swift in Sources */,
+				839F1DF725FEC59E0089C13F /* HTMLViewer.swift in Sources */,
 				83BF7C6A2584595C000E0B37 /* LiveImageObjectType+Image.swift in Sources */,
 				8308B738256B6EF6007F0CEB /* URLModel.swift in Sources */,
 				8331F4672560BE0E0063A67D /* AlbumItemsViewModel.swift in Sources */,
@@ -1719,6 +1742,7 @@
 				839F1DDD25FEBA160089C13F /* GIFHelper.swift in Sources */,
 				8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */,
 				839F1DE925FEBE710089C13F /* UserDisplayable.swift in Sources */,
+				839F1DF225FEC52B0089C13F /* AboutApp.swift in Sources */,
 				837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */,
 				83F41687259C21EC003C7200 /* View+iPad.swift in Sources */,
 				8320A6EC256CB56800819377 /* AnyLargeMedia.swift in Sources */,

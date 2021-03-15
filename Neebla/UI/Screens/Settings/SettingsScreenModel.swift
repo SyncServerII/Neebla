@@ -11,6 +11,7 @@ class SettingsScreenModel:ObservableObject {
     enum ShowSheet: Identifiable {        
         case albumList
         case emailDeveloper(addAttachments: AddEmailAttachments?)
+        case aboutApp
         
         var id: Int {
             switch self {
@@ -18,6 +19,8 @@ class SettingsScreenModel:ObservableObject {
                 return 0
             case .emailDeveloper:
                 return 1
+            case .aboutApp:
+                return 2
             }
         }
     }
