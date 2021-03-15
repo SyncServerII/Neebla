@@ -1,7 +1,13 @@
 #!/bin/bash
 
+# From the Neebla folder, I ran:
+#   ./Tools/uploadDsym.sh ~/Desktop/dSYMs
+# dSYMs is a *folder* not a zip file.
+# Note this is *not* working when I use a zip file.
+# See https://github.com/bugsnag/bugsnag-dsym-upload/issues/32
+
 if [ $# -eq 0 ]; then
-    echo "No dsym.zip arg supplied"
+    echo "No dsym folder arg supplied"
     exit 1
 fi
 
