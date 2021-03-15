@@ -27,7 +27,7 @@ class GIFObjectType: ItemType, DeclarableObject {
     let displayName = "gif"
 
     // Object declaration
-    static let objectType: String = "gif"
+    static let objectType = ObjectType.gif.rawValue
     
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
     

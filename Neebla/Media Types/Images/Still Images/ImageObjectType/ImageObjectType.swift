@@ -20,7 +20,8 @@ class ImageObjectType: ItemType, DeclarableObject {
     let displayName = "image"
 
     // Object declaration
-    static let objectType: String = "image"
+    static let objectType = ObjectType.image.rawValue
+    
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
     static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg, .png], changeResolverName: nil)
     

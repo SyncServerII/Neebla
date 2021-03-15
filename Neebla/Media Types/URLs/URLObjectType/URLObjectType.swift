@@ -21,7 +21,8 @@ class URLObjectType: ItemType, DeclarableObject {
     let displayName = "URL"
 
     // Object declaration
-    static var objectType = "url"
+    static var objectType = ObjectType.url.rawValue
+    
     static let urlDeclaration = FileDeclaration(fileLabel: "url", mimeTypes: [.url], changeResolverName: nil)
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
     static let previewImageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)

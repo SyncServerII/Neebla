@@ -31,7 +31,8 @@ class LiveImageObjectType: ItemType, DeclarableObject {
     let displayName = "live image"
 
     // Object declaration
-    static let objectType: String = "liveImage"
+    static let objectType = ObjectType.liveImage.rawValue
+    
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
     
     // These can be HEIC or JPEG coming from iOS, but I'm going to convert them all to jpeg and upload/download them that way. I think JPEG's are easier for users to deal with.
