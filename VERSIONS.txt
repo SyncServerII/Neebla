@@ -1,5 +1,9 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210317.0)
+	* Trying to resolve crash issue. Now not starting network requests when app is in background, and when network not reachable.
+	* Working on not updating UI when app in background.
+
 Version 2.0.0 (TestFlight Build 20210314.1)
 	* Fixed issue with unread counts for albums-- make sure they aren't counting deleted objects.
 

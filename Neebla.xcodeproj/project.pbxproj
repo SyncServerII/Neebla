@@ -131,8 +131,8 @@
 		835AC8F2255B848300375084 /* ServerInterface+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */; };
 		835AC8F3255B848300375084 /* ServerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F1255B848300375084 /* ServerInterface.swift */; };
 		835DB00B25C2934A00AE221F /* iOSBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 835DB00A25C2934A00AE221F /* iOSBasics */; };
-		8367503525E31F0C003957BE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8367503425E31F0C003957BE /* Reachability.swift */; };
-		8367503925E31FD6003957BE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8367503425E31F0C003957BE /* Reachability.swift */; };
+		8367503525E31F0C003957BE /* Requestablity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8367503425E31F0C003957BE /* Requestablity.swift */; };
+		8367503925E31FD6003957BE /* Requestablity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8367503425E31F0C003957BE /* Requestablity.swift */; };
 		8367503F25E320CE003957BE /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 8367503E25E320CE003957BE /* Hyperconnectivity */; };
 		8367504A25E326D7003957BE /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 8367504925E326D7003957BE /* Hyperconnectivity */; };
 		837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46B325D8D02100CAC322 /* CGSize+Extras.swift */; };
@@ -421,7 +421,7 @@
 		835AC8E8255B842E00375084 /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerInterface+Helpers.swift"; sourceTree = "<group>"; };
 		835AC8F1255B848300375084 /* ServerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInterface.swift; sourceTree = "<group>"; };
-		8367503425E31F0C003957BE /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		8367503425E31F0C003957BE /* Requestablity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestablity.swift; sourceTree = "<group>"; };
 		837A46B325D8D02100CAC322 /* CGSize+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extras.swift"; sourceTree = "<group>"; };
 		837A46C425D8D2DA00CAC322 /* NeeblaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeeblaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		837A46C825D8D2DB00CAC322 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -985,7 +985,7 @@
 			isa = PBXGroup;
 			children = (
 				835AC8F1255B848300375084 /* ServerInterface.swift */,
-				8367503425E31F0C003957BE /* Reachability.swift */,
+				8367503425E31F0C003957BE /* Requestablity.swift */,
 				835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */,
 			);
 			path = ServerInterface;
@@ -1644,7 +1644,7 @@
 				8331F444255F9C920063A67D /* ServerObjectModel.swift in Sources */,
 				83A2DF7D25FC88A20072A557 /* GIFIcon.swift in Sources */,
 				83BF7CA6258543B4000E0B37 /* Comments+Keys.swift in Sources */,
-				8367503925E31FD6003957BE /* Reachability.swift in Sources */,
+				8367503925E31FD6003957BE /* Requestablity.swift in Sources */,
 				83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */,
 				839F1DED25FEBED70089C13F /* UserDisplayable.swift in Sources */,
 				83C7347D25986E2C0073788A /* ImageItemProvider.swift in Sources */,
@@ -1674,7 +1674,7 @@
 				83F4167B259C2074003C7200 /* UIDevice+Extras.swift in Sources */,
 				83E1A98D2599A36F004D4029 /* URLPreviewItemProvider.swift in Sources */,
 				8331F337255B8AFD0063A67D /* MainView.swift in Sources */,
-				8367503525E31F0C003957BE /* Reachability.swift in Sources */,
+				8367503525E31F0C003957BE /* Requestablity.swift in Sources */,
 				8308B6E9256A0733007F0CEB /* URLPreviewGenerator.swift in Sources */,
 				8331F433255F97A50063A67D /* Services+LocalDatabase.swift in Sources */,
 				83F416D4259E7DCE003C7200 /* Services+SignInsDelegate.swift in Sources */,
@@ -2205,7 +2205,7 @@
 			repositoryURL = "http://github.com/SyncServerII/iOSShared.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.0;
+				minimumVersion = 0.6.0;
 			};
 		};
 		835AC8DB255B833A00375084 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {

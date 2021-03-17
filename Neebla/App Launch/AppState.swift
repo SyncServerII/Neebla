@@ -12,7 +12,6 @@ enum AppState {
     case background
     
     static let update = NSNotification.Name("AppState")
-
     private static let fieldName = "Update"
     
     static func postUpdate(_ appState: AppState) {
