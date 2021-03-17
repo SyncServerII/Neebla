@@ -162,6 +162,8 @@
 		839F1E0A25FEC91F0089C13F /* AboutApp.html in Resources */ = {isa = PBXBuildFile; fileRef = 839F1E0925FEC91F0089C13F /* AboutApp.html */; };
 		839F1E2325FF08A90089C13F /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1E2225FF08A90089C13F /* ObjectType.swift */; };
 		839F1E2425FF08A90089C13F /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1E2225FF08A90089C13F /* ObjectType.swift */; };
+		839F1E2F26006BF00089C13F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1E2E26006BF00089C13F /* AppState.swift */; };
+		839F1E3326006E3F0089C13F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1E2E26006BF00089C13F /* AppState.swift */; };
 		83A151D825B91F320094203B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A151D725B91F320094203B /* LandingView.swift */; };
 		83A2DF2225FC63DE0072A557 /* GIFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A2DF2125FC63DE0072A557 /* GIFModel.swift */; };
 		83A2DF2925FC68410072A557 /* GIFObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2725FB368700A5439F /* GIFObjectType.swift */; };
@@ -439,6 +441,7 @@
 		839F1DFC25FEC6C60089C13F /* AboutAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppModel.swift; sourceTree = "<group>"; };
 		839F1E0925FEC91F0089C13F /* AboutApp.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = AboutApp.html; sourceTree = "<group>"; };
 		839F1E2225FF08A90089C13F /* ObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectType.swift; sourceTree = "<group>"; };
+		839F1E2E26006BF00089C13F /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		83A151D725B91F320094203B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		83A2DF2125FC63DE0072A557 /* GIFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFModel.swift; sourceTree = "<group>"; };
 		83A2DF2E25FC68970072A557 /* GIFObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GIFObjectType+Uploadable.swift"; sourceTree = "<group>"; };
@@ -843,6 +846,7 @@
 			children = (
 				83B657D8255B81320041B9DF /* AppDelegate.swift */,
 				83B657DA255B81320041B9DF /* SceneDelegate.swift */,
+				839F1E2E26006BF00089C13F /* AppState.swift */,
 			);
 			path = "App Launch";
 			sourceTree = "<group>";
@@ -1628,6 +1632,7 @@
 				83F416CF259E7D4E003C7200 /* Services+SignInServicesHelper.swift in Sources */,
 				83C7345E25986DBE0073788A /* SXItemProvider.swift in Sources */,
 				8331F4E72561FAEF0063A67D /* ShareViewModel.swift in Sources */,
+				839F1E3326006E3F0089C13F /* AppState.swift in Sources */,
 				8331F36A255B8DD10063A67D /* SharingGroupData.swift in Sources */,
 				837A46DB25D8D77400CAC322 /* CGSize+Extras.swift in Sources */,
 				839F1DE425FEBA1D0089C13F /* GIFHelper.swift in Sources */,
@@ -1735,6 +1740,7 @@
 				83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */,
 				8320A71E256E0ED500819377 /* FileLabels.swift in Sources */,
 				83152B0025FB1B7600A5439F /* URL+Extras.swift in Sources */,
+				839F1E2F26006BF00089C13F /* AppState.swift in Sources */,
 				83B0CB7A25B411B900D53B58 /* UpdateView.swift in Sources */,
 				8331F334255B8AFD0063A67D /* Screen.swift in Sources */,
 				83A2DF4125FC71A80072A557 /* SwiftyGif.swift in Sources */,
@@ -2215,7 +2221,7 @@
 			repositoryURL = "http://github.com/SyncServerII/iOSBasics.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.2;
+				minimumVersion = 0.13.3;
 			};
 		};
 		8367503D25E320CE003957BE /* XCRemoteSwiftPackageReference "Hyperconnectivity" */ = {

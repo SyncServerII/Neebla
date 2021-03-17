@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import iOSShared
 
 // Adapted from https://stackoverflow.com/questions/57441654/swiftui-repaint-view-components-on-device-rotation
 class AppEnv: ObservableObject {
@@ -58,11 +59,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        logger.debug("sceneDidBecomeActive")
+        AppState.postUpdate(.foreground)
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+        logger.debug("sceneWillResignActive")
+        AppState.postUpdate(.background)
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

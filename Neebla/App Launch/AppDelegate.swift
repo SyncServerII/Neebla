@@ -32,6 +32,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return Services.setupState.isComplete
     }
     
+    // Neither of these are called.
+    /*
+    func applicationDidBecomeActive(_ application: UIApplication) {
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+    }
+    */
+    
     // While some of the AppDelegate methods don't seem to work when using SwiftUI and the SceneDelegate (e.g., see https://github.com/dropbox/SwiftyDropbox/issues/259), this method *does* work.
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
         Services.session.syncServer.application(application, handleEventsForBackgroundURLSession: identifier, completionHandler: completionHandler)
