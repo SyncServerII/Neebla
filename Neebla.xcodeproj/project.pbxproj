@@ -192,6 +192,8 @@
 		83B657DF255B81330041B9DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83B657DE255B81330041B9DF /* Assets.xcassets */; };
 		83B657E2255B81330041B9DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83B657E1255B81330041B9DF /* Preview Assets.xcassets */; };
 		83B657E5255B81330041B9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B657E3255B81330041B9DF /* LaunchScreen.storyboard */; };
+		83BC889F26055CE300AE365D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 83BC889E26055CE300AE365D /* FirebaseCrashlytics */; };
+		83BC88AE2605617B00AE365D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83BC88AD2605617B00AE365D /* GoogleService-Info.plist */; };
 		83BF781F257DCE9B000E0B37 /* UploadableMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */; };
 		83BF7824257DCFBD000E0B37 /* URLObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7823257DCFBD000E0B37 /* URLObjectType+Uploadable.swift */; };
 		83BF782C257DD242000E0B37 /* ImageObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF782B257DD242000E0B37 /* ImageObjectType+Uploadable.swift */; };
@@ -462,6 +464,7 @@
 		83B657E1255B81330041B9DF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		83B657E4255B81330041B9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83B657E6255B81330041B9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83BC88AD2605617B00AE365D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadableMediaType.swift; sourceTree = "<group>"; };
 		83BF7823257DCFBD000E0B37 /* URLObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLObjectType+Uploadable.swift"; sourceTree = "<group>"; };
 		83BF782B257DD242000E0B37 /* ImageObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageObjectType+Uploadable.swift"; sourceTree = "<group>"; };
@@ -557,6 +560,7 @@
 				8331F425255F8C6D0063A67D /* SwiftUIRefresh in Frameworks */,
 				8308B6D92569F595007F0CEB /* SMLinkPreview in Frameworks */,
 				839ADC1F25E4AF2A00618581 /* ServerShared in Frameworks */,
+				83BC889F26055CE300AE365D /* FirebaseCrashlytics in Frameworks */,
 				83A2DF9A25FD5C5E0072A557 /* SQLite in Frameworks */,
 				83F389C5259044ED00610C76 /* iOSApple in Frameworks */,
 				839F1DC325FD7D080089C13F /* Bugsnag in Frameworks */,
@@ -761,6 +765,7 @@
 				8308B6EC256A08AB007F0CEB /* APIKeys.plist */,
 				8331F390255B931F0063A67D /* Server.plist */,
 				83B657E6255B81330041B9DF /* Info.plist */,
+				83BC88AD2605617B00AE365D /* GoogleService-Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1389,6 +1394,7 @@
 				8331F355255B8CC50063A67D /* Embed App Extensions */,
 				83B1F4DC259F8FF0006E00FF /* ShellScript */,
 				83F1E10025C5214D00DA4A80 /* ShellScript */,
+				83BC88A326055D4400AE365D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1419,6 +1425,7 @@
 				83A2DF6925FC80860072A557 /* Gifu */,
 				83A2DF9925FD5C5E0072A557 /* SQLite */,
 				839F1DC225FD7D080089C13F /* Bugsnag */,
+				83BC889E26055CE300AE365D /* FirebaseCrashlytics */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -1477,6 +1484,7 @@
 				83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */,
 				83A2DF9825FD5C5B0072A557 /* XCRemoteSwiftPackageReference "SQLite" */,
 				839F1DC125FD7D070089C13F /* XCRemoteSwiftPackageReference "bugsnag-cocoa" */,
+				83BC889D26055CE300AE365D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -1514,6 +1522,7 @@
 			files = (
 				83B1F4E1259F9163006E00FF /* Settings.bundle in Resources */,
 				83B657E5255B81330041B9DF /* LaunchScreen.storyboard in Resources */,
+				83BC88AE2605617B00AE365D /* GoogleService-Info.plist in Resources */,
 				8331F39D255B9E7B0063A67D /* Server.plist in Resources */,
 				832D34322586B0B100FEF094 /* SharingInvitationHelp.html in Resources */,
 				839F1E0A25FEC91F0089C13F /* AboutApp.html in Resources */,
@@ -1544,6 +1553,23 @@
 			shellPath = /bin/sh;
 			shellScript = "# See https://github.com/carloe/LicenseGenerator-iOS/issues/16\nif [ \"${CONFIGURATION}\" != \"Release\" ]; then\n  \"$SRCROOT/Tools/LicenseGenerator-iOS/credits.py\" -s \"$CONFIGURATION_BUILD_DIR/../../../SourcePackages/checkouts\" -o \"$SRCROOT/Neebla/Resources/Settings.bundle/Acknowledgements.plist\" -e \"$SRCROOT/Tools/LicenseGenerator-iOS/Example,$SRCROOT/Tools/LicenseGenerator-iOS/Tests\"\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		83BC88A326055D4400AE365D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
 		};
 		83F1E10025C5214D00DA4A80 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1862,7 +1888,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.0;
+				CURRENT_PROJECT_VERSION = 20210319.1;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1884,7 +1910,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.0;
+				CURRENT_PROJECT_VERSION = 20210319.1;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2070,7 +2096,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.0;
+				CURRENT_PROJECT_VERSION = 20210319.1;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2097,7 +2123,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.0;
+				CURRENT_PROJECT_VERSION = 20210319.1;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2278,6 +2304,14 @@
 				kind = branch;
 			};
 		};
+		83BC889D26055CE300AE365D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.8.1;
+			};
+		};
 		83D2FBDE25C294B500E378F7 /* XCRemoteSwiftPackageReference "iOSDropbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSDropbox.git";
@@ -2413,6 +2447,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83A2DF9825FD5C5B0072A557 /* XCRemoteSwiftPackageReference "SQLite" */;
 			productName = SQLite;
+		};
+		83BC889E26055CE300AE365D /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83BC889D26055CE300AE365D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 		83D2FBDF25C294B500E378F7 /* iOSDropbox */ = {
 			isa = XCSwiftPackageProductDependency;

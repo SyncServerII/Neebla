@@ -1,5 +1,10 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210319.1)
+	* Based on crash reports from Apple (see https://github.com/SyncServerII/Neebla/issues/7#issuecomment-802978539), I've added further BackgroundAsssertable calls in iOS Basics.
+	* Removed some unuseful error logging.
+	* Replaced Bugsnag with Firebase/Crashlytics.
+		
 Version 2.0.0 (TestFlight Build 20210319.0)
 	* Working on crash issue. Added use of `BackgroundAsssertable` from iOSBasics.
 

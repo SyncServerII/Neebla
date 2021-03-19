@@ -15,12 +15,12 @@ class GIFModel {
     
     init(object: ServerObjectModel) {
         guard let imageFileModel = try? ServerFileModel.getFileFor(fileLabel: gifFileLabel, withFileGroupUUID: object.fileGroupUUID) else {
-            logger.error("GIFIconModel: No ServerFileModel")
+            logger.debug("GIFIconModel: No ServerFileModel")
             return
         }
         
         guard let gifURL = imageFileModel.url else {
-            logger.error("GIFIconModel: No URL for ServerFileModel")
+            logger.debug("GIFIconModel: No URL for ServerFileModel")
             return
         }
         

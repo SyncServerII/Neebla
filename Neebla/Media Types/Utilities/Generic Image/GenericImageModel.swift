@@ -23,7 +23,7 @@ class GenericImageModel: ObservableObject {
     // Starts loading image when initialized. Image loads asynchronously, but is assigned to `image` on the main thread when finished loading.
     init(fileLabel: String, fileGroupUUID: UUID, imageScale: CGSize? = nil) {
         guard let imageFileModel = try? ServerFileModel.getFileFor(fileLabel: fileLabel, withFileGroupUUID: fileGroupUUID) else {
-            logger.error("No ServerFileModel")
+            logger.debug("No ServerFileModel")
             setImageStatus()
             return
         }
@@ -53,7 +53,7 @@ class GenericImageModel: ObservableObject {
     // `fileModel` should be non-nil when you call this.
     private func loadImageFromModel(scale: CGSize? = nil) {
         guard let imageFileModel = fileModel else {
-            logger.error("No ServerFileModel")
+            logger.debug("No ServerFileModel")
             return
         }
         
