@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/bugsnag/bugsnag-cocoa",
         "state": {
           "branch": null,
-          "revision": "bb114d83e676db6a40fbd7911b78a1490b0d57b1",
-          "version": "6.7.1"
+          "revision": "3196f905d5933b4a90678ca9fd755616ea89dc84",
+          "version": "6.8.0"
         }
       },
       {
@@ -119,6 +119,15 @@
         }
       },
       {
+        "package": "iOSBasics",
+        "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
+        "state": {
+          "branch": null,
+          "revision": "a324e0bc32c1beb62a4ef2a3a402a26b5e7aec0b",
+          "version": "0.15.0"
+        }
+      },
+      {
         "package": "iOSDropbox",
         "repositoryURL": "http://github.com/SyncServerII/iOSDropbox.git",
         "state": {
@@ -150,8 +159,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "700a375b3a48c9247e48013dee751dfebf78121f",
-          "version": "0.6.1"
+          "revision": "cc528c355157211b2e0f465db2868bff47282975",
+          "version": "0.8.1"
         }
       },
       {

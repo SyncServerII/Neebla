@@ -67,6 +67,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
         logger.debug("sceneWillResignActive")
+        debugBackground()
         AppState.postUpdate(.background)
     }
 
@@ -84,3 +85,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+extension SceneDelegate {
+    func debugBackground() {
+        logger.debug("openFilePaths: \(openFilePaths())")
+    }
+    
+    // From https://developer.apple.com/forums/thread/655225
+    func openFilePaths() -> [String] {
+        let result = (0..<getdtablesize()).map { fd -> (String?) in
+            var flags: CInt = 0
+            guard fcntl(fd, F_GETFL, &flags) >= 0 else {
+                return nil
+            }
+            // Return "?" for file descriptors not associated with a path, for
+            // example, a socket.
+            var path = [CChar](repeating: 0, count: Int(MAXPATHLEN))
+            guard fcntl(fd, F_GETPATH, &path) >= 0 else {
+                return "?"
+            }
+            
+            // https://stackoverflow.com/questions/11737819
+            var flockValue:flock = flock()
+            if fcntl(fd, F_GETLK, &flockValue) >= 0 &&
+                flockValue.l_type == F_WRLCK {
+                return String(cString: path) + "; flock.l_type: F_WRLCK (exclusive or write lock)"
+            }
+
+            return String(cString: path)
+        }
+        
+        return result.compactMap {$0}
+    }
+}
