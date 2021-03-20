@@ -76,12 +76,10 @@
 		8331F402255F83790063A67D /* AlbumsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F401255F83790063A67D /* AlbumsScreen.swift */; };
 		8331F415255F857E0063A67D /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F414255F857E0063A67D /* AlbumModel.swift */; };
 		8331F425255F8C6D0063A67D /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 8331F424255F8C6D0063A67D /* SwiftUIRefresh */; };
-		8331F42B255F95E80063A67D /* SetupSharedDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F42A255F95E80063A67D /* SetupSharedDatabase.swift */; };
+		8331F42B255F95E80063A67D /* SetupDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F42A255F95E80063A67D /* SetupDatabase.swift */; };
 		8331F42F255F96AB0063A67D /* LocalFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F42E255F96AB0063A67D /* LocalFiles.swift */; };
-		8331F433255F97A50063A67D /* Services+LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F432255F97A50063A67D /* Services+LocalDatabase.swift */; };
 		8331F436255F99560063A67D /* LocalFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F42E255F96AB0063A67D /* LocalFiles.swift */; };
-		8331F439255F9AF70063A67D /* Services+LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F432255F97A50063A67D /* Services+LocalDatabase.swift */; };
-		8331F43E255F9C8B0063A67D /* SetupSharedDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F42A255F95E80063A67D /* SetupSharedDatabase.swift */; };
+		8331F43E255F9C8B0063A67D /* SetupDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F42A255F95E80063A67D /* SetupDatabase.swift */; };
 		8331F441255F9C8E0063A67D /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F414255F857E0063A67D /* AlbumModel.swift */; };
 		8331F444255F9C920063A67D /* ServerObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F3C8255E4D7D0063A67D /* ServerObjectModel.swift */; };
 		8331F44B255FA7BA0063A67D /* AlbumsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F44A255FA7BA0063A67D /* AlbumsViewModel.swift */; };
@@ -388,9 +386,8 @@
 		8331F3FB255F82ED0063A67D /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		8331F401255F83790063A67D /* AlbumsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsScreen.swift; sourceTree = "<group>"; };
 		8331F414255F857E0063A67D /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
-		8331F42A255F95E80063A67D /* SetupSharedDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupSharedDatabase.swift; sourceTree = "<group>"; };
+		8331F42A255F95E80063A67D /* SetupDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupDatabase.swift; sourceTree = "<group>"; };
 		8331F42E255F96AB0063A67D /* LocalFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFiles.swift; sourceTree = "<group>"; };
-		8331F432255F97A50063A67D /* Services+LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services+LocalDatabase.swift"; sourceTree = "<group>"; };
 		8331F44A255FA7BA0063A67D /* AlbumsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewModel.swift; sourceTree = "<group>"; };
 		8331F4602560BD7D0063A67D /* AlbumItemsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumItemsScreen.swift; sourceTree = "<group>"; };
 		8331F4662560BE0E0063A67D /* AlbumItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumItemsViewModel.swift; sourceTree = "<group>"; };
@@ -642,7 +639,6 @@
 				83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */,
 				835AC8E6255B842E00375084 /* Services+Open.swift */,
 				835AC8E7255B842E00375084 /* Services+SignInServices.swift */,
-				8331F432255F97A50063A67D /* Services+LocalDatabase.swift */,
 				83152AFF25FB1B7600A5439F /* URL+Extras.swift */,
 			);
 			path = Services;
@@ -1094,7 +1090,7 @@
 		83B0CB8D25B4E5C400D53B58 /* Setup Databases */ = {
 			isa = PBXGroup;
 			children = (
-				8331F42A255F95E80063A67D /* SetupSharedDatabase.swift */,
+				8331F42A255F95E80063A67D /* SetupDatabase.swift */,
 				83B0CB9125B4E5D900D53B58 /* SetupLocalDatabase.swift */,
 			);
 			path = "Setup Databases";
@@ -1644,7 +1640,6 @@
 				83C7350A259922470073788A /* LiveImageObjectType+Image.swift in Sources */,
 				83C7349025986FFD0073788A /* GenericImageIcon.swift in Sources */,
 				8331F36D255B8DD10063A67D /* ItemPreview.swift in Sources */,
-				8331F439255F9AF70063A67D /* Services+LocalDatabase.swift in Sources */,
 				83A2DF2925FC68410072A557 /* GIFObjectType.swift in Sources */,
 				83E1A9912599A377004D4029 /* URLPreviewItemProvider.swift in Sources */,
 				83BF7CC6258575DD000E0B37 /* URLObjectType.swift in Sources */,
@@ -1690,7 +1685,7 @@
 				83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */,
 				839F1DED25FEBED70089C13F /* UserDisplayable.swift in Sources */,
 				83C7347D25986E2C0073788A /* ImageItemProvider.swift in Sources */,
-				8331F43E255F9C8B0063A67D /* SetupSharedDatabase.swift in Sources */,
+				8331F43E255F9C8B0063A67D /* SetupDatabase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1718,7 +1713,6 @@
 				8331F337255B8AFD0063A67D /* MainView.swift in Sources */,
 				8367503525E31F0C003957BE /* Requestablity.swift in Sources */,
 				8308B6E9256A0733007F0CEB /* URLPreviewGenerator.swift in Sources */,
-				8331F433255F97A50063A67D /* Services+LocalDatabase.swift in Sources */,
 				83F416D4259E7DCE003C7200 /* Services+SignInsDelegate.swift in Sources */,
 				835AC8EC255B842E00375084 /* Services+SignInServices.swift in Sources */,
 				83BF782C257DD242000E0B37 /* ImageObjectType+Uploadable.swift in Sources */,
@@ -1839,7 +1833,7 @@
 				83BC88B926056FEC00AE365D /* ObjectDownloadHandler+Extras.swift in Sources */,
 				839ADC3125EB09DD00618581 /* MutableDownloads.swift in Sources */,
 				83D8CC3425BA8BC80069E3E5 /* UpperLeftBadge.swift in Sources */,
-				8331F42B255F95E80063A67D /* SetupSharedDatabase.swift in Sources */,
+				8331F42B255F95E80063A67D /* SetupDatabase.swift in Sources */,
 				8333E19F2567AE0200A5F79E /* URLPickerView.swift in Sources */,
 				8331F5262562301F0063A67D /* AnyIcon.swift in Sources */,
 				832D341D258680B100FEF094 /* AlbumSharingModalModel.swift in Sources */,
@@ -1908,7 +1902,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.2;
+				CURRENT_PROJECT_VERSION = 20210319.3;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1930,7 +1924,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.2;
+				CURRENT_PROJECT_VERSION = 20210319.3;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2116,7 +2110,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.2;
+				CURRENT_PROJECT_VERSION = 20210319.3;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2143,7 +2137,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.2;
+				CURRENT_PROJECT_VERSION = 20210319.3;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;

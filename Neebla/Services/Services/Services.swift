@@ -6,6 +6,7 @@ import iOSBasics
 import PersistentValue
 import SQLite
 import Logging
+import SQLiteObjc
 
 // These services are shared with the Share Extension
 
@@ -132,15 +133,6 @@ class Services {
             Self.setupState = .failure
             return
         }
-
-        do {
-            try connectToLocalDatabase()
-            try SetupSharedDatabase.setup(db: db)
-        } catch let error {
-            logger.error("\(error)")
-            Self.setupState = .failure
-            return
-        }
         
         logger.info("SharedContainer.session.sharedContainerURL: \(String(describing: SharedContainer.session?.sharedContainerURL))")
                 
@@ -149,10 +141,25 @@ class Services {
             Self.setupState = .failure
             return
         }
-        
+
         PersistentValueFile.alternativeDocumentsDirectory = documentsURL.path
         PersistentValueKeychain.keychainService = keychainService
         PersistentValueKeychain.accessGroup = keychainSharingGroup
+        
+        let dbURL = Files.getDocumentsDirectory().appendingPathComponent(
+            LocalFiles.database)
+        logger.info("SQLite db: \(dbURL.path)")
+
+        do {
+            // For rationale for flag: https://github.com/stephencelis/SQLite.swift/issues/1042
+            db = try Connection(dbURL.path, additionalFlags: SQLITE_OPEN_FILEPROTECTION_NONE)
+            // dbURL.enableAccessInBackground()
+            try SetupDatabase.setup(db: db)
+        } catch let error {
+            logger.error("\(error)")
+            Self.setupState = .failure
+            return
+        }
 
         guard let path = Bundle.main.path(forResource: Self.plistServerConfig.0, ofType: Self.plistServerConfig.1) else {
             Self.setupState = .failure
@@ -181,7 +188,7 @@ class Services {
         signIns.delegate = self
         
         do {
-            serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName)
+            serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName, db: db)
         } catch let error {
             logger.error("Could not start ServerInterface: \(error)")
             Self.setupState = .failure

@@ -3,9 +3,8 @@ import Foundation
 import iOSShared
 
 struct LocalFiles {
-    // These are within the app's Documents directory
-    static let syncServerDatabase = "SyncServer.SQLite.db"
-    static let neeblaDatabase = "Neebla.SQLite.db"
+    // This is within the app's Documents directory
+    static let database = "SQLite.db"
     
     // Files composing objects are located in this directory in the Documents directory.
     static let objectsDir = "objects"

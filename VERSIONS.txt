@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210319.3)
+	* Move to using a single SQLite db. See https://github.com/SyncServerII/Neebla/issues/7#issuecomment-803251069
+	
 Version 2.0.0 (TestFlight Build 20210319.2)
 	* Still trying to fix crashes. This time added BackgroundAsssertable calls in `objectWasDownloaded` and in observer for `ServerFileModel.unreadCountUpdate` -- which calls `updateBadge`.
 	* Wasn't getting Firebase/Crashlytics reports-- changed configuration to use Neebla app.

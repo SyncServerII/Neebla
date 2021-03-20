@@ -1,5 +1,5 @@
 //
-//  SetupSharedDatabase.swift
+//  SetupDatabase.swift
 //  Neebla
 //
 //  Created by Christopher G Prince on 11/13/20.
@@ -10,7 +10,7 @@
 import Foundation
 import SQLite
 
-struct SetupSharedDatabase {
+struct SetupDatabase {
     static func setup(db: Connection) throws {
         try AlbumModel.createTable(db: db)
         try ServerObjectModel.createTable(db: db)

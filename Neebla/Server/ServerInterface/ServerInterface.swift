@@ -41,7 +41,7 @@ class ServerInterface {
     private var appStateObserver: AnyObject!
     private(set) var appState: AppState = .foreground
     
-    init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String) throws {
+    init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String, db: Connection) throws {
         self.signIns = signIns
         
         if deviceUUIDString.value == nil {
@@ -62,14 +62,6 @@ class ServerInterface {
         }
         
         deviceUUID = uuid
-
-        let dbURL = Files.getDocumentsDirectory().appendingPathComponent(
-            LocalFiles.syncServerDatabase)
-        logger.info("SyncServer SQLite db: \(dbURL.path)")
-        
-        // For rationale for flag: https://github.com/stephencelis/SQLite.swift/issues/1042
-        let db = try Connection(dbURL.path, additionalFlags: SQLITE_OPEN_FILEPROTECTION_NONE)
-        // dbURL.enableAccessInBackground()
         
         // The version in `CFBundleShortVersionString` needs to have format X.Y.Z.
         var currentClientAppVersion: Version?
