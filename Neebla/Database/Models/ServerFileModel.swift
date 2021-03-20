@@ -171,13 +171,23 @@ extension ServerFileModel {
             try FileManager.default.removeItem(at: existingFileURL)
         }
     }
-    
+
+    // Doesn't send if app is in the background. Make sure receiving uses of this only drive the UI, or can be reconsituted when the app comes back into the foreground.
     func postDownloadStatusUpdateNotification() {
+        guard AppState.session.current == .foreground else {
+            return
+        }
+
         NotificationCenter.default.post(name: Self.downloadStatusUpdate, object: nil, userInfo: [ServerFileModel.fileUUIDField.fieldName : fileUUID])
     }
     
     // `sharingGroupUUID` is the sharing group for the object in which this file is contained.
+    // Doesn't send if app is in the background. Make sure receiving uses of this only drive the UI, or can be reconsituted when the app comes back into the foreground.
     func postUnreadCountUpdateNotification(sharingGroupUUID: UUID) {
+        guard AppState.session.current == .foreground else {
+            return
+        }
+        
         NotificationCenter.default.post(name: Self.unreadCountUpdate, object: nil, userInfo: [
             ServerFileModel.fileUUIDField.fieldName : fileUUID,
             ServerObjectModel.sharingGroupUUIDField.fieldName: sharingGroupUUID

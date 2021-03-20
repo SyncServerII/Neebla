@@ -29,7 +29,7 @@ class Downloader {
         priorityQueue = try! PriorityQueue<ServerObjectModel>(maxLength: priorityQueueLength)
         timer = Timer.scheduledTimer(withTimeInterval: Self.checkDownloadsInterval, repeats: true) { [weak self] _ in
         
-            guard Services.session.serverInterface.appState == .foreground else {
+            guard AppState.session.current == .foreground else {
                 return
             }
             

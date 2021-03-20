@@ -38,8 +38,6 @@ class ServerInterface {
     let deletionCompleted = PassthroughSubject<UUID?, Never>()
     
     let signIns: SignIns
-    private var appStateObserver: AnyObject!
-    private(set) var appState: AppState = .foreground
     
     init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String, db: Connection) throws {
         self.signIns = signIns
@@ -78,23 +76,12 @@ class ServerInterface {
         
         syncServer.delegate = self
         syncServer.helperDelegate = self
-        
-        appStateObserver = NotificationCenter.default.addObserver(forName: AppState.update, object: nil, queue: nil) { [weak self] notification in
-            guard let appState = AppState.getUpdate(from: notification) else {
-                logger.error("Could not get app state.")
-                return
-            }
-            
-            logger.debug("appState: \(appState)")
-            
-            self?.appState = appState
-        }
     }
 }
 
 extension ServerInterface: SyncServerDelegate {
     func badVersion(_ syncServer: SyncServer, version: BadVersion) {
-        guard appState == .foreground else {
+        guard AppState.session.current == .foreground else {
             return
         }
         
@@ -109,7 +96,7 @@ extension ServerInterface: SyncServerDelegate {
     }
     
     func userEvent(_ syncServer: SyncServer, event: UserEvent) {
-        guard appState == .foreground else {
+        guard AppState.session.current == .foreground else {
             return
         }
         
@@ -130,14 +117,14 @@ extension ServerInterface: SyncServerDelegate {
             try syncHelper(result: result)
         } catch let error {
             logger.error("\(String(describing: error))")
-            guard appState == .foreground else {
+            guard AppState.session.current == .foreground else {
                 return
             }
             
             showAlert(AlertyHelper.alert(title: "Alert!", message: "There was a server error."))
         }
 
-        guard appState == .foreground else {
+        guard AppState.session.current == .foreground else {
             return
         }
         
@@ -158,7 +145,7 @@ extension ServerInterface: SyncServerDelegate {
     }
     
     func objectMarkedAsDownloaded(_ syncServer: SyncServer, fileGroupUUID: UUID) {
-        guard appState == .foreground else {
+        guard AppState.session.current == .foreground else {
             return
         }
         
@@ -168,7 +155,7 @@ extension ServerInterface: SyncServerDelegate {
     // Request to server for upload deletion completed successfully.
     func deletionCompleted(_ syncServer: SyncServer, forObjectWith fileGroupUUID: UUID) {
         logger.info("deletionCompleted")
-        guard appState == .foreground else {
+        guard AppState.session.current == .foreground else {
             return
         }
         

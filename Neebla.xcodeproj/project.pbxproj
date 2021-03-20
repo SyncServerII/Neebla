@@ -852,7 +852,6 @@
 			children = (
 				83B657D8255B81320041B9DF /* AppDelegate.swift */,
 				83B657DA255B81320041B9DF /* SceneDelegate.swift */,
-				839F1E2E26006BF00089C13F /* AppState.swift */,
 			);
 			path = "App Launch";
 			sourceTree = "<group>";
@@ -1161,6 +1160,7 @@
 			children = (
 				8367503425E31F0C003957BE /* Requestablity.swift */,
 				83BC88C22605748200AE365D /* Background.swift */,
+				839F1E2E26006BF00089C13F /* AppState.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -1902,7 +1902,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.3;
+				CURRENT_PROJECT_VERSION = 20210320.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1924,7 +1924,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.3;
+				CURRENT_PROJECT_VERSION = 20210320.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2110,7 +2110,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.3;
+				CURRENT_PROJECT_VERSION = 20210320.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2137,7 +2137,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.3;
+				CURRENT_PROJECT_VERSION = 20210320.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;

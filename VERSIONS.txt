@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210320.0)
+	* Still working on trying to fix crashes. Not sending some notifications when the app is in the background.
+	
 Version 2.0.0 (TestFlight Build 20210319.3)
 	* Move to using a single SQLite db. See https://github.com/SyncServerII/Neebla/issues/7#issuecomment-803251069
 	

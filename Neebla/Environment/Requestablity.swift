@@ -12,27 +12,15 @@ import iOSShared
 
 class Requestablity: ObservableObject, NetworkRequestable {
     var canMakeNetworkRequests: Bool {
-        return isReachable && appState == .foreground
+        return isReachable && AppState.session.current == .foreground
     }
     
     private var networkReachabilityObserver: AnyCancellable!
-    private var appStateObserver: AnyObject!
-    
-    private var appState: AppState = .foreground
     
     // Using a default value of `true`: Hope for the best. This is related to detecting network connectivity in the sharing extension when it first starts. https://github.com/rwbutler/Hyperconnectivity/issues/1
     private var isReachable: Bool = true
     
-    init() {
-        appStateObserver = NotificationCenter.default.addObserver(forName: AppState.update, object: nil, queue: nil) { [weak self] notification in
-            guard let appState = AppState.getUpdate(from: notification) else {
-                logger.error("Could not get app state.")
-                return
-            }
-                        
-            self?.appState = appState
-        }
-        
+    init() {        
         networkReachabilityObserver = Hyperconnectivity.Publisher()
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()

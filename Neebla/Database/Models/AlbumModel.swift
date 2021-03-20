@@ -234,7 +234,12 @@ extension AlbumModel {
         }
     }
     
+    // Doesn't send if app is in the background. Make sure receiving uses of this only drive the UI, or can be reconsituted when the app comes back into the foreground.
     func postNeedsDownloadUpdateNotification() {
+        guard AppState.session.current == .foreground else {
+            return
+        }
+        
         NotificationCenter.default.post(name: Self.needsDownloadUpdate, object: nil, userInfo: [
             AlbumModel.sharingGroupUUIDField.fieldName : sharingGroupUUID,
         ])

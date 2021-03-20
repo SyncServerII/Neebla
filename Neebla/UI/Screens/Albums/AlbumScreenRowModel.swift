@@ -22,6 +22,7 @@ class AlbumScreenRowModel: ObservableObject {
         unreadCountUpdateObserver = NotificationCenter.default.addObserver(forName: ServerFileModel.unreadCountUpdate, object: nil, queue: nil) { [weak self] notification in
             
             // `backgroundAsssertable` is trying to deal with crashes. See https://github.com/SyncServerII/Neebla/issues/7 and in particular see https://github.com/SyncServerII/Neebla/issues/7#issuecomment-802978539
+            // That didn't work. I wonder if this is just crashing if it happens purely in the background because `updateBadge` does a lot of work. I'm adding another fix: Not sending `unreadCountUpdate` notifications when the app is in the background.
             
             try? Background.session.backgroundAsssertable.syncRun { [weak self] in
                 guard let self = self else { return }
