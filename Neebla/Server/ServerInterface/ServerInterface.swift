@@ -78,17 +78,8 @@ class ServerInterface {
         }
     
         let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: nil, currentClientAppVersion: currentClientAppVersion, failoverMessageURL: nil, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles)
-        
-        let backgroundAsssertable:BackgroundAsssertable
-        
-        if Bundle.isAppExtension {
-            backgroundAsssertable = ExtensionBackgroundTask()
-        }
-        else {
-            backgroundAsssertable = MainAppBackgroundTask()
-        }
-        
-        syncServer = try SyncServer(hashingManager: hashingManager, db: db, requestable: Requestablity(), configuration: config, signIns: signIns, backgroundAsssertable: backgroundAsssertable)
+                
+        syncServer = try SyncServer(hashingManager: hashingManager, db: db, requestable: Requestablity(), configuration: config, signIns: signIns, backgroundAsssertable: Background.session.backgroundAsssertable)
         logger.info("SyncServer initialized!")
         
         try addHashingForCloudStorageSignIns(hashingManager: hashingManager)

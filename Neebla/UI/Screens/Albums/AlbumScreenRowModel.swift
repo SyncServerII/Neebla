@@ -20,13 +20,20 @@ class AlbumScreenRowModel: ObservableObject {
         self.album = album
         
         unreadCountUpdateObserver = NotificationCenter.default.addObserver(forName: ServerFileModel.unreadCountUpdate, object: nil, queue: nil) { [weak self] notification in
-            guard let self = self else { return }
             
-            guard let (_, sharingGroupUUID) = ServerFileModel.getUUIDs(from: notification), self.album.sharingGroupUUID == sharingGroupUUID else {
-                return
+            // `backgroundAsssertable` is trying to deal with crashes. See https://github.com/SyncServerII/Neebla/issues/7 and in particular see https://github.com/SyncServerII/Neebla/issues/7#issuecomment-802978539
+            
+            try? Background.session.backgroundAsssertable.syncRun { [weak self] in
+                guard let self = self else { return }
+                
+                guard let (_, sharingGroupUUID) = ServerFileModel.getUUIDs(from: notification), self.album.sharingGroupUUID == sharingGroupUUID else {
+                    return
+                }
+                
+                self.updateBadge()
+            } expiry: {
+                logger.error("objectWasDownloaded: Expiry exceeded")
             }
-            
-            self.updateBadge()
         }
         
         needsDownloadUpdateObserver = NotificationCenter.default.addObserver(forName: AlbumModel.needsDownloadUpdate, object: nil, queue: nil) { [weak self] notification in

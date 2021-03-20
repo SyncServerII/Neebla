@@ -194,6 +194,10 @@
 		83B657E5255B81330041B9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B657E3255B81330041B9DF /* LaunchScreen.storyboard */; };
 		83BC889F26055CE300AE365D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 83BC889E26055CE300AE365D /* FirebaseCrashlytics */; };
 		83BC88AE2605617B00AE365D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83BC88AD2605617B00AE365D /* GoogleService-Info.plist */; };
+		83BC88B926056FEC00AE365D /* ObjectDownloadHandler+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BC88B826056FEC00AE365D /* ObjectDownloadHandler+Extras.swift */; };
+		83BC88BD2605707E00AE365D /* ObjectDownloadHandler+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BC88B826056FEC00AE365D /* ObjectDownloadHandler+Extras.swift */; };
+		83BC88C32605748200AE365D /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BC88C22605748200AE365D /* Background.swift */; };
+		83BC88C42605748200AE365D /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BC88C22605748200AE365D /* Background.swift */; };
 		83BF781F257DCE9B000E0B37 /* UploadableMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */; };
 		83BF7824257DCFBD000E0B37 /* URLObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7823257DCFBD000E0B37 /* URLObjectType+Uploadable.swift */; };
 		83BF782C257DD242000E0B37 /* ImageObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF782B257DD242000E0B37 /* ImageObjectType+Uploadable.swift */; };
@@ -465,6 +469,8 @@
 		83B657E4255B81330041B9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83B657E6255B81330041B9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83BC88AD2605617B00AE365D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		83BC88B826056FEC00AE365D /* ObjectDownloadHandler+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectDownloadHandler+Extras.swift"; sourceTree = "<group>"; };
+		83BC88C22605748200AE365D /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadableMediaType.swift; sourceTree = "<group>"; };
 		83BF7823257DCFBD000E0B37 /* URLObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLObjectType+Uploadable.swift"; sourceTree = "<group>"; };
 		83BF782B257DD242000E0B37 /* ImageObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageObjectType+Uploadable.swift"; sourceTree = "<group>"; };
@@ -597,6 +603,7 @@
 				83152B1125FB2D3600A5439F /* ZoomableScrollView.swift */,
 				83C734C1259883C00073788A /* Generic Image */,
 				8308B715256B4995007F0CEB /* RatioModifier.swift */,
+				83BC88B826056FEC00AE365D /* ObjectDownloadHandler+Extras.swift */,
 				83BF7C9725854354000E0B37 /* Comments */,
 			);
 			path = Utilities;
@@ -988,7 +995,6 @@
 			isa = PBXGroup;
 			children = (
 				835AC8F1255B848300375084 /* ServerInterface.swift */,
-				8367503425E31F0C003957BE /* Requestablity.swift */,
 				835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */,
 			);
 			path = ServerInterface;
@@ -1131,6 +1137,7 @@
 				8331F387255B90330063A67D /* Neebla.entitlements */,
 				8331F40D255F84920063A67D /* App Launch */,
 				8331F3C5255E4CE30063A67D /* Database */,
+				83BC88C1260573D000AE365D /* Environment */,
 				8331F3C2255E45550063A67D /* Server */,
 				835AC8E3255B83D100375084 /* Services */,
 				8320A75C256F56CF00819377 /* Media Types */,
@@ -1151,6 +1158,15 @@
 				83B657E1255B81330041B9DF /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		83BC88C1260573D000AE365D /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				8367503425E31F0C003957BE /* Requestablity.swift */,
+				83BC88C22605748200AE365D /* Background.swift */,
+			);
+			path = Environment;
 			sourceTree = "<group>";
 		};
 		83BF783E257DDD14000E0B37 /* Camera */ = {
@@ -1608,9 +1624,11 @@
 				839ADC3825EB0AEE00618581 /* MutableDownloads.swift in Sources */,
 				83B0CB4725B2A51400D53B58 /* PushNotificationMessage.swift in Sources */,
 				839F1E2425FF08A90089C13F /* ObjectType.swift in Sources */,
+				83BC88C42605748200AE365D /* Background.swift in Sources */,
 				83C73943259966470073788A /* URLItemProvider.swift in Sources */,
 				8331F34A255B8CC50063A67D /* ShareViewController.swift in Sources */,
 				8331F36B255B8DD10063A67D /* SharingGroupsView.swift in Sources */,
+				83BC88BD2605707E00AE365D /* ObjectDownloadHandler+Extras.swift in Sources */,
 				8331F4CE2561168B0063A67D /* ServerFileModel.swift in Sources */,
 				83A2DF3325FC692B0072A557 /* GIFObjectType+Uploadable.swift in Sources */,
 				8331F37B255B8F740063A67D /* Services.swift in Sources */,
@@ -1786,6 +1804,7 @@
 				8331F47E2560CE540063A67D /* AnyTypeManager.swift in Sources */,
 				8331F4C5256110520063A67D /* FileInfo+Extras.swift in Sources */,
 				832D34502587142B00FEF094 /* Value+Extras.swift in Sources */,
+				83BC88C32605748200AE365D /* Background.swift in Sources */,
 				8308B6E3256A0479007F0CEB /* URLPreviewView.swift in Sources */,
 				8308B71C256B4A44007F0CEB /* URLIcon.swift in Sources */,
 				83F416C5259E7BED003C7200 /* Services+SignInServicesHelper.swift in Sources */,
@@ -1817,6 +1836,7 @@
 				83B0CB9225B4E5D900D53B58 /* SetupLocalDatabase.swift in Sources */,
 				83BF7CE42585B915000E0B37 /* AlbumSharingScreen.swift in Sources */,
 				834B259E258C5FC900F653BC /* ServerInterface+CloudHashing.swift in Sources */,
+				83BC88B926056FEC00AE365D /* ObjectDownloadHandler+Extras.swift in Sources */,
 				839ADC3125EB09DD00618581 /* MutableDownloads.swift in Sources */,
 				83D8CC3425BA8BC80069E3E5 /* UpperLeftBadge.swift in Sources */,
 				8331F42B255F95E80063A67D /* SetupSharedDatabase.swift in Sources */,
@@ -1888,7 +1908,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.1;
+				CURRENT_PROJECT_VERSION = 20210319.2;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1910,7 +1930,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.1;
+				CURRENT_PROJECT_VERSION = 20210319.2;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2096,7 +2116,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.1;
+				CURRENT_PROJECT_VERSION = 20210319.2;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2123,7 +2143,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210319.1;
+				CURRENT_PROJECT_VERSION = 20210319.2;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
