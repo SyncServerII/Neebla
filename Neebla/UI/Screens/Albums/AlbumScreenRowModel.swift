@@ -52,11 +52,14 @@ class AlbumScreenRowModel: ObservableObject {
                 logger.error("\(error)")
             }
         }
-        
-        updateBadge()
-        
-        if needsDownload != album.needsDownload {
-            needsDownload = album.needsDownload
+
+        // Trying to deal with crashes. See https://github.com/SyncServerII/Neebla/issues/7 and in particular see https://github.com/SyncServerII/Neebla/issues/7#issuecomment-802978539
+        if AppState.session.current == .foreground  {
+            updateBadge()
+            
+            if needsDownload != album.needsDownload {
+                needsDownload = album.needsDownload
+            }
         }
     }
     

@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210320.1)
+	* Added another check for app in foreground with badge updating. And changed value of AppState to background-- as it seems like a safer default.
+	
 Version 2.0.0 (TestFlight Build 20210320.0)
 	* Still working on trying to fix crashes. Not sending some notifications when the app is in the background.
 	

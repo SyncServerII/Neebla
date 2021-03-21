@@ -16,7 +16,9 @@ class AppState {
     }
     
     static let session = AppState()
-    private(set) var current: State = .foreground
+    
+    // Unless we have a specific indication that the app is in the foreground, assume it is in the background. Trying to deal with background problems https://github.com/SyncServerII/Neebla/issues/7
+    private(set) var current: State = .background
     
     static let update = NSNotification.Name("AppState")
     private static let fieldName = "Update"
