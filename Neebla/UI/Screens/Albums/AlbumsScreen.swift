@@ -219,7 +219,8 @@ private struct RightNavBarIcons: View {
                     SFSymbolIcon(symbol: .plusCircle)
                 }
             )
-            .enabled(signInManager.userIsSignedIn == true)
+            .enabled(signInManager.userIsSignedIn == true
+                && !viewModel.sharingMode)
         }
     }
 }

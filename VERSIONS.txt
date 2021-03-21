@@ -3,7 +3,7 @@ Neebla
 Version 2.0.0 (TestFlight Build)
 	* Dealing with broken sharing extension: Wasn't detecting foreground/background state of of sharing extension.
 	* Fixed: Download indicator issues, from Dany. The download indicators are acting up. Albums that are caught up are still showing the download indicators. That's new.
-
+	* Fixed: When I click share albums, but don't pick an album, I can still click add album (from Dany).
 
 Version 2.0.0 (TestFlight Build 20210320.2)
 	* Doing “Mark all read” done in a bg thread. Previously, it took a long time. And locked up the UI.
