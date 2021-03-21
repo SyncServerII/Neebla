@@ -229,6 +229,11 @@ class AlbumItemsViewModel: ObservableObject {
     }
 
     func sync(userTriggered: Bool = false) {
+        // It seems odd to stay in sharing mode if user triggers a sync.
+        if sharing {
+            sharing = false
+        }
+        
         do {
             try Services.session.syncServer.sync(sharingGroupUUID: sharingGroupUUID)
         } catch let error {
@@ -290,6 +295,11 @@ class AlbumItemsViewModel: ObservableObject {
     }
     
     func resetUnreadCount() {
+        // It seems odd to stay in sharing mode if user triggers a "Mark all read".
+        if sharing {
+            sharing = false
+        }
+        
         // Without doing this off the main thread, the UI can be delayed. This returns in calls to `postUnreadCountUpdateNotification`, so listeners on those notifications should dispatch to the main queue if updating the UI.
         DispatchQueue.global().async {
             do {

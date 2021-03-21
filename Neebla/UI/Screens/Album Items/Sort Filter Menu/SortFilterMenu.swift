@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import iOSShared
 
 // Adapted from https://sarunw.com/posts/custom-navigation-bar-title-view-in-swiftui/
 // and https://www.simpleswiftguide.com/how-to-make-custom-view-modifiers-in-swiftui/

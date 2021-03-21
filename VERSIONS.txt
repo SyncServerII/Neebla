@@ -3,6 +3,7 @@ Neebla
 Version 2.0.0 (TestFlight Build)
 	* Doing “Mark all read” done in a bg thread. Previously, it took a long time. And locked up the UI.
 	* Calling into new iOSBasics for change of app state(the method turns off timer in iOSBasics if app is in background).
+	* In album items screen, sharing state was not reset by Sync/Mark all read. Select “Share Items” in hamburger menu in album items screen. Tap on either Sync or Mark all read. The sharing state now gets reset.
 
 Version 2.0.0 (TestFlight Build 20210320.1)
 	* Added another check for app in foreground with badge updating. And changed value of AppState to background-- as it seems like a safer default.
