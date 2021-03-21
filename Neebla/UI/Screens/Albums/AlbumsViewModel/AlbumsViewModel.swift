@@ -44,6 +44,7 @@ class AlbumsViewModel: ObservableObject {
     var textInputSubscription:AnyCancellable!
     
     var boundedCancel:BoundedCancel?
+    private var appStateChanged: AnyObject?
     
     init() {
         textInputSubscription = $textInputAlbumName.sink { [weak self] text in
@@ -69,6 +70,13 @@ class AlbumsViewModel: ObservableObject {
                 self.isShowingRefresh = false
             }
         }
+        
+        appStateChanged = NotificationCenter.default.addObserver(forName: AppState.update, object: nil, queue: nil, using: { [weak self] _ in
+            // Dealing with download indicator issue: If app was downloading in the background, and comes to the foreground, download indicators aren't always updated.
+            if AppState.session.current == .foreground {
+                self?.sync()
+            }
+        })
         
         // Give the user the current albums to look at initially. There's a `sync` in `onAppear` in the view-- which will update this if needed.
         updateIfNeeded(getCurrentAlbums())
