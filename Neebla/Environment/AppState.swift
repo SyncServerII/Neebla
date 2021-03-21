@@ -6,19 +6,15 @@
 //
 
 import Foundation
+import iOSBasics
 
 // Foreground/background state of the app
 
 class AppState {
-    enum State {
-        case foreground
-        case background
-    }
-    
     static let session = AppState()
     
     // Unless we have a specific indication that the app is in the foreground, assume it is in the background. Trying to deal with background problems https://github.com/SyncServerII/Neebla/issues/7
-    private(set) var current: State = .background
+    private(set) var current: SyncServer.AppState = .background
     
     static let update = NSNotification.Name("AppState")
     private static let fieldName = "Update"
@@ -26,14 +22,14 @@ class AppState {
     private init() {
     }
     
-    func postUpdate(_ state: State) {
+    func postUpdate(_ state: SyncServer.AppState) {
         current = state
         NotificationCenter.default.post(name: Self.update, object: nil, userInfo: [
             Self.fieldName : state,
         ])
     }
     
-    static func getUpdate(from notification: Notification) -> State? {
-        return notification.userInfo?[fieldName] as? State
+    static func getUpdate(from notification: Notification) -> SyncServer.AppState? {
+        return notification.userInfo?[fieldName] as? SyncServer.AppState
     }
 }

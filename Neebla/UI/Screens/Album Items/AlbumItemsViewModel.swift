@@ -290,13 +290,16 @@ class AlbumItemsViewModel: ObservableObject {
     }
     
     func resetUnreadCount() {
-        do {
-            for object in objects {
-                let commentFileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.comments, withFileGroupUUID: object.fileGroupUUID)
-                try Comments.resetReadCounts(commentFileModel: commentFileModel)
+        // Without doing this off the main thread, the UI can be delayed. This returns in calls to `postUnreadCountUpdateNotification`, so listeners on those notifications should dispatch to the main queue if updating the UI.
+        DispatchQueue.global().async {
+            do {
+                for object in self.objects {
+                    let commentFileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.comments, withFileGroupUUID: object.fileGroupUUID)
+                    try Comments.resetReadCounts(commentFileModel: commentFileModel)
+                }
+            } catch let error {
+                logger.error("resetUnreadCount: \(error)")
             }
-        } catch let error {
-            logger.error("resetUnreadCount: \(error)")
         }
     }
 }

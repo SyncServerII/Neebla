@@ -31,7 +31,10 @@ class AlbumScreenRowModel: ObservableObject {
                     return
                 }
                 
-                self.updateBadge()
+                // Because `unreadCountUpdate` gets posted in some cases from a non-main thread.
+                DispatchQueue.main.async {
+                    self.updateBadge()
+                }
             } expiry: {
                 logger.error("objectWasDownloaded: Expiry exceeded")
             }

@@ -36,7 +36,12 @@ class AnyIconModel: ObservableObject {
             
             do {
                 let badgeCount = try object.getCommentsUnreadCount()
-                self.updateBadge(badgeCount)
+                
+                // Because `unreadCountUpdate` gets posted in some cases from a non-main thread.
+                DispatchQueue.main.async {
+                    self.updateBadge(badgeCount)
+                }
+                
                 logger.debug("Update badge: \(String(describing: badgeCount))")
             } catch let error {
                 logger.error("\(error)")

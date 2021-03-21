@@ -38,10 +38,11 @@ class ServerInterface {
     let deletionCompleted = PassthroughSubject<UUID?, Never>()
     
     let signIns: SignIns
+    var observer: AnyObject!
     
     init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String, db: Connection) throws {
         self.signIns = signIns
-        
+
         if deviceUUIDString.value == nil {
             let uuid = UUID().uuidString
             deviceUUIDString.value = uuid
@@ -76,6 +77,21 @@ class ServerInterface {
         
         syncServer.delegate = self
         syncServer.helperDelegate = self
+        
+        observer = NotificationCenter.default.addObserver(forName: AppState.update, object: nil, queue: nil) { [weak self] notification in
+            guard let self = self else { return }
+            
+            guard let state = AppState.getUpdate(from: notification) else {
+                logger.error("Cannot get AppState")
+                return
+            }
+            
+            do {
+                try self.syncServer.appChangesState(to: state)
+            } catch let error {
+                logger.error("Failed calling appChangesState: \(error)")
+            }
+        }
     }
 }
 
