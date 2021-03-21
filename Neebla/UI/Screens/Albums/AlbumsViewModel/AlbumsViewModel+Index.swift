@@ -20,6 +20,16 @@ extension AlbumsViewModel {
             logger.warning("sync: Not doing. User is not signed in.")
             return
         }
+
+        if userTriggered {
+            boundedCancel = BoundedCancel { [weak self] in
+                guard let self = self else { return }
+                
+                if self.isShowingRefresh {
+                    self.isShowingRefresh = false
+                }
+            }
+        }
         
         do {
             try Services.session.syncServer.sync()

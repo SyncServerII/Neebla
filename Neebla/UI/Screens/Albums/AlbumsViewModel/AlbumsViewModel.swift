@@ -43,6 +43,8 @@ class AlbumsViewModel: ObservableObject {
     var userEventSubscriptionOther:AnyCancellable!
     var textInputSubscription:AnyCancellable!
     
+    var boundedCancel:BoundedCancel?
+    
     init() {
         textInputSubscription = $textInputAlbumName.sink { [weak self] text in
             self?.textInputKeyPressed?(text)
@@ -54,10 +56,8 @@ class AlbumsViewModel: ObservableObject {
             guard case .noIndex = syncResult else {
                 return
             }
-
-            if self.isShowingRefresh {
-                self.isShowingRefresh = false
-            }
+            
+            self.boundedCancel?.minimumCancel()
             
             self.updateIfNeeded(self.getCurrentAlbums())
         }

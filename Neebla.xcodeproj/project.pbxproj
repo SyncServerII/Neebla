@@ -289,6 +289,7 @@
 		83F416CF259E7D4E003C7200 /* Services+SignInServicesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416C4259E7BED003C7200 /* Services+SignInServicesHelper.swift */; };
 		83F416D4259E7DCE003C7200 /* Services+SignInsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */; };
 		83F416DB259E7E22003C7200 /* Services+SignInsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */; };
+		83F49B6E26070F6B00814A2A /* BoundedCancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49B6D26070F6B00814A2A /* BoundedCancel.swift */; };
 		83F7EBAE25C3A7C500528B33 /* PersistentValue in Frameworks */ = {isa = PBXBuildFile; productRef = 83F7EBAD25C3A7C500528B33 /* PersistentValue */; };
 /* End PBXBuildFile section */
 
@@ -514,6 +515,7 @@
 		83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeActivityItems.swift; sourceTree = "<group>"; };
 		83F416C4259E7BED003C7200 /* Services+SignInServicesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services+SignInServicesHelper.swift"; sourceTree = "<group>"; };
 		83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services+SignInsDelegate.swift"; sourceTree = "<group>"; };
+		83F49B6D26070F6B00814A2A /* BoundedCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundedCancel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -884,6 +886,7 @@
 				83B0CB7925B411B900D53B58 /* UpdateView.swift */,
 				83D8CC1325B97E570069E3E5 /* IconConfig.swift */,
 				839F1DF625FEC59E0089C13F /* HTMLViewer.swift */,
+				83F49B6D26070F6B00814A2A /* BoundedCancel.swift */,
 				83D8CC2F25BA8BA10069E3E5 /* Corner Views */,
 			);
 			path = Utilities;
@@ -1739,6 +1742,7 @@
 				83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */,
 				8331F4852560D7100063A67D /* AnyPicker.swift in Sources */,
 				8320A73C256E170900819377 /* MessagesView.swift in Sources */,
+				83F49B6E26070F6B00814A2A /* BoundedCancel.swift in Sources */,
 				83BF7824257DCFBD000E0B37 /* URLObjectType+Uploadable.swift in Sources */,
 				83BF7C7A25846A46000E0B37 /* LiveImageView.swift in Sources */,
 				835104C3259FFED500C5A05E /* URLMediaPicker.swift in Sources */,
@@ -1902,7 +1906,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210320.1;
+				CURRENT_PROJECT_VERSION = 20210320.2;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1924,7 +1928,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210320.1;
+				CURRENT_PROJECT_VERSION = 20210320.2;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2110,7 +2114,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210320.1;
+				CURRENT_PROJECT_VERSION = 20210320.2;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2137,7 +2141,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210320.1;
+				CURRENT_PROJECT_VERSION = 20210320.2;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;

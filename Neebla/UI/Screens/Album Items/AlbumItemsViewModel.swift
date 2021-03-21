@@ -23,19 +23,28 @@ class AlbumItemsViewModel: ObservableObject {
     
     @Published var sheetToShow: SheetToShow?
     @Published var showCellDetails: Bool = false
+    
+    private var boundedCancel:BoundedCancel?
+    
     @Published var loading: Bool = false {
         didSet {
             if oldValue == false && loading == true {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    if !Services.session.userIsSignedIn {
-                        showAlert(AlertyHelper.alert(title: "Alert!", message: "Please sign in to sync!"))
-                        self.loading = false
-                        return
-                    }
-                    
-                    // Calling this user triggered. User initiated the pull to refresh.
-                    self.sync(userTriggered: true)
+                if !Services.session.userIsSignedIn {
+                    showAlert(AlertyHelper.alert(title: "Alert!", message: "Please sign in to sync!"))
+                    loading = false
+                    return
                 }
+                
+                boundedCancel = BoundedCancel { [weak self] in
+                    guard let self = self else { return }
+                    
+                    if self.loading {
+                        self.loading = false
+                    }
+                }
+                
+                // Calling this user triggered. User initiated the pull to refresh.
+                self.sync(userTriggered: true)
             }
         }
     }
@@ -100,12 +109,14 @@ class AlbumItemsViewModel: ObservableObject {
                 
         syncSubscription = Services.session.serverInterface.sync.sink { [weak self] syncResult in
             guard let self = self else { return }
-            
+                        
             guard case .index(let sharingGroupUUID, _) = syncResult,
                 sharingGroupUUID == self.sharingGroupUUID else {
                 return
             }
-            
+
+            self.boundedCancel?.minimumCancel()
+
             do {
                 // Reset the `needsDownload` field, if needed, after a successful sync.
                 if self.screenDisplayed,
@@ -117,10 +128,6 @@ class AlbumItemsViewModel: ObservableObject {
             }
             catch let error {
                 logger.error("\(error)")
-            }
-            
-            if self.loading {
-                self.loading = false
             }
             
             self.updateIfNeeded(self.getItemsForAlbum(album: sharingGroupUUID))

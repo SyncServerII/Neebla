@@ -38,9 +38,7 @@ struct AlbumsScreenBody: View {
             }
         }
         .pullToRefresh(isShowing: $viewModel.isShowingRefresh) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                viewModel.sync(userTriggered: true)
-            }
+            viewModel.sync(userTriggered: true)
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
         // Fail to get the sheets displaying properly when there is more than one .sheet modifier. Working around this. See also https://stackoverflow.com/questions/58837007
