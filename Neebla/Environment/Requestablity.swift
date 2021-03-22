@@ -25,6 +25,11 @@ class Requestablity: ObservableObject, NetworkRequestable {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
             .sink(receiveValue: { [weak self] connectivityResult in
+                // I'm not going to change the reachabilty state when the app is in the background, if that does happen. I've been having problems with false detections of a lack of network when the app comes into the foreground.
+                guard AppState.session.current == .foreground else {
+                    return
+                }
+                
                 self?.isReachable = connectivityResult.isConnected
                 logger.debug("isReachable: \(String(describing: self?.isReachable))")
             })

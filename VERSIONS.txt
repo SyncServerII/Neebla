@@ -5,6 +5,7 @@ Version 2.0.0 (TestFlight Build)
 		And improved layout of Settings screen otherwise too.
 	* Improved About text.
 	* Fixed: Tapping on menu button when sharing albums: Should reset album sharing icons.
+	* Trying to fix network detection issue when app comes into the foreground.
 	
 Version 2.0.0 (TestFlight Build 20210321.0)
 	* Dealing with broken sharing extension: Wasn't detecting foreground/background state of of sharing extension.
