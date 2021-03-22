@@ -190,6 +190,7 @@ private struct RightNavBarIcons: View {
     @ObservedObject var viewModel:AlbumsViewModel
     @ObservedObject var signInManager: SignInManager
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.menuState) var menuState
     
     init(viewModel:AlbumsViewModel) {
         self.viewModel = viewModel
@@ -222,6 +223,11 @@ private struct RightNavBarIcons: View {
             .enabled(signInManager.userIsSignedIn == true
                 && !viewModel.sharingMode)
         }
+        .onReceive(menuState.$displayed, perform: { _ in
+            if menuState.displayed && viewModel.sharingMode {
+                viewModel.sharingMode = false
+            }
+        })
     }
 }
 
