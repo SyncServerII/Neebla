@@ -4,8 +4,9 @@ Version 2.0.0 (TestFlight Build)
 	* Added scroll view to settings to improve layout.
 		And improved layout of Settings screen otherwise too.
 	* Improved About text.
-	* Fixed: Tapping on menu button when sharing albums: Should reset album sharing icons.
+	* Fixed: Tapping on left menu button when sharing albums: Now resets album sharing icons.
 	* Trying to fix network detection issue when app comes into the foreground.
+	* Fix sort order issue on album items screen.
 	
 Version 2.0.0 (TestFlight Build 20210321.0)
 	* Dealing with broken sharing extension: Wasn't detecting foreground/background state of of sharing extension.
