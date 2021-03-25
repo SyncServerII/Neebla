@@ -101,7 +101,7 @@ class AlbumItemsViewModel: ObservableObject {
             settingsSortBySubscription = sortFilterSettings.sortByOrderAscendingChanged.sink { [weak self] value in
                 guard let self = self else { return }
                 
-                // Don't use `updateIfNeeded`-- that doesn't resspect the order of the values returned in `getItemsForAlbum`.
+                // Don't use `updateIfNeeded`-- that doesn't respect the order of the values returned in `getItemsForAlbum`.
                 self.objects = self.getItemsForAlbum(album: sharingGroupUUID, sortByOrderAscending: value)
             }
         } catch let error {
