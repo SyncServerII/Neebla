@@ -61,12 +61,12 @@ private struct AlbumsScreenRowContent: View {
 
             Spacer()
             
-            if let badgeText = rowModel.badgeText {
+            if let badgeText = rowModel.albumUnreadCountBadgeText {
                 Badge(badgeText)
             }
             
             // Indicate whether or not there are updates available to download for this album.
-            if rowModel.needsDownload {
+            if rowModel.albumNeedsDownload {
                 Icon(imageName:
                     "Download.White",
                     size: CGSize(width: 25, height: 25), blueAccent: false)

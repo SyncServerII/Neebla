@@ -291,6 +291,11 @@
 		83F416DB259E7E22003C7200 /* Services+SignInsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */; };
 		83F49B6E26070F6B00814A2A /* BoundedCancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49B6D26070F6B00814A2A /* BoundedCancel.swift */; };
 		83F49B9326080C3B00814A2A /* SettingsTopContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49B9226080C3B00814A2A /* SettingsTopContent.swift */; };
+		83F49B99260FE89400814A2A /* AlbumUnreadCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49B98260FE89400814A2A /* AlbumUnreadCount.swift */; };
+		83F49BA4260FEC1900814A2A /* AlbumDownloadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49BA3260FEC1900814A2A /* AlbumDownloadIndicator.swift */; };
+		83F49BA9260FF24A00814A2A /* MediaItemUnreadCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49BA8260FF24A00814A2A /* MediaItemUnreadCount.swift */; };
+		83F49BC32610042900814A2A /* Comments+UnreadCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49BC22610042900814A2A /* Comments+UnreadCounts.swift */; };
+		83F49BC7261004AE00814A2A /* Comments+UnreadCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49BC22610042900814A2A /* Comments+UnreadCounts.swift */; };
 		83F7EBAE25C3A7C500528B33 /* PersistentValue in Frameworks */ = {isa = PBXBuildFile; productRef = 83F7EBAD25C3A7C500528B33 /* PersistentValue */; };
 /* End PBXBuildFile section */
 
@@ -518,6 +523,10 @@
 		83F416D3259E7DCE003C7200 /* Services+SignInsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services+SignInsDelegate.swift"; sourceTree = "<group>"; };
 		83F49B6D26070F6B00814A2A /* BoundedCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundedCancel.swift; sourceTree = "<group>"; };
 		83F49B9226080C3B00814A2A /* SettingsTopContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTopContent.swift; sourceTree = "<group>"; };
+		83F49B98260FE89400814A2A /* AlbumUnreadCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumUnreadCount.swift; sourceTree = "<group>"; };
+		83F49BA3260FEC1900814A2A /* AlbumDownloadIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDownloadIndicator.swift; sourceTree = "<group>"; };
+		83F49BA8260FF24A00814A2A /* MediaItemUnreadCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemUnreadCount.swift; sourceTree = "<group>"; };
+		83F49BC22610042900814A2A /* Comments+UnreadCounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comments+UnreadCounts.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -811,6 +820,7 @@
 				83BF80752585D8C3000E0B37 /* Sign In Screen */,
 				83BF7CE22585B73A000E0B37 /* Album Sharing */,
 				8331F447255FA7A40063A67D /* Albums */,
+				83F49B97260FE86E00814A2A /* Badging */,
 				832D341A258680B100FEF094 /* Album sharing modal */,
 				8331F45F2560B7F40063A67D /* Album Items */,
 				8331F53B2562409A0063A67D /* Object Details */,
@@ -1352,6 +1362,25 @@
 			path = Activity;
 			sourceTree = "<group>";
 		};
+		83F49B97260FE86E00814A2A /* Badging */ = {
+			isa = PBXGroup;
+			children = (
+				83F49B98260FE89400814A2A /* AlbumUnreadCount.swift */,
+				83F49BA3260FEC1900814A2A /* AlbumDownloadIndicator.swift */,
+				83F49BBE261003F800814A2A /* MediaItemUnreadCount */,
+			);
+			path = Badging;
+			sourceTree = "<group>";
+		};
+		83F49BBE261003F800814A2A /* MediaItemUnreadCount */ = {
+			isa = PBXGroup;
+			children = (
+				83F49BA8260FF24A00814A2A /* MediaItemUnreadCount.swift */,
+				83F49BC22610042900814A2A /* Comments+UnreadCounts.swift */,
+			);
+			path = MediaItemUnreadCount;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1688,6 +1717,7 @@
 				83A2DF7D25FC88A20072A557 /* GIFIcon.swift in Sources */,
 				83BF7CA6258543B4000E0B37 /* Comments+Keys.swift in Sources */,
 				8367503925E31FD6003957BE /* Requestablity.swift in Sources */,
+				83F49BC7261004AE00814A2A /* Comments+UnreadCounts.swift in Sources */,
 				83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */,
 				839F1DED25FEBED70089C13F /* UserDisplayable.swift in Sources */,
 				83C7347D25986E2C0073788A /* ImageItemProvider.swift in Sources */,
@@ -1726,6 +1756,7 @@
 				83BF7C8725849AED000E0B37 /* Comments+Keys.swift in Sources */,
 				8320A6F2256CB59700819377 /* ImageLargeMedia.swift in Sources */,
 				83B0CB5025B2ABF400D53B58 /* PushNotifications.swift in Sources */,
+				83F49BC32610042900814A2A /* Comments+UnreadCounts.swift in Sources */,
 				83C43FF92574371C0016BA4C /* Comments.swift in Sources */,
 				83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */,
 				8320A6E3256CB2F400819377 /* ObjectDetailsView.swift in Sources */,
@@ -1735,6 +1766,7 @@
 				8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */,
 				8308B706256A3A53007F0CEB /* URLFile.swift in Sources */,
 				835104A4259FE91900C5A05E /* MediaPicker.swift in Sources */,
+				83F49B99260FE89400814A2A /* AlbumUnreadCount.swift in Sources */,
 				83A151D825B91F320094203B /* LandingView.swift in Sources */,
 				83F2C54B25A1510500D0B710 /* AddressNavigation.swift in Sources */,
 				8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */,
@@ -1757,6 +1789,7 @@
 				83BF7C7F25846B66000E0B37 /* LiveImageViewModel.swift in Sources */,
 				834CC65525D0F4D7004A9BF1 /* AlbumScreenRow.swift in Sources */,
 				8331F3FC255F82ED0063A67D /* SettingsScreen.swift in Sources */,
+				83F49BA4260FEC1900814A2A /* AlbumDownloadIndicator.swift in Sources */,
 				8331F336255B8AFD0063A67D /* LeftMenuView.swift in Sources */,
 				834CC65A25D0F528004A9BF1 /* AlbumScreenRowModel.swift in Sources */,
 				8331F4C12560FFC70063A67D /* SettingsScreenModel.swift in Sources */,
@@ -1779,6 +1812,7 @@
 				8331F330255B8AFD0063A67D /* MailView.swift in Sources */,
 				8331F4F3256208320063A67D /* GenericImageIcon.swift in Sources */,
 				83B0CB9D25B4ECD200D53B58 /* SortFilterMenuModel.swift in Sources */,
+				83F49BA9260FF24A00814A2A /* MediaItemUnreadCount.swift in Sources */,
 				83152B2D25FB36AD00A5439F /* GIFItemProvider.swift in Sources */,
 				839F1DD125FD97870089C13F /* CheckBoxView.swift in Sources */,
 				83BF7CE92585B99F000E0B37 /* AlbumSharingScreenModel.swift in Sources */,

@@ -3,10 +3,11 @@ Neebla
 Version 2.0.0 (TestFlight Build)
 	* Added scroll view to settings to improve layout.
 		And improved layout of Settings screen otherwise too.
-	* Improved About text.
+	* Improved About text in Settings.
 	* Fixed: Tapping on left menu button when sharing albums: Now resets album sharing icons.
 	* Trying to fix network detection issue when app comes into the foreground.
-	* Fix sort order issue on album items screen.
+	* Fix sort order issue on album items screen. Changing the sort order using the album title control from album items screen didn't immediately make the change.
+	* Refactored badging code-- to try to make it easier to diagnose issues. For example, I'm seeing some issues with the download indicators showing there is content downloadable for an album, but no apparent new content showing up when I download. Plus, on at least one occasion I got a push notification about a new comment but couldn't see it when I downloaded content for that album.
 	
 Version 2.0.0 (TestFlight Build 20210321.0)
 	* Dealing with broken sharing extension: Wasn't detecting foreground/background state of of sharing extension.

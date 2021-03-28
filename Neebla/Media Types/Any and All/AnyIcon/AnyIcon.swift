@@ -40,8 +40,8 @@ struct AnyIcon: View {
         .if(upperRightView != nil) {
             $0.upperRightView(upperRightView!)
         }
-        .if(model.badgeText != nil) {
-            $0.upperLeftBadge(model.badgeText!)
+        .if(model.mediaItemUnreadCountBadgeText != nil) {
+            $0.upperLeftBadge(model.mediaItemUnreadCountBadgeText!)
         }
         .onAppear() {
             Downloader.session.objectAccessed(object: model.object)
