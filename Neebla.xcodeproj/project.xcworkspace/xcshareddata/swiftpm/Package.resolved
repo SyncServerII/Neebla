@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/firebase/abseil-cpp-SwiftPM.git",
         "state": {
           "branch": null,
-          "revision": "05d8107f2971a37e6c77245b7c4c6b0a7e97bc99",
-          "version": "0.20200225.0"
+          "revision": "697fb93ee29def0198c456118b69bdfea9a02a5d",
+          "version": "0.20200225.2"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/firebase/boringssl-SwiftPM.git",
         "state": {
           "branch": null,
-          "revision": "7bcafa2660bc58715c39637494550d1ed7cd7229",
-          "version": "0.0.7"
+          "revision": "6fbad5bf8bd80a36d342bf1693e4423870124d4c",
+          "version": "0.0.9"
         }
       },
       {
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/bugsnag/bugsnag-cocoa",
         "state": {
           "branch": null,
-          "revision": "3196f905d5933b4a90678ca9fd755616ea89dc84",
-          "version": "6.8.0"
+          "revision": "c6f2433cffe2bfaf70cffa106f624d88953700b8",
+          "version": "6.8.1"
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk.git",
         "state": {
           "branch": null,
-          "revision": "e118a7fb4319eaa37fd03c3b4216c93811d9c413",
-          "version": "7.8.1"
+          "revision": "6f680dd0c8892a315f354bb861b03c5c38829e56",
+          "version": "7.9.1"
         }
       },
       {
@@ -114,8 +114,8 @@
         "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
         "state": {
           "branch": null,
-          "revision": "9db2a8536e804dced3ccf8c1b4d05051f014f941",
-          "version": "7.8.1"
+          "revision": "4a30a474eb175ebf3d3ede045614fad99fa9b9bf",
+          "version": "7.9.0"
         }
       },
       {
@@ -141,8 +141,8 @@
         "repositoryURL": "https://github.com/firebase/grpc-SwiftPM.git",
         "state": {
           "branch": null,
-          "revision": "91b62619e6c83bc5f1b99d9d60fe46b2862d3a5a",
-          "version": "1.28.2"
+          "revision": "23034739dda2f3355d081b54c1ab4e9667314b75",
+          "version": "1.28.3"
         }
       },
       {
@@ -195,8 +195,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "db1bf0bf503d78f8eebcc0b7601874451f40cdb0",
-          "version": "0.17.1"
+          "revision": "4337b3e4d55e24b53bf86b671da6094c533ace8d",
+          "version": "0.18.0"
         }
       },
       {
@@ -312,8 +312,8 @@
         "repositoryURL": "https://github.com/firebase/leveldb.git",
         "state": {
           "branch": null,
-          "revision": "fa1f25f296a766e5a789c4dacd4798dea798b2c2",
-          "version": "1.22.1"
+          "revision": "0706abcc6b0bd9cedfbb015ba840e4a780b5159b",
+          "version": "1.22.2"
         }
       },
       {

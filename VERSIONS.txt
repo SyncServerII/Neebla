@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210328.0)
+	* iOSBasics change: Deal with "v0 contents for change resolver (CommentFile) were not valid"
+	
 Version 2.0.0 (TestFlight Build 20210327.0)
 	* Added scroll view to settings to improve layout.
 		And improved layout of Settings screen otherwise too.
