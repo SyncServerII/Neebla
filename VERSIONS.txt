@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build)
+	* Extended usage of UserDisplayable protocol
+
 Version 2.0.0 (TestFlight Build 20210328.2)
 	* Second attempt to fix Rod's issue-- with update to iOSBasics.
 

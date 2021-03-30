@@ -152,8 +152,8 @@
 		839F1DD125FD97870089C13F /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DD025FD97870089C13F /* CheckBoxView.swift */; };
 		839F1DDD25FEBA160089C13F /* GIFHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DDC25FEBA160089C13F /* GIFHelper.swift */; };
 		839F1DE425FEBA1D0089C13F /* GIFHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DDC25FEBA160089C13F /* GIFHelper.swift */; };
-		839F1DE925FEBE710089C13F /* UserDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DE825FEBE710089C13F /* UserDisplayable.swift */; };
-		839F1DED25FEBED70089C13F /* UserDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DE825FEBE710089C13F /* UserDisplayable.swift */; };
+		839F1DE925FEBE710089C13F /* UserDisplayable+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DE825FEBE710089C13F /* UserDisplayable+Extras.swift */; };
+		839F1DED25FEBED70089C13F /* UserDisplayable+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DE825FEBE710089C13F /* UserDisplayable+Extras.swift */; };
 		839F1DF225FEC52B0089C13F /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DF125FEC52B0089C13F /* AboutApp.swift */; };
 		839F1DF725FEC59E0089C13F /* HTMLViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DF625FEC59E0089C13F /* HTMLViewer.swift */; };
 		839F1DFD25FEC6C60089C13F /* AboutAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DFC25FEC6C60089C13F /* AboutAppModel.swift */; };
@@ -444,7 +444,7 @@
 		839ADC3025EB09DC00618581 /* MutableDownloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableDownloads.swift; sourceTree = "<group>"; };
 		839F1DD025FD97870089C13F /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		839F1DDC25FEBA160089C13F /* GIFHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFHelper.swift; sourceTree = "<group>"; };
-		839F1DE825FEBE710089C13F /* UserDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDisplayable.swift; sourceTree = "<group>"; };
+		839F1DE825FEBE710089C13F /* UserDisplayable+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDisplayable+Extras.swift"; sourceTree = "<group>"; };
 		839F1DF125FEC52B0089C13F /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		839F1DF625FEC59E0089C13F /* HTMLViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLViewer.swift; sourceTree = "<group>"; };
 		839F1DFC25FEC6C60089C13F /* AboutAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppModel.swift; sourceTree = "<group>"; };
@@ -605,7 +605,7 @@
 				837A46B325D8D02100CAC322 /* CGSize+Extras.swift */,
 				839F1E2225FF08A90089C13F /* ObjectType.swift */,
 				837A46DF25D8DD7900CAC322 /* UIImage+Extras.swift */,
-				839F1DE825FEBE710089C13F /* UserDisplayable.swift */,
+				839F1DE825FEBE710089C13F /* UserDisplayable+Extras.swift */,
 				83BF781E257DCE9B000E0B37 /* UploadableMediaType.swift */,
 				83F416B2259D821D003C7200 /* MediaTypeActivityItems.swift */,
 				835104A3259FE91900C5A05E /* MediaPicker.swift */,
@@ -1489,6 +1489,7 @@
 				TargetAttributes = {
 					8331F346255B8CC50063A67D = {
 						CreatedOnToolsVersion = 12.1;
+						LastSwiftMigration = 1240;
 					};
 					837A46C325D8D2DA00CAC322 = {
 						CreatedOnToolsVersion = 12.4;
@@ -1497,6 +1498,7 @@
 					};
 					83B657D4255B81320041B9DF = {
 						CreatedOnToolsVersion = 12.1;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -1719,7 +1721,7 @@
 				8367503925E31FD6003957BE /* Requestablity.swift in Sources */,
 				83F49BC7261004AE00814A2A /* Comments+UnreadCounts.swift in Sources */,
 				83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */,
-				839F1DED25FEBED70089C13F /* UserDisplayable.swift in Sources */,
+				839F1DED25FEBED70089C13F /* UserDisplayable+Extras.swift in Sources */,
 				83C7347D25986E2C0073788A /* ImageItemProvider.swift in Sources */,
 				8331F43E255F9C8B0063A67D /* SetupDatabase.swift in Sources */,
 			);
@@ -1830,7 +1832,7 @@
 				83D8CC1425B97E570069E3E5 /* IconConfig.swift in Sources */,
 				839F1DDD25FEBA160089C13F /* GIFHelper.swift in Sources */,
 				8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */,
-				839F1DE925FEBE710089C13F /* UserDisplayable.swift in Sources */,
+				839F1DE925FEBE710089C13F /* UserDisplayable+Extras.swift in Sources */,
 				839F1DF225FEC52B0089C13F /* AboutApp.swift in Sources */,
 				837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */,
 				83F41687259C21EC003C7200 /* View+iPad.swift in Sources */,
@@ -1942,6 +1944,7 @@
 		8331F353255B8CC50063A67D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20210328.2;
@@ -1956,6 +1959,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages.Share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1964,6 +1968,7 @@
 		8331F354255B8CC50063A67D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20210328.2;
@@ -2150,6 +2155,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20210328.2;
@@ -2166,6 +2172,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2177,6 +2184,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20210328.2;

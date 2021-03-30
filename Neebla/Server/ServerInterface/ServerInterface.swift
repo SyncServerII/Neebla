@@ -119,7 +119,14 @@ extension ServerInterface: SyncServerDelegate {
         switch event {
         case .error(let error):
             logger.error("\(String(describing: error))")
-            showAlert(AlertyHelper.alert(title: "Alert!", message: "There was a server error."))
+
+            if let error = error as? UserDisplayable,
+                let message = error.userDisplayableMessage {
+                showAlert(AlertyHelper.alert(title: message.title, message: message.message))
+            }
+            else {
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "There was a server error."))
+            }
 
         case .showAlert(title: let title, message: let message):
             showAlert(AlertyHelper.alert(title: title, message: message))

@@ -8,6 +8,7 @@
 import Foundation
 import ImageIO
 import UIKit
+import iOSShared
 
 // Adapted from https://stackoverflow.com/questions/27919620
 class GIFHelper {

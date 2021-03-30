@@ -2,6 +2,7 @@
 import Foundation
 import SwiftUI
 import ServerShared
+import iOSShared
 
 // Sharing Extension Item Provider
 

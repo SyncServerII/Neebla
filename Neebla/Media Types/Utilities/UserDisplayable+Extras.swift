@@ -1,15 +1,12 @@
 //
-//  UserDisplayable.swift
+//  UserDisplayable+Extras.swift
 //  Neebla
 //
 //  Created by Christopher G Prince on 3/14/21.
 //
 
 import Foundation
-
-protocol UserDisplayable: Error {
-    var userDisplayableMessage: (title: String, message: String)? { get }
-}
+import iOSShared
 
 extension UserDisplayable {
     static var badAspectRatio: (title: String, message: String) {
