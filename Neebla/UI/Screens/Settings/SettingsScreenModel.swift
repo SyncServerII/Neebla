@@ -94,6 +94,14 @@ class SettingsScreenModel:ObservableObject {
 
 extension SettingsScreenModel: AddEmailAttachments {
     func addAttachments(vc: MFMailComposeViewController) {
+        do {
+            if let pendingUploads = try Services.session.syncServer.debugPendingUploads() {
+                logger.info("Pending Uploads: \(String(describing: pendingUploads))")
+            }
+        } catch let error {
+            logger.error("\(error)")
+        }
+        
         let archivedFileURLs = sharedLogging.archivedFileURLs
         guard archivedFileURLs.count > 0 else {
             return

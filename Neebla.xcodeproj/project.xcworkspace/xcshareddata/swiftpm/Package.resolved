@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/google/GoogleDataTransport.git",
         "state": {
           "branch": null,
-          "revision": "34bd15a31149e42eadd6c75bd67aaea002e23bf4",
-          "version": "8.3.0"
+          "revision": "3615a4ca10961d82ed2b5459cd9a5cb5ebc03ff2",
+          "version": "8.3.1"
         }
       },
       {
@@ -195,8 +195,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "30c13a4a705c8e789088f3cd1bb2766ffd6302fd",
-          "version": "0.18.2"
+          "revision": "0c2ada7dfeaeae7c2ad7172ae9b59513263ce73a",
+          "version": "0.20.0"
         }
       },
       {
