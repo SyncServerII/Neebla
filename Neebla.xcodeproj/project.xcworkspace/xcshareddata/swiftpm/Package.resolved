@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/bugsnag/bugsnag-cocoa",
         "state": {
           "branch": null,
-          "revision": "c6f2433cffe2bfaf70cffa106f624d88953700b8",
-          "version": "6.8.1"
+          "revision": "0734e040519d584f3880134ff870f0edd0e08adb",
+          "version": "6.8.2"
         }
       },
       {
@@ -177,8 +177,8 @@
         "repositoryURL": "https://github.com/nathantannar4/InputBarAccessoryView",
         "state": {
           "branch": null,
-          "revision": "999423a8d7e29520ef0777f71af689cf4f25d65d",
-          "version": "5.3.0"
+          "revision": "f5e21ad31f7e747ae08eae91b6fc6d2348bb750d",
+          "version": "5.3.1"
         }
       },
       {
@@ -195,8 +195,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "0c2ada7dfeaeae7c2ad7172ae9b59513263ce73a",
-          "version": "0.20.0"
+          "revision": "d38dcc755856d126891e33249bfa32541aabdb4d",
+          "version": "0.20.2"
         }
       },
       {
@@ -330,8 +330,8 @@
         "repositoryURL": "https://github.com/MessageKit/MessageKit",
         "state": {
           "branch": null,
-          "revision": "4e97e02d85a69a8af609b6861a8d176c4387aaea",
-          "version": "3.5.1"
+          "revision": "bdb07821037d7760041c979d7986774a0edb06ef",
+          "version": "3.6.0"
         }
       },
       {

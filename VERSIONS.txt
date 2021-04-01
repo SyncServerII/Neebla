@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210331.0)
+	* Update to iOSBasics to fix https://github.com/SyncServerII/Neebla/issues/9
+	
 Version 2.0.0 (TestFlight Build 20210329.1)
 	* Trying to fix debug logs sent to developer
 
