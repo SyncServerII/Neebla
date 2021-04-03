@@ -11,6 +11,8 @@ class URLPickerViewModel: ObservableObject {
     // The url that the user has entered, and confirmed to add.
     @Published var selectedURL: URL?
     
+    @Published var showProgressView: Bool = false
+    
     func onTextChange(text: String?) {
         addButtonEnabled = false
     }
@@ -19,9 +21,13 @@ class URLPickerViewModel: ObservableObject {
         guard let text = text, let url = URL(string: text) else {
             return
         }
+        
+        self.showProgressView = true
 
         LocalServices.session.previewGenerator.getPreview(for: url) { [weak self] linkData in
             guard let self = self else { return }
+            
+            self.showProgressView = false
             
             self.linkData = linkData
             if let _ = linkData {
