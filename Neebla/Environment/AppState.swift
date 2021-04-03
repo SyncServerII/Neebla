@@ -7,6 +7,7 @@
 
 import Foundation
 import iOSBasics
+import iOSShared
 
 // Foreground/background state of the app or the sharing extension.
 
@@ -14,7 +15,7 @@ class AppState {
     static let session = AppState()
     
     // Unless we have a specific indication that the app is in the foreground, assume it is in the background. Trying to deal with background problems. https://github.com/SyncServerII/Neebla/issues/7
-    private(set) var current: SyncServer.AppState = .background
+    private(set) var current: iOSShared.AppState = .background
     
     static let update = NSNotification.Name("AppState")
     private static let fieldName = "Update"
@@ -38,14 +39,14 @@ class AppState {
         }
     }
     
-    func postUpdate(_ state: SyncServer.AppState) {
+    func postUpdate(_ state: iOSShared.AppState) {
         current = state
         NotificationCenter.default.post(name: Self.update, object: nil, userInfo: [
             Self.fieldName : state,
         ])
     }
     
-    static func getUpdate(from notification: Notification) -> SyncServer.AppState? {
-        return notification.userInfo?[fieldName] as? SyncServer.AppState
+    static func getUpdate(from notification: Notification) -> iOSShared.AppState? {
+        return notification.userInfo?[fieldName] as? iOSShared.AppState
     }
 }

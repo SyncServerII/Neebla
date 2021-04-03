@@ -114,7 +114,8 @@ class Services {
     weak var delegate: ServicesDelegate?
     
     var userEvents = AlertyPublisher()
-
+    private var updateObserver: AnyObject!
+    
     private init(delegate: ServicesDelegate?) {
         self.delegate = delegate
         
@@ -213,6 +214,17 @@ class Services {
         sharedLogging.setup(logFileURL: logFile, logLevel: level)
         
         setupSignInServices(configPlist: configPlist, signIns: signIns, bundleIdentifier: bundleIdentifier, helper: self)
+        
+        updateObserver = NotificationCenter.default.addObserver(forName: AppState.update, object: nil, queue: nil) { [weak self] notification in
+            guard let self = self else { return }
+            
+            guard let state = AppState.getUpdate(from: notification) else {
+                logger.error("Cannot get AppState")
+                return
+            }
+            
+            self.signInServices.manager.application(changes: state)
+        }
         
         logger.info("Services: init successful!")
         Self.setupState = .done(appLaunch: false)
