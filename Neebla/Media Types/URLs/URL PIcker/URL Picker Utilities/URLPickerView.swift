@@ -56,7 +56,7 @@ struct URLPickerView: View {
                 .scaleEffect(2, anchor: .center)
                 .progressViewStyle(CircularProgressViewStyle(tint: .blue))
                 .foregroundColor(.blue)
-                .isHidden(!model.showProgressView, remove: true)
+                .isHidden(!model.currentlyLoading, remove: true)
         }
     }
 }

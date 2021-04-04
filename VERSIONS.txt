@@ -2,7 +2,7 @@ Neebla
 
 Version 2.0.0 (TestFlight Build)
 	* Added iOSSignIn calls to try to fix credentials refresh issue, when server is restarted. Now, credentials will refresh when (a) app comes into foreground, and (b) when app starts.
-	* Add progress spinner on URL picker.
+	* Add progress spinner on URL picker. URL picker searches for no more than 10 seconds. And tapping multiple times while doing URL search does nothing.
 		
 Version 2.0.0 (TestFlight Build 20210331.0)
 	* Update to iOSBasics to fix https://github.com/SyncServerII/Neebla/issues/9
