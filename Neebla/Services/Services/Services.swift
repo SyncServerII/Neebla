@@ -223,7 +223,7 @@ class Services {
                 return
             }
             
-            // This is to allow credentials refresh when the app launches and when the app comes to the foreground. Otherwise, if the server restarts often require users to sign back in because the auth tokens are stale.
+            // This is to allow credentials refresh when the app launches and when the app comes to the foreground. Otherwise, if the server restarts often require users to sign back in because the auth tokens are stale. See also https://github.com/SyncServerII/Neebla/issues/10
             self.signInServices.manager.application(changes: state)
         }
         
