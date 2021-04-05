@@ -2,6 +2,7 @@
 import Foundation
 import SMLinkPreview
 import UIKit
+import iOSShared
 
 class URLPickerViewModel: ObservableObject {
     @Published var addButtonEnabled: Bool = false
@@ -24,10 +25,13 @@ class URLPickerViewModel: ObservableObject {
             return
         }
         
-        guard let text = text, let url = URL(string: text) else {
+        guard let urlText = text,
+            let url = URL(string: urlText.trimmingCharacters(in: .whitespaces)) else {
+            logger.error("Malformed URL text: '\(String(describing: text))'")
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "That URL doesn't seem right. Try removing it and pasting/typing it again?"))
             return
         }
-        
+                
         currentlyLoading = true
         
         var getPreview:((LinkData?)->())?
@@ -44,6 +48,9 @@ class URLPickerViewModel: ObservableObject {
             self.linkData = linkData
             if let _ = linkData {
                 self.selectedURL = url
+            }
+            else {
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Could not load that URL. Please try again."))
             }
 
             self.addButtonEnabled = linkData != nil

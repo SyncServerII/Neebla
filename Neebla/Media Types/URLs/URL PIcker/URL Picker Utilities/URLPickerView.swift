@@ -8,6 +8,7 @@ struct URLPickerView: View {
     @ObservedObject var model = URLPickerViewModel()
     let placeholderText: String = "Enter your website (web link/URL)"
     let picked: (URLObjectTypeAssets)->()
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
 
     init(picked: @escaping (URLObjectTypeAssets)->()) {
         self.picked = picked
@@ -58,5 +59,6 @@ struct URLPickerView: View {
                 .foregroundColor(.blue)
                 .isHidden(!model.currentlyLoading, remove: true)
         }
+        .alertyDisplayer(show: $alerty.show, subscriber: alerty)
     }
 }
