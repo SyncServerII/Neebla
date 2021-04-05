@@ -1,6 +1,6 @@
 Neebla
 
-Version 2.0.0 (TestFlight Build)
+Version 2.0.0 (TestFlight Build 20210404.0)
 	* Improve Gone response. Small icons now show "Gone" icon if image is reported as "gone" from server. Large media types do something similar too.
 
 Version 2.0.0 (TestFlight Build 20210403.0)
