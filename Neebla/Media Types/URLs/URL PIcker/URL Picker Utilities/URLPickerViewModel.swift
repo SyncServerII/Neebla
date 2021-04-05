@@ -18,6 +18,7 @@ class URLPickerViewModel: ObservableObject {
         
     func onTextChange(text: String?) {
         addButtonEnabled = false
+        linkData = nil
     }
     
     func onSearchButtonTapped(text: String?) {

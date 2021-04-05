@@ -5,7 +5,7 @@ import iOSShared
 
 struct URLPickerView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var model = URLPickerViewModel()
+    @StateObject var model = URLPickerViewModel()
     let placeholderText: String = "Enter your website (web link/URL)"
     let picked: (URLObjectTypeAssets)->()
     @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)

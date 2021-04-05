@@ -12,13 +12,11 @@ struct URLPreviewView: UIViewRepresentable {
         self.model = model
     }
     
-    func makeUIView(context: Context) -> UIView {
-        let preview = LinkPreview.create(with: linkData) { loadedImage in
-            model.loadedImage = loadedImage
-        }
-        return preview
+    func makeUIView(context: Context) -> LinkPreview {
+        LinkPreview.create()
     }
     
-    func updateUIView(_ uiView: UIView, context: Context) {
+    func updateUIView(_ linkPreview: LinkPreview, context: Context) {
+        linkPreview.setup(with: linkData)
     }
 }
