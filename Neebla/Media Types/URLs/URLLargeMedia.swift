@@ -26,6 +26,9 @@ struct URLLargeMedia: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                     }
+                    else if model.imageStatus == .gone {
+                        GoneImage()
+                    }
                     else {
                         EmptyView()
                     }
@@ -38,6 +41,9 @@ struct URLLargeMedia: View {
                     Link(url.absoluteString, destination: url)
                         .font(.title)
                         .foregroundColor(.blue)
+                }
+                else if urlModel.gone {
+                    Text("(Problem getting URL)")
                 }
                 
                 Spacer()

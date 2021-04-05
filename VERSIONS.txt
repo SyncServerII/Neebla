@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build)
+	* Improve Gone response. Small icons now show "Gone" icon if image is reported as "gone" from server. Large media types do something similar too.
+
 Version 2.0.0 (TestFlight Build 20210403.0)
 	* Added iOSSignIn calls to try to fix credentials refresh issue, when server is restarted. Now, credentials will refresh when (a) app comes into foreground, and (b) when app starts. (See also https://github.com/SyncServerII/Neebla/issues/10)
 	* Add progress spinner on URL picker. URL picker searches for no more than 10 seconds. And tapping multiple times while doing URL search does nothing.

@@ -32,8 +32,9 @@ struct GenericImageIcon: View {
     
     // Goal for icon display:
     // a) If no image and not downloading or preparing to show downloaded image, show white blank icon.
-    // b) If downloading or preparing to show dowloaded image, show a "busy" or "downloading" temporary icon.
-    // c) If have the image, show it.
+    // b) If image is Gone, then show Gone image.
+    // c) If downloading or preparing to show dowloaded image, show a "busy" or "downloading" temporary icon.
+    // d) If have the image, show it.
 
     var body: some View {
         VStack {
@@ -49,6 +50,9 @@ struct GenericImageIcon: View {
                             Image(Self.loadingImageIcon) :
                             Image(Self.loadingImageIconDarkMode)
                 )
+            }
+            else if model.imageStatus == .gone {
+                GoneImage()
             }
             else { // imageStatus == .none
                 Rectangle()

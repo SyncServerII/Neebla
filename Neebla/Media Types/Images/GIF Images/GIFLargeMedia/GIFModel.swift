@@ -12,6 +12,7 @@ import iOSShared
 class GIFModel {
     let gifFileLabel = GIFObjectType.gifDeclaration.fileLabel
     var gifData: Data?
+    private(set) var gone: Bool = false
     
     init(object: ServerObjectModel) {
         guard let imageFileModel = try? ServerFileModel.getFileFor(fileLabel: gifFileLabel, withFileGroupUUID: object.fileGroupUUID) else {
@@ -20,6 +21,7 @@ class GIFModel {
         }
         
         guard let gifURL = imageFileModel.url else {
+            gone = imageFileModel.gone
             logger.debug("GIFIconModel: No URL for ServerFileModel")
             return
         }

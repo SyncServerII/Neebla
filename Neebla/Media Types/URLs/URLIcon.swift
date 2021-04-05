@@ -20,9 +20,7 @@ struct URLIcon: View {
     var body: some View {
         ZStack {
             GenericImageIcon(.model(imageModel), config: config)
-                .if(imageModel.imageStatus == .none || imageModel.imageStatus == .loaded) {
-                    $0.lowerRightText("url")
-                }
+                .lowerRightText("url")
 
             if imageModel.imageStatus == .none {
                 // If there is no image, put some text from the .url file into the icon.

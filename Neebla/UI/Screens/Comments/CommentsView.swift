@@ -37,7 +37,10 @@ struct CommentsView: View {
                 MessagesView(model: model)
             }
             else {
+                // This covers the "gone" case as well. I don't see any reason so far to distinguish the gone case specifically.
+                Spacer()
                 Text("No comments available")
+                Spacer()
             }
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)

@@ -13,6 +13,7 @@ class GenericImageModel: ObservableObject {
         case downloading // downloading file from server
         case rendering // creating small icon image
         case loaded
+        case gone // image reported as "Gone" from server.
     }
 
     @Published var imageStatus: ImageStatus = .none
@@ -58,8 +59,14 @@ class GenericImageModel: ObservableObject {
         }
         
         guard let fullSizeImageURL = imageFileModel.url else {
-            setImageStatus(imageFileModel.downloadStatus == .downloading ? .downloading : .none)
-            
+            if imageFileModel.gone {
+                setImageStatus(.gone)
+                logger.warning("ServerFileModel: File is gone")
+            }
+            else {
+                setImageStatus(imageFileModel.downloadStatus == .downloading ? .downloading : .none)
+            }
+
             // Don't have image downloaded. Wait for the image download if that happens.
             guard observer == nil else {
                 return

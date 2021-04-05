@@ -10,6 +10,7 @@ class URLModel: ObservableObject {
     @Published var description: String?
     @Published var contents: URLFile.URLFileContents?
     let object: ServerObjectModel
+    private(set) var gone = false
     
     init(urlObject: ServerObjectModel) {
         self.object = urlObject
@@ -47,6 +48,7 @@ class URLModel: ObservableObject {
         
         guard let urlFile = urlFileModel.url else {
             logger.error("No url with url file!")
+            gone = urlFileModel.gone
             return nil
         }
         

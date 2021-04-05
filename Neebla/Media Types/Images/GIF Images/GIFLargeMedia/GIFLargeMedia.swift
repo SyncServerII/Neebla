@@ -22,21 +22,27 @@ struct GIFLargeMedia: View {
     var body: some View {
         GeometryReader { proxy in
             VStack {
-                if let gifData = gifModel.gifData {
-                    ZoomableScrollView {
-                        SwiftyGif(gifData: gifData, size: proxy.size, loop: $loop)
-                            .onTapGesture {
-                                tapOnLargeMedia()
+                if gifModel.gifData != nil || gifModel.gone {
+                    VStack {
+                        if let gifData = gifModel.gifData {
+                            ZoomableScrollView {
+                                SwiftyGif(gifData: gifData, size: proxy.size, loop: $loop)
+                                Spacer()
                             }
                             
-                        Spacer()
+                            HStack {
+                                Spacer()
+                                CheckBoxView(checked: $loop, text: "Repeat")
+                                    // Without this, the text is running into the RHS
+                                    .padding(.trailing, 20)
+                            }
+                        }
+                        else if gifModel.gone {
+                            GoneImage()
+                        }
                     }
-                    
-                    HStack {
-                        Spacer()
-                        CheckBoxView(checked: $loop, text: "Repeat")
-                            // Without this, the text is running into the RHS
-                            .padding(.trailing, 20)
+                    .onTapGesture {
+                        tapOnLargeMedia()
                     }
                 }
                 else {
@@ -47,5 +53,9 @@ struct GIFLargeMedia: View {
     }
 }
 
-
+//private struct GIF: View {
+//    var body: some View {
+//
+//    }
+//}
 
