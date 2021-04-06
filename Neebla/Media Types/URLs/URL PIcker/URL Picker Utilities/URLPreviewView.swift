@@ -3,6 +3,7 @@ import Foundation
 import SwiftUI
 import SMLinkPreview
 
+// Making use of a side-effect here, of setting model.loadImage
 struct URLPreviewView: UIViewRepresentable {
     let linkData:LinkData
     @ObservedObject var model:URLPickerViewModel
@@ -13,10 +14,12 @@ struct URLPreviewView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> LinkPreview {
-        LinkPreview.create()
+        let preview = LinkPreview.create(with: linkData) { loadedImage in
+            model.loadedImage = loadedImage
+        }
+        return preview
     }
     
     func updateUIView(_ linkPreview: LinkPreview, context: Context) {
-        linkPreview.setup(with: linkData)
     }
 }
