@@ -29,7 +29,7 @@ class URLItemProvider: SXItemProvider {
         case cannotGetURL
         case couldNotCreateURLPreviewGenerator
         case cannotGetLinkData
-        case cannotGetPlainTextURL
+        case cannotGetPlainTextURL(String)
     }
     
     required init(assets: URLObjectTypeAssets) {
@@ -37,6 +37,7 @@ class URLItemProvider: SXItemProvider {
     }
     
     static func canHandle(item: NSItemProvider) -> Bool {
+        logger.debug("item.registeredTypeIdentifiers: \(item.registeredTypeIdentifiers)")
         let canHandle = item.hasItemConformingToTypeIdentifier(urlUTI) ||
             item.hasItemConformingToTypeIdentifier(plainTextUTI)
         logger.debug("canHandle: \(canHandle); urlUTI: \(urlUTI); item.registeredTypeIdentifiers: \(item.registeredTypeIdentifiers)")
@@ -94,7 +95,7 @@ class URLItemProvider: SXItemProvider {
         return support
     }
 
-    static func getMediaAssetsForBinaryPlist(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
+    private static func getMediaAssetsForBinaryPlist(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
 
         guard let generator = try? URLPreviewGenerator() else {
             completion(.failure(URLItemProviderError.couldNotCreateURLPreviewGenerator))
@@ -106,53 +107,64 @@ class URLItemProvider: SXItemProvider {
         
         item.loadDataRepresentation(forTypeIdentifier: plainTextUTI) { (data, error) in
             if let error = error {
-                logger.error("\(error)")
-                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                logger.error("loadDataRepresentation: \(error)")
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL("loadDataRepresentation")))
                 return
             }
 
             guard let data = data else {
                 logger.error("No data")
-                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL("No data")))
                 return
             }
             
+            let string = String(data: data, encoding: .utf8)
+            logger.debug("plainTextUTI: string: \(String(describing: string))")
+            
             guard let plist = try? PropertyListSerialization.propertyList(from: data, format: nil) else {
-                logger.error("No data")
-                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                logger.error("Plist issue")
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL("Plist issue")))
                 return
             }
             
             guard let dict = plist as? [String: Any] else {
                 logger.error("No dict")
-                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL("No dict")))
                 return
             }
                         
             guard let objects = dict["$objects"] else {
                 logger.error("No objects")
-                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL("No objects")))
                 return
             }
             
-            guard let array = objects as? [String] else {
-                logger.error("No objects")
-                completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+            guard var array = objects as? [String] else {
+                logger.error("No array")
+                completion(.failure(URLItemProviderError.cannotGetPlainTextURL("No array")))
                 return
             }
+            
+            /* Example from Kickstarter app
+            ▿ 2 elements
+                - 0 : "$null"
+                - 1 : "SWEET SONGS for SWEET THING\nhttps://www.kickstarter.com/projects/1328225661/sweet-songs-for-sweet-thing"
+             */
+            // To deal with Kickstarter line breaks
+            array = array.map { $0.split(separator: "\n") }.flatMap {$0}.map {String($0)}
             
             for element in array {
                 if element.hasPrefix("http") {
                     logger.debug("URL: \(element)")
                     
                     guard let url = URL(string: element) else {
-                        completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                        completion(.failure(URLItemProviderError.cannotGetPlainTextURL("Bad url")))
                         return
                     }
                     
                     generator.getPreview(for: url) { linkData in
                         guard let linkData = linkData else {
-                            completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+                            completion(.failure(URLItemProviderError.cannotGetPlainTextURL("Bad link data")))
                             return
                         }
 
@@ -165,7 +177,7 @@ class URLItemProvider: SXItemProvider {
                 }
             } // end-for
             
-            completion(.failure(URLItemProviderError.cannotGetPlainTextURL))
+            completion(.failure(URLItemProviderError.cannotGetPlainTextURL("No for exit")))
         }
         
         return support

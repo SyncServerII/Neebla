@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210406.1)
+	* Deal with Kickstarter line breaks in sharing extension.
+
 Version 2.0.0 (TestFlight Build 20210406.0)
 	* Trying to get Firebase Crashlytics uploading crash reports.
 	
