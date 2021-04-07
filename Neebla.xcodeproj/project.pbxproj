@@ -150,7 +150,6 @@
 		839ADC1F25E4AF2A00618581 /* ServerShared in Frameworks */ = {isa = PBXBuildFile; productRef = 839ADC1E25E4AF2A00618581 /* ServerShared */; };
 		839ADC3125EB09DD00618581 /* MutableDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC3025EB09DC00618581 /* MutableDownloads.swift */; };
 		839ADC3825EB0AEE00618581 /* MutableDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839ADC3025EB09DC00618581 /* MutableDownloads.swift */; };
-		839F1DC325FD7D080089C13F /* Bugsnag in Frameworks */ = {isa = PBXBuildFile; productRef = 839F1DC225FD7D080089C13F /* Bugsnag */; };
 		839F1DD125FD97870089C13F /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DD025FD97870089C13F /* CheckBoxView.swift */; };
 		839F1DDD25FEBA160089C13F /* GIFHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DDC25FEBA160089C13F /* GIFHelper.swift */; };
 		839F1DE425FEBA1D0089C13F /* GIFHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F1DDC25FEBA160089C13F /* GIFHelper.swift */; };
@@ -582,7 +581,6 @@
 				83BC889F26055CE300AE365D /* FirebaseCrashlytics in Frameworks */,
 				83A2DF9A25FD5C5E0072A557 /* SQLite in Frameworks */,
 				83F389C5259044ED00610C76 /* iOSApple in Frameworks */,
-				839F1DC325FD7D080089C13F /* Bugsnag in Frameworks */,
 				83A2DF6A25FC80860072A557 /* Gifu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1475,7 +1473,6 @@
 				839ADC1E25E4AF2A00618581 /* ServerShared */,
 				83A2DF6925FC80860072A557 /* Gifu */,
 				83A2DF9925FD5C5E0072A557 /* SQLite */,
-				839F1DC225FD7D080089C13F /* Bugsnag */,
 				83BC889E26055CE300AE365D /* FirebaseCrashlytics */,
 			);
 			productName = Neebla;
@@ -1536,7 +1533,6 @@
 				839ADC1D25E4AF2A00618581 /* XCRemoteSwiftPackageReference "ServerShared" */,
 				83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */,
 				83A2DF9825FD5C5B0072A557 /* XCRemoteSwiftPackageReference "SQLite" */,
-				839F1DC125FD7D070089C13F /* XCRemoteSwiftPackageReference "bugsnag-cocoa" */,
 				83BC889D26055CE300AE365D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
@@ -1953,7 +1949,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210405.0;
+				CURRENT_PROJECT_VERSION = 20210406.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1977,7 +1973,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210405.0;
+				CURRENT_PROJECT_VERSION = 20210406.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2164,7 +2160,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210405.0;
+				CURRENT_PROJECT_VERSION = 20210406.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2193,7 +2190,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210405.0;
+				CURRENT_PROJECT_VERSION = 20210406.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2350,14 +2347,6 @@
 				minimumVersion = 0.2.0;
 			};
 		};
-		839F1DC125FD7D070089C13F /* XCRemoteSwiftPackageReference "bugsnag-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/bugsnag/bugsnag-cocoa";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.7.1;
-			};
-		};
 		83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kaishin/Gifu";
@@ -2497,11 +2486,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 839ADC1D25E4AF2A00618581 /* XCRemoteSwiftPackageReference "ServerShared" */;
 			productName = ServerShared;
-		};
-		839F1DC225FD7D080089C13F /* Bugsnag */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 839F1DC125FD7D070089C13F /* XCRemoteSwiftPackageReference "bugsnag-cocoa" */;
-			productName = Bugsnag;
 		};
 		83A2DF6925FC80860072A557 /* Gifu */ = {
 			isa = XCSwiftPackageProductDependency;

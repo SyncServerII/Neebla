@@ -7,16 +7,19 @@
 
 import UIKit
 import iOSShared
-//import Bugsnag
 import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-        // Bugsnag.start()
         FirebaseApp.configure()
-            
+
+        // I'm starting to get Crashlytics crash reports. Perhaps because I added this?
+        Crashlytics.crashlytics().checkForUnsentReports { _ in
+            Crashlytics.crashlytics().sendUnsentReports()
+        }
+
         Services.setup(delegate: self)
         Services.session.appLaunch(options: launchOptions)
         

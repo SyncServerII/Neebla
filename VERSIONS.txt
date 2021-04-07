@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210406.0)
+	* Trying to get Firebase Crashlytics uploading crash reports.
+	
 Version 2.0.0 (TestFlight Build 20210405.0)
 	* Fixed issue with images not uploading with URL.
 

@@ -1,18 +1,17 @@
 #!/bin/bash
 
-# From the Neebla folder, I ran:
-#   ./Tools/uploadDsym.sh ~/Desktop/dSYMs
-# dSYMs is a *folder* not a zip file.
-# Note this is *not* working when I use a zip file.
-# See https://github.com/bugsnag/bugsnag-dsym-upload/issues/32
+# Run this from the Neebla folder
+# Usage: ./Tools/uploadDsym.sh /path/to/dSYMs
 
 if [ $# -eq 0 ]; then
-    echo "No dsym folder arg supplied"
+    echo "No dsym arg supplied"
     exit 1
 fi
 
-echo "Uploading dysm $1 to bugsnag"
+echo "Uploading dysm $1 to Firebase Crashlytics"
 
-bugsnag-dsym-upload --verbose --api-key 6ad7fdcd3a83687cd475e7ea60de7702 "$1"
+# I got upload-symbols from /Users/chris/Library/Developer/Xcode/DerivedData/Neebla-aybzuiaoyytaypbvqtqeummvcssh/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics
+
+./Tools/upload-symbols -gsp Neebla/Resources/GoogleService-Info.plist -p ios "$1"
 
 

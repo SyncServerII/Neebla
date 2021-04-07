@@ -56,15 +56,6 @@
         }
       },
       {
-        "package": "Bugsnag",
-        "repositoryURL": "https://github.com/bugsnag/bugsnag-cocoa",
-        "state": {
-          "branch": null,
-          "revision": "0734e040519d584f3880134ff870f0edd0e08adb",
-          "version": "6.8.2"
-        }
-      },
-      {
         "package": "ChangeResolvers",
         "repositoryURL": "https://github.com/SyncServerII/ChangeResolvers.git",
         "state": {
