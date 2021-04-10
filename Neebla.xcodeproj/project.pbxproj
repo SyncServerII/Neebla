@@ -1600,7 +1600,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# See https://github.com/carloe/LicenseGenerator-iOS/issues/16\nif [ \"${CONFIGURATION}\" != \"Release\" ]; then\n  \"$SRCROOT/Tools/LicenseGenerator-iOS/credits.py\" -s \"$CONFIGURATION_BUILD_DIR/../../../SourcePackages/checkouts\" -o \"$SRCROOT/Neebla/Resources/Settings.bundle/Acknowledgements.plist\" -e \"$SRCROOT/Tools/LicenseGenerator-iOS/Example,$SRCROOT/Tools/LicenseGenerator-iOS/Tests\"\nfi\n";
+			shellScript = "# See https://github.com/carloe/LicenseGenerator-iOS/issues/16\nif [ \"${CONFIGURATION}\" != \"Release\" ]; then\n  \"$SRCROOT/Tools/LicenseGenerator-iOS/credits.py\" -s \"$CONFIGURATION_BUILD_DIR/../../../SourcePackages/checkouts, $SRCROOT/Docs/Images\" -o \"$SRCROOT/Neebla/Resources/Settings.bundle/Acknowledgements.plist\" -e \"$SRCROOT/Tools/LicenseGenerator-iOS/Example,$SRCROOT/Tools/LicenseGenerator-iOS/Tests\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		83BC88A326055D4400AE365D /* ShellScript */ = {
