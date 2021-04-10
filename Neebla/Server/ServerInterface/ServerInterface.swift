@@ -106,7 +106,7 @@ extension ServerInterface: SyncServerDelegate {
             case .badServerVersion:
                 showAlert(AlertyHelper.alert(title: "Alert!", message: "The server version is bad. This is likely a developer problem. Whoops."))
             case .badClientAppVersion:
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "The Neebla app is out of date. You need to update it from the Apple App store."))
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "The Neebla app is out of date. Please update it from the Apple App store."))
             }
         }
     }
