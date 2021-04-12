@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/firebase/boringssl-SwiftPM.git",
         "state": {
           "branch": null,
-          "revision": "6fbad5bf8bd80a36d342bf1693e4423870124d4c",
-          "version": "0.0.9"
+          "revision": "15889fadef7078dfa1392b0e2b08f3d0e9797104",
+          "version": "0.7.1"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk.git",
         "state": {
           "branch": null,
-          "revision": "6f680dd0c8892a315f354bb861b03c5c38829e56",
-          "version": "7.9.1"
+          "revision": "e73fdb6b83b489d3b037085e04a8381f14d7f009",
+          "version": "7.10.0"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
         "state": {
           "branch": null,
-          "revision": "4a30a474eb175ebf3d3ede045614fad99fa9b9bf",
-          "version": "7.9.0"
+          "revision": "184d93b7790caa8b8368794c030c3aeb10d42e25",
+          "version": "7.10.0"
         }
       },
       {
@@ -114,8 +114,8 @@
         "repositoryURL": "https://github.com/google/GoogleDataTransport.git",
         "state": {
           "branch": null,
-          "revision": "3615a4ca10961d82ed2b5459cd9a5cb5ebc03ff2",
-          "version": "8.3.1"
+          "revision": "369716b8d7518a530ce3c3a251436d72546debd8",
+          "version": "8.4.0"
         }
       },
       {
@@ -132,8 +132,8 @@
         "repositoryURL": "https://github.com/firebase/grpc-SwiftPM.git",
         "state": {
           "branch": null,
-          "revision": "23034739dda2f3355d081b54c1ab4e9667314b75",
-          "version": "1.28.3"
+          "revision": "fb405dd2c7901485f7e158b24e3a0a47e4efd8b5",
+          "version": "1.28.4"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "26216378577f6ce328172bdbbcbf0c5f542a317b",
-          "version": "0.21.0"
+          "revision": "e94193e53bf19c4e2362d18a74164cb86632c711",
+          "version": "0.22.1"
         }
       },
       {
@@ -213,8 +213,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSGoogle",
         "state": {
           "branch": null,
-          "revision": "38dee7730ab27ae54e28437ebc48e688a842c111",
-          "version": "0.3.0"
+          "revision": "e7be2a29097f8b80ceda559aada904616f6c65e9",
+          "version": "0.3.1"
         }
       },
       {
@@ -222,8 +222,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "15c0bd24e4e5e8cfe753b7f380de0de5d47dff8a",
-          "version": "0.10.0"
+          "revision": "0d6643c7db9fddee62ab48688d50ad7b39a98819",
+          "version": "0.11.1"
         }
       },
       {
@@ -330,8 +330,8 @@
         "repositoryURL": "https://github.com/firebase/nanopb.git",
         "state": {
           "branch": null,
-          "revision": "c2d43e59d8ec880ed261366818f0cacc5c8cc2e6",
-          "version": "2.30907.0"
+          "revision": "7ee9ef9f627d85cbe1b8c4f49a3ed26eed216c77",
+          "version": "2.30908.0"
         }
       },
       {

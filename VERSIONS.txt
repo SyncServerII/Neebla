@@ -1,7 +1,10 @@
 Neebla
 
-Version 2.0.0 (TestFlight Build)
+Version 2.0.0 (TestFlight Build 20210411.0)
 	* Added Acks for images
+	* Update to iOSBasics 0.22.0: Version checking, failover, and bug fix.
+	* Update to iOSShared 0.11.1: Enabling alert messages to be queued and displayed one after another.
+	* Added in failover URL.
 
 Version 2.0.0 (TestFlight Build 20210406.1)
 	* Deal with Kickstarter line breaks in sharing extension.

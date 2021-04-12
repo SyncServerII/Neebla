@@ -40,7 +40,7 @@ class ServerInterface {
     let signIns: SignIns
     var observer: AnyObject!
     
-    init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String, db: Connection) throws {
+    init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String, failoverMessageURL: URL, db: Connection) throws {
         self.signIns = signIns
 
         if deviceUUIDString.value == nil {
@@ -66,9 +66,14 @@ class ServerInterface {
         var currentClientAppVersion: Version?
         if let versionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             currentClientAppVersion = try? Version(versionString)
+            if currentClientAppVersion == nil {
+                logger.error("Could not get currentClientAppVersion: App version string: \(versionString)")
+            }
         }
+        
+        let minimumServerVersion = Version("1.6.0")
     
-        let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: nil, currentClientAppVersion: currentClientAppVersion, failoverMessageURL: nil, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles)
+        let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: minimumServerVersion, currentClientAppVersion: currentClientAppVersion, failoverMessageURL: failoverMessageURL, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles)
                 
         syncServer = try SyncServer(hashingManager: hashingManager, db: db, requestable: Requestablity(), configuration: config, signIns: signIns, backgroundAsssertable: Background.session.backgroundAsssertable)
         logger.info("SyncServer initialized!")

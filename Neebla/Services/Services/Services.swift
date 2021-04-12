@@ -185,11 +185,19 @@ class Services {
             return
         }
         
+        
+        guard let failoverMessageURLString = configPlist.getValue(for: .failoverMessageURL),
+            let failoverMessageURL = URL(string: failoverMessageURLString) else {
+            logger.error("Cannot get failover message URL")
+            Self.setupState = .failure
+            return
+        }
+        
         let signIns = SignIns(signInServicesHelper: self)
         signIns.delegate = self
         
         do {
-            serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName, db: db)
+            serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName, failoverMessageURL: failoverMessageURL, db: db)
         } catch let error {
             logger.error("Could not start ServerInterface: \(error)")
             Self.setupState = .failure

@@ -13,6 +13,7 @@ enum ConfigKey: String {
     case GoogleClientId
     case GoogleServerClientId
     case cloudFolderName
+    case failoverMessageURL
 }
 
 class ConfigPlist {
