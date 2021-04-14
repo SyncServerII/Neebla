@@ -12,7 +12,7 @@ struct GoneImage: View {
     var body: some View {
         Image("Gone")
             .resizable()
-            .renderingMode(.template)
-            .foregroundColor(.red)
+            // Initially, "Gone" was black and white. When I switched it to color, and kept the `renderingMode`, the resizing doesn't work.
+            // .renderingMode(.template)
     }
 }

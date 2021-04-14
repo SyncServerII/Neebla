@@ -500,16 +500,6 @@ The name and characters used in the demo of this software are property of their 
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>File made by Viktor Vorobyev (https://thenounproject.com/term/lost-file/382440/)
-
-</string>
-			<key>Title</key>
-			<string>Gone icon</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>                                 Apache License                            Version 2.0, January 2004                         http://www.apache.org/licenses/ 
 
    TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION 
