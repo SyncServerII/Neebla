@@ -55,20 +55,21 @@ extension Services {
     }
     
     func redeemForCurrentUser(invitationCode: UUID) {
+        // Not checking if app is in foreground before showing the resulting alerts because this call is made while the app is transitioning from background to foreground.
         syncServer.redeemSharingInvitation(sharingInvitationUUID: invitationCode) { result in
             switch result {
             case .success:
                 DispatchQueue.main.async {
-                    showAlert(AlertyHelper.alert(title: "Success!", message: "You now have access to another album!"))
+                    showAlert(AlertyHelper.alert(title: "Success!", message: "You now have access to another album!"), checkForForeground: false)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
                     if let noNetwork = error as? Errors, noNetwork.networkIsNotReachable {
-                        showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
+                        showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."), checkForForeground: false)
                         return
                     }
 
-                    showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed redeeming sharing invitation. Has it expired? Have you redeemded it already?"))
+                    showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed redeeming sharing invitation. Has it expired? Have you redeemed it already?"), checkForForeground: false)
                     logger.error("\(error)")
                 }
             }

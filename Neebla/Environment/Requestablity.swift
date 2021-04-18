@@ -15,6 +15,20 @@ class Requestablity: ObservableObject, NetworkRequestable {
         return isReachable && AppState.session.current == .foreground
     }
     
+    func canMakeNetworkRequests(options:NetworkRequestableOptions) -> Bool {
+        var result = true
+        
+        if options.contains(.app) {
+            result = result && AppState.session.current == .foreground
+        }
+        
+        if options.contains(.network) {
+            result = result && isReachable
+        }
+        
+        return result
+    }
+    
     private var networkReachabilityObserver: AnyCancellable!
     
     // Using a default value of `true`: Hope for the best. This is related to detecting network connectivity in the sharing extension when it first starts. https://github.com/rwbutler/Hyperconnectivity/issues/1

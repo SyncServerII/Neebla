@@ -1,5 +1,16 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210417.0)
+	* Change to more interesting "Gone" icon.
+	* Enabling invitation redeeming to deal with both existing accounts and account creation.
+	* Reduce spurious alerts shown when app starts.
+	* Making canMakeNetworkRequests more flexible.
+	* Fix issues with sharing invitation acceptance-- messaging not being shown and invitations not being accepted because app transitioning from background to foreground.
+	* Added functionality to remove user from Neebla (see Settings in app)
+	* Settings list of albums that can be deleted-- now sorted.
+	* Now have confirmation message when album deleted.
+	* Fixed issues with checking for previously signed in user, when signing in.
+
 Version 2.0.0 (TestFlight Build 20210411.0)
 	* Added Acks for images
 	* Update to iOSBasics 0.22.0: Version checking, failover, and bug fix.

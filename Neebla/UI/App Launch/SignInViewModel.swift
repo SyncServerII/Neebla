@@ -27,7 +27,10 @@ class SignInViewModel: ObservableObject {
     
     init() {
         signInSubscription = Services.session.signInServices.manager.$userIsSignedIn.sink { [weak self] signedIn in
-            self?.userSignedIn = signedIn ?? false
+        
+            DispatchQueue.main.async {
+                self?.userSignedIn = signedIn ?? false
+            }
             
             do {
                 // Allowing nil user name because user creds may supply a nil user name.
@@ -49,7 +52,8 @@ extension SignInViewModel: SignInManagerDelegate {
     func sharingInvitationForSignedInUser(_ manager: SignInManager, invitation: Invitation) {
         guard let invitationCodeUUID = UUID(uuidString: invitation.code) else {
             DispatchQueue.main.async {
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "Bad invitation code"))
+                // Called while app is transitioning from background to foreground, so don't check if app is in foreground.
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Bad invitation code"), checkForForeground: false)
             }
             return
         }

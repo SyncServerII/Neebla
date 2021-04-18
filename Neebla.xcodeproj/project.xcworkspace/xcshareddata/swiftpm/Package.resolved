@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/facebook/facebook-ios-sdk.git",
         "state": {
           "branch": null,
-          "revision": "82dec0403c32d7b1d93529dcabb9fcb18f0825cc",
-          "version": "9.1.0"
+          "revision": "46a0b7416b20d86c36227f439026dc8102d5e7e2",
+          "version": "9.2.0"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "e94193e53bf19c4e2362d18a74164cb86632c711",
-          "version": "0.22.1"
+          "revision": "b2ac63ec461060101df9593e53af3b1ba8239c5e",
+          "version": "0.25.0"
         }
       },
       {
@@ -222,8 +222,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "0d6643c7db9fddee62ab48688d50ad7b39a98819",
-          "version": "0.11.1"
+          "revision": "b465e86931fe0b8531601041534554d97355d2bb",
+          "version": "0.12.0"
         }
       },
       {
@@ -231,8 +231,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSSIgnIn.git",
         "state": {
           "branch": null,
-          "revision": "a2f362ff79211f3ce258001c1e5a8f192f78070c",
-          "version": "0.4.0"
+          "revision": "466e1b09e1cdc1c176366f80466f86bc467a84f9",
+          "version": "0.4.1"
         }
       },
       {
@@ -375,8 +375,8 @@
         "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
         "state": {
           "branch": null,
-          "revision": "96642c2be2833e9062addaf259fc323a7cabdc9e",
-          "version": "0.6.0"
+          "revision": "41b4f0d09de1156d3e755970fc58c23b35d78552",
+          "version": "0.7.0"
         }
       },
       {
@@ -447,8 +447,8 @@
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
           "branch": null,
-          "revision": "e1904bf5a5f79cb7e0ff68a427a53a93b652fcd1",
-          "version": "1.15.0"
+          "revision": "bfe4255ff60f22a41cafa113059668571ed5d461",
+          "version": "1.16.0"
         }
       },
       {

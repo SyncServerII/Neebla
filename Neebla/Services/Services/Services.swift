@@ -271,6 +271,7 @@ extension Services: SharingInvitationHelper {
     }
     
     func sharingInvitationUserAlert(_ sharingInvitation: SharingInvitation, title: String, message: String) {
-        showAlert(AlertyHelper.alert(title: title, message: message))
+        // Called while app is transitioning from background to foreground, so don't check if app is in foreground.
+        showAlert(AlertyHelper.alert(title: title, message: message), checkForForeground: false)
     }
 }

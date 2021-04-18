@@ -94,16 +94,17 @@ class AlbumsViewModel: ObservableObject {
     }
 
     func getCurrentAlbums() -> [AlbumModel] {
-        if let albums = try? AlbumModel.fetch(db: Services.session.db, where: AlbumModel.deletedField.description == false) {
-            return albums.sorted(by: { (a1, a2) -> Bool in
-                let name1 = a1.albumName ?? AlbumModel.untitledAlbumName
-                let name2 = a2.albumName ?? AlbumModel.untitledAlbumName
-                return name1 < name2
-            })
-        }
-        else {
-            return []
-        }
+        return (try? Self.getSortedCurrentAlbums()) ?? []
+    }
+    
+    // Nil album names are sorted using `AlbumModel.untitledAlbumName`.
+    static func getSortedCurrentAlbums() throws -> [AlbumModel] {
+        let albums = try AlbumModel.fetch(db: Services.session.db, where: AlbumModel.deletedField.description == false)
+        return albums.sorted(by: { (a1, a2) -> Bool in
+            let name1 = a1.albumName ?? AlbumModel.untitledAlbumName
+            let name2 = a2.albumName ?? AlbumModel.untitledAlbumName
+            return name1 < name2
+        })
     }
     
     private func createNewAlbum(newAlbumName: String?) {

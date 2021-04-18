@@ -29,7 +29,7 @@ class AlbumListModalModel: ObservableObject {
        let albums:[AlbumModel]
         
         do {
-            albums = try AlbumModel.fetch(db: Services.session.db, where: AlbumModel.deletedField.description == false)
+            albums = try AlbumsViewModel.getSortedCurrentAlbums()
         } catch let error {
             logger.error("\(error)")
             showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed to fetch albums."))
@@ -54,6 +54,8 @@ class AlbumListModalModel: ObservableObject {
             }
             
             // At this point, the sync carried out by `removeFromSharingGroup` may not have completed. Rely on our `sync` listener for that.
+            
+            showAlert(AlertyHelper.alert(title: "Success", message: "You have been removed from the album."))
         }
     }
 }

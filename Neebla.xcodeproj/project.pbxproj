@@ -252,6 +252,7 @@
 		83D2FBE025C294B500E378F7 /* iOSDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 83D2FBDF25C294B500E378F7 /* iOSDropbox */; };
 		83D2FBE925C3A59500E378F7 /* iOSFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 83D2FBE825C3A59500E378F7 /* iOSFacebook */; };
 		83D2FBF225C3A6D500E378F7 /* FileLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 83D2FBF125C3A6D500E378F7 /* FileLogging */; };
+		83D346F2262BA8710084393D /* RemoveUserSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D346F1262BA8710084393D /* RemoveUserSheet.swift */; };
 		83D5CF392564C2520018DE7C /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5CF382564C2520018DE7C /* Downloader.swift */; };
 		83D8CC0425B956200069E3E5 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 83D8CC0325B956200069E3E5 /* SideMenu */; };
 		83D8CC1425B97E570069E3E5 /* IconConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D8CC1325B97E570069E3E5 /* IconConfig.swift */; };
@@ -504,6 +505,7 @@
 		83C73941259966470073788A /* URLItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLItemProvider.swift; sourceTree = "<group>"; };
 		83CE1EA625707E79004A418B /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		83CE1EAC257080EE004A418B /* BasicEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicEquatable.swift; sourceTree = "<group>"; };
+		83D346F1262BA8710084393D /* RemoveUserSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveUserSheet.swift; sourceTree = "<group>"; };
 		83D5CF382564C2520018DE7C /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		83D8CC1325B97E570069E3E5 /* IconConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconConfig.swift; sourceTree = "<group>"; };
 		83D8CC1F25BA7F2B0069E3E5 /* LowerRightText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerRightText.swift; sourceTree = "<group>"; };
@@ -932,6 +934,7 @@
 			children = (
 				8331F3FB255F82ED0063A67D /* SettingsScreen.swift */,
 				83F49B9226080C3B00814A2A /* SettingsTopContent.swift */,
+				83D346F1262BA8710084393D /* RemoveUserSheet.swift */,
 				8331F4C02560FFC70063A67D /* SettingsScreenModel.swift */,
 				832D345B25871AFE00FEF094 /* AlbumListModal.swift */,
 				839F1DFB25FEC6AF0089C13F /* AboutApp */,
@@ -1835,6 +1838,7 @@
 				839F1DDD25FEBA160089C13F /* GIFHelper.swift in Sources */,
 				8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */,
 				839F1DE925FEBE710089C13F /* UserDisplayable+Extras.swift in Sources */,
+				83D346F2262BA8710084393D /* RemoveUserSheet.swift in Sources */,
 				839F1DF225FEC52B0089C13F /* AboutApp.swift in Sources */,
 				837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */,
 				83F41687259C21EC003C7200 /* View+iPad.swift in Sources */,
@@ -1949,7 +1953,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210411.0;
+				CURRENT_PROJECT_VERSION = 20210417.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1973,7 +1977,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210411.0;
+				CURRENT_PROJECT_VERSION = 20210417.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2160,7 +2164,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210411.0;
+				CURRENT_PROJECT_VERSION = 20210417.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
@@ -2190,7 +2194,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210411.0;
+				CURRENT_PROJECT_VERSION = 20210417.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;

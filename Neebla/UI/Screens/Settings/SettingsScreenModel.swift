@@ -12,6 +12,7 @@ class SettingsScreenModel:ObservableObject {
         case albumList
         case emailDeveloper(addAttachments: AddEmailAttachments?)
         case aboutApp
+        case removeUser
         
         var id: Int {
             switch self {
@@ -21,6 +22,8 @@ class SettingsScreenModel:ObservableObject {
                 return 1
             case .aboutApp:
                 return 2
+            case .removeUser:
+                return 3
             }
         }
     }

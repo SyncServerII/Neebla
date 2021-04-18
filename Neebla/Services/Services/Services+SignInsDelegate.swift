@@ -13,15 +13,9 @@ import iOSShared
 
 extension Services: iOSBasics.SignInsDelegate {
     func signInCompleted(_ signIns: SignIns, userInfo: CheckCredsResponse.UserInfo) {
-        if let priorSignedInUserId = syncServerUserId {
-            // There was a user signed in before. Check if it was the same user as before, and if not if the prior user had data.
-            if priorSignedInUserId != userInfo.userId {
-                if priorUserWithData() {
-                    return
-                }
-            }
+        if checkForDifferentPriorUserWithData(userState: .userSignedIn(userInfo.userId)) {
+            return
         }
-        // Else: No user signed in before.
         
         if let fullUserName = userInfo.fullUserName {
             signInServices.manager.currentSignIn?.updateUserName(fullUserName)
@@ -36,19 +30,32 @@ extension Services: iOSBasics.SignInsDelegate {
     }
     
     func newOwningUserCreated(_ signIns: SignIns) {
-        if !priorUserWithData(additionalMessage: "A new owning user was created") {
+        if !checkForDifferentPriorUserWithData(userState: .newUser, additionalMessage: "A new owning user was created") {
             showAlert(AlertyHelper.alert(title: "Success!", message: "Created new owning user! You are now signed in too!"))
         }
     }
-    
-    func invitationAcceptedAndUserCreated(_ signIns: SignIns) {
-        if !priorUserWithData(additionalMessage: "A new sharing user was created") {
-            showAlert(AlertyHelper.alert(title: "Success!", message: "Created new sharing user! You are now signed in too!"))
+
+    func invitationAccepted(_ signIns: SignIns, redeemResult: RedeemResult) {
+        let userState:Services.UserState
+        if redeemResult.userCreated {
+            userState = .newUser
+        }
+        else {
+            userState = .userSignedIn(redeemResult.userId)
+        }
+
+        if !checkForDifferentPriorUserWithData(userState: userState, additionalMessage: "A new sharing user was created") {
+            if redeemResult.userCreated {
+                showAlert(AlertyHelper.alert(title: "Success!", message: "Accepted invitation, and created new sharing user! You are now signed in too!"))
+            }
+            else {
+                showAlert(AlertyHelper.alert(title: "Success!", message: "Accepted invitation! You are now signed in too!"))
+            }
         }
     }
     
     func userIsSignedOut(_ signIns: SignIns) {
-        syncServerUserId = nil
+        // Not going to set syncServerUserId to nil. I want to keep track of the prior signed user even if they sign out. So, if they sign back in, we can check if their data is present.
     }
     
     func setCredentials(_ signIns: SignIns, credentials: GenericCredentials?) {
@@ -56,10 +63,26 @@ extension Services: iOSBasics.SignInsDelegate {
 }
 
 extension Services {
-    // Assumes that the new user is a different user.
+    enum UserState {
+        case newUser
+        case userSignedIn(UserId)
+    }
+    
     @discardableResult
-    func priorUserWithData(additionalMessage: String? = nil) -> Bool {
-        // There was a user signed in before. Check if it was the same user as before, and if not if the prior user had data.
+    func checkForDifferentPriorUserWithData(userState: UserState, additionalMessage: String? = nil) -> Bool {
+        
+        if let priorSignedInUserId = syncServerUserId {
+            switch userState {
+            case .newUser:
+                // Check to see if there is data present.
+                break
+            case .userSignedIn(let userId):
+                if priorSignedInUserId == userId {
+                    return false
+                }
+            }
+        }
+        
         var albums = [AlbumModel]()
         do {
             albums = try AlbumModel.fetch(db: Services.session.db)

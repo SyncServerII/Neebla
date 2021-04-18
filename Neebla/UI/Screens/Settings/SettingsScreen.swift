@@ -40,6 +40,12 @@ struct SettingsScreenBody: View {
                         .bold()
                     Text(settingsModel.versionAndBuild)
                 }
+                                
+                Button(action: {
+                    settingsModel.sheet = .removeUser
+                }, label: {
+                    Text("Remove yourself")
+                })                
                 
                 Spacer().frame(height: 5)
             }
@@ -53,7 +59,11 @@ struct SettingsScreenBody: View {
                 MailView(emailContents: emailDeveloper, addAttachments: addAttachments, result: $settingsModel.sendMailResult)
             case .aboutApp:
                 AboutApp()
+            case .removeUser:
+                RemoveUserSheet()
             }
         }
     }
 }
+
+
