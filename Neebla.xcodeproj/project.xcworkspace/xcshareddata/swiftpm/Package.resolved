@@ -213,8 +213,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSGoogle",
         "state": {
           "branch": null,
-          "revision": "e7be2a29097f8b80ceda559aada904616f6c65e9",
-          "version": "0.3.1"
+          "revision": "5b542159e7d2ef098b44a96294d2957995283baa",
+          "version": "0.3.2"
         }
       },
       {
@@ -231,8 +231,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSSIgnIn.git",
         "state": {
           "branch": null,
-          "revision": "466e1b09e1cdc1c176366f80466f86bc467a84f9",
-          "version": "0.4.1"
+          "revision": "5a005e2b3de38ef1e76650d3cb16909b9bc26961",
+          "version": "0.4.2"
         }
       },
       {

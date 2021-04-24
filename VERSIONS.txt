@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210424.0)
+	* Fix credentials refresh issue.
+
 Version 2.0.0 (TestFlight Build 20210417.0)
 	* Change to more interesting "Gone" icon.
 	* Enabling invitation redeeming to deal with both existing accounts and account creation.
