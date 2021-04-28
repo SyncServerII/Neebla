@@ -191,6 +191,7 @@
 		83B657DF255B81330041B9DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83B657DE255B81330041B9DF /* Assets.xcassets */; };
 		83B657E2255B81330041B9DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83B657E1255B81330041B9DF /* Preview Assets.xcassets */; };
 		83B657E5255B81330041B9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B657E3255B81330041B9DF /* LaunchScreen.storyboard */; };
+		83B8B7F52638ED260006F9A5 /* DetectV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B8B7F42638ED260006F9A5 /* DetectV1.swift */; };
 		83BC889F26055CE300AE365D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 83BC889E26055CE300AE365D /* FirebaseCrashlytics */; };
 		83BC88AE2605617B00AE365D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83BC88AD2605617B00AE365D /* GoogleService-Info.plist */; };
 		83BC88B926056FEC00AE365D /* ObjectDownloadHandler+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BC88B826056FEC00AE365D /* ObjectDownloadHandler+Extras.swift */; };
@@ -475,6 +476,7 @@
 		83B657E1255B81330041B9DF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		83B657E4255B81330041B9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83B657E6255B81330041B9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83B8B7F42638ED260006F9A5 /* DetectV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectV1.swift; sourceTree = "<group>"; };
 		83BC88AD2605617B00AE365D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		83BC88B826056FEC00AE365D /* ObjectDownloadHandler+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectDownloadHandler+Extras.swift"; sourceTree = "<group>"; };
 		83BC88C22605748200AE365D /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
@@ -1182,6 +1184,7 @@
 				8367503425E31F0C003957BE /* Requestablity.swift */,
 				83BC88C22605748200AE365D /* Background.swift */,
 				839F1E2E26006BF00089C13F /* AppState.swift */,
+				83B8B7F42638ED260006F9A5 /* DetectV1.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -1809,6 +1812,7 @@
 				8331F4672560BE0E0063A67D /* AlbumItemsViewModel.swift in Sources */,
 				8331F4BA2560F7300063A67D /* ImageObjectType.swift in Sources */,
 				8320A6FA256CC64700819377 /* URLLargeMedia.swift in Sources */,
+				83B8B7F52638ED260006F9A5 /* DetectV1.swift in Sources */,
 				83C4365C258F2E3200F34628 /* ConfigPlist.swift in Sources */,
 				8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */,
 				8308B724256B4B73007F0CEB /* ImageIcon.swift in Sources */,
@@ -1953,7 +1957,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210424.0;
+				CURRENT_PROJECT_VERSION = 20210427.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1977,7 +1981,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210424.0;
+				CURRENT_PROJECT_VERSION = 20210427.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2164,7 +2168,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210424.0;
+				CURRENT_PROJECT_VERSION = 20210427.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
@@ -2194,7 +2198,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210424.0;
+				CURRENT_PROJECT_VERSION = 20210427.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;

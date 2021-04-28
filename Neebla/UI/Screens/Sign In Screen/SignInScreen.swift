@@ -18,12 +18,23 @@ struct SignInScreen: View {
             VStack {
                 if !Services.setupState.isComplete {
                     Text("Setup Failure!")
+                        .font(.title)
                         .background(Color.red)
                 }
-
-                Services.session.signInServices.signInView
+                else if DetectV1.session.isV1 {
+                    Text("Please remove this app and then re-download the v2 Neebla app.")
+                        .font(.title)
+                }
+                else {
+                    Services.session.signInServices.signInView
+                }
             }
             .alertyDisplayer(show: $alerty.show, subscriber: alerty)
+            .onAppear() {
+                if DetectV1.session.isV1 {
+                    showAlert(AlertyHelper.alert(title: "Alert!", message: "You are trying to install the v2 Neebla app and you had the v1 app installed before. You must first remove the v1 app and then install the v2 app."))
+                }
+            }
         }
     }
 }

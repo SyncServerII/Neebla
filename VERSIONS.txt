@@ -1,5 +1,10 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210427.0)
+	* Use updated `iOSGoogle`-- fix credentials refresh issue.
+	* Use updated `iOSFacebook`-- fix credentials refresh issue.
+	* Add v1 app detection; require user to remove app and install v2 app.
+
 Version 2.0.0 (TestFlight Build 20210424.0)
 	* Fix credentials refresh issue.
 
