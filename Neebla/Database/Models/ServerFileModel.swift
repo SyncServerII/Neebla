@@ -55,6 +55,10 @@ class ServerFileModel: DatabaseModel {
     static let downloadStatusField = Field("downloadStatus", \M.downloadStatus)
     var downloadStatus: DownloadStatus = .notDownloaded
     
+    // New as of 5/8/21; Migration needed.
+    static let appMetaDataField = Field("appMetaData", \M.appMetaData)
+    var appMetaData: String?
+    
     init(db: Connection,
         id: Int64! = nil,
         fileGroupUUID: UUID,
@@ -64,7 +68,8 @@ class ServerFileModel: DatabaseModel {
         gone: Bool = false,
         url: URL? = nil,
         unreadCount: Int? = nil,
-        readCount: Int? = nil) throws {
+        readCount: Int? = nil,
+        appMetaData: String? = nil) throws {
         
         self.db = db
         self.id = id
@@ -76,6 +81,7 @@ class ServerFileModel: DatabaseModel {
         self.unreadCount = unreadCount
         self.readCount = readCount
         self.downloadStatus = downloadStatus
+        self.appMetaData = appMetaData
     }
     
     // MARK: DatabaseModel
@@ -91,7 +97,14 @@ class ServerFileModel: DatabaseModel {
             t.column(unreadCountField.description)
             t.column(readCountField.description)
             t.column(downloadStatusField.description)
+            
+            // Added in migration
+            // t.column(appMetaDataField.description)
         }
+    }
+    
+    static func migration_2021_5_8(db: Connection) throws {
+        try addColumn(db: db, column: appMetaDataField.description)
     }
     
     static func rowToModel(db: Connection, row: Row) throws -> ServerFileModel {
@@ -104,7 +117,8 @@ class ServerFileModel: DatabaseModel {
             gone: row[Self.goneField.description],
             url: row[Self.urlField.description],
             unreadCount: row[Self.unreadCountField.description],
-            readCount: row[Self.readCountField.description]
+            readCount: row[Self.readCountField.description],
+            appMetaData: row[Self.appMetaDataField.description]
         )
     }
     
@@ -117,7 +131,8 @@ class ServerFileModel: DatabaseModel {
             Self.urlField.description <- url,
             Self.unreadCountField.description <- unreadCount,
             Self.readCountField.description <- readCount,
-            Self.downloadStatusField.description <- downloadStatus
+            Self.downloadStatusField.description <- downloadStatus,
+            Self.appMetaDataField.description <- appMetaData
         )
     }
 }
@@ -286,7 +301,8 @@ extension Array where Element == DownloadedFile {
             }
             
             try fileModel.update(setters: ServerFileModel.downloadStatusField.description <- downloadStatus,
-                ServerFileModel.goneField.description <- gone
+                ServerFileModel.goneField.description <- gone,
+                ServerFileModel.appMetaDataField.description <- file.appMetaData
             )
             
             fileModel.postDownloadStatusUpdateNotification()

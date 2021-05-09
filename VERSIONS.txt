@@ -1,5 +1,11 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build)
+	* Use updated `iOSBasics` -- fixing server down "bad version" issue.
+		And db migration support.
+	* Use updated `iOSShared` -- db migration support.
+	* Added appMetaData field to ServerFileModel db table. With migration.
+	
 Version 2.0.0 (TestFlight Build 20210427.0)
 	* Use updated `iOSGoogle`-- fix credentials refresh issue.
 	* Use updated `iOSFacebook`-- fix credentials refresh issue.

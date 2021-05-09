@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/facebook/facebook-ios-sdk.git",
         "state": {
           "branch": null,
-          "revision": "46a0b7416b20d86c36227f439026dc8102d5e7e2",
-          "version": "9.2.0"
+          "revision": "c3d367656ae8ced1149c2c6a5e6b5dd91ecad63c",
+          "version": "9.3.0"
         }
       },
       {
@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "1c47ea135322768023ecdcc9db79bf3df821209f",
-          "version": "7.3.0"
+          "revision": "66f5945ac3a4c4ac268bf94c31f226116b14e327",
+          "version": "7.4.0"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "b2ac63ec461060101df9593e53af3b1ba8239c5e",
-          "version": "0.25.0"
+          "revision": "a444333e26257f109dd113c285d5a16f1f0a2fd3",
+          "version": "0.26.0"
         }
       },
       {
@@ -222,8 +222,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "b465e86931fe0b8531601041534554d97355d2bb",
-          "version": "0.12.0"
+          "revision": "73adec73a25df7db72f8874c3f96cb48e8287ebf",
+          "version": "0.13.0"
         }
       },
       {

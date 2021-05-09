@@ -111,6 +111,7 @@ class Services {
     
     // Neebla database
     var db:Connection!
+    
     weak var delegate: ServicesDelegate?
     
     var userEvents = AlertyPublisher()
@@ -156,12 +157,14 @@ class Services {
             db = try Connection(dbURL.path, additionalFlags: SQLITE_OPEN_FILEPROTECTION_NONE)
             // dbURL.enableAccessInBackground()
             try SetupDatabase.setup(db: db)
+            let migrationController = try Migration(db: db)
+            try migrationController.run(migrations: Migration.all(db: db))
         } catch let error {
             logger.error("\(error)")
             Self.setupState = .failure
             return
         }
-
+        
         guard let path = Bundle.main.path(forResource: Self.plistServerConfig.0, ofType: Self.plistServerConfig.1) else {
             Self.setupState = .failure
             return
