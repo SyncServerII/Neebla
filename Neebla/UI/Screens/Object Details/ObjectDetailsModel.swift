@@ -34,6 +34,16 @@ class ObjectDetailsModel: ObservableObject {
             success = false
         }
         
+        /* Workaround for early version of app, when the title was stored in the app meta data for images.
+         */
+        if mediaTitle == nil {
+            do {
+                mediaTitle = try OldAppImage.getTitle(object: object)
+            } catch let error {
+                logger.error("OldAppImage.getTitle: \(error)")
+            }
+        }
+        
         modelInitialized = success
     }
     
