@@ -206,6 +206,7 @@ extension AlbumModel {
             // Is this local album on the server?
             let onServer = sharingGroups.filter {$0.sharingGroupUUID == localAlbum.sharingGroupUUID}.count == 1
             if !onServer {
+                logger.notice("Album was not on server; removing it locally.")
                 // Not on server: Remove it locally.
                 try localAlbum.update(setters: AlbumModel.deletedField.description <- true)
                 try albumDeletionCleanup(db: db, sharingGroupUUID: localAlbum.sharingGroupUUID)

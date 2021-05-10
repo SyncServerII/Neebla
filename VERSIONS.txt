@@ -1,12 +1,14 @@
 Neebla
 
-Version 2.0.0 (TestFlight Build)
+Version 2.0.0 (TestFlight Build 20210509.0)
 	* Use updated `iOSBasics` -- fixing server down "bad version" issue.
 		And db migration support.
 	* Use updated `iOSShared` -- db migration support.
 	* Added appMetaData field to ServerFileModel db table. With migration.
 	* Added work-around for images saved using old version of app to get title of images
 		from appMetaData field.
+	* Added further info when user sends logs to developer.
+		AlbumModel's-- trying to diagnose issue.
 	
 Version 2.0.0 (TestFlight Build 20210427.0)
 	* Use updated `iOSGoogle`-- fix credentials refresh issue.
