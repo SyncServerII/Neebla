@@ -68,6 +68,11 @@ extension MediaItemUnreadCount {
         DispatchQueue.global().async {
             do {
                 for object in objects {
+                    // Not going to continue if the app is in the background. Don't update the UI in the background.
+                    guard AppState.session.current == .foreground else {
+                        return
+                    }
+                    
                     let commentFileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.comments, withFileGroupUUID: object.fileGroupUUID)
                     try Comments.resetReadCounts(commentFileModel: commentFileModel)
                 }
