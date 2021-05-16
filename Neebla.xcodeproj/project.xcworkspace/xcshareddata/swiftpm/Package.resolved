@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "66f5945ac3a4c4ac268bf94c31f226116b14e327",
-          "version": "7.4.0"
+          "revision": "58359415d4ea29ebdc8fa5b41ce96c434d76d901",
+          "version": "7.4.1"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "a444333e26257f109dd113c285d5a16f1f0a2fd3",
-          "version": "0.26.0"
+          "revision": "bde7df9218a3c28ba576bfe168d36732fbc4c545",
+          "version": "0.27.0"
         }
       },
       {
@@ -222,8 +222,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "73adec73a25df7db72f8874c3f96cb48e8287ebf",
-          "version": "0.13.0"
+          "revision": "4655ac006819e498c047e53f240115f926583c24",
+          "version": "0.14.0"
         }
       },
       {
@@ -321,8 +321,8 @@
         "repositoryURL": "https://github.com/MessageKit/MessageKit",
         "state": {
           "branch": null,
-          "revision": "bdb07821037d7760041c979d7986774a0edb06ef",
-          "version": "3.6.0"
+          "revision": "7ec2a9680af3af0eee06d503362f48ef79374db1",
+          "version": "3.6.1"
         }
       },
       {
@@ -375,8 +375,8 @@
         "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
         "state": {
           "branch": null,
-          "revision": "41b4f0d09de1156d3e755970fc58c23b35d78552",
-          "version": "0.7.0"
+          "revision": "c688da328adfe062498b74fe63fbff6ef4dde2e0",
+          "version": "0.8.0"
         }
       },
       {
@@ -420,8 +420,8 @@
         "repositoryURL": "https://github.com/yonat/SweeterSwift",
         "state": {
           "branch": null,
-          "revision": "783afac9c3492e905ab3f5afea4069a737edfc40",
-          "version": "1.1.4"
+          "revision": "375a2603e98c8b59c53c9d2096f5443d78861bff",
+          "version": "1.1.5"
         }
       },
       {
@@ -447,8 +447,8 @@
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
           "branch": null,
-          "revision": "bfe4255ff60f22a41cafa113059668571ed5d461",
-          "version": "1.16.0"
+          "revision": "1f62db409f2c9b0223a3f68567b4a01333aae778",
+          "version": "1.17.0"
         }
       },
       {

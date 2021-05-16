@@ -14,7 +14,7 @@ enum SpecificMigration {
     public static let m2021_5_8: Int32 = 2021_5_8
 }
 
-class Migration: MigrationController {
+class Migration: VersionedMigrationRunner {
     private static let _schemaVersion = try! PersistentValue<Int>(name: "Neebla.MigrationController.schemaVersion", storage: .userDefaults)
     
     static var schemaVersion: Int32? {

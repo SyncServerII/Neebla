@@ -138,15 +138,23 @@ extension AlbumModel {
                 try albumModel.update(setters:
                     AlbumModel.albumNameField.description <- sharingGroup.sharingGroupName)
             }
-
-            if sharingGroup.deleted {
+                        
+            // Albums can be deleted or undeleted. Undeletion occurs when a user is removed from an album, then re-added. Making sure to consider both cases.
+            if sharingGroup.deleted != albumModel.deleted {
                 try albumModel.update(setters:
-                    AlbumModel.deletedField.description <- sharingGroup.deleted,
-                    AlbumModel.needsDownloadField.description <- false)
-                try albumDeletionCleanup(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID)
-                albumModel.postNeedsDownloadUpdateNotification()
+                    AlbumModel.deletedField.description <- sharingGroup.deleted)
+                    
+                if sharingGroup.deleted {
+                    // Album is newly deleted. We didn't have it recorded as deleted previously.
+                    try albumModel.update(setters:
+                        AlbumModel.needsDownloadField.description <- false)
+                    try albumDeletionCleanup(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID)
+                    albumModel.postNeedsDownloadUpdateNotification()
+                }
             }
-            else if let contentsSummary = sharingGroup.contentsSummary {
+
+            if !sharingGroup.deleted,
+                let contentsSummary = sharingGroup.contentsSummary {
                 guard let idDate = contentsSummary.mostRecentDate() else {
                     return
                 }
@@ -197,23 +205,7 @@ extension AlbumModel {
     }
     
     // If `contentsSummary` is present in SharingGroup's, they will be updated.
-    static func upsertSharingGroups(db: Connection, sharingGroups: [iOSBasics.SharingGroup]) throws {
-    
-        // First, need to deal with case of albums that we have locally but which are not listed on server. Those have been deleted.
-        let localAlbums = try AlbumModel.fetch(db: db)
-        
-        for localAlbum in localAlbums {
-            // Is this local album on the server?
-            let onServer = sharingGroups.filter {$0.sharingGroupUUID == localAlbum.sharingGroupUUID}.count == 1
-            if !onServer {
-                logger.notice("Album was not on server; removing it locally.")
-                // Not on server: Remove it locally.
-                try localAlbum.update(setters: AlbumModel.deletedField.description <- true)
-                try albumDeletionCleanup(db: db, sharingGroupUUID: localAlbum.sharingGroupUUID)
-            }
-        }
-        
-        // Second, update albums on the basis of the sharing groups.
+    static func upsertSharingGroups(db: Connection, sharingGroups: [iOSBasics.SharingGroup]) throws {        
         for sharingGroup in sharingGroups {
             try upsertSharingGroup(db: db, sharingGroup: sharingGroup)
         }

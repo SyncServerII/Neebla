@@ -1,5 +1,11 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210515.0)
+	* Use updated `iOSBasics` -- fix sharing group user deletion issue.
+		See https://github.com/SyncServerII/Neebla/issues/12
+		No longer considering an album deleted just if we don't get a report about it from the server.
+	* Use updated `iOSShared` -- improving db migration support.
+
 Version 2.0.0 (TestFlight Build 20210509.0)
 	* Use updated `iOSBasics` -- fixing server down "bad version" issue.
 		And db migration support.
