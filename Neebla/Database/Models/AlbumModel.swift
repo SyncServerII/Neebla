@@ -224,6 +224,11 @@ extension AlbumModel {
                 try fileModel.delete()
             }
             try objectModel.delete()
+            
+            // Need to also inform the SyncServer interface-- this is in case the album is ever re-added by user. Possibly this can be done automatically by `iOSBasics`. I.e., when a sharing group is marked as deleted this could possibly be done too. However, the timing is a little tricky. I don't want these to get re-downloaded by accident. Or to have a bunch of errors occur if download attempts are made, since the user isn't in the album any more.
+            let files = fileModels.map { NotDownloadedFile(uuid: $0.fileUUID) }
+            let object = NotDownloadedObject(sharingGroupUUID: sharingGroupUUID, fileGroupUUID: objectModel.fileGroupUUID, downloads: files)
+            try Services.session.syncServer.markAsNotDownloaded(object: object)
         }
     }
     

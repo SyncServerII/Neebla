@@ -1,5 +1,10 @@
 Neebla
-
+ 
+Version 2.0.0 (TestFlight Build)
+	* Use updated `iOSBasics` -- fix album deletion issue.
+	* When an album is deleted, those items in iOSBasics are now marked as needing download
+	* These two changes now enable an album to be added then later re-added.
+	
 Version 2.0.0 (TestFlight Build 20210515.0)
 	* Use updated `iOSBasics` -- fix sharing group user deletion issue.
 		See https://github.com/SyncServerII/Neebla/issues/12

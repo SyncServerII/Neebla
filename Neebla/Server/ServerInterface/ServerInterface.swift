@@ -172,12 +172,18 @@ extension ServerInterface: SyncServerDelegate {
         logger.info("downloadQueue: \(event)")
     }
     
-    func objectMarkedAsDownloaded(_ syncServer: SyncServer, fileGroupUUID: UUID) {
+    func objectMarked(_ syncServer: SyncServer, withDownloadState state: DownloadState, fileGroupUUID: UUID) {
         guard AppState.session.current == .foreground else {
             return
         }
         
-        self.objectMarkedAsDownloaded.send(fileGroupUUID)
+        switch state {
+        case .downloaded:
+            self.objectMarkedAsDownloaded.send(fileGroupUUID)
+
+        case .notDownloaded:
+            logger.info("Object marked as not downloaded: file group: \(fileGroupUUID)")
+        }
     }
 
     // Request to server for upload deletion completed successfully.
