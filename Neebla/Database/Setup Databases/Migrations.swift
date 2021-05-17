@@ -15,7 +15,17 @@ enum SpecificMigration {
 }
 
 class Migration: VersionedMigrationRunner {
-    private static let _schemaVersion = try! PersistentValue<Int>(name: "Neebla.MigrationController.schemaVersion", storage: .userDefaults)
+    // From my evaluation so far, using PersistentValue with user defaults doesn't work. See also https://github.com/sunshinejr/SwiftyUserDefaults/issues/282
+    private static let _schemaVersionDeprecated = try! PersistentValue<Int>(name: "Neebla.MigrationController.schemaVersion", storage: .userDefaults)
+    private static let _schemaVersion = try! PersistentValue<Int>(name: "Neebla.MigrationController.schemaVersion", storage: .file)
+    
+    // Migrate from using user defaults to using file-based storage with `PersistentValue`. Only does the migration if needed. Should be able remove this after getting a TestFlight build or two to Rod and Dany. Don't need to include this in final 2.0.0 release. Can remove `_schemaVersionDeprecated` then too.
+    private func migrate() {
+        if let value = Self._schemaVersionDeprecated.value,
+            Self._schemaVersion.value == nil {
+            Self._schemaVersion.value = value
+        }
+    }
     
     static var schemaVersion: Int32? {
         get {
@@ -39,6 +49,7 @@ class Migration: VersionedMigrationRunner {
     
     init(db:Connection) throws {
         self.db = db
+        migrate()
     }
     
     static func all(db: Connection) -> [iOSShared.Migration] {
