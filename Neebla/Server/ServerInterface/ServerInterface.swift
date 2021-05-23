@@ -71,7 +71,7 @@ class ServerInterface {
             }
         }
         
-        let minimumServerVersion = Version("1.6.0")
+        let minimumServerVersion = Version("1.9.0")
     
         let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: minimumServerVersion, currentClientAppVersion: currentClientAppVersion, failoverMessageURL: failoverMessageURL, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles)
                 
@@ -129,9 +129,7 @@ extension ServerInterface: SyncServerDelegate {
                 let message = error.userDisplayableMessage {
                 showAlert(AlertyHelper.alert(title: message.title, message: message.message))
             }
-            else {
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "There was a server error."))
-            }
+            // TODO: Have more errors conform to UserDisplable: https://github.com/SyncServerII/Neebla/issues/13
 
         case .showAlert(title: let title, message: let message):
             showAlert(AlertyHelper.alert(title: title, message: message))
@@ -139,18 +137,18 @@ extension ServerInterface: SyncServerDelegate {
     }
     
     func syncCompleted(_ syncServer: SyncServer, result: SyncResult) {
-        logger.info("syncCompleted: \(result)")
-        
         do {
             try syncHelper(result: result)
         } catch let error {
             logger.error("\(String(describing: error))")
-            guard AppState.session.current == .foreground else {
-                return
-            }
             
-            showAlert(AlertyHelper.alert(title: "Alert!", message: "There was a server error."))
+            // TODO: Have errors conform to UserDisplable: https://github.com/SyncServerII/Neebla/issues/13
+            
+            // Not much point in reporting sync completed since we got an error. Just return.
+            return
         }
+        
+        logger.info("syncCompleted: \(result)")
 
         guard AppState.session.current == .foreground else {
             return
