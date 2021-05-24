@@ -37,6 +37,7 @@ class ServerFileModel: DatabaseModel {
     static let unreadCountField = Field("unreadCount", \M.unreadCount)
     var unreadCount: Int?
 
+    // The number of comments in the comment file the current (device) user has read. In practice, when changed, this always gets set to the current number of comments in the comment file-- i.e., to indicate that the user has read all current comments in the file.
     static let readCountField = Field("readCount", \M.readCount)
     var readCount: Int?
     

@@ -1,5 +1,9 @@
 Neebla
 
+Version 2.0.0 (TestFlight Build 20210523.0)
+	* Use latest `iOSApple` library-- improve Apple Sign In button to better conform
+		to Apple's guidelines (due to Apple rejection).
+	
 Version 2.0.0 (TestFlight Build 20210522.0)
 	* Have taken out "There was a server error." generic errors.
 	* Update minimumServerVersion
