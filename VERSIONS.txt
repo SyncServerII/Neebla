@@ -1,6 +1,14 @@
 Neebla
 
-Version 2.0.0 (TestFlight Build 20210523.0)
+Version 2 (TestFlight Build)
+	* Change some of the logging when sending an email to developer to `notice` from `error`
+		These still hit the logs. (They were not errors in the first place.)
+	* Change a couple of other log messages from `error` to `warning` so they don't hit the
+		production logs. They were not serious issues.
+	* Fix Rod's issue: Live image audio plays again when you enter discussions 
+		and when you exit the item.
+
+Version 2.0.0 (TestFlight Build 20210523.0); This is the actual app store release of v2.0.0
 	* Use latest `iOSApple` library-- improve Apple Sign In button to better conform
 		to Apple's guidelines (due to Apple rejection).
 	

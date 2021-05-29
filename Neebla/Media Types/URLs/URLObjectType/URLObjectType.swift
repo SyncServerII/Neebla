@@ -145,7 +145,7 @@ extension URLObjectType: MediaTypeActivityItems {
         }
 
         guard let urlFile = urlFileModel.url else {
-            logger.error("No url with url file!")
+            logger.warning("No url with url file!")
             throw URLObjectTypeError.couldNotGetURLFile
         }
         

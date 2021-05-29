@@ -7,10 +7,12 @@ import iOSShared
 struct LiveImageView: UIViewRepresentable {
     let view: PHLivePhotoView
     let model:LiveImageViewModel
+    let state:LiveImageViewState
     // let delegate = LiveImageLargeMediaDelegate()
     
-    init(model:LiveImageViewModel) {
+    init(model:LiveImageViewModel, state:LiveImageViewState) {
         self.model = model
+        self.state = state
         
         let view = PHLivePhotoView()
         // Without this, in landscape mode, I don't get proper scaling of the image.
@@ -25,7 +27,7 @@ struct LiveImageView: UIViewRepresentable {
             let movieURL = model.movieURL else {
             return
         }
-        
+                
         LiveImageViewModel.getLivePhoto(image: imageURL, movie: movieURL, previewImage: nil) { livePhoto in
             view.livePhoto = livePhoto
         }
@@ -36,15 +38,19 @@ struct LiveImageView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
+        play()
+    }
+    
+    func play() {
         guard !model.error else {
             return
         }
         
-        guard !model.started else {
+        guard !state.play else {
             return
         }
         
-        model.started = true
+        state.play = true
         view.startPlayback(with: .full)
     }
 }

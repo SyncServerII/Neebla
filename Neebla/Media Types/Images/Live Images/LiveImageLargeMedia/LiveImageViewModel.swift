@@ -11,7 +11,6 @@ class LiveImageViewModel {
     var movieURL: URL?
     private(set) var gone: Bool = false
     private(set) var error: Bool = true
-    var started = false
     
     init(fileGroupUUID: UUID) {
         do {

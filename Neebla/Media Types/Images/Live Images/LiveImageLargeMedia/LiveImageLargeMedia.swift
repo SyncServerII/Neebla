@@ -4,6 +4,10 @@ import SwiftUI
 
 struct LiveImageLargeMedia: View {
     let object:ServerObjectModel
+    
+    // Separating this state from the model, to a `StateObject`, to ensure we only get a single initial playback of the live image.
+    @StateObject var state = LiveImageViewState()
+    
     // @State var checked: Bool = false
     let tapOnLargeMedia: ()->()
     let model:LiveImageViewModel
@@ -21,7 +25,7 @@ struct LiveImageLargeMedia: View {
             }
             else {
                 ZoomableScrollView {
-                    LiveImageView(model: model)
+                    LiveImageView(model: model, state: state)
                 }
             }
         }

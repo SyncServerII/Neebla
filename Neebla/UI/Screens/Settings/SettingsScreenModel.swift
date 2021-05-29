@@ -97,20 +97,21 @@ class SettingsScreenModel:ObservableObject {
 
 extension SettingsScreenModel: AddEmailAttachments {
     func addAttachments(vc: MFMailComposeViewController) {
+        // Logging these as `notice` to make sure they hit the logs for production builds.
         logger.notice("Email attachments:")
         do {
             // Logging these as errors to make sure they hit the logs.
             if let pendingUploads = try Services.session.syncServer.debugPendingUploads() {
-                logger.error("Pending Uploads: \(String(describing: pendingUploads))")
+                logger.notice("Pending Uploads: \(String(describing: pendingUploads))")
             }
             else {
-                logger.error("No Pending Uploads")
+                logger.notice("No Pending Uploads")
             }
             
-            logger.error("Albums:")
+            logger.notice("Albums:")
             let albums = try AlbumModel.fetch(db: Services.session.db)
             for album in albums {
-                logger.error("Album: sharingGroupUUID: \(album.sharingGroupUUID); name: \(String(describing: album.albumName)); deleted: \(album.deleted)")
+                logger.notice("Album: sharingGroupUUID: \(album.sharingGroupUUID); name: \(String(describing: album.albumName)); deleted: \(album.deleted)")
             }
         } catch let error {
             logger.error("\(error)")

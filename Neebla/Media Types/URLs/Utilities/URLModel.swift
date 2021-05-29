@@ -47,7 +47,7 @@ class URLModel: ObservableObject {
         }
         
         guard let urlFile = urlFileModel.url else {
-            logger.error("No url with url file!")
+            logger.warning("No url with url file!")
             gone = urlFileModel.gone
             return nil
         }
