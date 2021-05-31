@@ -85,7 +85,7 @@ class URLObjectType: ItemType, DeclarableObject {
         let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
         try commentFileModel.insert()
         
-        let commentUpload = FileUpload(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
+        let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
         fileUploads += [commentUpload]
         
         // URL file
@@ -97,7 +97,7 @@ class URLObjectType: ItemType, DeclarableObject {
         let urlFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: urlFileUUID, fileLabel: urlDeclaration.fileLabel, downloadStatus: .downloaded, url: urlFileURL)
         try urlFileModel.insert()
 
-        let urlFileUpload = FileUpload(fileLabel: urlDeclaration.fileLabel, dataSource: .immutable(urlFileURL), uuid: urlFileUUID)
+        let urlFileUpload = FileUpload.forOthers(fileLabel: urlDeclaration.fileLabel, dataSource: .immutable(urlFileURL), uuid: urlFileUUID)
         fileUploads += [urlFileUpload]
             
         // Optional image preview file
@@ -113,7 +113,7 @@ class URLObjectType: ItemType, DeclarableObject {
             let imageFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: imageFileUUID, fileLabel: previewImageDeclaration.fileLabel, downloadStatus: .downloaded, url: imageFileURL)
             try imageFileModel.insert()
             
-            let imageUpload = FileUpload(fileLabel: previewImageDeclaration.fileLabel, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
+            let imageUpload = FileUpload.forOthers(fileLabel: previewImageDeclaration.fileLabel, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
             fileUploads += [imageUpload]
         }
 

@@ -25,7 +25,7 @@ class Comments {
     // Upload a change to a comment file.
     // The `fileUUID` references the comment file within the object-- just a convenience. We could get it given the `object` and the file label also.
     static func queueUpload(fileUUID: UUID, comment: Data, object: ServerObjectModel) throws {
-        let file = FileUpload(fileLabel: FileLabels.comments, dataSource: .data(comment), uuid: fileUUID)
+        let file = FileUpload.forOthers(fileLabel: FileLabels.comments, dataSource: .data(comment), uuid: fileUUID)
         
         let pushNotificationText = try PushNotificationMessage.forAddingComment(to: object)
         let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: object.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [file])

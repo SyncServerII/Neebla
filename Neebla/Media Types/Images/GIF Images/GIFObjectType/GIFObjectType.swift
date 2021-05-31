@@ -101,9 +101,9 @@ class GIFObjectType: ItemType, DeclarableObject {
         let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
         try commentFileModel.insert()
         
-        let commentUpload = FileUpload(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
-        let gifUpload = FileUpload(fileLabel: gifDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.gifMimeType, dataSource: .immutable(gifFileURL), uuid: gifFileUUID)
-        let iconUpload = FileUpload(fileLabel: iconDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.iconMimeType, dataSource: .immutable(iconFileURL), uuid: iconFileUUID)
+        let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
+        let gifUpload = FileUpload.forOthers(fileLabel: gifDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.gifMimeType, dataSource: .immutable(gifFileURL), uuid: gifFileUUID)
+        let iconUpload = FileUpload.forOthers(fileLabel: iconDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.iconMimeType, dataSource: .immutable(iconFileURL), uuid: iconFileUUID)
 
         let pushNotificationText = try PushNotificationMessage.forUpload(of: objectModel)
         let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [commentUpload, gifUpload, iconUpload])

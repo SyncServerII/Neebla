@@ -1,12 +1,18 @@
 Neebla
 
-Version 2 (TestFlight Build)
+Version 2.0.1 (TestFlight Build 20210531.0)
 	* Change some of the logging when sending an email to developer to `notice` from `error`
 		These still hit the logs. (They were not errors in the first place.)
 	* Change a couple of other log messages from `error` to `warning` so they don't hit the
 		production logs. They were not serious issues.
 	* Fix Rod's issue: Live image audio plays again when you enter discussions 
 		and when you exit the item.
+	* Update for self vs. other updates. Improvements to the download indicators to better
+		indicate to the current user whether changes were made by self or others.
+		- Does not require server update to v1.10.2, because I'm going to initially release this
+			app version using v1.9.0 of the server. Then once approved and available on the app store
+			I'll update the server.
+		- Changes to all current file uploads to indicate `informAllButSelf` is true.
 
 Version 2.0.0 (TestFlight Build 20210523.0); This is the actual app store release of v2.0.0
 	* Use latest `iOSApple` library-- improve Apple Sign In button to better conform

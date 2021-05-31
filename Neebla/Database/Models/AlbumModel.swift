@@ -37,6 +37,7 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
     // Use the method `getAlbumModel` below to obtain the updated AlbumModel given this notification.
     static let needsDownloadUpdate = NSNotification.Name("AlbumModel.needsDownload.update")
     
+    // MARK: Deprecated as of ServerShared library v0.9.2
     // This serves as a kind of serial number for an album. It is the most recent date of any item in the `contentsSummary` for the sharing group.
     static let mostRecentDateField = Field("mostRecentDate", \M.mostRecentDate)
     var mostRecentDate: Date?
@@ -112,24 +113,6 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
     }
 }
 
-extension Array where Element == iOSBasics.SharingGroup.FileGroupSummary {
-    // Get the most recent date from all `FileGroupSummary`'s.
-    func mostRecentDate() -> Date? {
-        var current:Date!
-        
-        for summary in self {
-            if let curr = current {
-                current = Swift.max(curr, summary.mostRecentDate)
-            }
-            else {
-                current = summary.mostRecentDate
-            }
-        }
-        
-        return current
-    }
-}
-
 extension AlbumModel {
     // If `contentsSummary`'s are present in `sharingGroup`, they will be used to update.
     static func upsertSharingGroup(db: Connection, sharingGroup: iOSBasics.SharingGroup) throws {
@@ -154,40 +137,16 @@ extension AlbumModel {
             }
 
             if !sharingGroup.deleted,
+                //!albumModel.needsDownload,
                 let contentsSummary = sharingGroup.contentsSummary {
-                guard let idDate = contentsSummary.mostRecentDate() else {
+                
+                guard try contentsSummary.informUserAboutSharingGroup() else {
                     return
                 }
-                
-                var needsUpdate = false
-                
-                if let albumModelMostRecentDate = albumModel.mostRecentDate {
-                    if idDate > albumModelMostRecentDate {
-                        needsUpdate = true
-                    }
-                }
-                else {
-                    needsUpdate = true
-                }
-                
-                guard needsUpdate else {
-                    return
-                }
-                
+
                 try albumModel.update(setters:
-                    AlbumModel.mostRecentDateField.description <- idDate)
-                        
-                // For each file group, check if the server has more recent info. If so, we need to set the `needsDownload` flag.
-                for fileGroup in contentsSummary {
-                    if try fileGroup.serverHasUpdate(db: db) {
-                        if !albumModel.needsDownload {
-                            try albumModel.update(setters:
-                                AlbumModel.needsDownloadField.description <- true)
-                            albumModel.postNeedsDownloadUpdateNotification()
-                        }
-                        break
-                    }
-                }
+                    AlbumModel.needsDownloadField.description <- true)
+                albumModel.postNeedsDownloadUpdateNotification()
             }
         }
         else {

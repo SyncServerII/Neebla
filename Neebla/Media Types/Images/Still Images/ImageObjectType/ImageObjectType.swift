@@ -74,8 +74,8 @@ class ImageObjectType: ItemType, DeclarableObject {
         let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
         try commentFileModel.insert()
         
-        let commentUpload = FileUpload(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
-        let imageUpload = FileUpload(fileLabel: imageDeclaration.fileLabel, mimeType: assets.mimeType, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
+        let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
+        let imageUpload = FileUpload.forOthers(fileLabel: imageDeclaration.fileLabel, mimeType: assets.mimeType, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
         
         let pushNotificationText = try PushNotificationMessage.forUpload(of: objectModel)
         let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [commentUpload, imageUpload])
