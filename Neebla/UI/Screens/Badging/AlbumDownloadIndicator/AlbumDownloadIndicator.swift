@@ -8,15 +8,6 @@
 import Foundation
 import iOSShared
 
-/* Album download indicators have the following properties:
-
-1) When some items need downloading in the album it is turned "on".
-2) When you go into the album and sync, it is turned "off".
-    Not all items need to have been downloaded or in the process of downloading.
-3) It gets reset back to "on" if additional items become available for download
-    And another sync is needed.
-*/
-
 protocol AlbumDownloadIndicatorDelegate: AnyObject {
     var albumNeedsDownload: Bool { get set }
 }

@@ -32,6 +32,11 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
     static let needsDownloadField = Field("needsDownload", \M.needsDownload)
     var needsDownload: Bool
     
+    // The last time a general sync was done (not album specific).
+    // See also https://github.com/SyncServerII/Neebla/issues/15#issuecomment-852567995
+    static let lastSyncDateField = Field("lastSyncDate", \M.lastSyncDate)
+    var lastSyncDate: Date?
+    
     // Fires when the needsDownload of a AlbumModel changes. The `userInfo` of the notification received contains one key/value pair:
     //      sharingGroupUUIDField.fieldName : sharing group UUID
     // Use the method `getAlbumModel` below to obtain the updated AlbumModel given this notification.
@@ -49,7 +54,8 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
         permission: Permission,
         deleted: Bool = false,
         needsDownload: Bool = false,
-        mostRecentDate: Date? = nil) throws {
+        mostRecentDate: Date? = nil,
+        lastSyncDate: Date? = nil) throws {
 
         self.db = db
         self.id = id
@@ -59,6 +65,7 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
         self.deleted = deleted
         self.needsDownload = needsDownload
         self.mostRecentDate = mostRecentDate
+        self.lastSyncDate = lastSyncDate
     }
 
     func hash(into hasher: inout Hasher) {
@@ -72,7 +79,8 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
             lhs.permission == rhs.permission &&
             lhs.deleted == rhs.deleted &&
             lhs.needsDownload == rhs.needsDownload &&
-            lhs.mostRecentDate == rhs.mostRecentDate
+            lhs.mostRecentDate == rhs.mostRecentDate &&
+            lhs.lastSyncDate == rhs.lastSyncDate
     }
     
     // MARK: DatabaseModel
@@ -86,7 +94,21 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
             t.column(deletedField.description)
             t.column(needsDownloadField.description)
             t.column(mostRecentDateField.description)
+            
+            // MIGRATION, 6/1/21
+            // t.column(lastSyncDateField.description)
         }
+    }
+    
+    static func migration_2021_6_1(db: Connection) throws {
+        try addColumn(db: db, column: lastSyncDateField.description)
+        
+        // Opt existing users into this-- so all of a sudden lots of albums don't indicate they need download just becuase they have a nil `lastSyncDate`.
+        try DownloadIndicator.updateAlbumLastSyncDates(db: db)
+    }
+    
+    static func allMigrations(db: Connection) throws {
+        try migration_2021_6_1(db: db)
     }
     
     static func rowToModel(db: Connection, row: Row) throws -> AlbumModel {
@@ -97,7 +119,8 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
             permission: row[Self.permissionField.description],
             deleted: row[Self.deletedField.description],
             needsDownload: row[Self.needsDownloadField.description],
-            mostRecentDate: row[Self.mostRecentDateField.description]
+            mostRecentDate: row[Self.mostRecentDateField.description],
+            lastSyncDate: row[Self.lastSyncDateField.description]
         )
     }
     
@@ -108,14 +131,34 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
             Self.permissionField.description <- permission,
             Self.deletedField.description <- deleted,
             Self.needsDownloadField.description <- needsDownload,
-            Self.mostRecentDateField.description <- mostRecentDate
+            Self.mostRecentDateField.description <- mostRecentDate,
+            Self.lastSyncDateField.description <- lastSyncDate
         )
     }
 }
 
 extension AlbumModel {
+    var lastSyncDateHasExpired: Bool {
+        guard let lastSyncDate = lastSyncDate else {
+            // No `lastSyncDate`-- this must be a new album.
+            return true
+        }
+
+        let calendar = Calendar.current
+        guard let expiryDate = calendar.date(byAdding: .day, value: ServerConstants.numberOfDaysUntilInformAllButSelfExpiry, to: lastSyncDate) else {
+            logger.error("Could not add dates!")
+            return false
+        }
+        
+        if Date() >= expiryDate {
+            return true
+        }
+        
+        return false
+    }
+    
     // If `contentsSummary`'s are present in `sharingGroup`, they will be used to update.
-    static func upsertSharingGroup(db: Connection, sharingGroup: iOSBasics.SharingGroup) throws {
+    static func upsertSharingGroup(db: Connection, sharingGroup: iOSBasics.SharingGroup, updateDownloadIndicator: Bool) throws {
         if let albumModel = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroup.sharingGroupUUID) {
             if sharingGroup.sharingGroupName != albumModel.albumName {
                 try albumModel.update(setters:
@@ -136,37 +179,28 @@ extension AlbumModel {
                 }
             }
 
-            if !sharingGroup.deleted,
-                //!albumModel.needsDownload,
+            if updateDownloadIndicator,
+                !sharingGroup.deleted,
                 let contentsSummary = sharingGroup.contentsSummary {
-                
-                guard try contentsSummary.informUserAboutSharingGroup() else {
-                    return
-                }
-
-                try albumModel.update(setters:
-                    AlbumModel.needsDownloadField.description <- true)
-                albumModel.postNeedsDownloadUpdateNotification()
+                try DownloadIndicator.seeIfNeedsDownload(albumModel: albumModel, summaries: contentsSummary)                
             }
         }
         else {
             let model = try AlbumModel(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID, albumName: sharingGroup.sharingGroupName, permission: sharingGroup.permission, deleted: sharingGroup.deleted)
             try model.insert()
             
-            if !sharingGroup.deleted,
-                let contentsSummary = sharingGroup.contentsSummary,
-                contentsSummary.count > 0 {
-                try model.update(setters:
-                    AlbumModel.needsDownloadField.description <- true)
-                model.postNeedsDownloadUpdateNotification()
+            if updateDownloadIndicator,
+                !sharingGroup.deleted,
+                let contentsSummary = sharingGroup.contentsSummary {
+                try DownloadIndicator.seeIfNeedsDownload(albumModel: model, summaries: contentsSummary)
             }
         }
     }
     
     // If `contentsSummary` is present in SharingGroup's, they will be updated.
-    static func upsertSharingGroups(db: Connection, sharingGroups: [iOSBasics.SharingGroup]) throws {        
+    static func upsertSharingGroups(db: Connection, sharingGroups: [iOSBasics.SharingGroup], updateDownloadIndicators: Bool) throws {
         for sharingGroup in sharingGroups {
-            try upsertSharingGroup(db: db, sharingGroup: sharingGroup)
+            try upsertSharingGroup(db: db, sharingGroup: sharingGroup, updateDownloadIndicator: updateDownloadIndicators)
         }
     }
     

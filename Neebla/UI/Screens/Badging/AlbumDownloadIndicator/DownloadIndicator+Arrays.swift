@@ -1,5 +1,5 @@
 //
-//  AlbumDownloadIndicator+Extras.swift
+//  DownloadIndicator+Extras.swift
 //  Neebla
 //
 //  Created by Christopher G Prince on 5/30/21.
@@ -11,7 +11,7 @@ import ServerShared
 
 extension Array where Element == iOSBasics.SharingGroup.FileGroupSummary.Inform {
     // Given an array of all Inform elements for a file, determine if the user needs to be informed about this change.
-    func informUserAboutFile() throws -> Bool {
+    private func informUserAboutFile() throws -> Bool {
         guard self.count > 0 else {
             return false
         }

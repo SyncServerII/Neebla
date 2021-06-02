@@ -13,14 +13,7 @@ class AlbumListModalModel: ObservableObject {
         fetchAlbums()
         
         syncSubscription = Services.session.serverInterface.sync.sink { _ in
-            // Propagate any sharing group changes to our AlbumModel.
-            do {
-                let sharingGroups = try Services.session.syncServer.sharingGroups()
-                try AlbumModel.upsertSharingGroups(db: Services.session.db, sharingGroups: sharingGroups)
-            } catch let error {
-                logger.error("\(error)")
-            }
-            
+            // No need to do a `AlbumModel.upsertSharingGroups` -- this was already done before we get the `sync` event.
             self.fetchAlbums()
         }
     }

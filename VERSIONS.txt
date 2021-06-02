@@ -1,6 +1,16 @@
 Neebla
 
-Version 2.0.1 (TestFlight Build 20210531.0)
+Version 2.0.2
+	* Working on download indicators
+		MIGRATION: Added `lastSyncDate` field to album models.
+			This was needed because:
+			(a) when you are newly invited to an album, it wasn't showing up as needing download.
+			(b) if you didn't use the app for a period of days, the `informAllButSelf` values would 
+				expire and the albums wouldn't necessarily show you need to do a download.
+		- Improved updating, based on 
+			https://github.com/SyncServerII/Neebla/issues/15#issuecomment-852567995
+
+Version 2.0.1 (TestFlight Build 20210531.0); This is the actual app store release of v2.0.1
 	* Change some of the logging when sending an email to developer to `notice` from `error`
 		These still hit the logs. (They were not errors in the first place.)
 	* Change a couple of other log messages from `error` to `warning` so they don't hit the
