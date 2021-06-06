@@ -12,11 +12,15 @@ import iOSSignIn
 import iOSShared
 
 struct AlbumsScreenRow: View {
-    var album:AlbumModel?
-    let viewModel:AlbumsViewModel
+    @ObservedObject var viewModel:AlbumsViewModel
+    @ObservedObject var rowModel:AlbumScreenRowModel
+    @Environment(\.colorScheme) var colorScheme
+    @ObservedObject var signInManager: SignInManager
+    var album: AlbumModel?
     
     // I'm passing in the sharingGroupUUID and loading the album, instead of passing in the album, to make sure the album updates if the view reloads. Otherwise, may have a problem with an incorrect value for the download indicator.
     init(sharingGroupUUID:UUID, viewModel:AlbumsViewModel) {
+        signInManager = Services.session.signInServices.manager
         self.viewModel = viewModel
         
         do {
@@ -24,35 +28,13 @@ struct AlbumsScreenRow: View {
         } catch let error {
             logger.error("\(error)")
         }
-    }
-    
-    var body: some View {
-        if let album = album {
-            AlbumsScreenRowContent(album: album, viewModel: viewModel)
-        }
-        else {
-            Text("Error getting Album")
-        }
-    }
-}
-
-private struct AlbumsScreenRowContent: View {
-    @ObservedObject var album:AlbumModel
-    @ObservedObject var viewModel:AlbumsViewModel
-    @ObservedObject var rowModel:AlbumScreenRowModel
-    @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var signInManager: SignInManager
-    
-    init(album:AlbumModel, viewModel:AlbumsViewModel) {
-        signInManager = Services.session.signInServices.manager
-        self.album = album
-        self.viewModel = viewModel
+        
         rowModel = AlbumScreenRowModel(album: album)
     }
     
     var body: some View {
         HStack {
-            if let albumName = album.albumName {
+            if let albumName = rowModel.album?.albumName {
                 Text(albumName)
             }
             else {
@@ -74,7 +56,7 @@ private struct AlbumsScreenRowContent: View {
             }
             
             // To change an album name and to share an album, you must have .admin permissions.
-            if album.permission.hasMinimumPermission(.admin) {
+            if let album = rowModel.album, album.permission.hasMinimumPermission(.admin) {
                 if viewModel.sharingMode {
                     Icon(imageName:
                         Images.shareIcon(lightMode:colorScheme == .light),

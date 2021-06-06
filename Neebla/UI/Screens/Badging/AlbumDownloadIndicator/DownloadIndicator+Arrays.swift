@@ -55,22 +55,31 @@ extension Array where Element == iOSBasics.SharingGroup.FileGroupSummary.Inform 
     }
 }
 
+enum InformUserResult {
+    case doNotInform
+    case inform
+    case noInformRecords
+}
+    
 extension Array where Element == iOSBasics.SharingGroup.FileGroupSummary {
     // Given an array of all Inform elements for a file, determine if the user needs to be informed about this change.
-    func informUserAboutSharingGroup() throws -> Bool {
+    func informUserAboutSharingGroup() throws -> InformUserResult {
+        var haveSomeInformRecords = false
+        
         for summary in self {
             // `inform` is for a specific file group, i.e., "object".
             if let inform = summary.inform, inform.count > 0 {
+                haveSomeInformRecords = true
                 let informByFiles = Partition.array(inform, using: \.fileUUID)
 
                 for informByFile in informByFiles {
                     if try informByFile.informUserAboutFile() {
-                        return true
+                        return .inform
                     }
                 }
             }
         }
         
-        return false
+        return haveSomeInformRecords ? .doNotInform : .noInformRecords
     }
 }

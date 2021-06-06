@@ -120,11 +120,8 @@ class AlbumItemsViewModel: ObservableObject {
 
             do {
                 // Reset the `needsDownload` field, if needed, after a successful sync.
-                if self.screenDisplayed,
-                    let albumModel = try AlbumModel.fetchSingleRow(db: Services.session.db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID),
-                    albumModel.needsDownload {
-                    try albumModel.update(setters: AlbumModel.needsDownloadField.description <- false)
-                    albumModel.postNeedsDownloadUpdateNotification()
+                if self.screenDisplayed {
+                    try DownloadIndicator.resetAfterSync(sharingGroupUUID: sharingGroupUUID)
                 }
             }
             catch let error {

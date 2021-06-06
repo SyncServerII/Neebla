@@ -42,8 +42,7 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
     // Use the method `getAlbumModel` below to obtain the updated AlbumModel given this notification.
     static let needsDownloadUpdate = NSNotification.Name("AlbumModel.needsDownload.update")
     
-    // MARK: Deprecated as of ServerShared library v0.9.2
-    // This serves as a kind of serial number for an album. It is the most recent date of any item in the `contentsSummary` for the sharing group.
+    // The most recent date of any item in the `contentsSummary` for the sharing group (across both created and update dates). This is updated from a sync *with* a sharing group given.
     static let mostRecentDateField = Field("mostRecentDate", \M.mostRecentDate)
     var mostRecentDate: Date?
     
@@ -138,6 +137,7 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
 }
 
 extension AlbumModel {
+    // This reflects the `lastSyncDate` field which is for a generic sync-- i.e., with no sharing group given.
     var lastSyncDateHasExpired: Bool {
         guard let lastSyncDate = lastSyncDate else {
             // No `lastSyncDate`-- this must be a new album.
@@ -156,10 +156,22 @@ extension AlbumModel {
         
         return false
     }
+
+    struct SharingGroupUpdate: OptionSet {
+        let rawValue: Int
+
+        static let updateDownloadIndicator = SharingGroupUpdate(rawValue: 1 << 0)
+        static let updateMostRecentDate = SharingGroupUpdate(rawValue: 1 << 1)
+    }
     
     // If `contentsSummary`'s are present in `sharingGroup`, they will be used to update.
-    static func upsertSharingGroup(db: Connection, sharingGroup: iOSBasics.SharingGroup, updateDownloadIndicator: Bool) throws {
+
+    static func upsertSharingGroup(db: Connection, sharingGroup: iOSBasics.SharingGroup, updateOptions: SharingGroupUpdate) throws {
+        let model:AlbumModel
+        
         if let albumModel = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroup.sharingGroupUUID) {
+            model = albumModel
+            
             if sharingGroup.sharingGroupName != albumModel.albumName {
                 try albumModel.update(setters:
                     AlbumModel.albumNameField.description <- sharingGroup.sharingGroupName)
@@ -178,29 +190,25 @@ extension AlbumModel {
                     albumModel.postNeedsDownloadUpdateNotification()
                 }
             }
-
-            if updateDownloadIndicator,
-                !sharingGroup.deleted,
-                let contentsSummary = sharingGroup.contentsSummary {
-                try DownloadIndicator.seeIfNeedsDownload(albumModel: albumModel, summaries: contentsSummary)                
-            }
         }
         else {
-            let model = try AlbumModel(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID, albumName: sharingGroup.sharingGroupName, permission: sharingGroup.permission, deleted: sharingGroup.deleted)
+            model = try AlbumModel(db: db, sharingGroupUUID: sharingGroup.sharingGroupUUID, albumName: sharingGroup.sharingGroupName, permission: sharingGroup.permission, deleted: sharingGroup.deleted)
             try model.insert()
-            
-            if updateDownloadIndicator,
-                !sharingGroup.deleted,
-                let contentsSummary = sharingGroup.contentsSummary {
-                try DownloadIndicator.seeIfNeedsDownload(albumModel: model, summaries: contentsSummary)
-            }
+        }
+        
+        if updateOptions.contains(.updateDownloadIndicator) {
+            try DownloadIndicator.seeIfNeedsDownload(albumModel: model, sharingGroup: sharingGroup)
+        }
+        
+        if updateOptions.contains(.updateMostRecentDate) {
+            try DownloadIndicator.updateAlbumMostRecentDate(album: model, sharingGroup: sharingGroup)
         }
     }
     
     // If `contentsSummary` is present in SharingGroup's, they will be updated.
-    static func upsertSharingGroups(db: Connection, sharingGroups: [iOSBasics.SharingGroup], updateDownloadIndicators: Bool) throws {
+    static func upsertSharingGroups(db: Connection, sharingGroups: [iOSBasics.SharingGroup], updateOptions: SharingGroupUpdate) throws {
         for sharingGroup in sharingGroups {
-            try upsertSharingGroup(db: db, sharingGroup: sharingGroup, updateDownloadIndicator: updateDownloadIndicators)
+            try upsertSharingGroup(db: db, sharingGroup: sharingGroup, updateOptions: updateOptions)
         }
     }
     

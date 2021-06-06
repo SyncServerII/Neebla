@@ -1,14 +1,25 @@
 Neebla
 
-Version 2.0.2
+Version 2.0.2 (TestFlight Build 20210605.0)
 	* Working on download indicators
 		MIGRATION: Added `lastSyncDate` field to album models.
 			This was needed because:
-			(a) when you are newly invited to an album, it wasn't showing up as needing download.
-			(b) if you didn't use the app for a period of days, the `informAllButSelf` values would 
-				expire and the albums wouldn't necessarily show you need to do a download.
+			(a) when you are newly invited to an album, it wasn't showing up as
+				needing download.
+			(b) if you didn't use the app for a period of days, 
+				the `informAllButSelf` values would expire and the albums wouldn't
+				necessarily show you need to do a download.
 		- Improved updating, based on 
 			https://github.com/SyncServerII/Neebla/issues/15#issuecomment-852567995
+	* Separating out more code for download indicators
+		Making the download indicator code more modular, separated from other code.
+	* Simplified AlbumsScreenRow SwiftUI View to fix an update issue
+		Sometimes a change to a download indicator would not persist across scrolling.
+	* Fixed an issue where with no inform records from server, download indicator would not
+		get updated.
+	* Fixed an issue where mostRecentDate for *all* albums could get updated on a sync
+		for a specific album. Now, mostRecentDate is only updated for a single album on
+		sync for a specific album.
 
 Version 2.0.1 (TestFlight Build 20210531.0); This is the actual app store release of v2.0.1
 	* Change some of the logging when sending an email to developer to `notice` from `error`
