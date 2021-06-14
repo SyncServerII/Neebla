@@ -261,26 +261,19 @@ extension DownloadedFile {
             gone = true
             downloadStatus = .notDownloaded
         }
-
-        if var fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == uuid) {
         
+        if var fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == uuid) {
+            
             // For an existing file, replaces the content URL. First, get rid of existing file, if any.
             try fileModel.removeFile()
    
             fileModel = try fileModel.update(setters:
                 ServerFileModel.goneField.description <- gone,
                 ServerFileModel.urlField.description <- contentsURL)
-                
-            if fileModel.fileLabel == FileLabels.comments {
-                try Comments.updateUnreadCount(commentFileModel: fileModel)
-            }
         }
         else {
             let model = try ServerFileModel(db: db, fileGroupUUID: fileGroupUUID, fileUUID: uuid, fileLabel: fileLabel, downloadStatus: downloadStatus, gone: gone, url: contentsURL)
             try model.insert()
-            if model.fileLabel == FileLabels.comments {
-                try Comments.updateUnreadCount(commentFileModel: model)
-            }
         }
     }
 }

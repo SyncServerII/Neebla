@@ -46,7 +46,7 @@ struct CommentsView: View {
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
         .onAppear() {
             // The user is viewing comments. Reset the (local) unread count.
-            model?.resetUnreadCount()
+            model?.markAllRead()
         }
     }
 }

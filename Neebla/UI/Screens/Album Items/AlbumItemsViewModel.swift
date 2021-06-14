@@ -299,12 +299,12 @@ class AlbumItemsViewModel: ObservableObject {
         return result
     }
     
-    func resetUnreadCount() {
+    func markAllRead() {
         // It seems odd to stay in sharing mode if user triggers a "Mark all read".
         if sharing {
             sharing = false
         }
         
-        MediaItemUnreadCount.resetUnreadCounts(for: objects)
+        MediaItemCommentCounts.markAllRead(for: objects)
     }
 }

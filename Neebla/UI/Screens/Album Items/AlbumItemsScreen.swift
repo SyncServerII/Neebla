@@ -264,7 +264,7 @@ private struct AlbumItemsScreenNavButtons: View {
                     }
                     
                     Button(action: {
-                        viewModel.resetUnreadCount()
+                        viewModel.markAllRead()
                     }) {
                         Label("Mark all read", systemImage: "scissors")
                     }

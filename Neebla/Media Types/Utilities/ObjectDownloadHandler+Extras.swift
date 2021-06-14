@@ -22,6 +22,8 @@ extension ObjectDownloadHandler {
             try Services.session.syncServer.markAsDownloaded(object: downloadObject)
             
             try object.downloads.update(db: Services.session.db, downloadStatus: .downloaded)
+            
+            try updateUnreadCount(object: object, db: Services.session.db)
         } expiry: {
             logger.error("objectWasDownloaded: Expiry exceeded")
         }

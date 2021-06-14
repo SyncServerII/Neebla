@@ -34,7 +34,7 @@ class Comments {
     }
     
     // Save of comment file from a local change.
-    static func save(commentFile: CommentFile, commentFileModel:ServerFileModel) throws {
+    static func save(commentFile: CommentFile, commentFileModel:ServerFileModel, object: ServerObjectModel) throws {
         var commentFileModel = commentFileModel
         let commentFileURL: URL
         
@@ -49,7 +49,9 @@ class Comments {
         try commentFile.save(toFile: commentFileURL)
         
         // Since this a local change, we take this as "user has read all comments".
-        try Comments.resetReadCounts(commentFileModel: commentFileModel)
+        let mediaItemAttributesFileModel = try? ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: commentFileModel.fileGroupUUID)
+        let commentCounts = try CommentCounts(commentFileModel: commentFileModel, commentFile: commentFile, mediaItemAttributesFileModel: mediaItemAttributesFileModel, userId: Services.session.userId)
+        try commentCounts.markAllRead(object: object)
     }
     
     // The UI-displayable title of media objects are stored in their associated comment file.

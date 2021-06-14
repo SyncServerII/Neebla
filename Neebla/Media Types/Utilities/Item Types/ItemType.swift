@@ -28,5 +28,9 @@ extension ItemType {
     static var commentFilenameExtension: String {
         return "json"
     }
+    
+    static var mediaItemAttributesFilenameExtension: String {
+        return "json"
+    }
 }
 

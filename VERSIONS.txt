@@ -1,6 +1,14 @@
 Neebla
 
-Version 2.0.2 (TestFlight Build 20210605.0)
+Version 2.0.3
+	* Media Item Attributes-- a new file per media item.
+		- So far, working on this to add cross-device read counts for media items, stored
+			per user. Refactored read count code to make it easier to manage and read.
+		- So far adding only to newly created media items; 
+			not yet adding to previously created items.
+		- Have added to the image object type so far.
+
+Version 2.0.2 (TestFlight Build 20210605.0); This is the actual app store release of v2.0.2
 	* Working on download indicators
 		MIGRATION: Added `lastSyncDate` field to album models.
 			This was needed because:

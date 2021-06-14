@@ -165,12 +165,14 @@ class CommentsViewModel: ObservableObject {
         try Comments.queueUpload(fileUUID: commentFileModel.fileUUID, comment: data, object: object)
 
         // Also going to update local file. This file will get replaced in a download from the server next time downloads happen for this object, but without this update we won't have the new comment in the file locally until that download.
-        try Comments.save(commentFile: commentFile, commentFileModel: commentFileModel)
+        try Comments.save(commentFile: commentFile, commentFileModel: commentFileModel, object: object)
     }
     
-    func resetUnreadCount() {
+    func markAllRead() {
         do {
-            try Comments.resetReadCounts(commentFileModel: commentFileModel)
+            let mediaItemAttributesFileModel = try? ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: commentFileModel.fileGroupUUID)
+            let commentCounts = try CommentCounts(commentFileModel: commentFileModel, mediaItemAttributesFileModel: mediaItemAttributesFileModel, userId: Services.session.userId)
+            try commentCounts.markAllRead(object: object)
         } catch let error {
             logger.error("\(error)")
         }

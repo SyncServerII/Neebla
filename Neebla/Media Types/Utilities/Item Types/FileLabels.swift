@@ -2,6 +2,7 @@
 import Foundation
 
 enum FileLabels {
-    // This applies across *all* media types
+    // These apply across *all* media types
     static let comments = "comments"
+    static let mediaItemAttributes = "mediaItemAttributes"
 }

@@ -15,4 +15,9 @@ extension FileUpload {
     static func forOthers(fileLabel: String, mimeType: MimeType? = nil, dataSource: UploadDataSource, uuid: UUID, appMetaData: String? = nil) -> FileUpload {
         FileUpload(fileLabel: fileLabel, mimeType: mimeType, dataSource: dataSource, uuid: uuid, appMetaData: appMetaData, informAllButSelf: true)
     }
+    
+    // Upload for files that should not be flagged for download by anyone
+    static func informNoOne(fileLabel: String, mimeType: MimeType? = nil, dataSource: UploadDataSource, uuid: UUID, appMetaData: String? = nil) -> FileUpload {
+        FileUpload(fileLabel: fileLabel, mimeType: mimeType, dataSource: dataSource, uuid: uuid, appMetaData: appMetaData, informAllButSelf: nil)
+    }
 }

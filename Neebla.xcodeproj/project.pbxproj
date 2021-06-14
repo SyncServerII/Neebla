@@ -19,6 +19,10 @@
 		8308B71C256B4A44007F0CEB /* URLIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B71B256B4A44007F0CEB /* URLIcon.swift */; };
 		8308B724256B4B73007F0CEB /* ImageIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B723256B4B73007F0CEB /* ImageIcon.swift */; };
 		8308B738256B6EF6007F0CEB /* URLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8308B737256B6EF6007F0CEB /* URLModel.swift */; };
+		8309906E2674645A00015EC4 /* ObjectDownloadHandler+AlbumUnreadCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8309906D2674645A00015EC4 /* ObjectDownloadHandler+AlbumUnreadCount.swift */; };
+		8309907226746A1600015EC4 /* CommentCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8309907126746A1600015EC4 /* CommentCounts.swift */; };
+		830990742676BE8900015EC4 /* ObjectDownloadHandler+AlbumUnreadCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8309906D2674645A00015EC4 /* ObjectDownloadHandler+AlbumUnreadCount.swift */; };
+		830990752676BF2600015EC4 /* CommentCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8309907126746A1600015EC4 /* CommentCounts.swift */; };
 		83152B0025FB1B7600A5439F /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152AFF25FB1B7600A5439F /* URL+Extras.swift */; };
 		83152B0725FB1C6200A5439F /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152AFF25FB1B7600A5439F /* URL+Extras.swift */; };
 		83152B1225FB2D3600A5439F /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B1125FB2D3600A5439F /* ZoomableScrollView.swift */; };
@@ -308,8 +312,6 @@
 		83F49B99260FE89400814A2A /* AlbumUnreadCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49B98260FE89400814A2A /* AlbumUnreadCount.swift */; };
 		83F49BA4260FEC1900814A2A /* AlbumDownloadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49BA3260FEC1900814A2A /* AlbumDownloadIndicator.swift */; };
 		83F49BA9260FF24A00814A2A /* MediaItemUnreadCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49BA8260FF24A00814A2A /* MediaItemUnreadCount.swift */; };
-		83F49BC32610042900814A2A /* Comments+UnreadCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49BC22610042900814A2A /* Comments+UnreadCounts.swift */; };
-		83F49BC7261004AE00814A2A /* Comments+UnreadCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F49BC22610042900814A2A /* Comments+UnreadCounts.swift */; };
 		83F7EBAE25C3A7C500528B33 /* PersistentValue in Frameworks */ = {isa = PBXBuildFile; productRef = 83F7EBAD25C3A7C500528B33 /* PersistentValue */; };
 /* End PBXBuildFile section */
 
@@ -356,6 +358,8 @@
 		8308B71B256B4A44007F0CEB /* URLIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLIcon.swift; sourceTree = "<group>"; };
 		8308B723256B4B73007F0CEB /* ImageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageIcon.swift; sourceTree = "<group>"; };
 		8308B737256B6EF6007F0CEB /* URLModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLModel.swift; sourceTree = "<group>"; };
+		8309906D2674645A00015EC4 /* ObjectDownloadHandler+AlbumUnreadCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectDownloadHandler+AlbumUnreadCount.swift"; sourceTree = "<group>"; };
+		8309907126746A1600015EC4 /* CommentCounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCounts.swift; sourceTree = "<group>"; };
 		83152AFF25FB1B7600A5439F /* URL+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extras.swift"; sourceTree = "<group>"; };
 		83152B1125FB2D3600A5439F /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
 		83152B1A25FB365600A5439F /* GIFIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFIcon.swift; sourceTree = "<group>"; };
@@ -550,7 +554,6 @@
 		83F49B98260FE89400814A2A /* AlbumUnreadCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumUnreadCount.swift; sourceTree = "<group>"; };
 		83F49BA3260FEC1900814A2A /* AlbumDownloadIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDownloadIndicator.swift; sourceTree = "<group>"; };
 		83F49BA8260FF24A00814A2A /* MediaItemUnreadCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemUnreadCount.swift; sourceTree = "<group>"; };
-		83F49BC22610042900814A2A /* Comments+UnreadCounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comments+UnreadCounts.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -655,6 +658,17 @@
 				83F2C54A25A1510500D0B710 /* AddressNavigation.swift */,
 			);
 			path = Comments;
+			sourceTree = "<group>";
+		};
+		830990702674695B00015EC4 /* Comment Counts */ = {
+			isa = PBXGroup;
+			children = (
+				8309907126746A1600015EC4 /* CommentCounts.swift */,
+				83F49B98260FE89400814A2A /* AlbumUnreadCount.swift */,
+				8309906D2674645A00015EC4 /* ObjectDownloadHandler+AlbumUnreadCount.swift */,
+				83F49BA8260FF24A00814A2A /* MediaItemUnreadCount.swift */,
+			);
+			path = "Comment Counts";
 			sourceTree = "<group>";
 		};
 		83152B1925FB35FE00A5439F /* GIF Images */ = {
@@ -845,7 +859,6 @@
 				83BF80752585D8C3000E0B37 /* Sign In Screen */,
 				83BF7CE22585B73A000E0B37 /* Album Sharing */,
 				8331F447255FA7A40063A67D /* Albums */,
-				83F49B97260FE86E00814A2A /* Badging */,
 				832D341A258680B100FEF094 /* Album sharing modal */,
 				8331F45F2560B7F40063A67D /* Album Items */,
 				8331F53B2562409A0063A67D /* Object Details */,
@@ -1190,6 +1203,7 @@
 				8331F3C2255E45550063A67D /* Server */,
 				835AC8E3255B83D100375084 /* Services */,
 				8320A75C256F56CF00819377 /* Media Types */,
+				83F49B97260FE86E00814A2A /* Badging */,
 				8331F3B7255E428C0063A67D /* UI */,
 				83B0C79725B29AE400D53B58 /* Push Notifications */,
 				83B0CB6725B3F53F00D53B58 /* App Store */,
@@ -1406,20 +1420,10 @@
 		83F49B97260FE86E00814A2A /* Badging */ = {
 			isa = PBXGroup;
 			children = (
-				83F49B98260FE89400814A2A /* AlbumUnreadCount.swift */,
+				830990702674695B00015EC4 /* Comment Counts */,
 				83773356266491EF009852C3 /* AlbumDownloadIndicator */,
-				83F49BBE261003F800814A2A /* MediaItemUnreadCount */,
 			);
 			path = Badging;
-			sourceTree = "<group>";
-		};
-		83F49BBE261003F800814A2A /* MediaItemUnreadCount */ = {
-			isa = PBXGroup;
-			children = (
-				83F49BA8260FF24A00814A2A /* MediaItemUnreadCount.swift */,
-				83F49BC22610042900814A2A /* Comments+UnreadCounts.swift */,
-			);
-			path = MediaItemUnreadCount;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1743,12 +1747,14 @@
 				83A2DF3C25FC6A350072A557 /* GIFItemProvider.swift in Sources */,
 				834B25A8258C60AF00F653BC /* ServerInterface+CloudHashing.swift in Sources */,
 				8331F369255B8DD10063A67D /* UploadToAlbumView.swift in Sources */,
+				830990752676BF2600015EC4 /* CommentCounts.swift in Sources */,
 				8331F441255F9C8E0063A67D /* AlbumModel.swift in Sources */,
 				83D8CC2B25BA89660069E3E5 /* LowerRightText.swift in Sources */,
 				83F416CF259E7D4E003C7200 /* Services+SignInServicesHelper.swift in Sources */,
 				83C7345E25986DBE0073788A /* SXItemProvider.swift in Sources */,
 				8331F4E72561FAEF0063A67D /* ShareViewModel.swift in Sources */,
 				839F1E3326006E3F0089C13F /* AppState.swift in Sources */,
+				830990742676BE8900015EC4 /* ObjectDownloadHandler+AlbumUnreadCount.swift in Sources */,
 				8331F36A255B8DD10063A67D /* SharingGroupData.swift in Sources */,
 				837A46DB25D8D77400CAC322 /* CGSize+Extras.swift in Sources */,
 				839F1DE425FEBA1D0089C13F /* GIFHelper.swift in Sources */,
@@ -1762,7 +1768,6 @@
 				83A2DF7D25FC88A20072A557 /* GIFIcon.swift in Sources */,
 				83BF7CA6258543B4000E0B37 /* Comments+Keys.swift in Sources */,
 				8367503925E31FD6003957BE /* Requestablity.swift in Sources */,
-				83F49BC7261004AE00814A2A /* Comments+UnreadCounts.swift in Sources */,
 				83A2EA722667076E009F0240 /* DownloadIndicator.swift in Sources */,
 				83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */,
 				839F1DED25FEBED70089C13F /* UserDisplayable+Extras.swift in Sources */,
@@ -1804,7 +1809,6 @@
 				83BF7C8725849AED000E0B37 /* Comments+Keys.swift in Sources */,
 				8320A6F2256CB59700819377 /* ImageLargeMedia.swift in Sources */,
 				83B0CB5025B2ABF400D53B58 /* PushNotifications.swift in Sources */,
-				83F49BC32610042900814A2A /* Comments+UnreadCounts.swift in Sources */,
 				83C43FF92574371C0016BA4C /* Comments.swift in Sources */,
 				83CE1EA725707E79004A418B /* PriorityQueue.swift in Sources */,
 				8320A6E3256CB2F400819377 /* ObjectDetailsView.swift in Sources */,
@@ -1931,6 +1935,7 @@
 				839ADC3125EB09DD00618581 /* MutableDownloads.swift in Sources */,
 				83D8CC3425BA8BC80069E3E5 /* UpperLeftBadge.swift in Sources */,
 				8331F42B255F95E80063A67D /* SetupDatabase.swift in Sources */,
+				8309906E2674645A00015EC4 /* ObjectDownloadHandler+AlbumUnreadCount.swift in Sources */,
 				8333E19F2567AE0200A5F79E /* URLPickerView.swift in Sources */,
 				8331F5262562301F0063A67D /* AnyIcon.swift in Sources */,
 				832D341D258680B100FEF094 /* AlbumSharingModalModel.swift in Sources */,
@@ -1954,6 +1959,7 @@
 				839F1E2325FF08A90089C13F /* ObjectType.swift in Sources */,
 				8331F332255B8AFD0063A67D /* MenuNavBar.swift in Sources */,
 				83C734FE25991B700073788A /* SXItemProvider.swift in Sources */,
+				8309907226746A1600015EC4 /* CommentCounts.swift in Sources */,
 				835104AD259FEBE300C5A05E /* CameraMediaPicker.swift in Sources */,
 				837A471125D9FF5200CAC322 /* ShowAlert.swift in Sources */,
 				832C3B6226477B8C00FCE2C4 /* Migrations.swift in Sources */,

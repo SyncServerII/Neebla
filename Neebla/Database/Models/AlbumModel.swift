@@ -102,7 +102,7 @@ class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
     static func migration_2021_6_1(db: Connection) throws {
         try addColumn(db: db, column: lastSyncDateField.description)
         
-        // Opt existing users into this-- so all of a sudden lots of albums don't indicate they need download just becuase they have a nil `lastSyncDate`.
+        // Opt existing users into this-- so all of a sudden lots of albums don't indicate they need download just because they have a nil `lastSyncDate`.
         try DownloadIndicator.updateAlbumLastSyncDates(db: db)
     }
     

@@ -8,17 +8,17 @@
 import Foundation
 import iOSShared
 
-protocol MediaItemUnreadCountDelegate: AnyObject {
+protocol MediaItemCommentCountsDelegate: AnyObject {
     var mediaItemUnreadCountBadgeText: String? { get set }
 }
 
-class MediaItemUnreadCount {
+class MediaItemCommentCounts {
     let object: ServerObjectModel
     private var observer: AnyObject?
     private var commentFileUUID: UUID!
-    var delegate: MediaItemUnreadCountDelegate!
+    var delegate: MediaItemCommentCountsDelegate!
     
-    init(object: ServerObjectModel, delegate: MediaItemUnreadCountDelegate) {
+    init(object: ServerObjectModel, delegate: MediaItemCommentCountsDelegate) {
         self.object = object
         self.delegate = delegate
         
@@ -62,8 +62,8 @@ class MediaItemUnreadCount {
     }
 }
 
-extension MediaItemUnreadCount {
-    static func resetUnreadCounts(for objects: [ServerObjectModel]) {
+extension MediaItemCommentCounts {
+    static func markAllRead(for objects: [ServerObjectModel]) {
         // Without doing this off the main thread, the UI can be delayed. This results in calls to `postUnreadCountUpdateNotification`, so listeners on those notifications should dispatch to the main queue if updating the UI.
         DispatchQueue.global().async {
             do {
@@ -74,10 +74,12 @@ extension MediaItemUnreadCount {
                     }
                     
                     let commentFileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.comments, withFileGroupUUID: object.fileGroupUUID)
-                    try Comments.resetReadCounts(commentFileModel: commentFileModel)
+                    let mediaItemAttributesFileModel = try? ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: commentFileModel.fileGroupUUID)
+                    let commentCounts = try CommentCounts(commentFileModel: commentFileModel, mediaItemAttributesFileModel: mediaItemAttributesFileModel, userId: Services.session.userId)
+                    try commentCounts.markAllRead(object: object)
                 }
             } catch let error {
-                logger.error("resetUnreadCount: \(error)")
+                logger.error("markAllRead: \(error)")
             }
         }
     }
