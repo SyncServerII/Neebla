@@ -25,12 +25,13 @@ class URLObjectType: ItemType, DeclarableObject {
     
     static let urlDeclaration = FileDeclaration(fileLabel: "url", mimeTypes: [.url], changeResolverName: nil)
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
+    static let mediaItemAttributesDeclaration = FileDeclaration(fileLabel: FileLabels.mediaItemAttributes, mimeTypes: [.text], changeResolverName: MediaItemAttributes.changeResolverName)
     static let previewImageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)
 
     let declaredFiles: [DeclarableFile]
 
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.urlDeclaration, Self.previewImageDeclaration]
+        declaredFiles = [Self.commentDeclaration, Self.urlDeclaration, Self.previewImageDeclaration, Self.mediaItemAttributesDeclaration]
     }
 
     static func createNewFile(for fileLabel: String, mimeType: MimeType? = nil) throws -> URL {
@@ -42,6 +43,9 @@ class URLObjectType: ItemType, DeclarableObject {
         switch fileLabel {
         case Self.commentDeclaration.fileLabel:
             fileExtension = Self.commentFilenameExtension
+            
+        case Self.mediaItemAttributesDeclaration.fileLabel:
+            fileExtension = Self.mediaItemAttributesFilenameExtension
             
         case Self.urlDeclaration.fileLabel:
             fileExtension = Self.urlFilenameExtension
@@ -64,6 +68,8 @@ class URLObjectType: ItemType, DeclarableObject {
         let commentFileUUID = UUID()
         let urlFileUUID = UUID()
         let fileGroupUUID = UUID()
+        let mediaItemAttributesUUID = UUID()
+
         var fileUploads = [FileUpload]()
         
         let objectModel = try ServerObjectModel(db: Services.session.db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: objectType, creationDate: Date(), updateCreationDate: true)
@@ -84,9 +90,21 @@ class URLObjectType: ItemType, DeclarableObject {
         
         let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
         try commentFileModel.insert()
-        
+
         let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
         fileUploads += [commentUpload]
+        
+        // Media item attributes file
+        
+        let miaEmptyFileData = try MediaItemAttributes.emptyFile()
+        let mediaItemAttributesFileURL = try createNewFile(for: mediaItemAttributesDeclaration.fileLabel)
+        try miaEmptyFileData.write(to: mediaItemAttributesFileURL)
+        
+        let mediaItemAttributesFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: mediaItemAttributesUUID, fileLabel: mediaItemAttributesDeclaration.fileLabel, downloadStatus: .downloaded, url: mediaItemAttributesFileURL)
+        try mediaItemAttributesFileModel.insert()
+
+        let mediaItemAttributesUpload = FileUpload.informNoOne(fileLabel: mediaItemAttributesDeclaration.fileLabel, dataSource: .copy(mediaItemAttributesFileURL), uuid: mediaItemAttributesUUID)
+        fileUploads += [mediaItemAttributesUpload]
         
         // URL file
         let urlFileURL = try createNewFile(for: urlDeclaration.fileLabel)

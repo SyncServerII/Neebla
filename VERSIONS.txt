@@ -6,7 +6,7 @@ Version 2.0.3
 			per user. Refactored read count code to make it easier to manage and read.
 		- So far adding only to newly created media items; 
 			not yet adding to previously created items.
-		- Have added to the image object type so far.
+		- Have added this to the image, GIF, URL, and live images object types.
 
 Version 2.0.2 (TestFlight Build 20210605.0); This is the actual app store release of v2.0.2
 	* Working on download indicators

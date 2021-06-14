@@ -30,8 +30,9 @@ class GIFObjectType: ItemType, DeclarableObject {
     static let objectType = ObjectType.gif.rawValue
     
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
+    static let mediaItemAttributesDeclaration = FileDeclaration(fileLabel: FileLabels.mediaItemAttributes, mimeTypes: [.text], changeResolverName: MediaItemAttributes.changeResolverName)
     
-    // Aside from a comment, GIF objects are structured with a GIF image file, and with a still image jpeg file. The still image is just one image extracted from the GIF.
+    // Aside from comment and media item attribute files, GIF objects are structured with a GIF image file, and with a still image jpeg file. The still image is just one image extracted from the GIF.
 
     static let gifDeclaration = FileDeclaration(fileLabel: "gif", mimeTypes: [GIFObjectTypeAssets.gifMimeType], changeResolverName: nil)
     static let iconDeclaration = FileDeclaration(fileLabel: "icon", mimeTypes: [GIFObjectTypeAssets.iconMimeType], changeResolverName: nil)
@@ -44,6 +45,9 @@ class GIFObjectType: ItemType, DeclarableObject {
         switch fileLabel {
         case Self.commentDeclaration.fileLabel:
             fileExtension = Self.commentFilenameExtension
+            
+        case Self.mediaItemAttributesDeclaration.fileLabel:
+            fileExtension = Self.mediaItemAttributesFilenameExtension
             
         case Self.gifDeclaration.fileLabel:
             guard let mimeType = mimeType else {
@@ -72,6 +76,7 @@ class GIFObjectType: ItemType, DeclarableObject {
         let gifFileUUID = UUID()
         let iconFileUUID = UUID()
         let commentFileUUID = UUID()
+        let mediaItemAttributesUUID = UUID()
         let fileGroupUUID = UUID()
         
         let currentUserName = try SettingsModel.userName(db: Services.session.db)
@@ -82,6 +87,10 @@ class GIFObjectType: ItemType, DeclarableObject {
         
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)
+        
+        let miaEmptyFileData = try MediaItemAttributes.emptyFile()
+        let mediaItemAttributesFileURL = try createNewFile(for: mediaItemAttributesDeclaration.fileLabel)
+        try miaEmptyFileData.write(to: mediaItemAttributesFileURL)
         
         let gifFileURL = try createNewFile(for: gifDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.gifMimeType)
         _ = try FileManager.default.replaceItemAt(gifFileURL, withItemAt: assets.gifFile, backupItemName: nil, options: [])
@@ -101,18 +110,22 @@ class GIFObjectType: ItemType, DeclarableObject {
         let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
         try commentFileModel.insert()
         
+        let mediaItemAttributesFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: mediaItemAttributesUUID, fileLabel: mediaItemAttributesDeclaration.fileLabel, downloadStatus: .downloaded, url: mediaItemAttributesFileURL)
+        try mediaItemAttributesFileModel.insert()
+        
         let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
+        let mediaItemAttributesUpload = FileUpload.informNoOne(fileLabel: mediaItemAttributesDeclaration.fileLabel, dataSource: .copy(mediaItemAttributesFileURL), uuid: mediaItemAttributesUUID)
         let gifUpload = FileUpload.forOthers(fileLabel: gifDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.gifMimeType, dataSource: .immutable(gifFileURL), uuid: gifFileUUID)
         let iconUpload = FileUpload.forOthers(fileLabel: iconDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.iconMimeType, dataSource: .immutable(iconFileURL), uuid: iconFileUUID)
 
         let pushNotificationText = try PushNotificationMessage.forUpload(of: objectModel)
-        let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [commentUpload, gifUpload, iconUpload])
+        let upload = ObjectUpload(objectType: objectType, fileGroupUUID: fileGroupUUID, sharingGroupUUID: sharingGroupUUID, pushNotificationMessage: pushNotificationText, uploads: [commentUpload, gifUpload, iconUpload, mediaItemAttributesUpload])
 
         try Services.session.syncServer.queue(upload:upload)
     }
 
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.gifDeclaration, Self.iconDeclaration]
+        declaredFiles = [Self.commentDeclaration, Self.gifDeclaration, Self.iconDeclaration, Self.mediaItemAttributesDeclaration]
     }
 }
 
