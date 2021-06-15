@@ -12,7 +12,7 @@ import iOSShared
 
 extension Services: iOSSignIn.SignInServicesHelper {
     public func signUserOut() {
-        logger.error("signUserOut")
+        logger.error("signUserOut: SignInServicesHelper")
         signInServices.manager.currentSignIn?.signUserOut()
     }
     

@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/kaishin/Gifu",
         "state": {
           "branch": null,
-          "revision": "0ffe24744cc3d82ab9edece53670d0352c6d5507",
-          "version": "3.3.0"
+          "revision": "51f2eab32903e336f590c013267cfa4d7f8b06c4",
+          "version": "3.3.1"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "b3f78bf177741673d768d9276795ffe5461a47a4",
-          "version": "0.29.0"
+          "revision": "7c30ba24ccbeb3ce4494f0547eb6e21cae266d2d",
+          "version": "0.29.1"
         }
       },
       {
