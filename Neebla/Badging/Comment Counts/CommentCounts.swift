@@ -89,7 +89,7 @@ class CommentCounts {
             try commentFileModel.update(setters: ServerFileModel.readCountField.description <- commentFile.count)
         }
         
-        // TODO: Currently only going to do this if there is already a file for MediaItemAttributes-- later I want to create and upload a file if it's not there already.
+        // TODO: Currently only going to do this if there is already a file for MediaItemAttributes-- later I want to create and upload a file if it's not there already. See https://github.com/SyncServerII/Neebla/issues/16
         if let userId = userId,
             let mediaItemAttributesFileModel = mediaItemAttributesFileModel {
             

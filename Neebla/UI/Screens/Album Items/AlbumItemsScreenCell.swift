@@ -5,12 +5,20 @@ import Combine
 struct AlbumItemsScreenCell: View {
     @ObservedObject var object:ServerObjectModel
     @ObservedObject var viewModel:AlbumItemsViewModel
-    @Environment(\.colorScheme) var colorScheme
     let config: IconConfig
+    let cellModel:AlbumItemsScreenCellModel
+    @Environment(\.colorScheme) var colorScheme
+    
+    init(object:ServerObjectModel, viewModel:AlbumItemsViewModel, config: IconConfig) {
+        self.object = object
+        self.viewModel = viewModel
+        self.config = config
+        cellModel = AlbumItemsScreenCellModel(object: object)
+    }
 
     var body: some View {
         AnyIcon(object: object, config: config,
-            upperRightView: viewModel.sharing ? sharingView() : nil)
+            upperRightView: viewModel.sharing ? sharingView() : cellModel.badgeView)
     }
     
     private func sharingView() -> AnyView {

@@ -24,6 +24,7 @@ extension ObjectDownloadHandler {
             try object.downloads.update(db: Services.session.db, downloadStatus: .downloaded)
             
             try updateUnreadCount(object: object, db: Services.session.db)
+            try updateMediaItemBadge(object: object, db: Services.session.db)
         } expiry: {
             logger.error("objectWasDownloaded: Expiry exceeded")
         }

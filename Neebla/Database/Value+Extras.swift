@@ -35,3 +35,19 @@ extension ServerFileModel.DownloadStatus: Value {
     }
 }
 
+extension MediaItemBadge: Value {
+    public static var declaredDatatype: String {
+        return Blob.declaredDatatype
+    }
+    
+    public static func fromDatatypeValue(_ blobValue: Blob) -> MediaItemBadge? {
+        let decoder = JSONDecoder()
+        return try? decoder.decode(MediaItemBadge.self, from: Data.fromDatatypeValue(blobValue))
+    }
+    
+    public var datatypeValue: Blob {
+        let encoder = JSONEncoder()
+        return try! encoder.encode(self).datatypeValue
+    }
+}
+

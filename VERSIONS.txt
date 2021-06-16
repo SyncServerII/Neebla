@@ -1,6 +1,17 @@
 Neebla
 
-Version 2.0.3 (TestFlight Build 20210614.0)
+Version 2.0.4
+	* Extended Media Item Attributes to include selecting/deselecting a favorite.
+		- A favorite for one media item is available for download on another device.
+		- Favorites are edited on the media item details screen.
+			Using a new pull down menu with the possible badges.
+		- And shown on the media item details screen and the album items screen.
+		- So far you cannot view other people's favorites.
+	* MIGRATION: Added a badge field to ServerFileModel for media item attribute files only.
+	* Like the unread counts, the favorites only apply to newly created media items.
+		- Though, they apply to files uploaded since the read count change too.
+
+Version 2.0.3 (TestFlight Build 20210614.0); This is the actual app store release of v2.0.3
 	* Media Item Attributes-- a new file per media item.
 		- So far, working on this to add cross-device read counts for media items, stored
 			per user. Refactored read count code to make it easier to manage and read.

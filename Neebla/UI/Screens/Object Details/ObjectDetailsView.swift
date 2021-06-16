@@ -5,12 +5,10 @@ import SFSafeSymbols
 import iOSShared
 
 struct ObjectDetailsView: View {
-    @Environment(\.presentationMode) var isPresented
     let object:ServerObjectModel
     @ObservedObject var model:ObjectDetailsModel
     @State var showComments = false
     @StateObject var alerty = AlertySubscriber(debugMessage: "ObjectDetailsView", publisher: Services.session.userEvents)
-    @StateObject var signInManager = Services.session.signInServices.manager
     
     init(object:ServerObjectModel) {
         self.object = object
@@ -33,33 +31,16 @@ struct ObjectDetailsView: View {
             // To push the `AnyLargeMedia` to the top.
             Spacer()
         }
+        .if(model.badgeView != nil) {
+            $0.upperRightView(model.badgeView!)
+        }
         .toolbar {
-            // Hack, workaround. Without this, I don't get the "< Back" in the uppper left. See also https://stackoverflow.com/questions/64405106
+            // Hack, workaround. Without this, I don't get the "< Back" in the uppper left. Or it disappears when I use the "Delete" menu item then cancel. See also https://stackoverflow.com/questions/64405106
             ToolbarItem(placement: .navigationBarLeading) {Text("")}
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                HStack(spacing: 0) {
-                    Button(
-                        action: {
-                            model.promptForDeletion(dismiss: {
-                                isPresented.wrappedValue.dismiss()
-                            })
-                        },
-                        label: {
-                            SFSymbolIcon(symbol: .trash)
-                        }
-                    )
-                    .enabled(signInManager.userIsSignedIn == true)
-                    
-                    Button(
-                        action: {
-                            showComments = true
-                        },
-                        label: {
-                            SFSymbolIcon(symbol: .message)
-                        }
-                    )
-                }.enabled(model.modelInitialized)
+                ObjectDetailsScreenNavButtons(showComments: $showComments, model: model)
+                    .enabled(model.modelInitialized)
             }
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)

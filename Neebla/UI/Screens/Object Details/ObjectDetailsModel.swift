@@ -4,12 +4,17 @@ import iOSShared
 import SQLite
 import Combine
 import SwiftUI
+import ChangeResolvers
+import iOSBasics
 
 class ObjectDetailsModel: ObservableObject {
     let object: ServerObjectModel
     private(set) var objectTypeDisplayName:String?
     var mediaTitle: String?
     @Published var modelInitialized: Bool
+    @Published var badgeSelected: MediaItemBadge = .none
+    var badgeModel: ServerFileModel?
+    @Published var badgeView: AnyView?
     
     init(object: ServerObjectModel) {
 #if DEBUG
@@ -44,7 +49,42 @@ class ObjectDetailsModel: ObservableObject {
             }
         }
         
+        badgeModel = try? ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: object.fileGroupUUID)
+        badgeSelected = badgeModel?.badge ?? .none
+        
         modelInitialized = success
+        
+        setupBadgeView()
+    }
+    
+    private func setupBadgeView() {
+        badgeView = MediaItemBadgeView.getView(badgeModel: badgeModel, size: CGSize(width: 40, height: 40))
+    }
+    
+    func selectBadge(newBadgeSelection: MediaItemBadge) throws {
+        guard  badgeSelected != newBadgeSelection,
+            let badgeModel = badgeModel else {
+            return
+        }
+
+        badgeSelected = newBadgeSelection
+        
+        try badgeModel.update(setters: ServerFileModel.badgeField.description <- badgeSelected)
+        badgeModel.badge = badgeSelected
+        
+        guard let userId = Services.session.userId else {
+            return
+        }
+        
+        let encoder = JSONEncoder()
+        let keyValue = KeyValue.badge(userId: "\(userId)", code: badgeSelected.rawValue)
+        let data = try encoder.encode(keyValue)
+
+        let file = FileUpload.forOthers(fileLabel: FileLabels.mediaItemAttributes, dataSource: .data(data), uuid: badgeModel.fileUUID)
+        let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: badgeModel.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, uploads: [file])
+        try Services.session.syncServer.queue(upload: upload)
+        
+        setupBadgeView()
     }
     
     private func deleteObject() -> Bool {

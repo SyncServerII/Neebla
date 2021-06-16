@@ -41,6 +41,10 @@ class ServerFileModel: DatabaseModel {
     static let readCountField = Field("readCount", \M.readCount)
     var readCount: Int?
     
+    // Only used for Media Item Attribute files. i.e., file label `mediaItemAttributes`. This is not obtained from the server-- it's for local use on the client only.
+    static let badgeField = Field("badge", \M.badge)
+    var badge: MediaItemBadge?
+    
     enum DownloadStatus: String, Codable {
         case notDownloaded
         case downloading
@@ -70,7 +74,8 @@ class ServerFileModel: DatabaseModel {
         url: URL? = nil,
         unreadCount: Int? = nil,
         readCount: Int? = nil,
-        appMetaData: String? = nil) throws {
+        appMetaData: String? = nil,
+        badge: MediaItemBadge? = nil) throws {
         
         self.db = db
         self.id = id
@@ -83,6 +88,7 @@ class ServerFileModel: DatabaseModel {
         self.readCount = readCount
         self.downloadStatus = downloadStatus
         self.appMetaData = appMetaData
+        self.badge = badge
     }
     
     // MARK: DatabaseModel
@@ -101,11 +107,18 @@ class ServerFileModel: DatabaseModel {
             
             // Added in migration
             // t.column(appMetaDataField.description)
+            
+            // Added in migration, 6/15/21
+            // t.column(badgeField.description)
         }
     }
     
     static func migration_2021_5_8(db: Connection) throws {
         try addColumn(db: db, column: appMetaDataField.description)
+    }
+
+    static func migration_2021_6_15(db: Connection) throws {
+        try addColumn(db: db, column: badgeField.description)
     }
     
     static func rowToModel(db: Connection, row: Row) throws -> ServerFileModel {
@@ -119,7 +132,8 @@ class ServerFileModel: DatabaseModel {
             url: row[Self.urlField.description],
             unreadCount: row[Self.unreadCountField.description],
             readCount: row[Self.readCountField.description],
-            appMetaData: row[Self.appMetaDataField.description]
+            appMetaData: row[Self.appMetaDataField.description],
+            badge: row[Self.badgeField.description]
         )
     }
     
@@ -133,7 +147,8 @@ class ServerFileModel: DatabaseModel {
             Self.unreadCountField.description <- unreadCount,
             Self.readCountField.description <- readCount,
             Self.downloadStatusField.description <- downloadStatus,
-            Self.appMetaDataField.description <- appMetaData
+            Self.appMetaDataField.description <- appMetaData,
+            Self.badgeField.description <- badge
         )
     }
 }
@@ -182,6 +197,22 @@ extension ServerFileModel {
         return fileModelsWithLabel[0]
     }
     
+    // The file with the file label may not be in the object; in that case, nil is returned. If it is in the object, that file must be in the local database.
+    static func getFileFor(fileLabel: String, from object:DownloadedObject) throws -> ServerFileModel? {
+    
+        let filter = object.downloads.filter { $0.fileLabel == fileLabel }
+        switch filter.count {
+        case 0:
+            return nil
+        case 1:
+            break
+        default:
+            throw ServerFileModelError.noObject
+        }
+
+        return try getFileFor(fileLabel: fileLabel, withFileGroupUUID: object.fileGroupUUID)
+    }
+        
     func removeFile() throws {
         if let existingFileURL = url {
             try FileManager.default.removeItem(at: existingFileURL)

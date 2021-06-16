@@ -13,6 +13,7 @@ import PersistentValue
 enum SpecificMigration {
     public static let m2021_5_8: Int32 = 2021_5_8
     public static let m2021_06_01: Int32 = 2021_06_01
+    public static let m2021_06_15: Int32 = 2021_06_15
 }
 
 class Migration: VersionedMigrationRunner {
@@ -60,6 +61,9 @@ class Migration: VersionedMigrationRunner {
             }),
             MigrationObject(version: SpecificMigration.m2021_06_01, apply: {
                 try AlbumModel.migration_2021_6_1(db: db)
+            }),
+            MigrationObject(version: SpecificMigration.m2021_06_15, apply: {
+                try ServerFileModel.migration_2021_6_15(db: db)
             })
         ]
     }
