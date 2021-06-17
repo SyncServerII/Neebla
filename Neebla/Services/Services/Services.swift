@@ -226,6 +226,8 @@ class Services {
         
         setupSignInServices(configPlist: configPlist, signIns: signIns, bundleIdentifier: bundleIdentifier, helper: self)
         
+        var initialAppLaunch = true
+        
         updateObserver = NotificationCenter.default.addObserver(forName: AppState.update, object: nil, queue: nil) { [weak self] notification in
             guard let self = self else { return }
             
@@ -234,7 +236,13 @@ class Services {
                 return
             }
             
-            // This is to allow credentials refresh when the app launches and when the app comes to the foreground. Otherwise, if the server restarts often require users to sign back in because the auth tokens are stale. See also https://github.com/SyncServerII/Neebla/issues/10
+            if initialAppLaunch {
+                initialAppLaunch = false
+                return
+            }
+            
+            // This is to allow credentials refresh when the app comes to the foreground. Otherwise, if the server restarts often require users to sign back in because the auth tokens are stale. See also https://github.com/SyncServerII/Neebla/issues/10
+            // Not doing this on initial app launch because of https://github.com/SyncServerII/Neebla/issues/17
             self.signInServices.manager.application(changes: state)
         }
         

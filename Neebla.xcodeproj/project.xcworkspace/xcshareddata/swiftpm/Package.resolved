@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/firebase/abseil-cpp-SwiftPM.git",
         "state": {
           "branch": null,
-          "revision": "ff5f5f0a3d3266836b9d722bb73cabdf7057482e",
-          "version": "0.20200225.3"
+          "revision": "fffc3c2729be5747390ad02d5100291a0d9ad26a",
+          "version": "0.20200225.4"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/firebase/boringssl-SwiftPM.git",
         "state": {
           "branch": null,
-          "revision": "15889fadef7078dfa1392b0e2b08f3d0e9797104",
-          "version": "0.7.1"
+          "revision": "734a8247442fde37df4364c21f6a0085b6a36728",
+          "version": "0.7.2"
         }
       },
       {
@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "58359415d4ea29ebdc8fa5b41ce96c434d76d901",
-          "version": "7.4.1"
+          "revision": "5b9fc55628b94740b9666a558570f3a89a626c3d",
+          "version": "7.4.2"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "7c30ba24ccbeb3ce4494f0547eb6e21cae266d2d",
-          "version": "0.29.1"
+          "revision": "9fa2c0dab605a8c4674af8207bbf53349978d611",
+          "version": "0.29.3"
         }
       },
       {
@@ -231,8 +231,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSSIgnIn.git",
         "state": {
           "branch": null,
-          "revision": "5a005e2b3de38ef1e76650d3cb16909b9bc26961",
-          "version": "0.4.2"
+          "revision": "1636c99ac5701f4b0368295f04ad79ff8cdb9401",
+          "version": "0.4.3"
         }
       },
       {

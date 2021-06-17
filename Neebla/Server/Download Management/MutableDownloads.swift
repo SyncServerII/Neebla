@@ -26,7 +26,7 @@ class MutableDownloads {
             let downloadObject = ObjectToDownload(fileGroupUUID: downloadableObject.fileGroupUUID, downloads: files)
             
             try Services.session.syncServer.queue(download: downloadObject)
-            logger.info("Started download for object: \(downloadObject.fileGroupUUID)")
+            logger.info("triggerMutableFileDownloadsIfNeeded: Started download for object: \(downloadObject.fileGroupUUID)")
         }
     }
 }
