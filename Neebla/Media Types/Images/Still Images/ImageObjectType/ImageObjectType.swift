@@ -22,7 +22,6 @@ class ImageObjectType: ItemType, DeclarableObject {
     // Object declaration
     static let objectType = ObjectType.image.rawValue
     
-    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
     static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg, .png], changeResolverName: nil)
     
     static func createNewFile(for fileLabel: String, mimeType: MimeType? = nil) throws -> URL {
@@ -57,17 +56,15 @@ class ImageObjectType: ItemType, DeclarableObject {
 
         let imageFileUUID = UUID()
         let commentFileUUID = UUID()
-        let fileGroupUUID = UUID()
         let mediaItemAttributesUUID = UUID()
+        let fileGroupUUID = UUID()
         
-        let currentUserName = try SettingsModel.userName(db: Services.session.db)
-        let commentFileData = try Comments.createInitialFile(mediaTitle: currentUserName, reconstructionDictionary: [
-            Comments.Keys.mediaUUIDKey:imageFileUUID.uuidString
-        ])
+        // This should have one entry per non-comment file
+        let reconstructionDictionary: [String: String] = [
+            Comments.Keys.mediaUUIDKey:imageFileUUID.uuidString,
+            Comments.Keys.mediaItemAttributesKey: mediaItemAttributesUUID.uuidString
+        ]
         
-        let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
-        try commentFileData.write(to: commentFileURL)
-
         let imageFileURL = try createNewFile(for: imageDeclaration.fileLabel, mimeType: assets.mimeType)
         _ = try FileManager.default.replaceItemAt(imageFileURL, withItemAt: assets.imageURL, backupItemName: nil, options: [])
 
@@ -76,12 +73,9 @@ class ImageObjectType: ItemType, DeclarableObject {
         
         let imageFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: imageFileUUID, fileLabel: imageDeclaration.fileLabel, downloadStatus: .downloaded, url: imageFileURL)
         try imageFileModel.insert()
-        
-        let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
-        try commentFileModel.insert()
                 
-        let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
-        
+        let commentUpload = try CommentFile.createUpload(fileUUID: commentFileUUID, fileGroupUUID: fileGroupUUID, reconstructionDictionary: reconstructionDictionary)
+
         let (mediaItemAttributesUpload, _) = try MediaItemAttributes.createUpload(fileUUID: mediaItemAttributesUUID, fileGroupUUID: fileGroupUUID)
         
         let imageUpload = FileUpload.forOthers(fileLabel: imageDeclaration.fileLabel, mimeType: assets.mimeType, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
@@ -93,7 +87,7 @@ class ImageObjectType: ItemType, DeclarableObject {
     }
 
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.imageDeclaration, MediaItemAttributes.declaration]
+        declaredFiles = [CommentFile.declaration, Self.imageDeclaration, MediaItemAttributes.declaration]
     }
 }
 

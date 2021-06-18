@@ -28,9 +28,7 @@ class GIFObjectType: ItemType, DeclarableObject {
 
     // Object declaration
     static let objectType = ObjectType.gif.rawValue
-    
-    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
-    
+        
     // Aside from comment and media item attribute files, GIF objects are structured with a GIF image file, and with a still image jpeg file. The still image is just one image extracted from the GIF.
 
     static let gifDeclaration = FileDeclaration(fileLabel: "gif", mimeTypes: [GIFObjectTypeAssets.gifMimeType], changeResolverName: nil)
@@ -78,14 +76,12 @@ class GIFObjectType: ItemType, DeclarableObject {
         let mediaItemAttributesUUID = UUID()
         let fileGroupUUID = UUID()
         
-        let currentUserName = try SettingsModel.userName(db: Services.session.db)
-        let commentFileData = try Comments.createInitialFile(mediaTitle: currentUserName, reconstructionDictionary: [
+        // The intent is that this have one entry per non-comment file
+        let reconstructionDictionary: [String: String] = [
             Comments.Keys.mediaUUIDKey:gifFileUUID.uuidString,
-            Comments.Keys.gifPreviewImageUUIDKey:iconFileUUID.uuidString
-        ])
-        
-        let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
-        try commentFileData.write(to: commentFileURL)
+            Comments.Keys.gifPreviewImageUUIDKey:iconFileUUID.uuidString,
+            Comments.Keys.mediaItemAttributesKey: mediaItemAttributesUUID.uuidString
+        ]
         
         let gifFileURL = try createNewFile(for: gifDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.gifMimeType)
         _ = try FileManager.default.replaceItemAt(gifFileURL, withItemAt: assets.gifFile, backupItemName: nil, options: [])
@@ -101,11 +97,8 @@ class GIFObjectType: ItemType, DeclarableObject {
         
         let iconFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: iconFileUUID, fileLabel: iconDeclaration.fileLabel, downloadStatus: .downloaded, url: iconFileURL)
         try iconFileModel.insert()
-        
-        let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
-        try commentFileModel.insert()
-        
-        let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
+
+        let commentUpload = try CommentFile.createUpload(fileUUID: commentFileUUID, fileGroupUUID: fileGroupUUID, reconstructionDictionary: reconstructionDictionary)
 
         let (mediaItemAttributesUpload, _) = try MediaItemAttributes.createUpload(fileUUID: mediaItemAttributesUUID, fileGroupUUID: fileGroupUUID)
         
@@ -119,7 +112,7 @@ class GIFObjectType: ItemType, DeclarableObject {
     }
 
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.gifDeclaration, Self.iconDeclaration, MediaItemAttributes.declaration]
+        declaredFiles = [CommentFile.declaration, Self.gifDeclaration, Self.iconDeclaration, MediaItemAttributes.declaration]
     }
 }
 

@@ -2,6 +2,7 @@ Neebla
 
 Version 2.0.5
 	* Refactor to pull out common media item attributes code to a single file.
+	* Similar refactor for common comment file code.
 
 Version 2.0.4 (TestFlight Build 20210617.0)
 	* When a badge (favorite) is changed, don't inform anyone. Previously we had

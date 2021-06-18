@@ -20,6 +20,9 @@ extension Comments {
         
         // 4/17/18; For some early files, image titles were stored in appMetaData. After server version 0.14.0, they are stored in "discussion" files. While the image title is stored in the "discussion" file-- that's for purposes of upload and download.
         static let mediaTitleKey = "imageTitle"
+
+        // See MediaItemAttributes in ChangeResolvers
+        static let mediaItemAttributesKey = "mediaItemAttributes"
     }
 }
 

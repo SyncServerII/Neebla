@@ -24,13 +24,12 @@ class URLObjectType: ItemType, DeclarableObject {
     static var objectType = ObjectType.url.rawValue
     
     static let urlDeclaration = FileDeclaration(fileLabel: "url", mimeTypes: [.url], changeResolverName: nil)
-    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
     static let previewImageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)
 
     let declaredFiles: [DeclarableFile]
 
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.urlDeclaration, Self.previewImageDeclaration, MediaItemAttributes.declaration]
+        declaredFiles = [CommentFile.declaration, Self.urlDeclaration, Self.previewImageDeclaration, MediaItemAttributes.declaration]
     }
 
     static func createNewFile(for fileLabel: String, mimeType: MimeType? = nil) throws -> URL {
@@ -68,6 +67,17 @@ class URLObjectType: ItemType, DeclarableObject {
         let urlFileUUID = UUID()
         let fileGroupUUID = UUID()
         let mediaItemAttributesUUID = UUID()
+        
+        // The reconstructionDictionary should have one entry per non-comment file.
+        // Using `mediaUUIDKey` to reference the UUID for the .url file is a bit odd. (See its definition in Comments.Keys). But, to be consistent with historical usage, I'm keeping it this way.
+        var reconstructionDictionary = [
+            Comments.Keys.mediaUUIDKey: urlFileUUID.uuidString,
+            Comments.Keys.mediaItemAttributesKey: mediaItemAttributesUUID.uuidString
+        ]
+        
+        if let _ = asset.image {
+            reconstructionDictionary[Comments.Keys.urlPreviewImageUUIDKey] = imageFileUUID.uuidString
+        }
 
         var fileUploads = [FileUpload]()
         
@@ -76,21 +86,7 @@ class URLObjectType: ItemType, DeclarableObject {
 
         // Comment file
         
-        // Using `mediaUUIDKey` to reference the UUID for the .url file is a bit odd. (See its definition in Comments.Keys). But, to be consistent with historical usage, I'm keeping it this way.
-        var reconstructionDictionary = [Comments.Keys.mediaUUIDKey: urlFileUUID.uuidString]
-        if let _ = asset.image {
-            reconstructionDictionary[Comments.Keys.urlPreviewImageUUIDKey] = imageFileUUID.uuidString
-        }
-        
-        let currentUserName = try SettingsModel.userName(db: Services.session.db)
-        let commentFileData = try Comments.createInitialFile(mediaTitle: currentUserName, reconstructionDictionary: reconstructionDictionary)
-        let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
-        try commentFileData.write(to: commentFileURL)
-        
-        let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
-        try commentFileModel.insert()
-
-        let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
+        let commentUpload = try CommentFile.createUpload(fileUUID: commentFileUUID, fileGroupUUID: fileGroupUUID, reconstructionDictionary: reconstructionDictionary)
         fileUploads += [commentUpload]
         
         // Media item attributes file

@@ -32,16 +32,14 @@ class LiveImageObjectType: ItemType, DeclarableObject {
 
     // Object declaration
     static let objectType = ObjectType.liveImage.rawValue
-    
-    static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
-    
+
     // These can be HEIC or JPEG coming from iOS, but I'm going to convert them all to jpeg and upload/download them that way. I think JPEG's are easier for users to deal with.
     static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)
     
     static let movieDeclaration = FileDeclaration(fileLabel: "movie", mimeTypes: [.mov], changeResolverName: nil)
     
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.imageDeclaration, Self.movieDeclaration, MediaItemAttributes.declaration]
+        declaredFiles = [CommentFile.declaration, Self.imageDeclaration, Self.movieDeclaration, MediaItemAttributes.declaration]
     }
     
     static func createNewFile(for fileLabel: String, mimeType: MimeType? = nil) throws -> URL {
@@ -76,16 +74,14 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         let commentFileUUID = UUID()
         let mediaItemAttributeUUID = UUID()
         let fileGroupUUID = UUID()
-
-        let currentUserName = try SettingsModel.userName(db: Services.session.db)
-        let commentFileData = try Comments.createInitialFile(mediaTitle: currentUserName, reconstructionDictionary: [
+        
+        // The intent is that this have one key/value for each file other than the comment file.
+        let reconstructionDictionary: [String: String] = [
             Comments.Keys.mediaUUIDKey: imageFileUUID.uuidString,
-            Comments.Keys.movieUUIDKey: movieFileUUID.uuidString
-        ])
-        
-        let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
-        try commentFileData.write(to: commentFileURL)
-        
+            Comments.Keys.movieUUIDKey: movieFileUUID.uuidString,
+            Comments.Keys.mediaItemAttributesKey: mediaItemAttributeUUID.uuidString
+        ]
+                
         // These will be the new copies/names.
         let imageFileURL = try createNewFile(for: imageDeclaration.fileLabel)
         let movieFileURL = try createNewFile(for: movieDeclaration.fileLabel)
@@ -102,12 +98,10 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         let movieFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: movieFileUUID, fileLabel: movieDeclaration.fileLabel, downloadStatus: .downloaded, url: movieFileURL)
         try movieFileModel.insert()
         
-        let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
-        try commentFileModel.insert()
-        
         let (mediaItemAttributesUpload, _) = try MediaItemAttributes.createUpload(fileUUID: mediaItemAttributeUUID, fileGroupUUID: fileGroupUUID)
+        
+        let commentUpload = try CommentFile.createUpload(fileUUID: commentFileUUID, fileGroupUUID: fileGroupUUID, reconstructionDictionary: reconstructionDictionary)
 
-        let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
         let imageUpload = FileUpload.forOthers(fileLabel: imageDeclaration.fileLabel, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
         let movieUpload = FileUpload.forOthers(fileLabel: movieDeclaration.fileLabel, dataSource: .immutable(movieFileURL), uuid: movieFileUUID)
         

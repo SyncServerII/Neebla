@@ -42,7 +42,7 @@ class Comments {
             commentFileURL = url
         }
         else {
-            commentFileURL = try URLObjectType.createNewFile(for: URLObjectType.commentDeclaration.fileLabel)
+            commentFileURL = try ItemTypeFiles.createNewCommentFile()
             commentFileModel = try commentFileModel.update(setters: ServerFileModel.urlField.description <- commentFileURL)
         }
         
