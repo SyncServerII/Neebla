@@ -49,6 +49,7 @@ class ObjectDetailsModel: ObservableObject {
             }
         }
         
+        // This is a candidate place where we could create new media attribute items files on demand. e.g., if the badgeModel is nil-- https://github.com/SyncServerII/Neebla/issues/16
         badgeModel = try? ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: object.fileGroupUUID)
         badgeSelected = badgeModel?.badge ?? .none
         
@@ -80,7 +81,9 @@ class ObjectDetailsModel: ObservableObject {
         let keyValue = KeyValue.badge(userId: "\(userId)", code: badgeSelected.rawValue)
         let data = try encoder.encode(keyValue)
 
-        let file = FileUpload.forOthers(fileLabel: FileLabels.mediaItemAttributes, dataSource: .data(data), uuid: badgeModel.fileUUID)
+        // This at least currently is not `FileUpload.forOthers` because the UI currently doesn't allow others to see self's badges. See https://github.com/SyncServerII/Neebla/issues/19
+        let file = FileUpload.informNoOne(fileLabel: FileLabels.mediaItemAttributes, dataSource: .data(data), uuid: badgeModel.fileUUID)
+        
         let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: badgeModel.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, uploads: [file])
         try Services.session.syncServer.queue(upload: upload)
         

@@ -1,5 +1,9 @@
 Neebla
 
+Version 2.0.4 (TestFlight Build)
+	* When a badge (favorite) is changed, don't inform anyone. Previously we had
+		been informing others, but badges for self don't show up the UI for others yet.
+	
 Version 2.0.4 (TestFlight Build 20210616.0)
 	* Extended Media Item Attributes to include selecting/deselecting a favorite.
 		- A favorite for one media item is available for download on another device.

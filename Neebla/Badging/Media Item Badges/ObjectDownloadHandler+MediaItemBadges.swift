@@ -32,6 +32,7 @@ extension ObjectDownloadHandler {
             return
         }
         
+        // Currently ignoring badges other than `self`'s because only self's is visible in the UI-- see https://github.com/SyncServerII/Neebla/issues/19
         let badge = mia.get(type: .badge, key: "\(userId)")
         switch badge {
         case .badge(userId: _, code: let badgeCode):
