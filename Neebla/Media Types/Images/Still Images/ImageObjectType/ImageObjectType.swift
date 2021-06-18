@@ -22,7 +22,6 @@ class ImageObjectType: ItemType, DeclarableObject {
     // Object declaration
     static let objectType = ObjectType.image.rawValue
     
-    static let mediaItemAttributesDeclaration = FileDeclaration(fileLabel: FileLabels.mediaItemAttributes, mimeTypes: [.text], changeResolverName: MediaItemAttributes.changeResolverName)
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
     static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg, .png], changeResolverName: nil)
     
@@ -32,20 +31,23 @@ class ImageObjectType: ItemType, DeclarableObject {
         let fileExtension: String
         
         switch fileLabel {
-        case Self.mediaItemAttributesDeclaration.fileLabel:
-            fileExtension = Self.mediaItemAttributesFilenameExtension
-        case Self.commentDeclaration.fileLabel:
-            fileExtension = Self.commentFilenameExtension
+        case FileLabels.mediaItemAttributes:
+            return try ItemTypeFiles.createNewMediaItemAttributesFile()
+            
+        case FileLabels.comments:
+            return try ItemTypeFiles.createNewCommentFile()
+            
         case Self.imageDeclaration.fileLabel:
             guard let mimeType = mimeType else {
                 throw ImageObjectTypeError.noMimeType
             }
             fileExtension = mimeType.fileNameExtension
+
         default:
             throw ImageObjectTypeError.invalidFileLabel
         }
         
-        return try Files.createTemporary(withPrefix: Self.filenamePrefix, andExtension: fileExtension, inDirectory: localObjectsDir)
+        return try Files.createTemporary(withPrefix: ItemTypeFiles.filenamePrefix, andExtension: fileExtension, inDirectory: localObjectsDir)
     }
     
     let declaredFiles: [DeclarableFile]
@@ -65,10 +67,6 @@ class ImageObjectType: ItemType, DeclarableObject {
         
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)
-        
-        let miaEmptyFileData = try MediaItemAttributes.emptyFile()
-        let mediaItemAttributesFileURL = try createNewFile(for: mediaItemAttributesDeclaration.fileLabel)
-        try miaEmptyFileData.write(to: mediaItemAttributesFileURL)
 
         let imageFileURL = try createNewFile(for: imageDeclaration.fileLabel, mimeType: assets.mimeType)
         _ = try FileManager.default.replaceItemAt(imageFileURL, withItemAt: assets.imageURL, backupItemName: nil, options: [])
@@ -81,12 +79,11 @@ class ImageObjectType: ItemType, DeclarableObject {
         
         let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
         try commentFileModel.insert()
-        
-        let mediaItemAttributesFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: mediaItemAttributesUUID, fileLabel: mediaItemAttributesDeclaration.fileLabel, downloadStatus: .downloaded, url: mediaItemAttributesFileURL)
-        try mediaItemAttributesFileModel.insert()
-        
+                
         let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
-        let mediaItemAttributesUpload = FileUpload.informNoOne(fileLabel: mediaItemAttributesDeclaration.fileLabel, dataSource: .copy(mediaItemAttributesFileURL), uuid: mediaItemAttributesUUID)
+        
+        let (mediaItemAttributesUpload, _) = try MediaItemAttributes.createUpload(fileUUID: mediaItemAttributesUUID, fileGroupUUID: fileGroupUUID)
+        
         let imageUpload = FileUpload.forOthers(fileLabel: imageDeclaration.fileLabel, mimeType: assets.mimeType, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
         
         let pushNotificationText = try PushNotificationMessage.forUpload(of: objectModel)
@@ -96,7 +93,7 @@ class ImageObjectType: ItemType, DeclarableObject {
     }
 
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.imageDeclaration, Self.mediaItemAttributesDeclaration]
+        declaredFiles = [Self.commentDeclaration, Self.imageDeclaration, MediaItemAttributes.declaration]
     }
 }
 

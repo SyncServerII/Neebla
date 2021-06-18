@@ -25,13 +25,12 @@ class URLObjectType: ItemType, DeclarableObject {
     
     static let urlDeclaration = FileDeclaration(fileLabel: "url", mimeTypes: [.url], changeResolverName: nil)
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
-    static let mediaItemAttributesDeclaration = FileDeclaration(fileLabel: FileLabels.mediaItemAttributes, mimeTypes: [.text], changeResolverName: MediaItemAttributes.changeResolverName)
     static let previewImageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)
 
     let declaredFiles: [DeclarableFile]
 
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.urlDeclaration, Self.previewImageDeclaration, Self.mediaItemAttributesDeclaration]
+        declaredFiles = [Self.commentDeclaration, Self.urlDeclaration, Self.previewImageDeclaration, MediaItemAttributes.declaration]
     }
 
     static func createNewFile(for fileLabel: String, mimeType: MimeType? = nil) throws -> URL {
@@ -41,11 +40,11 @@ class URLObjectType: ItemType, DeclarableObject {
         let fileExtension: String
         
         switch fileLabel {
-        case Self.commentDeclaration.fileLabel:
-            fileExtension = Self.commentFilenameExtension
+        case FileLabels.comments:
+            return try ItemTypeFiles.createNewCommentFile()
             
-        case Self.mediaItemAttributesDeclaration.fileLabel:
-            fileExtension = Self.mediaItemAttributesFilenameExtension
+        case FileLabels.mediaItemAttributes:
+            return try ItemTypeFiles.createNewMediaItemAttributesFile()
             
         case Self.urlDeclaration.fileLabel:
             fileExtension = Self.urlFilenameExtension
@@ -57,7 +56,7 @@ class URLObjectType: ItemType, DeclarableObject {
             throw URLObjectTypeError.invalidFileLabel
         }
         
-        return try Files.createTemporary(withPrefix: Self.filenamePrefix, andExtension: fileExtension, inDirectory: localObjectsDir)
+        return try Files.createTemporary(withPrefix: ItemTypeFiles.filenamePrefix, andExtension: fileExtension, inDirectory: localObjectsDir)
     }
     
     static func uploadNewObjectInstance(asset: URLObjectTypeAssets, sharingGroupUUID: UUID) throws {
@@ -96,14 +95,7 @@ class URLObjectType: ItemType, DeclarableObject {
         
         // Media item attributes file
         
-        let miaEmptyFileData = try MediaItemAttributes.emptyFile()
-        let mediaItemAttributesFileURL = try createNewFile(for: mediaItemAttributesDeclaration.fileLabel)
-        try miaEmptyFileData.write(to: mediaItemAttributesFileURL)
-        
-        let mediaItemAttributesFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: mediaItemAttributesUUID, fileLabel: mediaItemAttributesDeclaration.fileLabel, downloadStatus: .downloaded, url: mediaItemAttributesFileURL)
-        try mediaItemAttributesFileModel.insert()
-
-        let mediaItemAttributesUpload = FileUpload.informNoOne(fileLabel: mediaItemAttributesDeclaration.fileLabel, dataSource: .copy(mediaItemAttributesFileURL), uuid: mediaItemAttributesUUID)
+        let (mediaItemAttributesUpload, _) = try MediaItemAttributes.createUpload(fileUUID: mediaItemAttributesUUID, fileGroupUUID: fileGroupUUID)
         fileUploads += [mediaItemAttributesUpload]
         
         // URL file

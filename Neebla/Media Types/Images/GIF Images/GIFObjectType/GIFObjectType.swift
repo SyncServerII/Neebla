@@ -30,7 +30,6 @@ class GIFObjectType: ItemType, DeclarableObject {
     static let objectType = ObjectType.gif.rawValue
     
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
-    static let mediaItemAttributesDeclaration = FileDeclaration(fileLabel: FileLabels.mediaItemAttributes, mimeTypes: [.text], changeResolverName: MediaItemAttributes.changeResolverName)
     
     // Aside from comment and media item attribute files, GIF objects are structured with a GIF image file, and with a still image jpeg file. The still image is just one image extracted from the GIF.
 
@@ -43,11 +42,11 @@ class GIFObjectType: ItemType, DeclarableObject {
         let fileExtension: String
         
         switch fileLabel {
-        case Self.commentDeclaration.fileLabel:
-            fileExtension = Self.commentFilenameExtension
+        case FileLabels.comments:
+            return try ItemTypeFiles.createNewCommentFile()
             
-        case Self.mediaItemAttributesDeclaration.fileLabel:
-            fileExtension = Self.mediaItemAttributesFilenameExtension
+        case FileLabels.mediaItemAttributes:
+            return try ItemTypeFiles.createNewMediaItemAttributesFile()
             
         case Self.gifDeclaration.fileLabel:
             guard let mimeType = mimeType else {
@@ -65,7 +64,7 @@ class GIFObjectType: ItemType, DeclarableObject {
             throw GIFObjectTypeError.invalidFileLabel
         }
         
-        return try Files.createTemporary(withPrefix: Self.filenamePrefix, andExtension: fileExtension, inDirectory: localObjectsDir)
+        return try Files.createTemporary(withPrefix: ItemTypeFiles.filenamePrefix, andExtension: fileExtension, inDirectory: localObjectsDir)
     }
     
     let declaredFiles: [DeclarableFile]
@@ -88,10 +87,6 @@ class GIFObjectType: ItemType, DeclarableObject {
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)
         
-        let miaEmptyFileData = try MediaItemAttributes.emptyFile()
-        let mediaItemAttributesFileURL = try createNewFile(for: mediaItemAttributesDeclaration.fileLabel)
-        try miaEmptyFileData.write(to: mediaItemAttributesFileURL)
-        
         let gifFileURL = try createNewFile(for: gifDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.gifMimeType)
         _ = try FileManager.default.replaceItemAt(gifFileURL, withItemAt: assets.gifFile, backupItemName: nil, options: [])
         
@@ -110,11 +105,10 @@ class GIFObjectType: ItemType, DeclarableObject {
         let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
         try commentFileModel.insert()
         
-        let mediaItemAttributesFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: mediaItemAttributesUUID, fileLabel: mediaItemAttributesDeclaration.fileLabel, downloadStatus: .downloaded, url: mediaItemAttributesFileURL)
-        try mediaItemAttributesFileModel.insert()
-        
         let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
-        let mediaItemAttributesUpload = FileUpload.informNoOne(fileLabel: mediaItemAttributesDeclaration.fileLabel, dataSource: .copy(mediaItemAttributesFileURL), uuid: mediaItemAttributesUUID)
+
+        let (mediaItemAttributesUpload, _) = try MediaItemAttributes.createUpload(fileUUID: mediaItemAttributesUUID, fileGroupUUID: fileGroupUUID)
+        
         let gifUpload = FileUpload.forOthers(fileLabel: gifDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.gifMimeType, dataSource: .immutable(gifFileURL), uuid: gifFileUUID)
         let iconUpload = FileUpload.forOthers(fileLabel: iconDeclaration.fileLabel, mimeType: GIFObjectTypeAssets.iconMimeType, dataSource: .immutable(iconFileURL), uuid: iconFileUUID)
 
@@ -125,7 +119,7 @@ class GIFObjectType: ItemType, DeclarableObject {
     }
 
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.gifDeclaration, Self.iconDeclaration, Self.mediaItemAttributesDeclaration]
+        declaredFiles = [Self.commentDeclaration, Self.gifDeclaration, Self.iconDeclaration, MediaItemAttributes.declaration]
     }
 }
 

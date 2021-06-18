@@ -34,8 +34,6 @@ class LiveImageObjectType: ItemType, DeclarableObject {
     static let objectType = ObjectType.liveImage.rawValue
     
     static let commentDeclaration = FileDeclaration(fileLabel: FileLabels.comments, mimeTypes: [.text], changeResolverName: CommentFile.changeResolverName)
-
-    static let mediaItemAttributesDeclaration = FileDeclaration(fileLabel: FileLabels.mediaItemAttributes, mimeTypes: [.text], changeResolverName: MediaItemAttributes.changeResolverName)
     
     // These can be HEIC or JPEG coming from iOS, but I'm going to convert them all to jpeg and upload/download them that way. I think JPEG's are easier for users to deal with.
     static let imageDeclaration = FileDeclaration(fileLabel: "image", mimeTypes: [.jpeg], changeResolverName: nil)
@@ -43,7 +41,7 @@ class LiveImageObjectType: ItemType, DeclarableObject {
     static let movieDeclaration = FileDeclaration(fileLabel: "movie", mimeTypes: [.mov], changeResolverName: nil)
     
     init() {
-        declaredFiles = [Self.commentDeclaration, Self.imageDeclaration, Self.movieDeclaration, Self.mediaItemAttributesDeclaration]
+        declaredFiles = [Self.commentDeclaration, Self.imageDeclaration, Self.movieDeclaration, MediaItemAttributes.declaration]
     }
     
     static func createNewFile(for fileLabel: String, mimeType: MimeType? = nil) throws -> URL {
@@ -52,10 +50,12 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         let fileExtension: String
         
         switch fileLabel {
-        case Self.commentDeclaration.fileLabel:
-            fileExtension = Self.commentFilenameExtension
-        case Self.mediaItemAttributesDeclaration.fileLabel:
-            fileExtension = Self.mediaItemAttributesFilenameExtension
+        case FileLabels.comments:
+            return try ItemTypeFiles.createNewCommentFile()
+            
+        case FileLabels.mediaItemAttributes:
+            return try ItemTypeFiles.createNewMediaItemAttributesFile()
+            
         case Self.imageDeclaration.fileLabel:
             fileExtension = MimeType.jpeg.fileNameExtension
         case Self.movieDeclaration.fileLabel:
@@ -65,7 +65,7 @@ class LiveImageObjectType: ItemType, DeclarableObject {
             throw LiveImageObjectTypeError.invalidFileLabel
         }
         
-        return try Files.createTemporary(withPrefix: Self.filenamePrefix, andExtension: fileExtension, inDirectory: localObjectsDir)
+        return try Files.createTemporary(withPrefix: ItemTypeFiles.filenamePrefix, andExtension: fileExtension, inDirectory: localObjectsDir)
     }
     
     static func uploadNewObjectInstance(assets: LiveImageObjectTypeAssets, sharingGroupUUID: UUID) throws {
@@ -86,10 +86,6 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         let commentFileURL = try createNewFile(for: commentDeclaration.fileLabel)
         try commentFileData.write(to: commentFileURL)
         
-        let miaEmptyFileData = try MediaItemAttributes.emptyFile()
-        let mediaItemAttributesFileURL = try createNewFile(for: mediaItemAttributesDeclaration.fileLabel)
-        try miaEmptyFileData.write(to: mediaItemAttributesFileURL)
-        
         // These will be the new copies/names.
         let imageFileURL = try createNewFile(for: imageDeclaration.fileLabel)
         let movieFileURL = try createNewFile(for: movieDeclaration.fileLabel)
@@ -109,11 +105,9 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         let commentFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: commentFileUUID, fileLabel: commentDeclaration.fileLabel, downloadStatus: .downloaded, url: commentFileURL)
         try commentFileModel.insert()
         
-        let mediaItemAttributesFileModel = try ServerFileModel(db: Services.session.db, fileGroupUUID: fileGroupUUID, fileUUID: mediaItemAttributeUUID, fileLabel: mediaItemAttributesDeclaration.fileLabel, downloadStatus: .downloaded, url: mediaItemAttributesFileURL)
-        try mediaItemAttributesFileModel.insert()
-        
+        let (mediaItemAttributesUpload, _) = try MediaItemAttributes.createUpload(fileUUID: mediaItemAttributeUUID, fileGroupUUID: fileGroupUUID)
+
         let commentUpload = FileUpload.forOthers(fileLabel: commentDeclaration.fileLabel, dataSource: .copy(commentFileURL), uuid: commentFileUUID)
-        let mediaItemAttributesUpload = FileUpload.informNoOne(fileLabel: mediaItemAttributesDeclaration.fileLabel, dataSource: .copy(mediaItemAttributesFileURL), uuid: mediaItemAttributeUUID)
         let imageUpload = FileUpload.forOthers(fileLabel: imageDeclaration.fileLabel, dataSource: .immutable(imageFileURL), uuid: imageFileUUID)
         let movieUpload = FileUpload.forOthers(fileLabel: movieDeclaration.fileLabel, dataSource: .immutable(movieFileURL), uuid: movieFileUUID)
         

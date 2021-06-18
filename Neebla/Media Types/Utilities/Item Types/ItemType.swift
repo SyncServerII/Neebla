@@ -2,6 +2,8 @@
 import Foundation
 import ChangeResolvers
 import ServerShared
+import iOSShared
+
 protocol ItemType {
     // SyncServer objectType
     static var objectType: String {get}
@@ -20,17 +22,23 @@ extension ItemType {
     var objectType: String {
         return Self.objectType
     }
+}
+
+enum ItemTypeFiles {
+    static let filenamePrefix = "Neebla"
+    static let commentFilenameExtension = "json"
+    static let mediaItemAttributesFilenameExtension = "json"
     
-    static var filenamePrefix: String {
-        return "Neebla"
+    static func createNewMediaItemAttributesFile() throws -> URL {
+        let localObjectsDir = Files.getDocumentsDirectory().appendingPathComponent(
+            LocalFiles.objectsDir)
+        return try Files.createTemporary(withPrefix: Self.filenamePrefix, andExtension: Self.mediaItemAttributesFilenameExtension, inDirectory: localObjectsDir)
     }
     
-    static var commentFilenameExtension: String {
-        return "json"
-    }
-    
-    static var mediaItemAttributesFilenameExtension: String {
-        return "json"
+    static func createNewCommentFile() throws -> URL {
+        let localObjectsDir = Files.getDocumentsDirectory().appendingPathComponent(
+            LocalFiles.objectsDir)
+        return try Files.createTemporary(withPrefix: Self.filenamePrefix, andExtension: Self.commentFilenameExtension, inDirectory: localObjectsDir)
     }
 }
 
