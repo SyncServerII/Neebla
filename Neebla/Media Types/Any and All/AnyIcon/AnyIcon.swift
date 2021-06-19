@@ -10,6 +10,7 @@ struct AnyIconMain: View {
     
     var body: some View {
         switch model.object.objectType {
+        
         case ImageObjectType.objectType:
             ImageIcon(object: model.object, config: config)
         
