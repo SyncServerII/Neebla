@@ -4,15 +4,15 @@ import SwiftUI
 
 struct AnyLargeMedia: View {
     let object: ServerObjectModel
-    private var badgeText: String?
     let tapOnLargeMedia: ()->()
+    @ObservedObject var model:AnyLargeMediaModel
+    
+    // TODO: Need to update badge text when badge count gets updated for this file model.
     
     init(object: ServerObjectModel, tapOnLargeMedia: @escaping ()->()) {
         self.object = object
         self.tapOnLargeMedia = tapOnLargeMedia
-        if let count = try? object.getCommentsUnreadCount(), count > 0 {
-            badgeText = "\(count)"
-        }
+        model = AnyLargeMediaModel(object: object)
     }
     
     var body: some View {
@@ -44,9 +44,9 @@ struct AnyLargeMedia: View {
             }
         }
         // The badge is not showing up the way I want it on `LiveImageLargeMedia`. It is not showing up within the image. Just the upper/left of the screen. Not sure how to resolve that.
-        .if(badgeText != nil) {
+        .if(model.mediaItemUnreadCountBadgeText != nil) {
             $0.overlay(
-                BadgeOverlay(text: badgeText!).padding([.leading, .top], 5),
+                BadgeOverlay(text: model.mediaItemUnreadCountBadgeText!).padding([.leading, .top], 5),
                 alignment: .topLeading)
         }
         .onAppear() {

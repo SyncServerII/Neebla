@@ -3,6 +3,17 @@ Neebla
 Version 2.0.5
 	* Refactor to pull out common media item attributes code to a single file.
 	* Similar refactor for common comment file code.
+	* If a user enters the media items screen now and there is no underlying media item
+		attributes file, one will be created and uploaded.
+		- This will enable favorites to be added on demand for older media items.
+		- And will enable tracking of read counts for older media items.
+		- It also brings in the first instance of a possible UUID collision. If two people
+			try to add a media items attributes file for the same media item, they can
+			collide. The loser of the race will receive a UUID collision result. And is coded
+			to update to the winning UUID.
+			This is tricky to test.
+	* Fix issue with unread count badge on large media item screen
+		It was not consistently getting reset when you'd read comments.
 
 Version 2.0.4 (TestFlight Build 20210617.0)
 	* When a badge (favorite) is changed, don't inform anyone. Previously we had

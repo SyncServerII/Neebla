@@ -18,7 +18,6 @@ struct ObjectDetailsScreenNavButtons: View {
         HStack(spacing: 0) {
             // Having both a Button and a Menu (perhaps with sections?) in this tool bar causes some bad looking movement of the items on the toolbar when displayed. But with two menus, you don't get that!
 
-            // TODO: Should create the badge file on demand too-- https://github.com/SyncServerII/Neebla/issues/16
             if model.badgeModel != nil {
                 Menu {
                     BadgePickerMenu(model: model)

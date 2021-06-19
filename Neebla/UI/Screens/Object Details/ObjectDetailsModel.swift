@@ -49,9 +49,38 @@ class ObjectDetailsModel: ObservableObject {
             }
         }
         
-        // This is a candidate place where we could create new media attribute items files on demand. e.g., if the badgeModel is nil-- https://github.com/SyncServerII/Neebla/issues/16
         badgeModel = try? ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: object.fileGroupUUID)
         badgeSelected = badgeModel?.badge ?? .none
+
+        // Create a new media attribute items file on demand. https://github.com/SyncServerII/Neebla/issues/16
+        if badgeModel == nil {
+            // Do our best to make sure that this means we actually don't yet have a media file attributes.
+            do {
+                guard let fileGroupAttr = try Services.session.syncServer.fileGroupAttributes(forFileGroupUUID: object.fileGroupUUID) else {
+                    logger.error("ObjectDetailsModel: Don't have file group!!")
+                    modelInitialized = false
+                    return
+                }
+                
+                guard let objectType = ObjectType(rawValue: object.objectType) else {
+                    logger.error("ObjectDetailsModel: Could not convert objectType")
+                    modelInitialized = false
+                    return
+                }
+
+                let filter = fileGroupAttr.files.filter {$0.fileLabel == FileLabels.mediaItemAttributes}
+                if filter.count == 0 {
+                    let fileUUID = UUID()
+                    let fileModel = try MediaItemAttributes.queueUpload(fileUUID: fileUUID, fileGroupUUID: object.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, objectType: objectType)
+                    badgeModel = fileModel
+                }
+                // Else: We have it. Don't create it.
+            } catch let error {
+                logger.error("\(error)")
+                modelInitialized = false
+                return
+            }
+        }
         
         modelInitialized = success
         

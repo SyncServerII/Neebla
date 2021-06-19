@@ -158,6 +158,30 @@ extension ServerInterface: SyncServerDelegate {
     }
 
     func uuidCollision(_ syncServer: SyncServer, type: UUIDCollisionType, from: UUID, to: UUID) {
+        // This is dealing with the media attributes file. It's probably happening due to a race condition with adding a media attributes file on demand. See https://github.com/SyncServerII/Neebla/issues/16
+        
+        guard type == .file else {
+            logger.error("uuidCollision: Could not have type .file: from: \(from) to: \(to)")
+            return
+        }
+        
+        do {
+            guard let fileModel = try ServerFileModel.fetchSingleRow(db: Services.session.db, where: ServerFileModel.fileUUIDField.description == from) else {
+                logger.error("uuidCollision: Could not find `from` uuid: \(from)")
+                return
+            }
+            
+            let shouldNotBePresent = try ServerFileModel.fetchSingleRow(db: Services.session.db, where: ServerFileModel.fileUUIDField.description == to)
+            guard shouldNotBePresent == nil else {
+                logger.error("uuidCollision: Found `to` uuid: \(to)")
+                return
+            }
+            
+            try fileModel.update(setters: ServerFileModel.fileUUIDField.description <- to)
+            logger.debug("uuidCollision: Success: Updating \(from) to \(to)")
+        } catch let error {
+            logger.error("uuidCollision: Failed: \(error)")
+        }
     }
     
     // The rest have informative detail; perhaps purely for testing.

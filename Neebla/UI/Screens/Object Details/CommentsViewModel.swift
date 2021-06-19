@@ -168,6 +168,7 @@ class CommentsViewModel: ObservableObject {
         try Comments.save(commentFile: commentFile, commentFileModel: commentFileModel, object: object)
     }
     
+    // Mark all comments in the single comment file as read.
     func markAllRead() {
         do {
             let mediaItemAttributesFileModel = try? ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: commentFileModel.fileGroupUUID)
