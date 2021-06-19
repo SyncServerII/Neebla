@@ -7,11 +7,14 @@
 
 import Foundation
 
-class AnyLargeMediaModel: ObservableObject, MediaItemCommentCountsDelegate {
-    @Published var mediaItemUnreadCountBadgeText: String?
-    private var counts: MediaItemCommentCounts!
+class AnyLargeMediaModel: ObservableObject, CommentCountsObserverDelegate, MediaItemBadgeObserverDelegate {
+    @Published var mediaItemBadge: MediaItemBadge?
+    @Published var unreadCountBadgeText: String?
+    private var countsObserver: CommentCountsObserver!
+    private var badgeObserver: MediaItemBadgeObserver!
     
     init(object: ServerObjectModel) {
-        counts = MediaItemCommentCounts(object: object, delegate: self)
+        countsObserver = CommentCountsObserver(object: object, delegate: self)
+        badgeObserver = MediaItemBadgeObserver(object: object, delegate: self)
     }
 }

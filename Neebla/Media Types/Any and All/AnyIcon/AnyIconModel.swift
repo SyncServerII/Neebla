@@ -8,13 +8,16 @@
 import Foundation
 import iOSShared
 
-class AnyIconModel: ObservableObject, MediaItemCommentCountsDelegate {
-    @Published var mediaItemUnreadCountBadgeText: String?
-    var mediaItemCommentCount:MediaItemCommentCounts!
+class AnyIconModel: ObservableObject, CommentCountsObserverDelegate, MediaItemBadgeObserverDelegate {
+    @Published var mediaItemBadge: MediaItemBadge?
+    @Published var unreadCountBadgeText: String?
+    var mediaItemCommentCount:CommentCountsObserver!
     let object: ServerObjectModel
+    var badgeObserver: MediaItemBadgeObserver!
     
     init(object: ServerObjectModel) {
         self.object = object
-        mediaItemCommentCount = MediaItemCommentCounts(object: object, delegate: self)
+        mediaItemCommentCount = CommentCountsObserver(object: object, delegate: self)
+        badgeObserver = MediaItemBadgeObserver(object: object, delegate: self)
     }
 }

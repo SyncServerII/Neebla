@@ -13,7 +13,17 @@ Version 2.0.5
 			to update to the winning UUID.
 			This is tricky to test.
 	* Fix issue with unread count badge on large media item screen
-		It was not consistently getting reset when you'd read comments.
+		- It was not consistently getting reset when you'd read comments.
+	* Add another badge type: Hide
+		- This has some additional functionality: When you select Hide, it hides the image
+		so you can't see it, instead showing you an indicative graphic. You can later
+		unhide it.
+		- The image becomes hidden both in the icons and large images, until you unhide it.
+	* Stopped calling `Downloader.session.objectAccessed` from the large item screen.
+		- Not sure why that was there. Seems unneeded since it should have been called
+		from the icon screen already-- as the object was viewed and hence "accessed" there.
+	* Cleaned up where the media item badges are displayed. Now displayed in the 
+		AnyIcon and AnyLargeMedia-- which is where other badging is located.
 
 Version 2.0.4 (TestFlight Build 20210617.0)
 	* When a badge (favorite) is changed, don't inform anyone. Previously we had

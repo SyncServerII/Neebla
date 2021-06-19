@@ -6,19 +6,17 @@ struct AlbumItemsScreenCell: View {
     @ObservedObject var object:ServerObjectModel
     @ObservedObject var viewModel:AlbumItemsViewModel
     let config: IconConfig
-    let cellModel:AlbumItemsScreenCellModel
     @Environment(\.colorScheme) var colorScheme
     
     init(object:ServerObjectModel, viewModel:AlbumItemsViewModel, config: IconConfig) {
         self.object = object
         self.viewModel = viewModel
         self.config = config
-        cellModel = AlbumItemsScreenCellModel(object: object)
     }
 
     var body: some View {
         AnyIcon(object: object, config: config,
-            upperRightView: viewModel.sharing ? sharingView() : cellModel.badgeView)
+            upperRightView: viewModel.sharing ? sharingView() : nil)
     }
     
     private func sharingView() -> AnyView {

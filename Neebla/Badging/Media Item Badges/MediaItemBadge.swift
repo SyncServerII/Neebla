@@ -10,6 +10,7 @@ import Foundation
 // These strings are encoded in Additional Media Attribute files. Don't change the case names. The top to bottom order is the order in which these are displayed in the UI in the `BadgePickerMenu`.
 enum MediaItemBadge: String, CaseIterable, Codable {
     case favorite
+    case hide
     case none
 }
 
@@ -18,6 +19,8 @@ extension MediaItemBadge {
         switch self {
         case .favorite:
             return "Favorite"
+        case .hide:
+            return "Hide"
         case .none:
             return "No Badge"
         }
@@ -25,6 +28,8 @@ extension MediaItemBadge {
     
     var imageName: String? {
         switch self {
+        case .hide:
+            return "Blindfold"
         case .favorite:
             return "Favorite"
         case .none:

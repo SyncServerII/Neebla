@@ -31,9 +31,6 @@ struct ObjectDetailsView: View {
             // To push the `AnyLargeMedia` to the top.
             Spacer()
         }
-        .if(model.badgeView != nil) {
-            $0.upperRightView(model.badgeView!)
-        }
         .toolbar {
             // Hack, workaround. Without this, I don't get the "< Back" in the uppper left. Or it disappears when I use the "Delete" menu item then cancel. See also https://stackoverflow.com/questions/64405106
             ToolbarItem(placement: .navigationBarLeading) {Text("")}

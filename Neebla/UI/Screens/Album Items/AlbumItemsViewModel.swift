@@ -305,6 +305,6 @@ class AlbumItemsViewModel: ObservableObject {
             sharing = false
         }
         
-        MediaItemCommentCounts.markAllRead(for: objects)
+        CommentCountsObserver.markAllRead(for: objects)
     }
 }

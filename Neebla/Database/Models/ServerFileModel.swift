@@ -41,6 +41,8 @@ class ServerFileModel: DatabaseModel {
     static let readCountField = Field("readCount", \M.readCount)
     var readCount: Int?
     
+    static let badgeUpdate = NSNotification.Name("ServerFileModel.badge.update")
+    
     // Only used for Media Item Attribute files. i.e., file label `mediaItemAttributes`. This is not obtained from the server-- it's for local use on the client only.
     static let badgeField = Field("badge", \M.badge)
     var badge: MediaItemBadge?
@@ -238,6 +240,16 @@ extension ServerFileModel {
         NotificationCenter.default.post(name: Self.unreadCountUpdate, object: nil, userInfo: [
             ServerFileModel.fileUUIDField.fieldName : fileUUID,
             ServerObjectModel.sharingGroupUUIDField.fieldName: sharingGroupUUID
+        ])
+    }
+    
+    func postBadgeUpdateNotification() {
+        guard AppState.session.current == .foreground else {
+            return
+        }
+        
+        NotificationCenter.default.post(name: Self.badgeUpdate, object: nil, userInfo: [
+            ServerFileModel.fileUUIDField.fieldName : fileUUID
         ])
     }
     

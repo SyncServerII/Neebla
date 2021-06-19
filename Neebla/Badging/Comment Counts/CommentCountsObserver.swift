@@ -1,5 +1,5 @@
 //
-//  MediaItemUnreadCount.swift
+//  CommentCountsObserver.swift
 //  Neebla
 //
 //  Created by Christopher G Prince on 3/27/21.
@@ -8,17 +8,17 @@
 import Foundation
 import iOSShared
 
-protocol MediaItemCommentCountsDelegate: AnyObject {
-    var mediaItemUnreadCountBadgeText: String? { get set }
+protocol CommentCountsObserverDelegate: AnyObject {
+    var unreadCountBadgeText: String? { get set }
 }
 
-class MediaItemCommentCounts {
+class CommentCountsObserver {
     let object: ServerObjectModel
     private var observer: AnyObject?
     private var commentFileUUID: UUID!
-    var delegate: MediaItemCommentCountsDelegate!
+    var delegate: CommentCountsObserverDelegate!
     
-    init(object: ServerObjectModel, delegate: MediaItemCommentCountsDelegate) {
+    init(object: ServerObjectModel, delegate: CommentCountsObserverDelegate) {
         self.object = object
         self.delegate = delegate
         
@@ -53,16 +53,16 @@ class MediaItemCommentCounts {
         // Because `unreadCountUpdate` gets posted in some cases from a non-main thread.
         DispatchQueue.main.async {
             if let count = count, count > 0 {
-                self.delegate?.mediaItemUnreadCountBadgeText = "\(count)"
+                self.delegate?.unreadCountBadgeText = "\(count)"
             }
             else {
-                self.delegate?.mediaItemUnreadCountBadgeText = nil
+                self.delegate?.unreadCountBadgeText = nil
             }
         }
     }
 }
 
-extension MediaItemCommentCounts {
+extension CommentCountsObserver {
     static func markAllRead(for objects: [ServerObjectModel]) {
         // Without doing this off the main thread, the UI can be delayed. This results in calls to `postUnreadCountUpdateNotification`, so listeners on those notifications should dispatch to the main queue if updating the UI.
         DispatchQueue.global().async {

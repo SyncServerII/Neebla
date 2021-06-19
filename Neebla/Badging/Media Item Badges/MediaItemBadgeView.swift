@@ -9,24 +9,20 @@ import Foundation
 import SwiftUI
 
 struct MediaItemBadgeView: View {
-    let imageName: String
+    let badge: MediaItemBadge?
     let size: CGSize
     
     var body: some View {
-        Image(imageName)
-            .resizable()
-            .imageScale(.large)
-            .frame(width: size.width, height: size.height)
+        if let imageName = badge?.imageName {
+            Image(imageName)
+                .resizable()
+                .imageScale(.large)
+                .frame(width: size.width, height: size.height)
+            }
+        else {
+            EmptyView()
+        }
     }
 }
 
-extension MediaItemBadgeView {
-    static func getView(badgeModel: ServerFileModel?, size: CGSize) -> AnyView? {
-        if let badge = badgeModel?.badge {
-            if let imageName = badge.imageName {
-                return AnyView(MediaItemBadgeView(imageName: imageName, size: size))
-            }
-        }
-        return nil
-    }
-}
+

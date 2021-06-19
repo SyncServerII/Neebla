@@ -14,7 +14,6 @@ class ObjectDetailsModel: ObservableObject {
     @Published var modelInitialized: Bool
     @Published var badgeSelected: MediaItemBadge = .none
     var badgeModel: ServerFileModel?
-    @Published var badgeView: AnyView?
     
     init(object: ServerObjectModel) {
 #if DEBUG
@@ -54,7 +53,7 @@ class ObjectDetailsModel: ObservableObject {
 
         // Create a new media attribute items file on demand. https://github.com/SyncServerII/Neebla/issues/16
         if badgeModel == nil {
-            // Do our best to make sure that this means we actually don't yet have a media file attributes.
+            // Do our best to make sure that this means we actually don't yet have a media item attributes file.
             do {
                 guard let fileGroupAttr = try Services.session.syncServer.fileGroupAttributes(forFileGroupUUID: object.fileGroupUUID) else {
                     logger.error("ObjectDetailsModel: Don't have file group!!")
@@ -83,16 +82,10 @@ class ObjectDetailsModel: ObservableObject {
         }
         
         modelInitialized = success
-        
-        setupBadgeView()
-    }
-    
-    private func setupBadgeView() {
-        badgeView = MediaItemBadgeView.getView(badgeModel: badgeModel, size: CGSize(width: 40, height: 40))
     }
     
     func selectBadge(newBadgeSelection: MediaItemBadge) throws {
-        guard  badgeSelected != newBadgeSelection,
+        guard badgeSelected != newBadgeSelection,
             let badgeModel = badgeModel else {
             return
         }
@@ -101,6 +94,7 @@ class ObjectDetailsModel: ObservableObject {
         
         try badgeModel.update(setters: ServerFileModel.badgeField.description <- badgeSelected)
         badgeModel.badge = badgeSelected
+        badgeModel.postBadgeUpdateNotification()
         
         guard let userId = Services.session.userId else {
             return
@@ -114,9 +108,7 @@ class ObjectDetailsModel: ObservableObject {
         let file = FileUpload.informNoOne(fileLabel: FileLabels.mediaItemAttributes, dataSource: .data(data), uuid: badgeModel.fileUUID)
         
         let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: badgeModel.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, uploads: [file])
-        try Services.session.syncServer.queue(upload: upload)
-        
-        setupBadgeView()
+        try Services.session.syncServer.queue(upload: upload)        
     }
     
     private func deleteObject() -> Bool {

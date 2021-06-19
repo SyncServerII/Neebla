@@ -39,6 +39,7 @@ extension ObjectDownloadHandler {
             if let badgeCode = badgeCode,
                 let mediaItemBadge = MediaItemBadge(rawValue: badgeCode) {
                 try mediaItemAttributesFileModel.update(setters: ServerFileModel.badgeField.description <- mediaItemBadge)
+                mediaItemAttributesFileModel.postBadgeUpdateNotification()
             }
         
         default:
