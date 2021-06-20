@@ -29,9 +29,12 @@ extension MediaItemBadge {
     var imageName: String? {
         switch self {
         case .hide:
-            return "Blindfold"
+            // Taking care of this with main image. Doesn't seem useful to provide two graphics each indicating `hide`.
+            return nil
+            
         case .favorite:
             return "Favorite"
+            
         case .none:
             return nil
         }

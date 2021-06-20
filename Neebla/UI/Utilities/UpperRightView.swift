@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 
 extension View {
-    func upperRightView(_ view: AnyView) -> some View {
+    func upperRightView<V: View>(@ViewBuilder _ view: @escaping () -> V) -> some View {
         return self.modifier(UpperRightView(view))
     }
 }
 
-struct UpperRightView: ViewModifier {
-    let view: AnyView
-    init(_ view: AnyView) {
+struct UpperRightView<V>: ViewModifier where V: View {
+    let view: () -> V
+    init(@ViewBuilder _ view: @escaping () -> V) {
         self.view = view
     }
 
@@ -24,7 +24,7 @@ struct UpperRightView: ViewModifier {
         content
             .overlay(
                 ZStack {
-                    view
+                    view()
                 }
                 .padding([.top, .trailing], 5),
                 alignment: .topTrailing

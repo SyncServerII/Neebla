@@ -24,8 +24,9 @@ Version 2.0.5
 		from the icon screen already-- as the object was viewed and hence "accessed" there.
 	* Cleaned up where the media item badges are displayed. Now displayed in the 
 		AnyIcon and AnyLargeMedia-- which is where other badging is located.
-
-Version 2.0.4 (TestFlight Build 20210617.0)
+	* Improved UpperRightView and modifier using ViewBuilder.
+	
+Version 2.0.4 (TestFlight Build 20210617.0); This is the actual app store release of v2.0.4
 	* When a badge (favorite) is changed, don't inform anyone. Previously we had
 		been informing others, but badges for self don't show up the UI for others yet.
 	

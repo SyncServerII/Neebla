@@ -39,7 +39,7 @@ struct AnyLargeMedia: View {
     let object: ServerObjectModel
     let tapOnLargeMedia: ()->()
     @ObservedObject var model:AnyLargeMediaModel
-    
+
     init(object: ServerObjectModel, tapOnLargeMedia: @escaping ()->()) {
         self.object = object
         self.tapOnLargeMedia = tapOnLargeMedia
@@ -52,6 +52,7 @@ struct AnyLargeMedia: View {
                 Image("Hidden")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .background(Color.white)
             }
             else {
                 AnyLargeMediaMain(object: object, tapOnLargeMedia: tapOnLargeMedia)
@@ -63,10 +64,11 @@ struct AnyLargeMedia: View {
                 BadgeOverlay(text: model.unreadCountBadgeText!).padding([.leading, .top], 5),
                 alignment: .topLeading)
         }
-        .upperRightView(
-            AnyView(
+        // Not showing a .hide badge because we show a special image for this. And because it seems a little confusing to have both the special image and a hide badge.
+        .if(model.mediaItemBadge != nil && model.mediaItemBadge != .hide) {
+            $0.upperRightView({
                 MediaItemBadgeView(badge: model.mediaItemBadge, size: CGSize(width: 40, height: 40))
-            )
-        )
+            })
+        }
     }
 }

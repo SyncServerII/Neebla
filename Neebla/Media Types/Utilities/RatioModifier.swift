@@ -19,7 +19,7 @@ struct RatioModifier: ViewModifier {
     }
 }
 
-extension Image {
+extension View {
     func ratioImage(ratio: CGFloat) -> some View {
         self.modifier(RatioModifier(ratio: ratio))
     }

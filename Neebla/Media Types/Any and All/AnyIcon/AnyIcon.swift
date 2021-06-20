@@ -44,9 +44,10 @@ struct AnyIcon: View {
         ZStack {
             VStack {
                 if model.mediaItemBadge == .hide {
-                    Image("Hidden")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                    ImageSizer(image: Image("Hidden"))
+                        .background(Color.white)
+                        .frame(width: config.iconSize.width, height: config.iconSize.height)
+                        .cornerRadius(ImageSizer.cornerRadius)
                 }
                 else {
                     AnyIconMain(model: model, config: config)
@@ -54,14 +55,13 @@ struct AnyIcon: View {
             }
         }
         .if(upperRightView != nil) {
-            $0.upperRightView(upperRightView!)
+            $0.upperRightView({ upperRightView! })
         }
-        .if(upperRightView == nil && model.mediaItemBadge != nil) {
-            $0.upperRightView(
-                AnyView(
-                    MediaItemBadgeView(badge: model.mediaItemBadge, size: CGSize(width: 20, height: 20))
-                )
-            )
+        // Not showing a .hide badge because we show a special image for this. And because it seems a little confusing to have both the special image and a hide badge.
+        .if(upperRightView == nil && model.mediaItemBadge != nil && model.mediaItemBadge != .hide) {
+            $0.upperRightView({
+                MediaItemBadgeView(badge: model.mediaItemBadge, size: CGSize(width: 20, height: 20))
+            })
         }
         .if(model.unreadCountBadgeText != nil) {
             $0.upperLeftBadge(model.unreadCountBadgeText!)
