@@ -1,6 +1,6 @@
 Neebla
 
-Version 2.0.5
+Version 2.0.5 (TestFlight Build 20210619.0)
 	* Refactor to pull out common media item attributes code to a single file.
 	* Similar refactor for common comment file code.
 	* If a user enters the media items screen now and there is no underlying media item
@@ -25,6 +25,7 @@ Version 2.0.5
 	* Cleaned up where the media item badges are displayed. Now displayed in the 
 		AnyIcon and AnyLargeMedia-- which is where other badging is located.
 	* Improved UpperRightView and modifier using ViewBuilder.
+	* Added debugging information to try to diagnose a file not downloading issue.
 	
 Version 2.0.4 (TestFlight Build 20210617.0); This is the actual app store release of v2.0.4
 	* When a badge (favorite) is changed, don't inform anyone. Previously we had

@@ -228,15 +228,13 @@ extension DownloadedObject {
     }
 }
 
-#if DEBUG
 extension ServerObjectModel {
     func debugOutput() throws {
         let files = try fileModels()
-        logger.debug("Object: objectType: \(objectType)")
+        logger.info("Object: objectType: \(objectType)")
         
         for file in files {
             try file.debugOutput()
         }
     }
 }
-#endif

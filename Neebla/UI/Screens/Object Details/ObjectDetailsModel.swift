@@ -16,11 +16,9 @@ class ObjectDetailsModel: ObservableObject {
     var badgeModel: ServerFileModel?
     
     init(object: ServerObjectModel) {
-#if DEBUG
         try? object.debugOutput()
-#endif
+
         self.object = object
-        
         var success = true
         
         if let displayName = AnyTypeManager.session.displayName(forObjectType: object.objectType) {
