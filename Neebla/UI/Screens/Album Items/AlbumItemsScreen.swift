@@ -162,6 +162,9 @@ struct AlbumItemsScreenBodyWithContent: View {
                                     viewModel.showCellDetails = true
                                 }
                             }
+                            .onLongPressGesture {
+                                viewModel.restartDownload(fileGroupUUID: item.fileGroupUUID)
+                            }
                     } // end ForEach
                 } // end LazyVGrid
             }.padding(5)

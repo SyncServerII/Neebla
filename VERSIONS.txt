@@ -1,5 +1,11 @@
 Neebla
 
+Version 2.0.5 (TestFlight Build 20210620.1)
+	* A long press on a small icon now enables restart of downloading if the media item has
+		downloading files.
+	* Added a temporary fix for uploads-- to restart uploads if the deferredUploadId can't
+		 be found.
+	
 Version 2.0.5 (TestFlight Build 20210620.0)
 	* Another fix to debugging information to try to diagnose a file not downloading issue.
 

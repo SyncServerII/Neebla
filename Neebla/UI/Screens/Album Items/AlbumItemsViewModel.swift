@@ -307,4 +307,30 @@ class AlbumItemsViewModel: ObservableObject {
         
         CommentCountsObserver.markAllRead(for: objects)
     }
+    
+    func restartDownload(fileGroupUUID: UUID) {
+        var downloading = false
+        
+        do {
+            downloading = try Services.session.syncServer.isQueued(.download, fileGroupUUID: fileGroupUUID)
+        } catch let error {
+            logger.error("\(error)")
+        }
+        
+        guard downloading else {
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "Media item wasn't downloading."))
+            return
+        }
+        
+        showAlert(AlertyHelper.customAction(title: "Restart download?",
+            message: "Restart downloading the media item files?", actionButtonTitle: "Restart",
+            action: {
+                do {
+                    try Services.session.syncServer.restart(download: fileGroupUUID)
+                } catch let error {
+                    logger.error("restartDownload: \(error)")
+                }
+            },
+            cancelTitle: "Cancel"))
+    }
 }
