@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.5 (TestFlight Build 20210620.0)
+	* Another fix to debugging information to try to diagnose a file not downloading issue.
+
 Version 2.0.5 (TestFlight Build 20210619.0)
 	* Refactor to pull out common media item attributes code to a single file.
 	* Similar refactor for common comment file code.
