@@ -1,5 +1,11 @@
 Neebla
 
+Version 2.0.5 (TestFlight Build 20210621.0)
+	* Using fix to iOSBasics for restart of downloading a media item
+		- And improved logging for credentials refresh.
+	* Improved UI/alert messaging for restart of downloading
+	* Updated to new `iOSGoogle` package version for improved logging.
+
 Version 2.0.5 (TestFlight Build 20210620.1)
 	* A long press on a small icon now enables restart of downloading if the media item has
 		downloading files.

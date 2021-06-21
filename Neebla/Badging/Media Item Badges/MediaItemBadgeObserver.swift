@@ -28,7 +28,8 @@ class MediaItemBadgeObserver {
             delegate.mediaItemBadge = fileModel.badge
         }
         catch let error {
-            logger.error("\(error)")
+            // 6/21/21; Only logging these as `.debug` because there are many `noFileForFileLabel` errors thrown at this stage in adding the media item badges, and `.error` logging clogs up the logs.
+            logger.debug("\(error)")
             return
         }
         

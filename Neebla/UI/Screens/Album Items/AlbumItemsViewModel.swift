@@ -311,6 +311,8 @@ class AlbumItemsViewModel: ObservableObject {
     func restartDownload(fileGroupUUID: UUID) {
         var downloading = false
         
+        logger.notice("restartDownload: Attempting for fileGroupUUID: \(fileGroupUUID)")
+        
         do {
             downloading = try Services.session.syncServer.isQueued(.download, fileGroupUUID: fileGroupUUID)
         } catch let error {
@@ -318,7 +320,7 @@ class AlbumItemsViewModel: ObservableObject {
         }
         
         guard downloading else {
-            showAlert(AlertyHelper.alert(title: "Alert!", message: "Media item wasn't downloading."))
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "Media item wasn't downloading. Use a long press to restart a media item download that is having a problem."))
             return
         }
         
@@ -327,8 +329,10 @@ class AlbumItemsViewModel: ObservableObject {
             action: {
                 do {
                     try Services.session.syncServer.restart(download: fileGroupUUID)
+                    showAlert(AlertyHelper.alert(title: "Success!", message: "Please do a pull-down refresh to complete the restart of the downloads."))
                 } catch let error {
                     logger.error("restartDownload: \(error)")
+                    showAlert(AlertyHelper.alert(title: "Alert!", message: "Could not restart download(s)."))
                 }
             },
             cancelTitle: "Cancel"))
