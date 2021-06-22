@@ -1,5 +1,9 @@
 Neebla
 
+Version 2.0.5 (TestFlight Build 20210621.1)
+	* Using update to iOSBasics for adding parameter to GetUploadResults
+		And some improved logging.
+	
 Version 2.0.5 (TestFlight Build 20210621.0)
 	* Using fix to iOSBasics for restart of downloading a media item
 		- And improved logging for credentials refresh.
