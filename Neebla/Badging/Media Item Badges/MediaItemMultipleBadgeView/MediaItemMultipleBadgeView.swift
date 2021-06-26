@@ -12,8 +12,8 @@ struct MediaItemMultipleBadgeView: View {
     @ObservedObject var model:MediaItemMultipleBadgeViewModel
     let size: CGSize // size of each badge view
     
-    init(object: ServerObjectModel, size: CGSize) {
-        model = MediaItemMultipleBadgeViewModel(object: object)
+    init(object: ServerObjectModel, maxNumberOthersBadges: Int, size: CGSize) {
+        model = MediaItemMultipleBadgeViewModel(object: object, maxNumberOthersBadges: maxNumberOthersBadges)
         self.size = size
     }
     
@@ -24,12 +24,20 @@ struct MediaItemMultipleBadgeView: View {
                     MediaItemSingleBadgeView(badge: selfBadge, size: size)
                 }
                 
-                // If there is no self-badge, the gray border around these (if any) should make it clear that they are not self badges.
-                ForEach(badges.othersBadges, id: \.userId) { userBadge in
-                    MediaItemSingleBadgeView(badge: userBadge.badge, size: size)
+                if badges.othersBadges.count > 0 {
+                    VStack(spacing: 0) {
+                        Text("Others")
+                            .foregroundColor(Color(UIColor.darkGray))
+                            .font(Font.system(size: 14))
+                            
+                        // If there is no self-badge, the gray border around these (if any) should make it clear that they are not self badges.
+                        ForEach(badges.othersBadges, id: \.userId) { userBadge in
+                            MediaItemSingleBadgeView(badge: userBadge.badge, size: size)
+                        }
+                    }
+                    .padding(5)
+                    .border(Color.gray, width: 2)
                 }
-                .padding(5)
-                .border(Color.gray, width: 2)
             }
         }
     }

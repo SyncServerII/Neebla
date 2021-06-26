@@ -32,10 +32,12 @@ class MediaItemBadgesObserver {
     private var observer: AnyObject?
     private var mediaItemAttributesFileUUID: UUID!
     var delegate: MediaItemBadgesObserverDelegate!
+    let maxNumberOthersBadges: Int
     
-    init(object: ServerObjectModel, delegate: MediaItemBadgesObserverDelegate) {
+    init(object: ServerObjectModel, delegate: MediaItemBadgesObserverDelegate, maxNumberOthersBadges: Int) {
         self.object = object
         self.delegate = delegate
+        self.maxNumberOthersBadges = maxNumberOthersBadges
         
         do {
             let fileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: object.fileGroupUUID)
@@ -82,17 +84,21 @@ class MediaItemBadgesObserver {
         }
         
         let selfUserIdString = "\(selfUserId)"
-        
         var selfBadge:MediaItemBadge?
         
-        // Want the self badge separately if we have it.
-        if userIds.contains(selfUserIdString) {
-            selfBadge = try getBadge(for: selfUserIdString, mia: mia)
+        // Want the self badge separately if we have it. The file model will have the most up to date value for self; using the file model is much faster in terms of getting changed values for self-badge to the UI.
+        if let badge = mediaItemAttributesFileModel.badge {
+            selfBadge = badge
             userIds.remove(selfUserIdString)
         }
         
+        assert(!userIds.contains(selfUserIdString))
+        
         // Sort the others userId's so we show their badges in a standard order.
-        let sortedOtherUserIds = userIds.sorted()
+        var sortedOtherUserIds = userIds.sorted()
+        sortedOtherUserIds.removeLast(
+            max(sortedOtherUserIds.count - maxNumberOthersBadges, 0))
+
         var othersBadges = [Badges.UserBadge]()
         
         for otherUserId in sortedOtherUserIds {

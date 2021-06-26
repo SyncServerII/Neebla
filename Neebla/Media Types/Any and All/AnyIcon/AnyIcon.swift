@@ -63,7 +63,7 @@ struct AnyIcon: View {
             $0.upperRightView({
                 // iPad has enough space to show more than one badge in icon view.
                 if UIDevice.isPad {
-                    MediaItemMultipleBadgeView(object: model.object, size: badgeSize)
+                    MediaItemMultipleBadgeView(object: model.object, maxNumberOthersBadges: 2, size: badgeSize)
                 }
                 else {
                     MediaItemSingleBadgeView(badge: model.mediaItemBadge, size: badgeSize)

@@ -11,7 +11,7 @@ class MediaItemMultipleBadgeViewModel:ObservableObject, MediaItemBadgesObserverD
     @Published var mediaItemBadges: Badges?
     var badgesObserver:MediaItemBadgesObserver!
     
-    init(object: ServerObjectModel) {
-        badgesObserver = MediaItemBadgesObserver(object: object, delegate: self)
+    init(object: ServerObjectModel, maxNumberOthersBadges: Int) {
+        badgesObserver = MediaItemBadgesObserver(object: object, delegate: self, maxNumberOthersBadges: maxNumberOthersBadges)
     }
 }
