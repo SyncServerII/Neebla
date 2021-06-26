@@ -1,5 +1,13 @@
 Neebla
 
+Version 2.0.6 (TestFlight Build)
+	* Update to iOSBasics to fix user sign out issue.
+		And removed unused delegate method that was removed from iOSBasics.
+	* Changed away from using .navigationBarTitle as it's deprecated in SwiftUI
+		And trying to fix issue where nav bar disappears.
+	* iPad issue: When I show badge menu, I can no longer then show comments
+		by tapping on the image. (Does not repro on iPhone)
+
 Version 2.0.5 (TestFlight Build 20210621.1)
 	* Using update to iOSBasics for adding parameter to GetUploadResults
 		And some improved logging.

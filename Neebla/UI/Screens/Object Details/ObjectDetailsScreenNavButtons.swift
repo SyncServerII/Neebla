@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct ObjectDetailsScreenNavButtons: View {
-    @Binding var showComments: Bool
     @ObservedObject var model:ObjectDetailsModel
+    let tapBadgePickerMenu:()->()
     @StateObject var signInManager = Services.session.signInServices.manager
     @Environment(\.presentationMode) var isPresented
 
@@ -24,12 +24,14 @@ struct ObjectDetailsScreenNavButtons: View {
                 } label: {
                     SFSymbolIcon(symbol: .rosette)
                 }.enabled(signInManager.userIsSignedIn == true)
+                .onTapGesture {
+                    tapBadgePickerMenu()
+                }
             }
             
             Menu {
                 Button(
                     action: {
-                        showComments = true
                     },
                     label: {
                         HStack {
@@ -42,6 +44,7 @@ struct ObjectDetailsScreenNavButtons: View {
                 Button(
                     action: {
                         model.promptForDeletion(dismiss: {
+                            // Dismiss the screen on which the menu is presented.
                             isPresented.wrappedValue.dismiss()
                         })
                     },

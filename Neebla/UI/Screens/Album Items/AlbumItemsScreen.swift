@@ -115,7 +115,7 @@ struct AlbumItemsScreenBodyEmptyState: View {
                 }
             }
         }.padding(20)
-        .navigationBarTitle(albumName)
+        .navigationTitle(albumName)
     }
 }
 

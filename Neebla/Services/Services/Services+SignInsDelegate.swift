@@ -57,9 +57,6 @@ extension Services: iOSBasics.SignInsDelegate {
     func userIsSignedOut(_ signIns: SignIns) {
         // Not going to set syncServerUserId to nil. I want to keep track of the prior signed user even if they sign out. So, if they sign back in, we can check if their data is present.
     }
-    
-    func setCredentials(_ signIns: SignIns, credentials: GenericCredentials?) {
-    }
 }
 
 extension Services {

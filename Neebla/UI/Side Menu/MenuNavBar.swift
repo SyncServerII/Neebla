@@ -48,7 +48,8 @@ struct MenuNavBar<Content: View>: View {
         VStack(spacing: 10) {
             self.content
         }
-        .navigationBarTitle(title, displayMode: .inline)
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 VStack {

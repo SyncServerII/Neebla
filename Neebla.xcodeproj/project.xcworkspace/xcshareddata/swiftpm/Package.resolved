@@ -141,8 +141,8 @@
         "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
         "state": {
           "branch": null,
-          "revision": "91ed3d188eb95705fef3c249453b81f32dc557d1",
-          "version": "1.5.0"
+          "revision": "424886f9336a71891aa81852d0c2c08d807d21aa",
+          "version": "1.6.1"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "7cd77b14fcc8eee240aaee44b0e8c7da20c85427",
-          "version": "0.29.11"
+          "revision": "45bb6fbcc792dc887c77ee45a91b35cde5d38095",
+          "version": "0.29.12"
         }
       },
       {
@@ -357,8 +357,8 @@
         "repositoryURL": "https://github.com/yonat/RadioGroup.git",
         "state": {
           "branch": null,
-          "revision": "7e4d8b48bf8da1adb27bca49307d1386aa47e3ac",
-          "version": "1.4.3"
+          "revision": "c2ce6b275fbd8ef970f85349d03e7ea0615ed495",
+          "version": "1.4.4"
         }
       },
       {

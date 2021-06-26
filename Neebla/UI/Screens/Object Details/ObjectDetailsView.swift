@@ -8,6 +8,7 @@ struct ObjectDetailsView: View {
     let object:ServerObjectModel
     @ObservedObject var model:ObjectDetailsModel
     @State var showComments = false
+    @State var menuShown = false
     @StateObject var alerty = AlertySubscriber(debugMessage: "ObjectDetailsView", publisher: Services.session.userEvents)
     
     init(object:ServerObjectModel) {
@@ -23,6 +24,12 @@ struct ObjectDetailsView: View {
             }
             
             AnyLargeMedia(object: object, tapOnLargeMedia: {
+                // A bit of a hack due to [1]. 
+                if menuShown {
+                    menuShown = false
+                    return
+                }
+                
                 if model.modelInitialized {
                     showComments = true
                 }
@@ -36,11 +43,28 @@ struct ObjectDetailsView: View {
             ToolbarItem(placement: .navigationBarLeading) {Text("")}
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                ObjectDetailsScreenNavButtons(showComments: $showComments, model: model)
-                    .enabled(model.modelInitialized)
+                ObjectDetailsScreenNavButtons(model: model, tapBadgePickerMenu: {
+                    menuShown.toggle()
+                })
+                .enabled(model.modelInitialized)
+                // .onAppear and .onDisappear don't do what I'd expect here.
+                // .onAppear happens when entire ObjectDetailsView appears.
+                // .onDisappear doesn't happen when Menu hides.
             }
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
         .sheetyDisplayer(show: $showComments, subscriber: alerty, view: CommentsView(object: object))
     }
 }
+
+/* [1] Having a problem where if you tap on the Menu, it shows comments. This isn't a problem on iPhone, but is a problem on iPad-- somehow it causes:
+
+2021-06-25 20:42:33.061052-0600 Neebla[4292:1693349] [Presentation] Attempt to present <_TtGC7SwiftUI29PresentationHostingControllerVS_7AnyView_: 0x10d031530> on <_TtGC7SwiftUI19UIHostingControllerGVS_15ModifiedContentV6Neebla8MainViewGVS_30_EnvironmentKeyWritingModifierGSqCS2_6AppEnv____: 0x10d0150e0> (from <_TtGC7SwiftUIP10$1a281c62428DestinationHostingControllerVS_7AnyView_: 0x108dcf1f0>) which is already presenting <_UIContextMenuActionsOnlyViewController: 0x10d517eb0>.
+
+And then you can't show the comments after that without exiting the details screen and coming back.
+See https://stackoverflow.com/questions/66435927
+
+Previously, I only had:
+    @State var showComments = false
+I'm now introducing a second bool.
+*/
