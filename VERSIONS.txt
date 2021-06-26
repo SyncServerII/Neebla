@@ -1,6 +1,6 @@
 Neebla
 
-Version 2.0.6 (TestFlight Build)
+Version 2.0.6 (TestFlight Build 20210626.0)
 	* Update to iOSBasics to fix user sign out issue.
 		And removed unused delegate method that was removed from iOSBasics.
 	* Changed away from using .navigationBarTitle as it's deprecated in SwiftUI
