@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct MediaItemBadgeView: View {
+struct MediaItemSingleBadgeView: View {
     let badge: MediaItemBadge?
     let size: CGSize
     
@@ -24,5 +24,3 @@ struct MediaItemBadgeView: View {
         }
     }
 }
-
-

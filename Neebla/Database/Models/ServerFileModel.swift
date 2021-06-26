@@ -43,7 +43,7 @@ class ServerFileModel: DatabaseModel {
     
     static let badgeUpdate = NSNotification.Name("ServerFileModel.badge.update")
     
-    // Only used for Media Item Attribute files. i.e., file label `mediaItemAttributes`. This is not obtained from the server-- it's for local use on the client only.
+    // Only used for Media Item Attribute files. i.e., file label `mediaItemAttributes`. This is not obtained from the server-- it's for local use on the client only. This reflects the badge for the currently signed in user.
     static let badgeField = Field("badge", \M.badge)
     var badge: MediaItemBadge?
     

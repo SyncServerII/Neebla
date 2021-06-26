@@ -102,8 +102,8 @@ class ObjectDetailsModel: ObservableObject {
         let keyValue = KeyValue.badge(userId: "\(userId)", code: badgeSelected.rawValue)
         let data = try encoder.encode(keyValue)
 
-        // This at least currently is not `FileUpload.forOthers` because the UI currently doesn't allow others to see self's badges. See https://github.com/SyncServerII/Neebla/issues/19
-        let file = FileUpload.informNoOne(fileLabel: FileLabels.mediaItemAttributes, dataSource: .data(data), uuid: badgeModel.fileUUID)
+        // Using `forOthers` because the UI allows others to see self's badges. See https://github.com/SyncServerII/Neebla/issues/19
+        let file = FileUpload.forOthers(fileLabel: FileLabels.mediaItemAttributes, dataSource: .data(data), uuid: badgeModel.fileUUID)
         
         let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: badgeModel.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, uploads: [file])
         try Services.session.syncServer.queue(upload: upload)        

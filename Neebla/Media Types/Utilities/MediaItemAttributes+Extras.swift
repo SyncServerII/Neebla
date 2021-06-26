@@ -14,6 +14,7 @@ extension MediaItemAttributes {
     static var declaration:FileDeclaration { FileDeclaration(fileLabel: FileLabels.mediaItemAttributes, mimeTypes: [.text], changeResolverName: MediaItemAttributes.changeResolverName)
     }
     
+    // This for a new MediaItemsAttributes file.
     // Also returns the new `ServerFileModel` locally representing the `MediaItemAttributes`
     static func createUpload(fileUUID: UUID, fileGroupUUID: UUID) throws -> (FileUpload, ServerFileModel) {
         let data = try MediaItemAttributes.emptyFile()
@@ -27,6 +28,7 @@ extension MediaItemAttributes {
                 mediaItemAttributesFileModel)
     }
     
+    // This for a new MediaItemsAttributes file.
     // Returns the `ServerFileModel` locally representing the `MediaItemAttributes`
     static func queueUpload(fileUUID: UUID, fileGroupUUID: UUID, sharingGroupUUID: UUID, objectType: ObjectType) throws -> ServerFileModel {
     

@@ -33,7 +33,8 @@ struct AnyIcon: View {
     @ObservedObject var model:AnyIconModel
     let upperRightView: AnyView?
     let config: IconConfig
-    
+    let badgeSize = CGSize(width: 20, height: 20)
+
     init(object: ServerObjectModel, config: IconConfig, upperRightView: AnyView? = nil) {
         model = AnyIconModel(object: object)
         self.upperRightView = upperRightView
@@ -58,9 +59,15 @@ struct AnyIcon: View {
             $0.upperRightView({ upperRightView! })
         }
         // Not showing a .hide badge because we show a special image for this. And because it seems a little confusing to have both the special image and a hide badge.
-        .if(upperRightView == nil && model.mediaItemBadge != nil && model.mediaItemBadge != .hide) {
+        .if(upperRightView == nil && model.mediaItemBadge != .hide) {
             $0.upperRightView({
-                MediaItemBadgeView(badge: model.mediaItemBadge, size: CGSize(width: 20, height: 20))
+                // iPad has enough space to show more than one badge in icon view.
+                if UIDevice.isPad {
+                    MediaItemMultipleBadgeView(object: model.object, size: badgeSize)
+                }
+                else {
+                    MediaItemSingleBadgeView(badge: model.mediaItemBadge, size: badgeSize)
+                }
             })
         }
         .if(model.unreadCountBadgeText != nil) {

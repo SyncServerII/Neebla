@@ -65,9 +65,9 @@ struct AnyLargeMedia: View {
                 alignment: .topLeading)
         }
         // Not showing a .hide badge because we show a special image for this. And because it seems a little confusing to have both the special image and a hide badge.
-        .if(model.mediaItemBadge != nil && model.mediaItemBadge != .hide) {
+        .if(model.mediaItemBadge != .hide) {
             $0.upperRightView({
-                MediaItemBadgeView(badge: model.mediaItemBadge, size: CGSize(width: 40, height: 40))
+                MediaItemMultipleBadgeView(object: object, size: CGSize(width: 40, height: 40))
             })
         }
     }
