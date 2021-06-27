@@ -91,8 +91,8 @@ class ImageItemProvider: SXItemProvider {
                 return
             }
             
-            guard image.size.aspectRatioOK() else {
-                completion(.failure(SXItemProviderError.badAspectRatio))
+            guard image.size.isOK() else {
+                completion(.failure(SXItemProviderError.badSize))
                 return
             }
 
@@ -142,8 +142,8 @@ class ImageItemProvider: SXItemProvider {
                 return
             }
             
-            guard let size = UIImage.size(of: url), size.aspectRatioOK() else {
-                completion(.failure(SXItemProviderError.badAspectRatio))
+            guard let size = UIImage.size(of: url), size.isOK() else {
+                completion(.failure(SXItemProviderError.badSize))
                 return
             }
             

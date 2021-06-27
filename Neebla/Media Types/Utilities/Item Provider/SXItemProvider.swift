@@ -7,11 +7,11 @@ import iOSShared
 // Sharing Extension Item Provider
 
 enum SXItemProviderError: Error, UserDisplayable {
-    case badAspectRatio
+    case badSize
     
     var userDisplayableMessage: (title: String, message: String)? {
-        if self == .badAspectRatio {
-            return SXItemProviderError.badAspectRatio
+        if self == .badSize {
+            return SXItemProviderError.badSize
         }
         return nil
     }

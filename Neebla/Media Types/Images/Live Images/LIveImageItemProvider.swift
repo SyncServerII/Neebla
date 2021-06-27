@@ -16,11 +16,11 @@ class LiveImageItemProvider: SXItemProvider {
         case couldNotGetImage
         case bizzareWrongType
         case couldNotConvertToJPEG
-        case badAspectRatio
+        case badSize
         
         var userDisplayableMessage: (title: String, message: String)? {
-            if self == .badAspectRatio {
-                return LiveImageItemProviderError.badAspectRatio
+            if self == .badSize {
+                return LiveImageItemProviderError.badSize
             }
             return nil
         }
@@ -181,8 +181,8 @@ class LiveImageItemProvider: SXItemProvider {
                         return
                     }
                     
-                    guard let size = UIImage.size(of: imageFile), size.aspectRatioOK() else {
-                        completion(.failure(SXItemProviderError.badAspectRatio))
+                    guard let size = UIImage.size(of: imageFile), size.isOK() else {
+                        completion(.failure(SXItemProviderError.badSize))
                         return
                     }
                     

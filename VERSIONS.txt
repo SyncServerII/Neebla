@@ -1,6 +1,6 @@
 Neebla
 
-Version 2.0.6 (TestFlight Build 20210626.0)
+Version 2.0.6 (TestFlight Builds: 20210626.0, 20210627.0)
 	* Update to iOSBasics to fix user sign out issue.
 		And removed unused delegate method that was removed from iOSBasics.
 	* Changed away from using .navigationBarTitle as it's deprecated in SwiftUI
@@ -13,6 +13,13 @@ Version 2.0.6 (TestFlight Build 20210626.0)
 		- Limit of four badges of others in large media item view.
 		- Limit of two badges of others in icon media item view on iPad.
 		- Have "Others" as title of badges of others, with gray outline.
+	* App now collects email addresses of users and stores in server db.
+		This happens in check creds request (for migration), and in add user and
+		redeem sharing invitations that add new users.
+		See https://github.com/SyncServerII/ServerMain/issues/16
+	* Fixed aspect ratio constraint issue -- to be just a constraint on minimum 
+		height or width of an image.
+	
 
 Version 2.0.5 (TestFlight Build 20210621.1)
 	* Using update to iOSBasics for adding parameter to GetUploadResults

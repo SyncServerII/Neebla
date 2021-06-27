@@ -12,7 +12,7 @@ class URLPreviewGenerator {
     
     init() throws {
         PreviewManager.session.reset()
-        PreviewManager.session.config = PreviewConfiguration(minimumImageAspectRatio: CGSize.minimumAspectRatio)
+        PreviewManager.session.config = PreviewConfiguration()
 
         guard let requestKeyName = MicrosoftURLPreview.requestKeyName,
             let microsoftKey = APIKey.getFromPlist(plistKeyName: "MicrosoftURLPreview", requestKeyName: requestKeyName, plistName: "APIKeys") else {

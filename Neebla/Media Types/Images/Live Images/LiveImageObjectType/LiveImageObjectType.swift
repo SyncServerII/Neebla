@@ -17,11 +17,11 @@ class LiveImageObjectType: ItemType, DeclarableObject {
         case imageConversionFailed(String)
         case badObjectType
         case couldNotGetImage
-        case badAspectRatio
+        case badSize
         
         var userDisplayableMessage: (title: String, message: String)? {
-            if case .badAspectRatio = self {
-                return LiveImageObjectTypeError.badAspectRatio
+            if case .badSize = self {
+                return LiveImageObjectTypeError.badSize
             }
             return nil
         }

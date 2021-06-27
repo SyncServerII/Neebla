@@ -9,15 +9,14 @@ import Foundation
 import UIKit
 
 extension CGSize {
-    static let minimumAspectRatio: CGFloat = 0.1
+    static let minimumDimension: CGFloat = 10
     
-    func aspectRatioOK(minimumAspectRatio: CGFloat = Self.minimumAspectRatio) -> Bool {
-        if width == 0 || height == 0 {
+    // If an image has height or width smaller than some bound, it seems unlikely it will be viewable.
+    func isOK(minimumDimension: CGFloat = Self.minimumDimension) -> Bool {
+        if width < minimumDimension || height < minimumDimension {
             return false
         }
         
-        let maxDim = max(width, height)
-        let minDim = min(width, height)
-        return (minDim / maxDim) >= minimumAspectRatio
+        return true
     }
 }
