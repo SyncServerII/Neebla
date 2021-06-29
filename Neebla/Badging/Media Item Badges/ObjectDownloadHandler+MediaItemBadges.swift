@@ -45,5 +45,8 @@ extension ObjectDownloadHandler {
         default:
             logger.debug("Could not get badge from media item attributess file")
         }
+        
+        try mia.addKeywordsToKeywordModelsIfNeeded(sharingGroupUUID: object.sharingGroupUUID, db: db)
+        try mia.updateKeywords(inMediaItemAttributesFileModel: mediaItemAttributesFileModel)
     }
 }

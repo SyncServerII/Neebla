@@ -15,6 +15,7 @@ struct SetupDatabase {
         try AlbumModel.createTable(db: db)
         try ServerObjectModel.createTable(db: db)
         try ServerFileModel.createTable(db: db)
+        try KeywordModel.createTable(db: db)
         
         try SettingsModel.setupSingleton(db: db)
     }

@@ -9,6 +9,7 @@ import Foundation
 import ChangeResolvers
 import iOSBasics
 import iOSShared
+import SQLite
 
 extension MediaItemAttributes {
     static var declaration:FileDeclaration { FileDeclaration(fileLabel: FileLabels.mediaItemAttributes, mimeTypes: [.text], changeResolverName: MediaItemAttributes.changeResolverName)
@@ -39,6 +40,31 @@ extension MediaItemAttributes {
         try Services.session.syncServer.queue(upload:upload)
         
         return miaFileModel
+    }
+
+    static func getKeywords(fromCSV csv: String?) -> Set<String> {
+        guard let csv = csv else {
+            return []
+        }
+        
+        let split = csv.split(separator: ",").map{ String($0) }
+        return Set<String>(split)
+    }
+
+    func updateKeywords(inMediaItemAttributesFileModel mediaItemAttributesFileModel: ServerFileModel) throws {
+        let keywordsCSV = getKeywords().sorted().joined(separator: ",")
+        try Self.updateKeywords(from: keywordsCSV, mediaItemAttributesFileModel: mediaItemAttributesFileModel)
+    }
+    
+    static func updateKeywords(from keywords: Set<String>, mediaItemAttributesFileModel: ServerFileModel) throws {
+        let keywordsCSV = keywords.sorted().joined(separator: ",")
+        try Self.updateKeywords(from: keywordsCSV, mediaItemAttributesFileModel: mediaItemAttributesFileModel)
+    }
+    
+    private static func updateKeywords(from keywordsCSV: String, mediaItemAttributesFileModel: ServerFileModel) throws {
+        if mediaItemAttributesFileModel.keywords != keywordsCSV {
+            try mediaItemAttributesFileModel.update(setters: ServerFileModel.keywordsField.description <- keywordsCSV)
+        }
     }
 }
 

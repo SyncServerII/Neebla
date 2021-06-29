@@ -89,6 +89,7 @@ private struct SortFilter: View {
             }
         } label: {
             HStack {
+                // This is the title of the nav bar!
                 Text(title)
                     // The cumbersome use of width/maxWidth below is for iPhones. Not resizing title well when switching from portrait to landscape if I use only `maxWidth`.
                     .if(appEnv.isLandScape) {

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ObjectDetailsScreenNavButtons: View {
     @ObservedObject var model:ObjectDetailsModel
+    @Binding var activeSheet:ObjectDetailsViewActiveSheet?
     let tapBadgePickerMenu:()->()
     @StateObject var signInManager = Services.session.signInServices.manager
     @Environment(\.presentationMode) var isPresented
@@ -32,6 +33,19 @@ struct ObjectDetailsScreenNavButtons: View {
             Menu {
                 Button(
                     action: {
+                        activeSheet = .editKeywords
+                    },
+                    label: {
+                        HStack {
+                            Text("Edit keywords")
+                            SFSymbolIcon(symbol: .rectangleAndPencilAndEllipsis)
+                        }
+                    }
+                )
+                
+                Button(
+                    action: {
+                        activeSheet = .comments
                     },
                     label: {
                         HStack {

@@ -19,7 +19,7 @@ Version 2.0.6 (TestFlight Builds: 20210626.0, 20210627.0)
 		See https://github.com/SyncServerII/ServerMain/issues/16
 	* Fixed aspect ratio constraint issue -- to be just a constraint on minimum 
 		height or width of an image.
-	
+	* Added ability to add/delete keywords to/from media items.
 
 Version 2.0.5 (TestFlight Build 20210621.1)
 	* Using update to iOSBasics for adding parameter to GetUploadResults

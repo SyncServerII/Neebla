@@ -23,16 +23,14 @@ class MediaTypeTests: XCTestCase {
             (width: 100, height: 0, expected: false),
             (width: 4, height: 100, expected: false),
             (width: 100, height: 4, expected: false),
-            (width: 5, height: 100, expected: true),
-            (width: 100, height: 5, expected: true),
-            (width: 6, height: 100, expected: true),
-            (width: 100, height: 6, expected: true),
+            (width: 10, height: 100, expected: true),
+            (width: 100, height: 10, expected: true),
             (width: 100, height: 100, expected: true),
         ]
         
         for datum in dataSet {
             let size = CGSize(width: datum.width, height:datum.height)
-            XCTAssert(size.aspectRatioOK() == datum.expected, "\(size)")
+            XCTAssert(size.isOK() == datum.expected, "\(size)")
         }
     }
 }

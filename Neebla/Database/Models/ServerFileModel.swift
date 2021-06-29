@@ -4,6 +4,7 @@ import Foundation
 import ServerShared
 import iOSShared
 import iOSBasics
+import ChangeResolvers
 
 // Each represents a file component within a specific ServerObjectModel.
 
@@ -43,10 +44,6 @@ class ServerFileModel: DatabaseModel {
     
     static let badgeUpdate = NSNotification.Name("ServerFileModel.badge.update")
     
-    // Only used for Media Item Attribute files. i.e., file label `mediaItemAttributes`. This is not obtained from the server-- it's for local use on the client only. This reflects the badge for the currently signed in user.
-    static let badgeField = Field("badge", \M.badge)
-    var badge: MediaItemBadge?
-    
     enum DownloadStatus: String, Codable {
         case notDownloaded
         case downloading
@@ -66,6 +63,16 @@ class ServerFileModel: DatabaseModel {
     static let appMetaDataField = Field("appMetaData", \M.appMetaData)
     var appMetaData: String?
     
+    // MARK: Fields only used for Media Item Attribute files. i.e., file label `mediaItemAttributes`.
+    
+    // This is not obtained from the server-- it's for local use on the client only. This reflects the badge for the currently signed in user.
+    static let badgeField = Field("badge", \M.badge)
+    var badge: MediaItemBadge?
+
+    // keywords stored in CSV format, to enable searching.
+    static let keywordsField = Field("keywords", \M.keywords)
+    var keywords: String?
+    
     init(db: Connection,
         id: Int64! = nil,
         fileGroupUUID: UUID,
@@ -77,7 +84,8 @@ class ServerFileModel: DatabaseModel {
         unreadCount: Int? = nil,
         readCount: Int? = nil,
         appMetaData: String? = nil,
-        badge: MediaItemBadge? = nil) throws {
+        badge: MediaItemBadge? = nil,
+        keywords: String? = nil) throws {
         
         self.db = db
         self.id = id
@@ -91,6 +99,7 @@ class ServerFileModel: DatabaseModel {
         self.downloadStatus = downloadStatus
         self.appMetaData = appMetaData
         self.badge = badge
+        self.keywords = keywords
     }
     
     // MARK: DatabaseModel
@@ -112,6 +121,9 @@ class ServerFileModel: DatabaseModel {
             
             // Added in migration, 6/15/21
             // t.column(badgeField.description)
+            
+            // Added in migration, 6/27/21
+            // t.column(keywordsField.description)
         }
     }
     
@@ -121,6 +133,10 @@ class ServerFileModel: DatabaseModel {
 
     static func migration_2021_6_15(db: Connection) throws {
         try addColumn(db: db, column: badgeField.description)
+    }
+    
+    static func migration_2021_6_27(db: Connection) throws {
+        try addColumn(db: db, column: keywordsField.description)
     }
     
     static func rowToModel(db: Connection, row: Row) throws -> ServerFileModel {
@@ -135,7 +151,8 @@ class ServerFileModel: DatabaseModel {
             unreadCount: row[Self.unreadCountField.description],
             readCount: row[Self.readCountField.description],
             appMetaData: row[Self.appMetaDataField.description],
-            badge: row[Self.badgeField.description]
+            badge: row[Self.badgeField.description],
+            keywords: row[Self.keywordsField.description]
         )
     }
     
@@ -150,7 +167,8 @@ class ServerFileModel: DatabaseModel {
             Self.readCountField.description <- readCount,
             Self.downloadStatusField.description <- downloadStatus,
             Self.appMetaDataField.description <- appMetaData,
-            Self.badgeField.description <- badge
+            Self.badgeField.description <- badge,
+            Self.keywordsField.description <- keywords
         )
     }
 }
@@ -162,6 +180,8 @@ extension ServerFileModel {
         case noFileLabel
         case noFileForFileLabel
         case noObject
+        case notMediaItemAttributes
+        case noURL
     }
     
     // Upsert files based on index obtained from the server.
@@ -356,5 +376,26 @@ extension ServerFileModel {
         try Services.session.syncServer.debug(fileGroupUUID: fileGroupUUID)
         let needsDownload = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: fileGroupUUID, includeGone: true)
         logger.notice("objectNeedsDownload: \(String(describing: needsDownload))")
+    }
+}
+
+extension ServerFileModel {
+    func getMediaItemAttributes() throws -> MediaItemAttributes {
+        guard fileLabel == FileLabels.mediaItemAttributes else {
+            throw ServerFileModelError.notMediaItemAttributes
+        }
+        
+        guard let url = url else {
+            logger.debug("No URL in mediaItemAttributesFileModel")
+            throw ServerFileModelError.noFileUUID
+        }
+
+        let data = try Data(contentsOf: url)
+        return try MediaItemAttributes(with: data)
+    }
+    
+    func getKeywords(onlyThoseUsed: Bool = true) throws -> Set<String> {
+        let mia = try getMediaItemAttributes()
+        return mia.getKeywords(onlyThoseUsed: onlyThoseUsed)
     }
 }

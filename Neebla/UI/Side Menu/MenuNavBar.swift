@@ -51,6 +51,12 @@ struct MenuNavBar<Content: View>: View {
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            // Tried using this technique for the nav bar title and not .navigationTitle to try to deal with nav bar disappearing in the media item details screen: https://github.com/SyncServerII/Neebla/issues/22
+            // But it doesn't fix the issue
+            // ToolbarItem(placement: .principal) {
+            //    Text(title)
+            // }
+
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 VStack {
                     if leftMenuNav {

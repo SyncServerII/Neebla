@@ -297,6 +297,12 @@
 		83E1A98425999C38004D4029 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8308B6EC256A08AB007F0CEB /* APIKeys.plist */; };
 		83E1A98D2599A36F004D4029 /* URLPreviewItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */; };
 		83E1A9912599A377004D4029 /* URLPreviewItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */; };
+		83E5EC3226893143003E1FEE /* KeywordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5EC3126893143003E1FEE /* KeywordModel.swift */; };
+		83E5EC3326893D5B003E1FEE /* KeywordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5EC3126893143003E1FEE /* KeywordModel.swift */; };
+		83E5EC36268949DC003E1FEE /* EditKeywordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5EC35268949DC003E1FEE /* EditKeywordsView.swift */; };
+		83E5EC3826894FA8003E1FEE /* EditKeywordsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5EC3726894FA8003E1FEE /* EditKeywordsModel.swift */; };
+		83E5EC3A268952A1003E1FEE /* TextFieldWithAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5EC39268952A1003E1FEE /* TextFieldWithAccessory.swift */; };
+		83E5EC3C268B473B003E1FEE /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5EC3B268B473A003E1FEE /* TopView.swift */; };
 		83E69E62266710BF002981F2 /* DatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E69E61266710BF002981F2 /* DatabaseTests.swift */; };
 		83E7B2C7257B5741008EE363 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */; };
 		83E7B2EB257D3EB9008EE363 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */; };
@@ -563,6 +569,11 @@
 		83E0A110267D5CD5005A77CF /* AnyLargeMediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyLargeMediaModel.swift; sourceTree = "<group>"; };
 		83E0A113267D9E16005A77CF /* MediaItemBadgeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemBadgeObserver.swift; sourceTree = "<group>"; };
 		83E1A98C2599A36F004D4029 /* URLPreviewItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPreviewItemProvider.swift; sourceTree = "<group>"; };
+		83E5EC3126893143003E1FEE /* KeywordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordModel.swift; sourceTree = "<group>"; };
+		83E5EC35268949DC003E1FEE /* EditKeywordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditKeywordsView.swift; sourceTree = "<group>"; };
+		83E5EC3726894FA8003E1FEE /* EditKeywordsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditKeywordsModel.swift; sourceTree = "<group>"; };
+		83E5EC39268952A1003E1FEE /* TextFieldWithAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithAccessory.swift; sourceTree = "<group>"; };
+		83E5EC3B268B473A003E1FEE /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
 		83E69E61266710BF002981F2 /* DatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTests.swift; sourceTree = "<group>"; };
 		83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsViewModel.swift; path = "Neebla/UI/Screens/Object Details/CommentsViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		83E7B2EA257D3EB9008EE363 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
@@ -681,6 +692,7 @@
 			isa = PBXGroup;
 			children = (
 				8320A737256E164500819377 /* CommentsView.swift */,
+				83E5EC3B268B473A003E1FEE /* TopView.swift */,
 				83E7B2C6257B5741008EE363 /* CommentsViewModel.swift */,
 				8320A73B256E170900819377 /* MessagesView.swift */,
 				83C43FE025733B480016BA4C /* MessageKitTypes.swift */,
@@ -904,6 +916,7 @@
 				832D341A258680B100FEF094 /* Album sharing modal */,
 				8331F45F2560B7F40063A67D /* Album Items */,
 				8331F53B2562409A0063A67D /* Object Details */,
+				83E5EC34268949C0003E1FEE /* Edit Keywords */,
 				8308B731256B57C9007F0CEB /* Comments */,
 				8331F4BD2560FFA80063A67D /* Settings */,
 				83BF7CBB25854D60000E0B37 /* Developer */,
@@ -1026,6 +1039,7 @@
 				8331F3C8255E4D7D0063A67D /* ServerObjectModel.swift */,
 				8331F46C2560BE8A0063A67D /* ServerFileModel.swift */,
 				8331F414255F857E0063A67D /* AlbumModel.swift */,
+				83E5EC3126893143003E1FEE /* KeywordModel.swift */,
 				83B0CB7E25B4DAFB00D53B58 /* Settings */,
 			);
 			path = Models;
@@ -1450,6 +1464,16 @@
 			path = URLItemProvider;
 			sourceTree = "<group>";
 		};
+		83E5EC34268949C0003E1FEE /* Edit Keywords */ = {
+			isa = PBXGroup;
+			children = (
+				83E5EC35268949DC003E1FEE /* EditKeywordsView.swift */,
+				83E5EC3726894FA8003E1FEE /* EditKeywordsModel.swift */,
+				83E5EC39268952A1003E1FEE /* TextFieldWithAccessory.swift */,
+			);
+			path = "Edit Keywords";
+			sourceTree = "<group>";
+		};
 		83E7B2D7257CA7BD008EE363 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1808,6 +1832,7 @@
 				83C7348425986F970073788A /* ImageIcon.swift in Sources */,
 				8322303B25CD0AA5006FC3EC /* View+Extras.swift in Sources */,
 				8331F4E32561F9250063A67D /* FileInfo+Extras.swift in Sources */,
+				83E5EC3326893D5B003E1FEE /* KeywordModel.swift in Sources */,
 				83CE1EB2257081BC004A418B /* BasicEquatable.swift in Sources */,
 				83A2DF3C25FC6A350072A557 /* GIFItemProvider.swift in Sources */,
 				834B25A8258C60AF00F653BC /* ServerInterface+CloudHashing.swift in Sources */,
@@ -1899,6 +1924,7 @@
 				83C7352825992CC10073788A /* ImageItemProvider.swift in Sources */,
 				832D341E258680B100FEF094 /* AlbumSharingModal.swift in Sources */,
 				83F389D42590466B00610C76 /* LocalServices.swift in Sources */,
+				83E5EC3226893143003E1FEE /* KeywordModel.swift in Sources */,
 				83152B2325FB366700A5439F /* GIFLargeMedia.swift in Sources */,
 				835AC8E9255B842E00375084 /* LocalServices+Invitation.swift in Sources */,
 				83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */,
@@ -1922,10 +1948,12 @@
 				83B0CB6925B3F55500D53B58 /* AppStore.swift in Sources */,
 				8331F4B42560F5B90063A67D /* ItemType.swift in Sources */,
 				83D8CC2025BA7F2B0069E3E5 /* LowerRightText.swift in Sources */,
+				83E5EC3A268952A1003E1FEE /* TextFieldWithAccessory.swift in Sources */,
 				839F1DF725FEC59E0089C13F /* HTMLViewer.swift in Sources */,
 				83BF7C6A2584595C000E0B37 /* LiveImageObjectType+Image.swift in Sources */,
 				8308B738256B6EF6007F0CEB /* URLModel.swift in Sources */,
 				8331F4672560BE0E0063A67D /* AlbumItemsViewModel.swift in Sources */,
+				83E5EC36268949DC003E1FEE /* EditKeywordsView.swift in Sources */,
 				8331F4BA2560F7300063A67D /* ImageObjectType.swift in Sources */,
 				8320A6FA256CC64700819377 /* URLLargeMedia.swift in Sources */,
 				83B8B7F52638ED260006F9A5 /* DetectV1.swift in Sources */,
@@ -1981,6 +2009,7 @@
 				83BF786C25807826000E0B37 /* LiveImageLargeMedia.swift in Sources */,
 				83B1F0B7259ED836006E00FF /* EmailContents.swift in Sources */,
 				8320A759256F568400819377 /* View+Extras.swift in Sources */,
+				83E5EC3C268B473B003E1FEE /* TopView.swift in Sources */,
 				8331F518256220670063A67D /* GenericImageModel.swift in Sources */,
 				83E0A10D267D308A005A77CF /* CommentFile+Extras.swift in Sources */,
 				83BF80822585F9D3000E0B37 /* Icon.swift in Sources */,
@@ -2041,6 +2070,7 @@
 				83C734FE25991B700073788A /* SXItemProvider.swift in Sources */,
 				8309907226746A1600015EC4 /* CommentCounts.swift in Sources */,
 				835104AD259FEBE300C5A05E /* CameraMediaPicker.swift in Sources */,
+				83E5EC3826894FA8003E1FEE /* EditKeywordsModel.swift in Sources */,
 				837A471125D9FF5200CAC322 /* ShowAlert.swift in Sources */,
 				832C3B6226477B8C00FCE2C4 /* Migrations.swift in Sources */,
 			);

@@ -4,12 +4,21 @@ import SwiftUI
 import SFSafeSymbols
 import iOSShared
 
+enum ObjectDetailsViewActiveSheet: Identifiable {
+    case comments
+    case editKeywords
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 struct ObjectDetailsView: View {
     let object:ServerObjectModel
     @ObservedObject var model:ObjectDetailsModel
-    @State var showComments = false
     @State var menuShown = false
     @StateObject var alerty = AlertySubscriber(debugMessage: "ObjectDetailsView", publisher: Services.session.userEvents)
+    @State var activeSheet:ObjectDetailsViewActiveSheet?
     
     init(object:ServerObjectModel) {
         self.object = object
@@ -31,7 +40,7 @@ struct ObjectDetailsView: View {
                 }
                 
                 if model.modelInitialized {
-                    showComments = true
+                    activeSheet = .comments
                 }
             })
             
@@ -40,10 +49,11 @@ struct ObjectDetailsView: View {
         }
         .toolbar {
             // Hack, workaround. Without this, I don't get the "< Back" in the uppper left. Or it disappears when I use the "Delete" menu item then cancel. See also https://stackoverflow.com/questions/64405106
-            ToolbarItem(placement: .navigationBarLeading) {Text("")}
-            
+            //ToolbarItem(placement: .navigationBarLeading) {Text("")}
+
+
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                ObjectDetailsScreenNavButtons(model: model, tapBadgePickerMenu: {
+                ObjectDetailsScreenNavButtons(model: model, activeSheet: $activeSheet, tapBadgePickerMenu: {
                     menuShown.toggle()
                 })
                 .enabled(model.modelInitialized)
@@ -53,7 +63,14 @@ struct ObjectDetailsView: View {
             }
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
-        .sheetyDisplayer(show: $showComments, subscriber: alerty, view: CommentsView(object: object))
+        .sheetyDisplayer(item: $activeSheet, subscriber: alerty) { item in
+            switch item {
+            case .comments:
+                CommentsView(object: object)
+            case .editKeywords:
+                EditKeywordsView(model: EditKeywordsModel(object: object))
+            }
+        }
     }
 }
 
