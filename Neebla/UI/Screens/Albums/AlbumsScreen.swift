@@ -7,6 +7,8 @@ import iOSShared
 import iOSSignIn
 
 struct AlbumsScreen: View {
+    static let iPadBackground = Color.gray.opacity(0.2)
+    
     @StateObject var viewModel = AlbumsViewModel()
     
     var body: some View {
@@ -94,7 +96,6 @@ struct AlbumsScreenEmptyState: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(maxHeight: 120)
             
-            
             switch signInManager.userIsSignedIn {
             case .some(true):
                 VStack {
@@ -180,6 +181,9 @@ struct AlbumsScreenAlbumList: View {
                     .frame(width: 0)
                     .opacity(0)
                     .enabled(!viewModel.sharingMode)
+                }
+                .if (UIDevice.isPad) {
+                    $0.listRowBackground(AlbumsScreen.iPadBackground)
                 }
             }
         }

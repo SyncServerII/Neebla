@@ -1,6 +1,6 @@
 Neebla
 
-Version 2.0.6 (TestFlight Builds: 20210626.0, 20210627.0)
+Version 2.0.6 (TestFlight Builds: 20210626.0, 20210627.0, 20210629.0)
 	* Update to iOSBasics to fix user sign out issue.
 		And removed unused delegate method that was removed from iOSBasics.
 	* Changed away from using .navigationBarTitle as it's deprecated in SwiftUI
@@ -8,8 +8,9 @@ Version 2.0.6 (TestFlight Builds: 20210626.0, 20210627.0)
 	* Fixed iPad issue: When I showed badge menu, I could no longer then show comments
 		by tapping on the image. (Does not repro on iPhone)
 	* Users can now see the badges of others
-		- Changes to badges are now uploaded with `FileUpload.forOthers` -- so others
-		will be alerted to these changes.
+		- Changes to badges are now uploaded with `FileUpload.informNoOne` -- so others
+	 	are alerted to these changes. QA (Rod and Dany) didn't seem to want to be informed
+	 	of these changes.
 		- Limit of four badges of others in large media item view.
 		- Limit of two badges of others in icon media item view on iPad.
 		- Have "Others" as title of badges of others, with gray outline.
@@ -20,6 +21,10 @@ Version 2.0.6 (TestFlight Builds: 20210626.0, 20210627.0)
 	* Fixed aspect ratio constraint issue -- to be just a constraint on minimum 
 		height or width of an image.
 	* Added ability to add/delete keywords to/from media items.
+	* Using updated SideMenu package to hopefully fix issue with nav bar disappearing.
+		See https://github.com/SyncServerII/Neebla/issues/22
+		Had to update background color on albums screen too-- as the Fix to SideMenu
+		had an odd background color interaction.		
 
 Version 2.0.5 (TestFlight Build 20210621.1)
 	* Using update to iOSBasics for adding parameter to GetUploadResults
