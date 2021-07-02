@@ -51,19 +51,19 @@ extension MediaItemAttributes {
         return Set<String>(split)
     }
 
-    func updateKeywords(inMediaItemAttributesFileModel mediaItemAttributesFileModel: ServerFileModel) throws {
+    func updateKeywords(objectModel: ServerObjectModel) throws {
         let keywordsCSV = getKeywords().sorted().joined(separator: ",")
-        try Self.updateKeywords(from: keywordsCSV, mediaItemAttributesFileModel: mediaItemAttributesFileModel)
+        try Self.updateKeywords(from: keywordsCSV, objectModel: objectModel)
     }
     
-    static func updateKeywords(from keywords: Set<String>, mediaItemAttributesFileModel: ServerFileModel) throws {
+    static func updateKeywords(from keywords: Set<String>, objectModel: ServerObjectModel) throws {
         let keywordsCSV = keywords.sorted().joined(separator: ",")
-        try Self.updateKeywords(from: keywordsCSV, mediaItemAttributesFileModel: mediaItemAttributesFileModel)
+        try Self.updateKeywords(from: keywordsCSV, objectModel: objectModel)
     }
     
-    private static func updateKeywords(from keywordsCSV: String, mediaItemAttributesFileModel: ServerFileModel) throws {
-        if mediaItemAttributesFileModel.keywords != keywordsCSV {
-            try mediaItemAttributesFileModel.update(setters: ServerFileModel.keywordsField.description <- keywordsCSV)
+    private static func updateKeywords(from keywordsCSV: String, objectModel: ServerObjectModel) throws {
+        if objectModel.keywords != keywordsCSV {
+            try objectModel.update(setters: ServerObjectModel.keywordsField.description <- keywordsCSV)
         }
     }
 }

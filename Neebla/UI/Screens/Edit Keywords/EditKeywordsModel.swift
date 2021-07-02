@@ -11,9 +11,10 @@ import Combine
 import iOSShared
 import ChangeResolvers
 import iOSBasics
+import SQLite
 
 class EditKeywordsModel: NSObject, ObservableObject {
-    let object:ServerObjectModel
+    var object:ServerObjectModel
     let buttonEnabled = PassthroughSubject<Bool, Never>()
     
     var textFieldOptions:TextFieldOptions {
@@ -43,7 +44,7 @@ class EditKeywordsModel: NSObject, ObservableObject {
         otherKeywords = Array(other).sorted()
     }
 
-    private var newKeyword: String?
+    private var possibleNewKeyword: String?
     var syncSubscription: AnyCancellable!
     
     init(object:ServerObjectModel) {
@@ -52,33 +53,71 @@ class EditKeywordsModel: NSObject, ObservableObject {
         
         do {
             mediaItemAttributesFileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: object.fileGroupUUID)
-            setCurrentMediaItemKeywords(keywords:
-                MediaItemAttributes.getKeywords(fromCSV: mediaItemAttributesFileModel.keywords))
         } catch let error {
-            // Hmmm. We don't have a media attributes model. We should have.
-            // We can't change keywords without it. I'm cheating a bit below for now. Not going to allow adding a keyword if mediaItemAttributesFileModel is nil.
-            setCurrentMediaItemKeywords(keywords:[])
-            logger.error("Couldn't load mediaItemAttributesFileModel: Can't change keywords: \(error)")
+            logger.error("Couldn't load mediaItemAttributesFileModel \(error)")
         }
         
+        setupItemKeyword()
+        
         // Initialize this second because it uses the current value of `currentMediaItemKeywords`.
+        setupAlbumKeywords()
+    }
+    
+    private func setupItemKeyword() {
+        setCurrentMediaItemKeywords(keywords:
+            MediaItemAttributes.getKeywords(fromCSV: object.keywords))
+    }
+    
+    private func setupAlbumKeywords() {
         do {
-            setCurrentAlbumKeywords(keywords: try KeywordModel.keywords(forSharingGroupUUID: object.sharingGroupUUID, db: Services.session.db))
+            setCurrentAlbumKeywords(keywords: try KeywordModel.keywords(forSharingGroupUUID: object.sharingGroupUUID, deleted: false, db: Services.session.db))
         } catch let error {
             logger.error("Could not get keywords: \(error)")
             setCurrentAlbumKeywords(keywords:[])
         }
     }
     
+    // This is because the keywords may have changed and because we're using @StateObject, the model doesn't get re-inited.
+    func reFetch() {
+        do {
+            if let object = try ServerObjectModel.fetchSingleRow(db: Services.session.db, where: ServerObjectModel.fileGroupUUIDField.description == object.fileGroupUUID) {
+                self.object = object
+
+                setupItemKeyword()
+            }
+        } catch let error {
+            logger.error("\(error)")
+        }
+    }
+    
     @objc func addButtonAction() {
-        guard let newKeyword = newKeyword else {
+        guard let possibleNewKeyword = possibleNewKeyword else {
             return
         }
         
-        do {
-            try changeKeyword(keyword: newKeyword, used: true)
-        } catch let error {
-            logger.error("Could not add keyword: \(error)")
+        let result = actuallyReadyToAdd(currentText: possibleNewKeyword)
+        switch result {
+        case .allCharactersTrimmed:
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "Your keyword was changed to remove non-allowed characters; all characters were removed."))
+            
+        case .existingKeyword:
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "Your keyword has already been added the media item."))
+            
+        case .readyNoTrimming(let newKeyword):
+            do {
+                try changeKeyword(keyword: newKeyword, used: true)
+            } catch let error {
+                logger.error("Could not add keyword: \(error)")
+            }
+            
+        case .readyTrimmed(let newKeyword):
+            showAlert(AlertyHelper.customAction(title: "Alert!", message: "Your keyword was changed to remove characters that are not allowed.\nIt is now: \"\(newKeyword)\"", actionButtonTitle: "Still add?", action: {
+                do {
+                    try self.changeKeyword(keyword: newKeyword, used: true)
+                } catch let error {
+                    logger.error("Could not add keyword: \(error)")
+                }
+            }, cancelTitle: "Cancel"))
         }
     }
     
@@ -118,7 +157,7 @@ class EditKeywordsModel: NSObject, ObservableObject {
             setCurrentMediaItemKeywords(keywords: currentMediaItemKeywords)
         }
         
-        try MediaItemAttributes.updateKeywords(from: currentMediaItemKeywords, mediaItemAttributesFileModel: mediaItemAttributesFileModel)
+        try MediaItemAttributes.updateKeywords(from: currentMediaItemKeywords, objectModel: object)
     }
     
     func addKeywordWithPrompt(keyword: String) {
@@ -151,38 +190,108 @@ class EditKeywordsModel: NSObject, ObservableObject {
             logger.error("Failed removing keyword: \(keyword); \(error)")
         }
     }
+    
+    // Not actually going to delete. Going to mark as deleted. If we just delete it'll come back the next time the attributes file gets downloaded.
+    func otherKeywordDelete(at offsets: IndexSet) {
+        guard offsets.count == 1, let index = offsets.first else {
+            return
+        }
+        
+        let keyword = otherKeywords[index]
+
+        do {
+            let albumUsesKeyword = try AlbumModel.usesKeyword(keyword, sharingGroupUUID: object.sharingGroupUUID, db: Services.session.db)
+            guard !albumUsesKeyword else {
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "The keyword is in use in the album and cannot be removed."))
+                return
+            }
+            
+            guard let keywordModel = try KeywordModel.fetchSingleRow(db: Services.session.db, where:
+                KeywordModel.keywordField.description == keyword &&
+                KeywordModel.sharingGroupUUIDField.description == object.sharingGroupUUID &&
+                KeywordModel.deletedField.description == false) else {
+                logger.error("No KeywordModel")
+                return
+            }
+            
+            try keywordModel.update(setters: KeywordModel.deletedField.description <- true)
+            currentAlbumKeywords.remove(keyword)
+            setCurrentAlbumKeywords(keywords: currentAlbumKeywords)
+        } catch let error {
+            logger.error("Failed otherKeywordDelete: \(error)")
+        }
+    }
+    
+    func allowedKeywordCharacters() -> CharacterSet {
+        var allowed = CharacterSet.letters
+        allowed.insert("-")
+        allowed.formUnion(CharacterSet.decimalDigits)
+        return allowed
+    }
+    
+    enum ReadyToAddResult {
+        case allCharactersTrimmed
+        case existingKeyword
+        case readyNoTrimming(newKeyword: String)
+        case readyTrimmed(newKeyword: String)
+    }
+    
+    // A double check because Dany showed me some cases about how he got by my initial checks.
+    func actuallyReadyToAdd(currentText: String) -> ReadyToAddResult {
+        let notAllowed = allowedKeywordCharacters().inverted
+        let trimmedText = currentText.trimmingCharacters(in: notAllowed)
+        let trimmed = currentText != trimmedText
+
+        let newKeyword = keywordIsNew(keyword: trimmedText)
+        let anyCharacters = trimmedText.count > 0
+        let enableButton = anyCharacters && newKeyword
+        buttonEnabled.send(enableButton)
+        
+        if !anyCharacters {
+            return .allCharactersTrimmed
+        }
+        
+        if !newKeyword {
+            return .existingKeyword
+        }
+        
+        if !trimmed {
+            return .readyNoTrimming(newKeyword: trimmedText)
+        }
+        
+        return .readyTrimmed(newKeyword: trimmedText)
+    }
 }
 
 extension EditKeywordsModel: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
+        let positionOriginal = textField.beginningOfDocument
+        let cursorLocation = textField.position(from: positionOriginal, offset: (range.location + NSString(string: string).length))
+    
         let currentText = textField.text ?? ""
         guard let stringRange = Range(range, in: currentText) else {
             return false
         }
 
-        var updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
         
-        var allowed = CharacterSet.letters
-        allowed.insert("-")
-        let notAllowed = allowed.inverted
+        let notAllowed = allowedKeywordCharacters().inverted
+        let trimmedText = updatedText.trimmingCharacters(in: notAllowed)
         
-        updatedText = updatedText.trimmingCharacters(in: notAllowed)
-        textField.text = updatedText
+        possibleNewKeyword = trimmedText
+        textField.text = trimmedText
         
-        let enableButton = updatedText.count > 0 &&
-            keywordIsNew(keyword: updatedText) &&
+        let enableAddButton = trimmedText.count > 0 &&
+            keywordIsNew(keyword: trimmedText) &&
             mediaItemAttributesFileModel != nil
-                
-        if enableButton {
-            newKeyword = updatedText
+            
+        buttonEnabled.send(enableAddButton)
+
+        if let cursorLoc = cursorLocation {
+            textField.selectedTextRange = textField.textRange(from: cursorLoc, to: cursorLoc)
         }
-        else {
-            newKeyword = nil
-        }
-        
-        buttonEnabled.send(enableButton)
-        
+    
         return false
     }
 }

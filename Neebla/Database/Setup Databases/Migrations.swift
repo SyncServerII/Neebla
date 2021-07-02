@@ -15,6 +15,7 @@ enum SpecificMigration {
     public static let m2021_06_01: Int32 = 2021_06_01
     public static let m2021_06_15: Int32 = 2021_06_15
     public static let m2021_06_27: Int32 = 2021_06_27
+    public static let m2021_07_01: Int32 = 2021_07_01
 }
 
 class Migration: VersionedMigrationRunner {
@@ -68,6 +69,12 @@ class Migration: VersionedMigrationRunner {
             }),
             MigrationObject(version: SpecificMigration.m2021_06_27, apply: {
                 try ServerFileModel.migration_2021_6_27(db: db)
+            }),
+            MigrationObject(version: SpecificMigration.m2021_07_01, apply: {
+                try ServerObjectModel.migration_2021_7_1(db: db)
+            }),
+            MigrationObject(version: SpecificMigration.m2021_07_01, apply: {
+                try KeywordModel.migration_2021_7_1(db: db)
             })
         ]
     }

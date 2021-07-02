@@ -4,6 +4,7 @@ import Foundation
 import ServerShared
 import iOSShared
 import iOSBasics
+import ChangeResolvers
 
 class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
     enum AlbumModelError: Error {
@@ -260,5 +261,20 @@ extension AlbumModel {
         }
         
         return albumModel
+    }
+    
+    // Don't use this for general filtering. Intended only for an exact match.
+    static func usesKeyword(_ keyword: String, sharingGroupUUID: UUID, db: Connection) throws -> Bool {
+        // Get all ServerObjectModels for album.
+        let objectModels = try ServerObjectModel.fetch(db: db, where: ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID)
+        
+        for objectModel in objectModels {
+            let keywords = MediaItemAttributes.getKeywords(fromCSV: objectModel.keywords)
+            if keywords.contains(keyword) {
+                return true
+            }
+        }
+        
+        return false
     }
 }

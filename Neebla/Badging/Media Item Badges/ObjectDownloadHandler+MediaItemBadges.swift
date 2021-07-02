@@ -14,6 +14,7 @@ import ChangeResolvers
 extension ObjectDownloadHandler {
     func updateMediaItemBadge(object: DownloadedObject, db: Connection) throws {
         guard let mediaItemAttributesFileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, from: object) else {
+            logger.warning("No mediaItemAttributes ServerFileModel for object")
             return
         }
 
@@ -47,6 +48,12 @@ extension ObjectDownloadHandler {
         }
         
         try mia.addKeywordsToKeywordModelsIfNeeded(sharingGroupUUID: object.sharingGroupUUID, db: db)
-        try mia.updateKeywords(inMediaItemAttributesFileModel: mediaItemAttributesFileModel)
+        
+        // We have the file model. We *must* have the object model as well.
+        guard let objectModel = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == object.fileGroupUUID) else {
+            throw DatabaseModelError.notExactlyOneRow
+        }
+        
+        try mia.updateKeywords(objectModel: objectModel)
     }
 }

@@ -222,8 +222,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "6ffc6d8726b1afe63e218cec3bd19c6a4b41bb80",
-          "version": "0.14.1"
+          "revision": "68678c7309ae511d773618ffee430664447c56a8",
+          "version": "0.14.2"
         }
       },
       {
@@ -393,8 +393,8 @@
         "repositoryURL": "https://github.com/crspybits/SideMenu.git",
         "state": {
           "branch": null,
-          "revision": "b5813853d3491131680f657c92a7dc5c371156d9",
-          "version": "0.1.2"
+          "revision": "0b5291f4b5301e7853527d7f343cf19cf9d6f33a",
+          "version": "0.1.3"
         }
       },
       {

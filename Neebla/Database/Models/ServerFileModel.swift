@@ -69,7 +69,7 @@ class ServerFileModel: DatabaseModel {
     static let badgeField = Field("badge", \M.badge)
     var badge: MediaItemBadge?
 
-    // keywords stored in CSV format, to enable searching.
+    @available(*, deprecated, message: "Use the same named field on ServerObjectModel instead")
     static let keywordsField = Field("keywords", \M.keywords)
     var keywords: String?
     
@@ -99,7 +99,7 @@ class ServerFileModel: DatabaseModel {
         self.downloadStatus = downloadStatus
         self.appMetaData = appMetaData
         self.badge = badge
-        self.keywords = keywords
+        self.keywords = nil
     }
     
     // MARK: DatabaseModel
@@ -136,7 +136,8 @@ class ServerFileModel: DatabaseModel {
     }
     
     static func migration_2021_6_27(db: Connection) throws {
-        try addColumn(db: db, column: keywordsField.description)
+        // Deprecated
+        // try addColumn(db: db, column: keywordsField.description)
     }
     
     static func rowToModel(db: Connection, row: Row) throws -> ServerFileModel {
@@ -151,8 +152,7 @@ class ServerFileModel: DatabaseModel {
             unreadCount: row[Self.unreadCountField.description],
             readCount: row[Self.readCountField.description],
             appMetaData: row[Self.appMetaDataField.description],
-            badge: row[Self.badgeField.description],
-            keywords: row[Self.keywordsField.description]
+            badge: row[Self.badgeField.description]
         )
     }
     
@@ -167,8 +167,7 @@ class ServerFileModel: DatabaseModel {
             Self.readCountField.description <- readCount,
             Self.downloadStatusField.description <- downloadStatus,
             Self.appMetaDataField.description <- appMetaData,
-            Self.badgeField.description <- badge,
-            Self.keywordsField.description <- keywords
+            Self.badgeField.description <- badge
         )
     }
 }

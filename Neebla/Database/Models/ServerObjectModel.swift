@@ -41,6 +41,10 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
     // Redundant with the field in the associated comment ServerFileModel-- but seem to need this for searching. Not making this optional because I can't seem to search by optional fields with SQLite.
     static let unreadCountField = Field("unreadCount", \M.unreadCount)
     var unreadCount: Int
+
+    // keywords stored in CSV format, to enable searching.
+    static let keywordsField = Field("keywords", \M.keywords)
+    var keywords: String?
     
     init(db: Connection,
         id: Int64! = nil,
@@ -51,7 +55,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
         updateCreationDate: Bool,
         updateDate: Date? = nil,
         deleted: Bool = false,
-        unreadCount:Int = 0) throws {
+        unreadCount:Int = 0,
+        keywords: String? = nil) throws {
 
         self.db = db
         self.id = id
@@ -63,6 +68,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
         self.updateCreationDate = updateCreationDate
         self.deleted = deleted
         self.unreadCount = unreadCount
+        self.keywords = keywords
     }
     
     func hash(into hasher: inout Hasher) {
@@ -78,13 +84,20 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             lhs.updateCreationDate == rhs.updateCreationDate &&
             lhs.deleted == rhs.deleted &&
             lhs.unreadCount == rhs.unreadCount &&
-            lhs.updateDate == rhs.updateDate
+            lhs.updateDate == rhs.updateDate &&
+            lhs.keywords == rhs.keywords
     }
     
     // MARK: BasicEquatable
 
     func basicallyEqual(_ other: ServerObjectModel) -> Bool {
         return fileGroupUUID == other.fileGroupUUID
+    }
+    
+    // MARK: Migrations
+    
+    static func migration_2021_7_1(db: Connection) throws {
+        try addColumn(db: db, column: keywordsField.description)
     }
     
     // MARK: DatabaseModel
@@ -100,6 +113,9 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             t.column(deletedField.description)
             t.column(unreadCountField.description)
             t.column(updateDateField.description)
+            
+            // Migration
+            // t.column(keywordsField.description)
         }
     }
     
@@ -113,7 +129,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             updateCreationDate: row[Self.updateCreationDateField.description],
             updateDate: row[Self.updateDateField.description],
             deleted: row[Self.deletedField.description],
-            unreadCount: row[Self.unreadCountField.description]
+            unreadCount: row[Self.unreadCountField.description],
+            keywords: row[Self.keywordsField.description]
         )
     }
     
@@ -126,7 +143,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             Self.updateCreationDateField.description <- updateCreationDate,
             Self.updateDateField.description <- updateDate,
             Self.deletedField.description <- deleted,
-            Self.unreadCountField.description <- unreadCount
+            Self.unreadCountField.description <- unreadCount,
+            Self.keywordsField.description <- keywords
         )
     }
 }

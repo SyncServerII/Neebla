@@ -51,7 +51,7 @@ struct EditKeywordsView: View {
                     }
                 }
 
-                Section(header: Text("Other keywords")) {
+                Section(header: Text("Other keywords used in album")) {
                     if model.otherKeywords.count == 0 {
                         Text("There are none.")
                             .foregroundColor(.yellow)
@@ -63,7 +63,7 @@ struct EditKeywordsView: View {
                             }) {
                                 Text(keyword)
                             }
-                        }
+                        }.onDelete(perform: model.otherKeywordDelete)
                     }
                 }
             }
@@ -77,5 +77,8 @@ struct EditKeywordsView: View {
                 .padding(.bottom, 20)
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
+        .onAppear() {
+            model.reFetch()
+        }
     }
 }
