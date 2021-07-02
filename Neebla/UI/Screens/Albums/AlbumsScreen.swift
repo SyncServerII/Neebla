@@ -7,7 +7,7 @@ import iOSShared
 import iOSSignIn
 
 struct AlbumsScreen: View {
-    static let iPadBackground = Color.gray.opacity(0.2)
+    static let background = Color.gray.opacity(0.2)
     
     @StateObject var viewModel = AlbumsViewModel()
     
@@ -182,10 +182,12 @@ struct AlbumsScreenAlbumList: View {
                     .opacity(0)
                     .enabled(!viewModel.sharingMode)
                 }
-                .if (UIDevice.isPad) {
-                    $0.listRowBackground(AlbumsScreen.iPadBackground)
-                }
+                .listRowBackground(AlbumsScreen.background)
             }
+        }
+        .cornerRadius(5, antialiased: true)
+        .if(!UIDevice.isPad) {
+            $0.padding(10)
         }
     }
 }
