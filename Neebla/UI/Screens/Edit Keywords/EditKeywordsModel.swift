@@ -15,11 +15,6 @@ import SQLite
 
 class EditKeywordsModel: NSObject, ObservableObject {
     var object:ServerObjectModel
-    let buttonEnabled = PassthroughSubject<Bool, Never>()
-    
-    var textFieldOptions:TextFieldOptions {
-        TextFieldOptions(buttonTarget: self, buttonAction: #selector(addButtonAction), delegate: self, buttonEnabled: buttonEnabled)
-    }
     
     private var mediaItemAttributesFileModel:ServerFileModel!
     private var currentAlbumKeywords: Set<String>!
@@ -247,8 +242,6 @@ class EditKeywordsModel: NSObject, ObservableObject {
 
         let newKeyword = keywordIsNew(keyword: trimmedText)
         let anyCharacters = trimmedText.count > 0
-        let enableButton = anyCharacters && newKeyword
-        buttonEnabled.send(enableButton)
         
         if !anyCharacters {
             return .allCharactersTrimmed
@@ -266,8 +259,9 @@ class EditKeywordsModel: NSObject, ObservableObject {
     }
 }
 
-extension EditKeywordsModel: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+extension EditKeywordsModel {
+    // This is not exactly the delegate method for UITextField. Returns `enableAddButton`.
+    func textField(_ textField: UITextField, enableAddButtonWithCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
         let positionOriginal = textField.beginningOfDocument
         let cursorLocation = textField.position(from: positionOriginal, offset: (range.location + NSString(string: string).length))
@@ -288,14 +282,12 @@ extension EditKeywordsModel: UITextFieldDelegate {
         let enableAddButton = trimmedText.count > 0 &&
             keywordIsNew(keyword: trimmedText) &&
             mediaItemAttributesFileModel != nil
-            
-        buttonEnabled.send(enableAddButton)
 
         if let cursorLoc = cursorLocation {
             textField.selectedTextRange = textField.textRange(from: cursorLoc, to: cursorLoc)
         }
     
-        return false
+        return enableAddButton
     }
 }
 

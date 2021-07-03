@@ -19,7 +19,8 @@ struct MediaItemMultipleBadgeView: View {
     
     var body: some View {
         VStack {
-            if let badges = model.mediaItemBadges {
+            // Not showing a .hide badge because we show a special image for this. And because it seems a little confusing to have both the special image and a hide badge.
+            if let badges = model.mediaItemBadges, badges.selfBadge != .hide {
                 if let selfBadge = model.mediaItemBadges?.selfBadge {
                     MediaItemSingleBadgeView(badge: selfBadge, size: size)
                 }

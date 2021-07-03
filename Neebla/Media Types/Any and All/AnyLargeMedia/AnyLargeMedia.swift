@@ -67,16 +67,13 @@ struct AnyLargeMedia: View {
                 BadgeOverlay(text: model.unreadCountBadgeText!).padding([.leading, .top], 5),
                 alignment: .topLeading)
         }
-        // Not showing a .hide badge because we show a special image for this. And because it seems a little confusing to have both the special image and a hide badge.
-        .if(model.mediaItemBadge != .hide) {
-            $0.upperRightView({
-                VStack {
-                    MediaItemMultipleBadgeView(object: object, maxNumberOthersBadges: 4, size: badgeSize)
-                    KeywordsBadgeView(object: object, size: badgeSize) {
-                        tapOnKeywordIcon()
-                    }
+        .upperRightView({
+            VStack {
+                MediaItemMultipleBadgeView(object: object, maxNumberOthersBadges: 4, size: badgeSize)
+                KeywordsBadgeView(object: object, size: badgeSize) {
+                    tapOnKeywordIcon()
                 }
-            })
-        }
+            }
+        })
     }
 }

@@ -76,17 +76,17 @@ struct EditKeywordsView: View {
             
             Spacer()
             
-            TextFieldWithAccessory(placeHolder: "New keyword", options: model.textFieldOptions)
+            TextFieldWithAccessory(placeHolder: "New keyword", model: model)
                 .frame(height: 20) // view is too high otherwise.
                 .padding(.leading, 20)
                 .padding(.trailing, 20)
                 .padding(.bottom, 20)
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
-//        .onAppear() {
-//            DispatchQueue.main.async {
-//                self.model.reFetch()
-//            }
-//        }
+        .onAppear() {
+            DispatchQueue.main.async {
+                self.model.reFetch()
+            }
+        }
     }
 }

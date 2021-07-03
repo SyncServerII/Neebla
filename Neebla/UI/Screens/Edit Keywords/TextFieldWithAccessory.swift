@@ -11,31 +11,17 @@ import Combine
 
 // Adapted from https://stackoverflow.com/questions/59114647
 
-struct TextFieldOptions {
-    let buttonTarget: Any?
-    let buttonAction: Selector?
-    weak var delegate: UITextFieldDelegate!
-    let buttonEnabled: PassthroughSubject<Bool, Never>
-}
-
 struct TextFieldWithAccessory: UIViewRepresentable {
     var placeHolder: String
-    var button:UIBarButtonItem!
-    let options: TextFieldOptions
-    var buttonEnabledSubscription:AnyCancellable!
+    let model: EditKeywordsModel
+    let textField: UITextField
+    let button: UIBarButtonItem
     
-    init(placeHolder: String, options: TextFieldOptions) {
+    init(placeHolder: String, model: EditKeywordsModel) {
         self.placeHolder = placeHolder
-        self.options = options
-        
-        let button = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.done, target: options.buttonTarget, action: options.buttonAction)
-        
-        buttonEnabledSubscription = options.buttonEnabled.sink { enabled in
-            button.isEnabled = enabled
-        }
-        
-        self.button = button
-        button.isEnabled = false
+        self.model = model
+        textField = UITextField(frame: CGRect(x: 0, y: 0, width: 300, height: 40))
+        button = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.done, target: model, action: #selector(EditKeywordsModel.addButtonAction))
     }
     
     func makeUIView(context: Context) -> UITextField {
@@ -52,10 +38,8 @@ struct TextFieldWithAccessory: UIViewRepresentable {
         toolbar.barStyle = UIBarStyle.default
         toolbar.sizeToFit()
 
-        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 300, height: 40))
         textField.inputAccessoryView = toolbar
         textField.placeholder = placeHolder
-        textField.delegate = options.delegate
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.spellCheckingType = .no
@@ -70,5 +54,38 @@ struct TextFieldWithAccessory: UIViewRepresentable {
         uiView.endEditing(true)
         uiView.text = nil
     }
+    
+    func makeCoordinator() -> Coordinator {
+        let coord = Coordinator(model: model, button: button)
+        self.textField.delegate = coord
+        return coord
+    }
+    
+    class Coordinator: NSObject, UITextFieldDelegate {
+        let model: EditKeywordsModel
+        let button: UIBarButtonItem
+        
+        init(model: EditKeywordsModel, button: UIBarButtonItem) {
+            self.model = model
+            self.button = button
+        }
+        
+        // MARK: UITextFieldDelegate
+        
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            let enableAddButton = model.textField(textField, enableAddButtonWithCharactersIn: range, replacementString: string)
+            button.isEnabled = enableAddButton
+            return false
+        }
+        
+        func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+            guard let text = textField.text else {
+                button.isEnabled = false
+                return true
+            }
+            
+            button.isEnabled = text.count != 0
+            return true
+        }
+    }
 }
-
