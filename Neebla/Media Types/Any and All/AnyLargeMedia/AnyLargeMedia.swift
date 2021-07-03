@@ -70,8 +70,10 @@ struct AnyLargeMedia: View {
         .upperRightView({
             VStack {
                 MediaItemMultipleBadgeView(object: object, maxNumberOthersBadges: 4, size: badgeSize)
-                KeywordsBadgeView(object: object, size: badgeSize) {
-                    tapOnKeywordIcon()
+                if model.haveKeywords {
+                    KeywordsBadgeView(size: badgeSize) {
+                        tapOnKeywordIcon()
+                    }
                 }
             }
         })

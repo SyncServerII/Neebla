@@ -156,6 +156,8 @@ class EditKeywordsModel: NSObject, ObservableObject {
         }
         
         try MediaItemAttributes.updateKeywords(from: currentMediaItemKeywords, objectModel: object)
+        
+        object.postKeywordsUpdateNotification()
     }
     
     func addKeywordWithPrompt(keyword: String) {

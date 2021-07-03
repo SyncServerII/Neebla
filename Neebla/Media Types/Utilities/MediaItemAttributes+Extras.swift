@@ -62,6 +62,7 @@ extension MediaItemAttributes {
         try Self.updateKeywords(from: keywordsCSV, objectModel: objectModel)
     }
     
+    // Also sets the field on the model.
     static func updateKeywords(from keywords: Set<String>?, objectModel: ServerObjectModel) throws {
         let keywordsCSV = keywords?.sorted().joined(separator: ",")
         try Self.updateKeywords(from: keywordsCSV, objectModel: objectModel)
@@ -70,6 +71,7 @@ extension MediaItemAttributes {
     private static func updateKeywords(from keywordsCSV: String?, objectModel: ServerObjectModel) throws {
         if objectModel.keywords != keywordsCSV {
             try objectModel.update(setters: ServerObjectModel.keywordsField.description <- keywordsCSV)
+            objectModel.keywords = keywordsCSV
         }
     }
 }

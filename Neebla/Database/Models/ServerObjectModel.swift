@@ -45,6 +45,9 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
     // keywords stored in CSV format, to enable searching.
     static let keywordsField = Field("keywords", \M.keywords)
     var keywords: String?
+
+    // Fires when the keywords of a ServerObjectModel changes.
+    static let keywordsUpdate = NSNotification.Name("ServerObjectModel.keywords.update")
     
     init(db: Connection,
         id: Int64! = nil,
@@ -254,5 +257,31 @@ extension ServerObjectModel {
         for file in files {
             try file.debugOutput()
         }
+    }
+    
+    func postKeywordsUpdateNotification() {
+        guard AppState.session.current == .foreground else {
+            return
+        }
+        
+        var userInfo:[String: Any] = [
+            ServerObjectModel.fileGroupUUIDField.fieldName : fileGroupUUID
+        ]
+        
+        userInfo[ServerObjectModel.keywordsField.fieldName] = keywords
+        
+        logger.debug("Post: Keywords: \(String(describing: keywords))")
+        
+        NotificationCenter.default.post(name: Self.keywordsUpdate, object: nil, userInfo: userInfo)
+    }
+    
+    static func getKeywordInfo(from notification: Notification) -> (fileGroupUUID: UUID, keywords: String?)? {
+        guard let fileGroupUUID = notification.userInfo?[ServerObjectModel.fileGroupUUIDField.fieldName] as? UUID else {
+            return nil
+        }
+        
+        let keywords = notification.userInfo?[ServerObjectModel.keywordsField.fieldName] as? String
+        
+        return (fileGroupUUID, keywords)
     }
 }
