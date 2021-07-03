@@ -38,11 +38,14 @@ struct AnyLargeMediaMain: View {
 struct AnyLargeMedia: View {
     let object: ServerObjectModel
     let tapOnLargeMedia: ()->()
+    let tapOnKeywordIcon: ()->()
     @ObservedObject var model:AnyLargeMediaModel
-
-    init(object: ServerObjectModel, tapOnLargeMedia: @escaping ()->()) {
+    let badgeSize = CGSize(width: 40, height: 40)
+    
+    init(object: ServerObjectModel, tapOnLargeMedia: @escaping ()->(), tapOnKeywordIcon: @escaping ()->()) {
         self.object = object
         self.tapOnLargeMedia = tapOnLargeMedia
+        self.tapOnKeywordIcon = tapOnKeywordIcon
         model = AnyLargeMediaModel(object: object)
     }
     
@@ -67,7 +70,12 @@ struct AnyLargeMedia: View {
         // Not showing a .hide badge because we show a special image for this. And because it seems a little confusing to have both the special image and a hide badge.
         .if(model.mediaItemBadge != .hide) {
             $0.upperRightView({
-                MediaItemMultipleBadgeView(object: object, maxNumberOthersBadges: 4, size: CGSize(width: 40, height: 40))
+                VStack {
+                    MediaItemMultipleBadgeView(object: object, maxNumberOthersBadges: 4, size: badgeSize)
+                    KeywordsBadgeView(object: object, size: badgeSize) {
+                        tapOnKeywordIcon()
+                    }
+                }
             })
         }
     }

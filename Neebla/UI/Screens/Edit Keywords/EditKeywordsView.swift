@@ -9,6 +9,12 @@ import Foundation
 import SwiftUI
 import iOSShared
 
+/*
+I'm having problems with the "Add" button in the toolbar text field becoming disabled and not being re-enablable. This happens in one of two cases:
+1) Either if I do a refetch of the model when the view appears and the model is updated.
+2) Or when, if the keyword list is updated, then if the keyboard comes up, the "Add" button is again broken.
+*/
+
 struct EditKeywordsView: View {
     @Environment(\.presentationMode) var isPresented
     @StateObject var model:EditKeywordsModel
@@ -77,8 +83,10 @@ struct EditKeywordsView: View {
                 .padding(.bottom, 20)
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
-        .onAppear() {
-            model.reFetch()
-        }
+//        .onAppear() {
+//            DispatchQueue.main.async {
+//                self.model.reFetch()
+//            }
+//        }
     }
 }

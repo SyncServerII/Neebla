@@ -42,24 +42,19 @@ struct ObjectDetailsView: View {
                 if model.modelInitialized {
                     activeSheet = .comments
                 }
+            }, tapOnKeywordIcon: {
+                activeSheet = .editKeywords
             })
             
             // To push the `AnyLargeMedia` to the top.
             Spacer()
         }
         .toolbar {
-            // Hack, workaround. Without this, I don't get the "< Back" in the uppper left. Or it disappears when I use the "Delete" menu item then cancel. See also https://stackoverflow.com/questions/64405106
-            //ToolbarItem(placement: .navigationBarLeading) {Text("")}
-
-
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 ObjectDetailsScreenNavButtons(model: model, activeSheet: $activeSheet, tapBadgePickerMenu: {
                     menuShown.toggle()
                 })
                 .enabled(model.modelInitialized)
-                // .onAppear and .onDisappear don't do what I'd expect here.
-                // .onAppear happens when entire ObjectDetailsView appears.
-                // .onDisappear doesn't happen when Menu hides.
             }
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)

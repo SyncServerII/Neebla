@@ -81,9 +81,12 @@ class EditKeywordsModel: NSObject, ObservableObject {
     func reFetch() {
         do {
             if let object = try ServerObjectModel.fetchSingleRow(db: Services.session.db, where: ServerObjectModel.fileGroupUUIDField.description == object.fileGroupUUID) {
-                self.object = object
-
-                setupItemKeyword()
+            
+                // Without this condition, I'm getting a broken "Add" button in text field toolbar.
+                if self.object.keywords != object.keywords {
+                    self.object = object
+                    setupItemKeyword()
+                }
             }
         } catch let error {
             logger.error("\(error)")

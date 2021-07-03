@@ -23,21 +23,25 @@ struct TextFieldWithAccessory: UIViewRepresentable {
     var button:UIBarButtonItem!
     let options: TextFieldOptions
     var buttonEnabledSubscription:AnyCancellable!
-
+    
     init(placeHolder: String, options: TextFieldOptions) {
         self.placeHolder = placeHolder
         self.options = options
         
         let button = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.done, target: options.buttonTarget, action: options.buttonAction)
+        
         buttonEnabledSubscription = options.buttonEnabled.sink { enabled in
             button.isEnabled = enabled
         }
+        
         self.button = button
         button.isEnabled = false
     }
     
     func makeUIView(context: Context) -> UITextField {
-        let toolbar = UIToolbar()
+        // Using a frame as a workaround for some constraint breakage: See https://developer.apple.com/forums/thread/121474
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        
         toolbar.setItems([
                 UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil
                 ),
