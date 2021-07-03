@@ -270,7 +270,7 @@ extension AlbumModel {
         
         for objectModel in objectModels {
             let keywords = MediaItemAttributes.getKeywords(fromCSV: objectModel.keywords)
-            if keywords.contains(keyword) {
+            if let contains = keywords?.contains(keyword), contains {
                 return true
             }
         }

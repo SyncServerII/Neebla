@@ -42,9 +42,9 @@ extension MediaItemAttributes {
         return miaFileModel
     }
 
-    static func getKeywords(fromCSV csv: String?) -> Set<String> {
+    static func getKeywords(fromCSV csv: String?) -> Set<String>? {
         guard let csv = csv else {
-            return []
+            return nil
         }
         
         let split = csv.split(separator: ",").map{ String($0) }
@@ -52,16 +52,22 @@ extension MediaItemAttributes {
     }
 
     func updateKeywords(objectModel: ServerObjectModel) throws {
-        let keywordsCSV = getKeywords().sorted().joined(separator: ",")
+        var keywordsCSV: String?
+        let keywords = getKeywords()
+        
+        if keywords.count > 0 {
+            keywordsCSV = keywords.sorted().joined(separator: ",")
+        }
+        
         try Self.updateKeywords(from: keywordsCSV, objectModel: objectModel)
     }
     
-    static func updateKeywords(from keywords: Set<String>, objectModel: ServerObjectModel) throws {
-        let keywordsCSV = keywords.sorted().joined(separator: ",")
+    static func updateKeywords(from keywords: Set<String>?, objectModel: ServerObjectModel) throws {
+        let keywordsCSV = keywords?.sorted().joined(separator: ",")
         try Self.updateKeywords(from: keywordsCSV, objectModel: objectModel)
     }
     
-    private static func updateKeywords(from keywordsCSV: String, objectModel: ServerObjectModel) throws {
+    private static func updateKeywords(from keywordsCSV: String?, objectModel: ServerObjectModel) throws {
         if objectModel.keywords != keywordsCSV {
             try objectModel.update(setters: ServerObjectModel.keywordsField.description <- keywordsCSV)
         }

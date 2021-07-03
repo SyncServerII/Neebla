@@ -43,7 +43,7 @@ class EditKeywordsModel: NSObject, ObservableObject {
     var syncSubscription: AnyCancellable!
     
     init(object:ServerObjectModel) {
-        self.object = object
+        self.object = object        
         super.init()
         
         do {
@@ -60,7 +60,7 @@ class EditKeywordsModel: NSObject, ObservableObject {
     
     private func setupItemKeyword() {
         setCurrentMediaItemKeywords(keywords:
-            MediaItemAttributes.getKeywords(fromCSV: object.keywords))
+            MediaItemAttributes.getKeywords(fromCSV: object.keywords) ?? [])
     }
     
     private func setupAlbumKeywords() {
@@ -138,7 +138,7 @@ class EditKeywordsModel: NSObject, ObservableObject {
         
         let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: mediaItemAttributesFileModel.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, uploads: [file])
         try Services.session.syncServer.queue(upload: upload)
-        
+                
         if used {
             currentMediaItemKeywords.insert(keyword)
             setCurrentMediaItemKeywords(keywords: currentMediaItemKeywords)

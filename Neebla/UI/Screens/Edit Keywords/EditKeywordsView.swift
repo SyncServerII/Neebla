@@ -84,9 +84,7 @@ struct EditKeywordsView: View {
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
         .onAppear() {
-            DispatchQueue.main.async {
-                self.model.reFetch()
-            }
+            model.reFetch()
         }
     }
 }
