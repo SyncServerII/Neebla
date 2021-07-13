@@ -135,6 +135,7 @@
 		835104AD259FEBE300C5A05E /* CameraMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835104AC259FEBE300C5A05E /* CameraMediaPicker.swift */; };
 		835104B8259FF63100C5A05E /* PhotoLibraryMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835104B7259FF63100C5A05E /* PhotoLibraryMediaPicker.swift */; };
 		835104C3259FFED500C5A05E /* URLMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835104C2259FFED500C5A05E /* URLMediaPicker.swift */; };
+		83542873269C059200C8D7C2 /* MoveItemsSpecifics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83542872269C059200C8D7C2 /* MoveItemsSpecifics.swift */; };
 		835AC8DD255B833A00375084 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 835AC8DC255B833A00375084 /* SFSafeSymbols */; };
 		835AC8E9255B842E00375084 /* LocalServices+Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E4255B842E00375084 /* LocalServices+Invitation.swift */; };
 		835AC8EB255B842E00375084 /* Services+Open.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8E6255B842E00375084 /* Services+Open.swift */; };
@@ -474,6 +475,7 @@
 		835104AC259FEBE300C5A05E /* CameraMediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMediaPicker.swift; sourceTree = "<group>"; };
 		835104B7259FF63100C5A05E /* PhotoLibraryMediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryMediaPicker.swift; sourceTree = "<group>"; };
 		835104C2259FFED500C5A05E /* URLMediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMediaPicker.swift; sourceTree = "<group>"; };
+		83542872269C059200C8D7C2 /* MoveItemsSpecifics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveItemsSpecifics.swift; sourceTree = "<group>"; };
 		835AC8E4255B842E00375084 /* LocalServices+Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocalServices+Invitation.swift"; sourceTree = "<group>"; };
 		835AC8E6255B842E00375084 /* Services+Open.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+Open.swift"; sourceTree = "<group>"; };
 		835AC8E7255B842E00375084 /* Services+SignInServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Services+SignInServices.swift"; sourceTree = "<group>"; };
@@ -923,6 +925,7 @@
 				83E5EC34268949C0003E1FEE /* Edit Keywords */,
 				8308B731256B57C9007F0CEB /* Comments */,
 				8331F4BD2560FFA80063A67D /* Settings */,
+				8354286F269BFF2800C8D7C2 /* Album List Modal */,
 				83BF7CBB25854D60000E0B37 /* Developer */,
 			);
 			path = Screens;
@@ -1007,6 +1010,7 @@
 				8331F4602560BD7D0063A67D /* AlbumItemsScreen.swift */,
 				8320A6D8256CA0DE00819377 /* AlbumItemsScreenCell.swift */,
 				8331F4662560BE0E0063A67D /* AlbumItemsViewModel.swift */,
+				83542872269C059200C8D7C2 /* MoveItemsSpecifics.swift */,
 				83B0CB7025B3FD9F00D53B58 /* Sort Filter Menu */,
 				83F416A9259D7E47003C7200 /* Activity */,
 			);
@@ -1029,9 +1033,7 @@
 				83F49B9226080C3B00814A2A /* SettingsTopContent.swift */,
 				83D346F1262BA8710084393D /* RemoveUserSheet.swift */,
 				8331F4C02560FFC70063A67D /* SettingsScreenModel.swift */,
-				832D345B25871AFE00FEF094 /* AlbumListModal.swift */,
 				839F1DFB25FEC6AF0089C13F /* AboutApp */,
-				832D346325871B8800FEF094 /* AlbumListModalModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1088,6 +1090,15 @@
 				834CC64F25D0E439004A9BF1 /* AnyIconModel.swift */,
 			);
 			path = AnyIcon;
+			sourceTree = "<group>";
+		};
+		8354286F269BFF2800C8D7C2 /* Album List Modal */ = {
+			isa = PBXGroup;
+			children = (
+				832D345B25871AFE00FEF094 /* AlbumListModal.swift */,
+				832D346325871B8800FEF094 /* AlbumListModalModel.swift */,
+			);
+			path = "Album List Modal";
 			sourceTree = "<group>";
 		};
 		835AC8E3255B83D100375084 /* Services */ = {
@@ -1958,6 +1969,7 @@
 				8331F3FC255F82ED0063A67D /* SettingsScreen.swift in Sources */,
 				83F49BA4260FEC1900814A2A /* AlbumDownloadIndicator.swift in Sources */,
 				8331F336255B8AFD0063A67D /* LeftMenuView.swift in Sources */,
+				83542873269C059200C8D7C2 /* MoveItemsSpecifics.swift in Sources */,
 				834CC65A25D0F528004A9BF1 /* AlbumScreenRowModel.swift in Sources */,
 				8331F4C12560FFC70063A67D /* SettingsScreenModel.swift in Sources */,
 				83B0CB6925B3F55500D53B58 /* AppStore.swift in Sources */,
@@ -2133,7 +2145,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210702.0;
+				CURRENT_PROJECT_VERSION = 20210712.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2141,7 +2153,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages.Share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2157,7 +2169,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210702.0;
+				CURRENT_PROJECT_VERSION = 20210712.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2165,7 +2177,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages.Share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2344,7 +2356,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210702.0;
+				CURRENT_PROJECT_VERSION = 20210712.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
@@ -2354,7 +2366,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.0.7;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages;
@@ -2374,7 +2386,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210702.0;
+				CURRENT_PROJECT_VERSION = 20210712.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2383,7 +2395,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.6;
+				MARKETING_VERSION = 2.0.7;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages;

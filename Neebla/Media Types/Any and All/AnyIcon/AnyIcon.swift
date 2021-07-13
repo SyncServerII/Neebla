@@ -29,16 +29,33 @@ struct AnyIconMain: View {
     }
 }
 
-struct AnyIcon: View {
+/*
+struct ContainerView<Content: View>: View {
+    let content: Content
+
+    init(@ViewBuilder content: @escaping () -> Content) {
+        self.content = content()
+    }
+    
+    var body: some View {
+        content
+    }
+}
+ */
+
+struct AnyIcon<Content: View>: View {
     @ObservedObject var model:AnyIconModel
-    let upperRightView: AnyView?
+    let upperRightView: () -> Content
     let config: IconConfig
     let badgeSize = CGSize(width: 20, height: 20)
-
-    init(object: ServerObjectModel, config: IconConfig, upperRightView: AnyView? = nil) {
+    let emptyUpperRightView: Bool
+    
+    // If emptyUpperRightView is true, then upperRightView is ignored.
+    init(object: ServerObjectModel, config: IconConfig, emptyUpperRightView: Bool = false, @ViewBuilder upperRightView: @escaping () -> Content) {
         model = AnyIconModel(object: object)
         self.upperRightView = upperRightView
         self.config = config
+        self.emptyUpperRightView = emptyUpperRightView
     }
     
     var body: some View {
@@ -55,11 +72,11 @@ struct AnyIcon: View {
                 }
             }
         }
-        .if(upperRightView != nil) {
-            $0.upperRightView({ upperRightView! })
+        .if(!emptyUpperRightView) {
+            $0.upperRightView({ upperRightView() })
         }
         // Not showing a .hide badge because we show a special image for this. And because it seems a little confusing to have both the special image and a hide badge.
-        .if(upperRightView == nil && model.mediaItemBadge != .hide) {
+        .if(emptyUpperRightView && model.mediaItemBadge != .hide) {
             $0.upperRightView({
                 // iPad has enough space to show more than one badge in icon view.
                 if UIDevice.isPad {

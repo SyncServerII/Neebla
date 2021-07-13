@@ -46,4 +46,13 @@ class PushNotificationMessage {
         
         return "Added a comment on \(displayNameArticle) \(displayName)"
     }
+    
+    static func forMovingFromAlbum(numberItems: Int) -> String? {
+        var itemTerm = "item"
+        if numberItems > 1 {
+            itemTerm += "s"
+        }
+
+        return "Moved \(numberItems) \(itemTerm) from album."
+    }
 }

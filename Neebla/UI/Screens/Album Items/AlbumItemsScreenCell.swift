@@ -7,31 +7,41 @@ struct AlbumItemsScreenCell: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     let config: IconConfig
     @Environment(\.colorScheme) var colorScheme
-    
-    init(object:ServerObjectModel, viewModel:AlbumItemsViewModel, config: IconConfig) {
-        self.object = object
-        self.viewModel = viewModel
-        self.config = config
-    }
 
     var body: some View {
         AnyIcon(object: object, config: config,
-            upperRightView: viewModel.sharing ? sharingView() : nil)
+            emptyUpperRightView: viewModel.changeMode == .none,
+            upperRightView: {
+                UpperRightChangeIcon(object: object, viewModel: viewModel)
+            })
     }
-    
-    private func sharingView() -> AnyView {
-        AnyView(
-            Icon(imageName: "Share",
+}
+
+private struct UpperRightChangeIcon: View {
+    @ObservedObject var object:ServerObjectModel
+    @ObservedObject var viewModel:AlbumItemsViewModel
+    @Environment(\.colorScheme) var colorScheme
+
+    var body: some View {
+        switch viewModel.changeMode {
+        case .none:
+            EmptyView()
+        case .sharing, .moving, .moveAll:
+            Icon(
+                imageName:
+                    viewModel.changeMode == .sharing ?
+                        "Share" :
+                        "Move",
                 size: CGSize(width: 25, height: 25), blueAccent: false)
                 .padding(5)
                 .background(colorScheme == .light ?
                     Color.white.opacity(0.7) : Color(UIColor.darkGray).opacity(0.8))
-                .if (colorScheme == .dark && !viewModel.itemsToShare.contains(object.fileGroupUUID)) {
+                .if (colorScheme == .dark && !viewModel.itemsToChange.contains(object.fileGroupUUID)) {
                     $0.foregroundColor(Color.black)
                 }
-                .if(viewModel.itemsToShare.contains(object.fileGroupUUID)) {
+                .if (viewModel.itemsToChange.contains(object.fileGroupUUID)) {
                     $0.foregroundColor(.blue)
                 }
-        )
+        }
     }
 }

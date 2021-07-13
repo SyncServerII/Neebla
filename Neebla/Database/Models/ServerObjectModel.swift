@@ -189,6 +189,12 @@ extension ServerObjectModel {
                 try model.update(setters:
                     ServerObjectModel.updateDateField.description <- updateDate)
             }
+            
+            // See https://github.com/SyncServerII/Neebla/issues/23
+            if indexObject.sharingGroupUUID != model.sharingGroupUUID {
+                try model.update(setters:
+                    ServerObjectModel.sharingGroupUUIDField.description <- indexObject.sharingGroupUUID)
+            }
         }
         else {
             let model = try ServerObjectModel(db: db, sharingGroupUUID: indexObject.sharingGroupUUID, fileGroupUUID: indexObject.fileGroupUUID, objectType: indexObject.objectType, creationDate: indexObject.creationDate, updateCreationDate: false, deleted: indexObject.deleted)
@@ -283,5 +289,17 @@ extension ServerObjectModel {
         let keywords = notification.userInfo?[ServerObjectModel.keywordsField.fieldName] as? String
         
         return (fileGroupUUID, keywords)
+    }
+    
+    // See https://github.com/SyncServerII/Neebla/issues/23
+    static func updateSharingGroups(ofFileGroups fileGroups: [UUID], destinationSharinGroup:UUID, db: Connection) throws {
+        
+        for fileGroup in fileGroups {
+            guard let object = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroup) else {
+                throw DatabaseModelError.notExactlyOneRow
+            }
+            
+            try object.update(setters: ServerObjectModel.sharingGroupUUIDField.description <- destinationSharinGroup)
+        }
     }
 }

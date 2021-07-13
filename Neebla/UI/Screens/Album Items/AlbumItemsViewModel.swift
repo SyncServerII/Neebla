@@ -7,9 +7,17 @@ import iOSBasics
 import SwiftUI
 
 class AlbumItemsViewModel: ObservableObject {
+    var moveItemsSpecifics: MoveItemsSpecifics {
+        MoveItemsSpecifics(fileGroupsToMove: Array(itemsToChange), sourceSharingGroup: sharingGroupUUID, refreshAlbums: { [weak self] in
+            guard let self = self else { return }
+            self.objects = self.getItemsForAlbum(album: self.sharingGroupUUID)
+        })
+    }
+    
     enum SheetToShow: Identifiable {        
         case activityController
         case picker(MediaPicker)
+        case moveItemsToAnotherAlbum
         
         var id: Int {
             switch self {
@@ -17,6 +25,8 @@ class AlbumItemsViewModel: ObservableObject {
                 return 0
             case .picker:
                 return 1
+            case .moveItemsToAnotherAlbum:
+                return 2
             }
         }
     }
@@ -54,24 +64,60 @@ class AlbumItemsViewModel: ObservableObject {
     
     let sharingGroupUUID: UUID
     
-    @Published var sharing = false {
+    enum ChangeMode {
+        case sharing
+        case moving
+        case moveAll
+        case none
+    }
+    
+    @Published var changeMode:ChangeMode = .none {
         didSet {
-            itemsToShare.removeAll()
+            switch changeMode {
+            case .none, .sharing, .moving:
+                itemsToChange.removeAll()
+            case .moveAll:
+                let fileGroups = objects.map { $0.fileGroupUUID }
+                itemsToChange = Set<UUID>(fileGroups)
+            }
         }
     }
     
-    func toggleItemToShare(fileGroupUUID: UUID) {
-        if itemsToShare.contains(fileGroupUUID) {
-            itemsToShare.remove(fileGroupUUID)
+    func toggleSharingMode() {
+        switch changeMode {
+        case .moving, .sharing, .moveAll:
+            changeMode = .none
+        case .none:
+            changeMode = .sharing
+        }
+    }
+
+    func toggleMovingMode(moveAll: Bool) {
+        switch changeMode {
+        case .moving, .sharing, .moveAll:
+            changeMode = .none
+        case .none:
+            if moveAll {
+                changeMode = .moveAll
+            }
+            else {
+                changeMode = .moving
+            }
+        }
+    }
+
+    func toggleItemToChange(fileGroupUUID: UUID) {
+        if itemsToChange.contains(fileGroupUUID) {
+            itemsToChange.remove(fileGroupUUID)
         }
         else {
-            itemsToShare.insert(fileGroupUUID)
+            itemsToChange.insert(fileGroupUUID)
         }
     }
     
-    // fileGroupUUID's of items to share
-    @Published var itemsToShare = Set<UUID>()
-    
+    // fileGroupUUID's of items to change
+    @Published var itemsToChange = Set<UUID>()
+
     var sortFilterSettings: SortFilterSettings?
     var activityItems = [Any]()
     
@@ -84,6 +130,8 @@ class AlbumItemsViewModel: ObservableObject {
     
     // Not quite sure why this is needed, but seemingly after navigating away from the album items screen for an album, the screen/model isn't necessarily deallocated. Retain cycle? Darn if I can see it though.
     var screenDisplayed = false
+    
+    var albumModel: AlbumModel?
     
     init(album sharingGroupUUID: UUID) {
         self.sharingGroupUUID = sharingGroupUUID
@@ -166,6 +214,12 @@ class AlbumItemsViewModel: ObservableObject {
         // Give user something to look at if there are album items already. If this is the first time loading the album, user will see empty state for moment first.
         self.objects = getItemsForAlbum(album: sharingGroupUUID)
         logger.debug("self.objects.count: \(self.objects.count)")
+        
+        do {
+            albumModel = try AlbumModel.fetchSingleRow(db: Services.session.db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID)
+        } catch let error {
+            logger.error("Could not fetch album: \(error)")
+        }
     }
     
     deinit {
@@ -234,9 +288,9 @@ class AlbumItemsViewModel: ObservableObject {
     }
 
     func sync(userTriggered: Bool = false) {
-        // It seems odd to stay in sharing mode if user triggers a sync.
-        if sharing {
-            sharing = false
+        // It seems odd to stay in a changing mode if user triggers a sync.
+        if changeMode != .none {
+            changeMode = .none
         }
         
         do {
@@ -274,7 +328,12 @@ class AlbumItemsViewModel: ObservableObject {
     }
     
     func shareActivityItems() -> [Any] {
-        guard itemsToShare.count > 0 else {
+        guard changeMode == .sharing else {
+            logger.error("shareActivityItems but not sharing")
+            return []
+        }
+        
+        guard itemsToChange.count > 0 else {
             return []
         }
         
@@ -282,7 +341,7 @@ class AlbumItemsViewModel: ObservableObject {
         
         var result = [Any]()
         
-        for itemToShare in itemsToShare {
+        for itemToShare in itemsToChange {
             guard let object = (objects.filter {$0.fileGroupUUID == itemToShare}).first else {
                 logger.error("Could not find object!!")
                 continue
@@ -301,8 +360,8 @@ class AlbumItemsViewModel: ObservableObject {
     
     func markAllRead() {
         // It seems odd to stay in sharing mode if user triggers a "Mark all read".
-        if sharing {
-            sharing = false
+        if changeMode != .none {
+            changeMode = .none
         }
         
         CommentCountsObserver.markAllRead(for: objects)

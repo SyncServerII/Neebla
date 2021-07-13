@@ -54,7 +54,7 @@ struct SettingsScreenBody: View {
         .sheetyDisplayer(item: $settingsModel.sheet, subscriber: alerty) { sheet in
             switch sheet {
             case .albumList:
-                AlbumListModal()
+                AlbumListModal(specifics: settingsModel.deletionSpecifics)
             case .emailDeveloper(let addAttachments):
                 MailView(emailContents: emailDeveloper, addAttachments: addAttachments, result: $settingsModel.sendMailResult)
             case .aboutApp:

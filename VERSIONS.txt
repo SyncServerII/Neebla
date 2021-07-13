@@ -1,5 +1,11 @@
 Neebla
 
+Version 2.0.7 (TestFlight Builds: 20210712.0)
+	* Added more detailed UI error messages back in, but only for dev builds.
+	* Add support for move file groups in the UI
+	* Generalize album listed used in deletion
+		So I can use it in file group move destination selection.
+
 Version 2.0.6 (TestFlight Builds: 20210626.0, 20210627.0, 20210629.0, 20210701.0,
 								20210701.1, 20210702.0)
 	* Update to iOSBasics to fix user sign out issue.

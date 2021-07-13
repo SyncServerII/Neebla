@@ -53,16 +53,18 @@ struct AlbumItemsScreenBody: View {
             case .activityController:
                 ActivityViewController(activityItems: viewModel.shareActivityItems())
                     .onAppear() {
-                        // Switch out of sharing mode, so when user comes back they don't have the selection state-- which doesn't seem right.
-                        viewModel.sharing = false
+                        // Switch out of changing mode, so when user comes back they don't have the selection state-- which doesn't seem right.
+                        viewModel.changeMode = .none
                     }
             case .picker(let mediaPicker):
                 mediaPicker.mediaPicker
                     .onDisappear() {
                         // Same idea as above. Note that if I do this with a .onTapGesture on the Menu, this causes the menu to disappear.
                         // If I trigger this from `onAppear`, I get other grief in my view hierarchy. A view lower in the hierarchy (`URLPickerViewModel`) stops responding to its published view model values.
-                        viewModel.sharing = false
+                        viewModel.changeMode = .none
                     }
+            case .moveItemsToAnotherAlbum:
+                AlbumListModal(specifics: viewModel.moveItemsSpecifics)
             }
         }
         .onAppear() {
@@ -154,10 +156,10 @@ struct AlbumItemsScreenBodyWithContent: View {
                     ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
                         AlbumItemsScreenCell(object: item, viewModel: viewModel, config: config)
                             .onTapGesture {
-                                if viewModel.sharing {
-                                    viewModel.toggleItemToShare(fileGroupUUID: item.fileGroupUUID)
-                                }
-                                else {
+                                switch viewModel.changeMode {
+                                case .moving, .sharing, .moveAll:
+                                    viewModel.toggleItemToChange(fileGroupUUID: item.fileGroupUUID)
+                                case .none:
                                     object = item
                                     viewModel.showCellDetails = true
                                 }
@@ -229,10 +231,18 @@ private struct AlbumItemsScreenNavButtons: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            if viewModel.sharing && viewModel.itemsToShare.count > 0 {
+            if viewModel.changeMode != .none &&
+                viewModel.itemsToChange.count > 0 {
                 Button(
                     action: {
-                        viewModel.sheetToShow = .activityController
+                        switch viewModel.changeMode {
+                        case .none:
+                            logger.error("Should not get here!!")
+                        case .moving, .moveAll:
+                            viewModel.sheetToShow = .moveItemsToAnotherAlbum
+                        case .sharing:
+                            viewModel.sheetToShow = .activityController
+                        }
                     },
                     label: {
                         SFSymbolIcon(symbol: .squareAndArrowUp)
@@ -241,8 +251,8 @@ private struct AlbumItemsScreenNavButtons: View {
 
                 Button(
                     action: {
-                        viewModel.sharing = false
-                        viewModel.itemsToShare.removeAll()
+                        viewModel.changeMode = .none
+                        viewModel.itemsToChange.removeAll()
                     },
                     label: {
                         SFSymbolIcon(symbol: .xmark)
@@ -254,11 +264,29 @@ private struct AlbumItemsScreenNavButtons: View {
             
                 Menu {
                     Button(action: {
-                        viewModel.sharing.toggle()
+                        viewModel.toggleSharingMode()
                     }) {
                         Label("Share items",
                             image: colorScheme == .light ? "Share" : "ShareWhite")
                     }.enabled(viewModel.objects.count > 0)
+
+                    Button(action: {
+                        viewModel.toggleMovingMode(moveAll: false)
+                    }) {
+                        Label("Move items", systemImage: "tray.and.arrow.up")
+                    }.enabled(
+                        viewModel.objects.count > 0 &&
+                        viewModel.albumModel?.permission == .admin
+                    )
+
+                    Button(action: {
+                        viewModel.toggleMovingMode(moveAll: true)
+                    }) {
+                        Label("Move all items", systemImage: "tray.and.arrow.up")
+                    }.enabled(
+                        viewModel.objects.count > 0 &&
+                        viewModel.albumModel?.permission == .admin
+                    )
                     
                     Button(action: {
                         viewModel.sync(userTriggered: true)
@@ -270,7 +298,7 @@ private struct AlbumItemsScreenNavButtons: View {
                         viewModel.markAllRead()
                     }) {
                         Label("Mark all read", systemImage: "scissors")
-                    }
+                    }.enabled(viewModel.objects.count > 0)
                 } label: {
                     SFSymbolIcon(symbol: .ellipsis)
                 }

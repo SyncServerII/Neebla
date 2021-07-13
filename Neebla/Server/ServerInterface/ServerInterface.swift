@@ -129,6 +129,11 @@ extension ServerInterface: SyncServerDelegate {
                 let message = error.userDisplayableMessage {
                 showAlert(AlertyHelper.alert(title: message.title, message: message.message))
             }
+            else {
+#if DEBUG
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "There was a server error: \(String(describing: error))"))
+#endif
+            }
             // TODO: Have more errors conform to UserDisplable: https://github.com/SyncServerII/Neebla/issues/13
 
         case .showAlert(title: let title, message: let message):
@@ -141,7 +146,10 @@ extension ServerInterface: SyncServerDelegate {
             try syncHelper(result: result)
         } catch let error {
             logger.error("\(String(describing: error))")
-            
+
+#if DEBUG
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "There was a server error: \(error)"))
+#endif
             // TODO: Have errors conform to UserDisplable: https://github.com/SyncServerII/Neebla/issues/13
             
             // Not much point in reporting sync completed since we got an error. Just return.
