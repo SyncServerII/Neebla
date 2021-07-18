@@ -37,7 +37,9 @@ class MoveItemsSpecifics: AlbumListModalSpecifics {
     }
     
     func action(album: AlbumModel, completion: ((_ dismiss: Bool)->())?) {
-        let sourcePushNotificationMessage = PushNotificationMessage.forMoving(numberItems: fileGroupsToMove.count, moveDirection: .from)
+        // Rod and Dany didn't like this idea. Of also having a push notification for the source album. So, at least for now, I'm getting rid of it.
+        // let sourcePushNotificationMessage = PushNotificationMessage.forMoving(numberItems: fileGroupsToMove.count, moveDirection: .from)
+        
         let destinationPushNotificationMessage = PushNotificationMessage.forMoving(numberItems: fileGroupsToMove.count, moveDirection: .to)
  
         var itemTerm = "item"
@@ -45,7 +47,7 @@ class MoveItemsSpecifics: AlbumListModalSpecifics {
             itemTerm += "s"
         }
         
-        Services.session.syncServer.moveFileGroups(fileGroupsToMove, fromSourceSharingGroup: sourceSharingGroup, toDestinationSharingGroup: album.sharingGroupUUID, sourcePushNotificationMessage: sourcePushNotificationMessage, destinationPushNotificationMessage: destinationPushNotificationMessage) { result in
+        Services.session.syncServer.moveFileGroups(fileGroupsToMove, fromSourceSharingGroup: sourceSharingGroup, toDestinationSharingGroup: album.sharingGroupUUID, sourcePushNotificationMessage: nil, destinationPushNotificationMessage: destinationPushNotificationMessage) { result in
         
             switch result {
             case .success:

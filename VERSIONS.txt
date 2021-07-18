@@ -1,12 +1,11 @@
 Neebla
 
-Version 2.0.7 (TestFlight Builds: 20210712.0)
+Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0)
 	* Added more detailed UI error messages back in, but only for dev builds.
 	* Add support for move file groups in the UI
 		- Generalized album list UI used in deletion
 			So I can use it in file group move destination selection.
-		- Sending a push notification to the people in the source album and 
-			in the destination album.
+		- Sending a push notification to only the people in the destination album.
 	* Fixed issue with "Share items" menu icon-- it wasn't colored as disabled
 		when it was actually disabled.
 	* Some refactoring to clean up `Screen` view.
