@@ -47,12 +47,17 @@ class PushNotificationMessage {
         return "Added a comment on \(displayNameArticle) \(displayName)"
     }
     
-    static func forMovingFromAlbum(numberItems: Int) -> String? {
+    enum MoveDirection: String {
+        case from
+        case to
+    }
+    
+    static func forMoving(numberItems: Int, moveDirection: MoveDirection) -> String? {
         var itemTerm = "item"
         if numberItems > 1 {
             itemTerm += "s"
         }
 
-        return "Moved \(numberItems) \(itemTerm) from album."
+        return "Moved \(numberItems) \(itemTerm) \(moveDirection.rawValue) album."
     }
 }

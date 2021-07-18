@@ -29,20 +29,6 @@ struct AnyIconMain: View {
     }
 }
 
-/*
-struct ContainerView<Content: View>: View {
-    let content: Content
-
-    init(@ViewBuilder content: @escaping () -> Content) {
-        self.content = content()
-    }
-    
-    var body: some View {
-        content
-    }
-}
- */
-
 struct AnyIcon<Content: View>: View {
     @ObservedObject var model:AnyIconModel
     let upperRightView: () -> Content

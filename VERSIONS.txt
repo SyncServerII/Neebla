@@ -3,8 +3,20 @@ Neebla
 Version 2.0.7 (TestFlight Builds: 20210712.0)
 	* Added more detailed UI error messages back in, but only for dev builds.
 	* Add support for move file groups in the UI
-	* Generalize album listed used in deletion
-		So I can use it in file group move destination selection.
+		- Generalized album list UI used in deletion
+			So I can use it in file group move destination selection.
+		- Sending a push notification to the people in the source album and 
+			in the destination album.
+	* Fixed issue with "Share items" menu icon-- it wasn't colored as disabled
+		when it was actually disabled.
+	* Some refactoring to clean up `Screen` view.
+	* Fix an "flicker" issue with items when they are downloading on the album items
+		screen. Previously, if *any* attributes for a ServerObjectModel had changed
+		this refetched/replace all object models and the reload appears to have
+		been the cause of the flicker. Have changed now to just a more specific
+		identity change.
+	* Fixed an issue where download indicators would get not get reset properly
+		when a user had been removed from an album.
 
 Version 2.0.6 (TestFlight Builds: 20210626.0, 20210627.0, 20210629.0, 20210701.0,
 								20210701.1, 20210702.0)

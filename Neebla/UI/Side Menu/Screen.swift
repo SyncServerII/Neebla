@@ -8,28 +8,37 @@
 import Foundation
 import SwiftUI
 
-struct Screen {
-    let view: AnyView
-    
-    static var albums: Screen {
-        Screen(view: AnyView(AlbumsScreen()))
-    }
-    
-    static var albumSharing: Screen {
-        Screen(view: AnyView(AlbumSharingScreen()))
-    }
-    
-    static var settings: Screen {
-        Screen(view: AnyView(SettingsScreen()))
-    }
-    
-    static var signIn: Screen {
-        Screen(view: AnyView(SignInScreen()))
-    }
-    
+enum ScreenType {
+    case albums
+    case albumSharing
+    case settings
+    case signIn
 #if DEBUG
-    static var developer: Screen {
-        Screen(view: AnyView(DeveloperScreen()))
-    }
+    case developer
 #endif
+}
+
+struct Screen: View {
+    let type: ScreenType
+    
+    init(_ type: ScreenType) {
+        self.type = type
+    }
+    
+    var body: some View {
+        switch type {
+        case .albums:
+            AlbumsScreen()
+        case .albumSharing:
+            AlbumSharingScreen()
+        case .settings:
+            SettingsScreen()
+        case .signIn:
+            SignInScreen()
+#if DEBUG
+        case .developer:
+            DeveloperScreen()
+#endif
+        }
+    }
 }

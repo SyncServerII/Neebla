@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "94f9ab80d39da19dd3a2492d5451e909333f0269",
-          "version": "7.4.3"
+          "revision": "beb713a16b50a4df3162b3f3ecdeffa16b74b773",
+          "version": "7.5.0"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "74657ddc9557ac16e8e9a1b3860c742cff799802",
-          "version": "0.30.0"
+          "revision": "ff765721cff36e6aa432bb5fa487a686e94e246b",
+          "version": "0.30.1"
         }
       },
       {

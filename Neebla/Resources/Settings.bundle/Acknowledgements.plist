@@ -1346,6 +1346,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Move up from https://icons8.com/icon/102290/move-up
+
+</string>
+			<key>Title</key>
+			<string>Move</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>- MIT LICENSE - 
 
 Copyright (c) 2012 Olivier Halligon 

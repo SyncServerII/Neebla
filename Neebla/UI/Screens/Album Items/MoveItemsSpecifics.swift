@@ -7,6 +7,7 @@
 
 import Foundation
 import iOSShared
+import SwiftUI
 
 class MoveItemsSpecifics: AlbumListModalSpecifics {
     let albumListHeader = "Where do you want to move these items?"
@@ -36,18 +37,18 @@ class MoveItemsSpecifics: AlbumListModalSpecifics {
     }
     
     func action(album: AlbumModel, completion: ((_ dismiss: Bool)->())?) {
-        let pushNotificationMessage = PushNotificationMessage.forMovingFromAlbum(numberItems: fileGroupsToMove.count)
+        let sourcePushNotificationMessage = PushNotificationMessage.forMoving(numberItems: fileGroupsToMove.count, moveDirection: .from)
+        let destinationPushNotificationMessage = PushNotificationMessage.forMoving(numberItems: fileGroupsToMove.count, moveDirection: .to)
  
         var itemTerm = "item"
         if fileGroupsToMove.count > 1 {
             itemTerm += "s"
         }
         
-        Services.session.syncServer.moveFileGroups(fileGroupsToMove, fromSourceSharingGroup: sourceSharingGroup, toDestinationSharinGroup: album.sharingGroupUUID, pushNotificationMessage: pushNotificationMessage) { result in
+        Services.session.syncServer.moveFileGroups(fileGroupsToMove, fromSourceSharingGroup: sourceSharingGroup, toDestinationSharingGroup: album.sharingGroupUUID, sourcePushNotificationMessage: sourcePushNotificationMessage, destinationPushNotificationMessage: destinationPushNotificationMessage) { result in
         
             switch result {
             case .success:
-                showAlert(AlertyHelper.alert(title: "Success!", message: "Look in the other album for your moved \(itemTerm)."))
                 do {
                     try ServerObjectModel.updateSharingGroups(ofFileGroups: self.fileGroupsToMove, destinationSharinGroup: album.sharingGroupUUID, db: Services.session.db)
                 } catch let error {
@@ -56,7 +57,15 @@ class MoveItemsSpecifics: AlbumListModalSpecifics {
                     return
                 }
                 
-                self.refreshAlbums()
+                // Hold off on the refresh until the user confirms. It looks like when the move empties the album, and the empty album state shows up, this otherwise removes this alert.
+                
+                let cancel = SwiftUI.Alert.Button.cancel(Text("OK")) {
+                    self.refreshAlbums()
+                }
+
+                let alert = SwiftUI.Alert(title: Text("Success!"), message: Text("Look in the other album for your moved \(itemTerm)."), dismissButton: cancel)
+                showAlert(alert)
+                
                 completion?(true)
                 return
                 

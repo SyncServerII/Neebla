@@ -62,7 +62,7 @@ enum InformUserResult {
 }
     
 extension Array where Element == iOSBasics.SharingGroup.FileGroupSummary {
-    // Given an array of all Inform elements for a file, determine if the user needs to be informed about this change.
+    // Given an array of FileGroupSummary elements for file groups, determine if the user needs to be informed about the change(s).
     func informUserAboutSharingGroup() throws -> InformUserResult {
         var haveSomeInformRecords = false
         

@@ -165,8 +165,6 @@ extension AlbumModel {
         static let updateMostRecentDate = SharingGroupUpdate(rawValue: 1 << 1)
     }
     
-    // If `contentsSummary`'s are present in `sharingGroup`, they will be used to update.
-
     static func upsertSharingGroup(db: Connection, sharingGroup: iOSBasics.SharingGroup, updateOptions: SharingGroupUpdate) throws {
         let model:AlbumModel
         
@@ -206,13 +204,12 @@ extension AlbumModel {
         }
     }
     
-    // If `contentsSummary` is present in SharingGroup's, they will be updated.
     static func upsertSharingGroups(db: Connection, sharingGroups: [iOSBasics.SharingGroup], updateOptions: SharingGroupUpdate) throws {
         for sharingGroup in sharingGroups {
             try upsertSharingGroup(db: db, sharingGroup: sharingGroup, updateOptions: updateOptions)
         }
     }
-    
+
     /* After marking an album as deleted, do related cleanup:
         Remove all ServerObjectModel’s, and all ServerFileModel's.
             Remove all files associated with these.

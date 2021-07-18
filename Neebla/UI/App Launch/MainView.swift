@@ -21,8 +21,9 @@ struct MainView : View {
             LandingView()
         }
         else {
-            LeftMenu(viewModel: viewModel,
-                screen: viewModel.userSignedIn ? .albums : .signIn)
+            LeftMenu(
+                viewModel: viewModel,
+                screen: Screen(viewModel.userSignedIn ? .albums : .signIn))
         }
     }
 }
@@ -36,6 +37,6 @@ private struct LeftMenu: View {
     
     var body: some View {
         SideMenu(leftMenu: LeftMenuView(viewModel: viewModel),
-                    centerView: screen.view, config: config)
+                    centerView: screen, config: config)
     }
 }

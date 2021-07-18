@@ -29,12 +29,12 @@ struct LeftMenuView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            MenuButtonView(viewModel: viewModel, menuItemName: "Albums", image: .rectangleStack, topPadding: 30, screen: .albums, canDisable: false)
-            MenuButtonView(viewModel: viewModel, menuItemName: "Album Sharing", image: .envelope, topPadding: 30, screen: .albumSharing)
-            MenuButtonView(viewModel: viewModel, menuItemName: "Settings", image: .gear, topPadding: 30, screen: .settings)
-            MenuButtonView(viewModel: viewModel, menuItemName: "SignIn/Out", image: .person2, topPadding: 30, screen: .signIn, canDisable: false)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Albums", image: .rectangleStack, topPadding: 30, screen: Screen(.albums), canDisable: false)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Album Sharing", image: .envelope, topPadding: 30, screen: Screen(.albumSharing))
+            MenuButtonView(viewModel: viewModel, menuItemName: "Settings", image: .gear, topPadding: 30, screen: Screen(.settings))
+            MenuButtonView(viewModel: viewModel, menuItemName: "SignIn/Out", image: .person2, topPadding: 30, screen: Screen(.signIn), canDisable: false)
 #if DEBUG
-            MenuButtonView(viewModel: viewModel, menuItemName: "Developer", image: .eyeglasses, topPadding: 30, screen: .developer, canDisable: false)
+            MenuButtonView(viewModel: viewModel, menuItemName: "Developer", image: .eyeglasses, topPadding: 30, screen: Screen(.developer), canDisable: false)
 #endif
             Spacer()
         }
@@ -73,7 +73,7 @@ struct MenuButtonView: View {
     var body: some View {
         Button(action: {
             withAnimation {
-                self.sideMenuCenterView.wrappedValue = screen.view
+                self.sideMenuCenterView.wrappedValue = AnyView(screen)
                 self.sideMenuLeftPanel.wrappedValue = false
             }
         }) {

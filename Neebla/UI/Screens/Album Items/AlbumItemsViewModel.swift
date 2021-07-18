@@ -226,6 +226,7 @@ class AlbumItemsViewModel: ObservableObject {
         logger.debug("AlbumItemsViewModel: deinit")
     }
     
+    // This method had been the source of "flicker" on the screen for quite a while, until I changed the "==" operator be more specific.
     private func updateIfNeeded(_ update: [ServerObjectModel]) {
         let current = Set<ServerObjectModel>(objects)
         let new = Set<ServerObjectModel>(update)

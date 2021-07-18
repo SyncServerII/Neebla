@@ -78,17 +78,12 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
         hasher.combine(id)
     }
     
+    // This is used just in the AlbumItemsViewModel and is intended as "approximately equal". Or "identity equal".
     static func == (lhs: ServerObjectModel, rhs: ServerObjectModel) -> Bool {
         return lhs.id == rhs.id &&
             lhs.fileGroupUUID == rhs.fileGroupUUID &&
             lhs.sharingGroupUUID == rhs.sharingGroupUUID &&
-            lhs.objectType == rhs.objectType &&
-            lhs.creationDate == rhs.creationDate &&
-            lhs.updateCreationDate == rhs.updateCreationDate &&
-            lhs.deleted == rhs.deleted &&
-            lhs.unreadCount == rhs.unreadCount &&
-            lhs.updateDate == rhs.updateDate &&
-            lhs.keywords == rhs.keywords
+            lhs.objectType == rhs.objectType
     }
     
     // MARK: BasicEquatable

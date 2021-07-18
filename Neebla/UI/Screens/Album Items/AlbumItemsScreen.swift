@@ -266,8 +266,12 @@ private struct AlbumItemsScreenNavButtons: View {
                     Button(action: {
                         viewModel.toggleSharingMode()
                     }) {
-                        Label("Share items",
-                            image: colorScheme == .light ? "Share" : "ShareWhite")
+                        Label {
+                            Text("Share items")
+                        } icon: {
+                            Image(colorScheme == .light ? "Share" : "ShareWhite")
+                                .renderingMode(.template)
+                        }
                     }.enabled(viewModel.objects.count > 0)
 
                     Button(action: {

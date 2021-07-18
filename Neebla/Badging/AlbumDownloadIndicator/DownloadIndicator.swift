@@ -72,7 +72,7 @@ class DownloadIndicator {
         
         for album in albums {
             guard !album.deleted else {
-                return
+                continue
             }
             
             try album.update(setters: AlbumModel.lastSyncDateField.description <- now)

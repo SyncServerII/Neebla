@@ -65,7 +65,7 @@ struct MenuNavBar<Content: View>: View {
                                 self.sideMenuLeftPanel.wrappedValue = !self.sideMenuLeftPanel.wrappedValue
                                 let open = self.sideMenuLeftPanel.wrappedValue
                                 
-                                // Sometimes keyboard is displayed when the user opens the menu. Best to hide the keyboard because it looks odd to have he keyboard there with the menu present.
+                                // Sometimes keyboard is displayed when the user opens the menu. Best to hide the keyboard because it looks odd to have the keyboard there with the menu present.
                                 if open {
                                     hideKeyboard()
                                 }
