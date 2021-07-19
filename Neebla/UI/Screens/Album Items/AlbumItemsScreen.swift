@@ -63,8 +63,8 @@ struct AlbumItemsScreenBody: View {
                         // If I trigger this from `onAppear`, I get other grief in my view hierarchy. A view lower in the hierarchy (`URLPickerViewModel`) stops responding to its published view model values.
                         viewModel.changeMode = .none
                     }
-            case .moveItemsToAnotherAlbum:
-                AlbumListModal(specifics: viewModel.moveItemsSpecifics)
+            case .moveItemsToAnotherAlbum(let specifics):
+                AlbumListModal(specifics: specifics)
             }
         }
         .onAppear() {
@@ -158,7 +158,7 @@ struct AlbumItemsScreenBodyWithContent: View {
                             .onTapGesture {
                                 switch viewModel.changeMode {
                                 case .moving, .sharing, .moveAll:
-                                    viewModel.toggleItemToChange(fileGroupUUID: item.fileGroupUUID)
+                                    viewModel.toggleItemToChange(item: item)
                                 case .none:
                                     object = item
                                     viewModel.showCellDetails = true
@@ -239,7 +239,7 @@ private struct AlbumItemsScreenNavButtons: View {
                         case .none:
                             logger.error("Should not get here!!")
                         case .moving, .moveAll:
-                            viewModel.sheetToShow = .moveItemsToAnotherAlbum
+                            viewModel.prepareMoveItemsToAnotherAlbum()
                         case .sharing:
                             viewModel.sheetToShow = .activityController
                         }

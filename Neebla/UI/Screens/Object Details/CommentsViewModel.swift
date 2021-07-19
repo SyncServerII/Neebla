@@ -17,7 +17,7 @@ class CommentsViewModel: ObservableObject {
     private(set) var allowingSending = true
 
     let unknownUserInitials = "MT"
-    let unknownUserID = -1
+    static let unknownUserID = -1
 
     @Published private(set) var messages: [MessageType]
 
@@ -50,7 +50,7 @@ class CommentsViewModel: ObservableObject {
         }
         else {
             logger.warning("No user id for messages!")
-            senderUserId = "\(unknownUserID)"
+            senderUserId = "\(Self.unknownUserID)"
             allowingSending = false
         }
         

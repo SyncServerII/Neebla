@@ -181,6 +181,8 @@ extension ServerFileModel {
         case noObject
         case notMediaItemAttributes
         case noURL
+        case couldNotLoadComment
+        case badUserId
     }
     
     // Upsert files based on index obtained from the server.

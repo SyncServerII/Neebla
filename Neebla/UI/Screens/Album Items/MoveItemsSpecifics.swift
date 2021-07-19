@@ -8,6 +8,7 @@
 import Foundation
 import iOSShared
 import SwiftUI
+import ServerShared
 
 class MoveItemsSpecifics: AlbumListModalSpecifics {
     let albumListHeader = "Where do you want to move these items?"
@@ -16,13 +17,15 @@ class MoveItemsSpecifics: AlbumListModalSpecifics {
     
     let fileGroupsToMove: [UUID]
     let sourceSharingGroup: UUID
+    let usersMakingComments:Set<UserId>
     
     let refreshAlbums:()->()
     
-    init(fileGroupsToMove: [UUID], sourceSharingGroup: UUID, refreshAlbums:@escaping ()->()) {
+    init(usersMakingComments:Set<UserId>, fileGroupsToMove: [UUID], sourceSharingGroup: UUID, refreshAlbums:@escaping ()->()) {
         self.fileGroupsToMove = fileGroupsToMove
         self.sourceSharingGroup = sourceSharingGroup
         self.refreshAlbums = refreshAlbums
+        self.usersMakingComments = usersMakingComments
     }
     
     func alertMessage(albumName: String) -> String {
@@ -47,7 +50,7 @@ class MoveItemsSpecifics: AlbumListModalSpecifics {
             itemTerm += "s"
         }
         
-        Services.session.syncServer.moveFileGroups(fileGroupsToMove, fromSourceSharingGroup: sourceSharingGroup, toDestinationSharingGroup: album.sharingGroupUUID, sourcePushNotificationMessage: nil, destinationPushNotificationMessage: destinationPushNotificationMessage) { result in
+        Services.session.syncServer.moveFileGroups(fileGroupsToMove, usersThatMustBeInDestination: usersMakingComments, fromSourceSharingGroup: sourceSharingGroup, toDestinationSharingGroup: album.sharingGroupUUID, sourcePushNotificationMessage: nil, destinationPushNotificationMessage: destinationPushNotificationMessage) { result in
         
             switch result {
             case .success:
@@ -78,7 +81,10 @@ class MoveItemsSpecifics: AlbumListModalSpecifics {
                 showAlert(AlertyHelper.alert(title: "Alert!", message: "There were deletions in progress-- Please try your move again later."))
                 
             case .failedWithNotAllOwnersInTarget:
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "Your move could not be done because some of the item owners are not in the destination album."))
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Your move could not be completed because some of the item owners are not in the destination album."))
+            
+            case .failedWithUserConstraintNotSatisfied:
+                showAlert(AlertyHelper.alert(title: "Alert!", message: "Your move could not be completed because some of the item commenters are not in the destination album."))
                 
             case .error(let error):
                 logger.error("Album item move: \(String(describing: error))")

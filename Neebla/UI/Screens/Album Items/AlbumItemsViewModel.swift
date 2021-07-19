@@ -5,19 +5,13 @@ import Combine
 import iOSShared
 import iOSBasics
 import SwiftUI
+import ServerShared
 
 class AlbumItemsViewModel: ObservableObject {
-    var moveItemsSpecifics: MoveItemsSpecifics {
-        MoveItemsSpecifics(fileGroupsToMove: Array(itemsToChange), sourceSharingGroup: sharingGroupUUID, refreshAlbums: { [weak self] in
-            guard let self = self else { return }
-            self.objects = self.getItemsForAlbum(album: self.sharingGroupUUID)
-        })
-    }
-    
     enum SheetToShow: Identifiable {        
         case activityController
         case picker(MediaPicker)
-        case moveItemsToAnotherAlbum
+        case moveItemsToAnotherAlbum(MoveItemsSpecifics)
         
         var id: Int {
             switch self {
@@ -77,8 +71,7 @@ class AlbumItemsViewModel: ObservableObject {
             case .none, .sharing, .moving:
                 itemsToChange.removeAll()
             case .moveAll:
-                let fileGroups = objects.map { $0.fileGroupUUID }
-                itemsToChange = Set<UUID>(fileGroups)
+                itemsToChange = Set<ServerObjectModel>(objects)
             }
         }
     }
@@ -106,17 +99,17 @@ class AlbumItemsViewModel: ObservableObject {
         }
     }
 
-    func toggleItemToChange(fileGroupUUID: UUID) {
-        if itemsToChange.contains(fileGroupUUID) {
-            itemsToChange.remove(fileGroupUUID)
+    func toggleItemToChange(item: ServerObjectModel) {
+        if itemsToChange.contains(item) {
+            itemsToChange.remove(item)
         }
         else {
-            itemsToChange.insert(fileGroupUUID)
+            itemsToChange.insert(item)
         }
     }
     
-    // fileGroupUUID's of items to change
-    @Published var itemsToChange = Set<UUID>()
+    // items to change
+    @Published var itemsToChange = Set<ServerObjectModel>()
 
     var sortFilterSettings: SortFilterSettings?
     var activityItems = [Any]()
@@ -337,17 +330,10 @@ class AlbumItemsViewModel: ObservableObject {
         guard itemsToChange.count > 0 else {
             return []
         }
-        
-        // Map the fileGroupUUID for an object to its type, and then to the activityItem(s) for that object.
-        
+                
         var result = [Any]()
         
-        for itemToShare in itemsToChange {
-            guard let object = (objects.filter {$0.fileGroupUUID == itemToShare}).first else {
-                logger.error("Could not find object!!")
-                continue
-            }
-
+        for object in itemsToChange {
             do {
                 let activityItems = try AnyTypeManager.session.activityItems(forObject: object)
                 result += activityItems
@@ -396,5 +382,29 @@ class AlbumItemsViewModel: ObservableObject {
                 }
             },
             cancelTitle: "Cancel"))
+    }
+
+    func prepareMoveItemsToAnotherAlbum() {
+        do {
+            var usersMakingComments = Set<UserId>()
+
+            for object in itemsToChange {
+                let commentFileModel = try ServerFileModel.getFileFor(fileLabel: FileLabels.comments, withFileGroupUUID: object.fileGroupUUID)
+                let userIds = try commentFileModel.userIdsInComments()
+                usersMakingComments.formUnion(userIds)
+            }
+
+            let fileGroups = itemsToChange.map { $0.fileGroupUUID }
+            
+            let specifics = MoveItemsSpecifics(usersMakingComments: usersMakingComments, fileGroupsToMove: fileGroups, sourceSharingGroup: sharingGroupUUID, refreshAlbums: { [weak self] in
+                guard let self = self else { return }
+                self.objects = self.getItemsForAlbum(album: self.sharingGroupUUID)
+            })
+        
+            sheetToShow = .moveItemsToAnotherAlbum(specifics)
+        } catch let error {
+            logger.error("prepareForMove: \(error)")
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "There was an error preparing the item move. This can happen if a comment file is missing for an item."))
+        }
     }
 }

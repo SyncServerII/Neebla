@@ -36,10 +36,10 @@ private struct UpperRightChangeIcon: View {
                 .padding(5)
                 .background(colorScheme == .light ?
                     Color.white.opacity(0.7) : Color(UIColor.darkGray).opacity(0.8))
-                .if (colorScheme == .dark && !viewModel.itemsToChange.contains(object.fileGroupUUID)) {
+                .if (colorScheme == .dark && !viewModel.itemsToChange.contains(object)) {
                     $0.foregroundColor(Color.black)
                 }
-                .if (viewModel.itemsToChange.contains(object.fileGroupUUID)) {
+                .if (viewModel.itemsToChange.contains(object)) {
                     $0.foregroundColor(.blue)
                 }
         }
