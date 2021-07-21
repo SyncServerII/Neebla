@@ -27,7 +27,8 @@ struct AlbumItemsScreenBody: View {
     @ObservedObject var viewModel:AlbumItemsViewModel
     @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     let albumName: String
-
+    @State var alert: SwiftUI.Alert?
+    
     init(album sharingGroupUUID: UUID, albumName: String) {
         self.viewModel = AlbumItemsViewModel(album: sharingGroupUUID)
         self.albumName = albumName
@@ -48,7 +49,11 @@ struct AlbumItemsScreenBody: View {
                 AlbumItemsScreenNavButtons(viewModel: viewModel)
             }
         }
-        .sheetyDisplayer(item: $viewModel.sheetToShow, subscriber: alerty) { sheet in
+        .sheetyDisplayer(item: $viewModel.sheetToShow, subscriber: alerty, onDismiss:{
+            if let alert = alert {
+                showAlert(alert)
+            }
+        }) { sheet in
             switch sheet {
             case .activityController:
                 ActivityViewController(activityItems: viewModel.shareActivityItems())
@@ -64,7 +69,7 @@ struct AlbumItemsScreenBody: View {
                         viewModel.changeMode = .none
                     }
             case .moveItemsToAnotherAlbum(let specifics):
-                AlbumListModal(specifics: specifics)
+                AlbumListModal(specifics: specifics, alert: $alert)
             }
         }
         .onAppear() {

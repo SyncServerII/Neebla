@@ -146,26 +146,23 @@ class AlbumListModalDeletion: AlbumListModalSpecifics {
         "This will remove you from the album \"\(albumName)\". And if you are the last one using the album, will entirely remove the album."
     }
     
-    func action(album: AlbumModel, completion: ((_ dismiss: Bool)->())?) {
+    func action(album: AlbumModel, completion: ((_ alert: ActionCompletion)->())?) {
         Services.session.syncServer.removeFromSharingGroup(sharingGroupUUID: album.sharingGroupUUID) { error in
         
             if let noNetwork = error as? Errors, noNetwork.networkIsNotReachable {
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection."))
-                completion?(false)
+                completion?(.showAlert(AlertyHelper.alert(title: "Alert!", message: "No network connection.")))
                 return
             }
                 
             if let error = error {
                 logger.error("\(error)")
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed to remove user from album."))
-                completion?(false)
+                completion?(.showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed to remove user from album.")))
                 return
             }
             
             // At this point, the sync carried out by `removeFromSharingGroup` may not have completed. Rely on our `sync` listener for that.
             
-            showAlert(AlertyHelper.alert(title: "Success", message: "You have been removed from the album."))
-            completion?(true)
+            completion?(.dismissAndThenShow(AlertyHelper.alert(title: "Success", message: "You have been removed from the album.")))
         }
     }
 }

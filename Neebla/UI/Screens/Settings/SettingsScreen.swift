@@ -17,6 +17,7 @@ struct SettingsScreenBody: View {
     let emailDeveloper = EmailContents(subject: "Question or comment for developer of Neebla", to: "chris@SpasticMuffin.biz")
     @ObservedObject var settingsModel = SettingsScreenModel()
     @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
+    @State var alert: SwiftUI.Alert?
     
     var body: some View {
         VStack {
@@ -51,10 +52,14 @@ struct SettingsScreenBody: View {
             }
         }
         .alertyDisplayer(show: $alerty.show, subscriber: alerty)
-        .sheetyDisplayer(item: $settingsModel.sheet, subscriber: alerty) { sheet in
+        .sheetyDisplayer(item: $settingsModel.sheet, subscriber: alerty, onDismiss: {
+            if let alert = alert {
+                showAlert(alert)
+            }
+        }) { sheet in
             switch sheet {
             case .albumList:
-                AlbumListModal(specifics: settingsModel.deletionSpecifics)
+                AlbumListModal(specifics: settingsModel.deletionSpecifics, alert: $alert)
             case .emailDeveloper(let addAttachments):
                 MailView(emailContents: emailDeveloper, addAttachments: addAttachments, result: $settingsModel.sendMailResult)
             case .aboutApp:

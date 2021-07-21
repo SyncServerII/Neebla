@@ -39,7 +39,7 @@ class MoveItemsSpecifics: AlbumListModalSpecifics {
         }
     }
     
-    func action(album: AlbumModel, completion: ((_ dismiss: Bool)->())?) {
+    func action(album: AlbumModel, completion: ((_ alert: ActionCompletion)->())?) {
         // Rod and Dany didn't like this idea. Of also having a push notification for the source album. So, at least for now, I'm getting rid of it.
         // let sourcePushNotificationMessage = PushNotificationMessage.forMoving(numberItems: fileGroupsToMove.count, moveDirection: .from)
         
@@ -58,7 +58,7 @@ class MoveItemsSpecifics: AlbumListModalSpecifics {
                     try ServerObjectModel.updateSharingGroups(ofFileGroups: self.fileGroupsToMove, destinationSharinGroup: album.sharingGroupUUID, db: Services.session.db)
                 } catch let error {
                     logger.error("Error during updateSharingGroups: \(error)")
-                    completion?(false)
+                    completion?(.showAlert(AlertyHelper.alert(title: "Alert!", message: "Failed attempting to update albums after doing the move.")))
                     return
                 }
                 
@@ -69,29 +69,26 @@ class MoveItemsSpecifics: AlbumListModalSpecifics {
                 }
 
                 let alert = SwiftUI.Alert(title: Text("Success!"), message: Text("Look in the other album for your moved \(itemTerm)."), dismissButton: cancel)
-                showAlert(alert)
                 
-                completion?(true)
+                completion?(.dismissAndThenShow(alert))
                 return
                 
             case .currentUploads:
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "There were uploads in progress-- Please try your move again later."))
+                completion?(.showAlert(AlertyHelper.alert(title: "Alert!", message: "There were uploads in progress-- Please try your move again later.")))
                 
             case .currentDeletions:
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "There were deletions in progress-- Please try your move again later."))
+                completion?(.showAlert(AlertyHelper.alert(title: "Alert!", message: "There were deletions in progress-- Please try your move again later.")))
                 
             case .failedWithNotAllOwnersInTarget:
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "Your move could not be completed because some of the item owners are not in the destination album."))
+                completion?(.showAlert(AlertyHelper.alert(title: "Alert!", message: "Your move could not be completed because some of the item owners are not in the destination album.")))
             
             case .failedWithUserConstraintNotSatisfied:
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "Your move could not be completed because some of the item commenters are not in the destination album."))
+                completion?(.showAlert(AlertyHelper.alert(title: "Alert!", message: "Your move could not be completed because some of the item commenters are not in the destination album.")))
                 
             case .error(let error):
                 logger.error("Album item move: \(String(describing: error))")
-                showAlert(AlertyHelper.alert(title: "Alert!", message: "There was an unknown error when trying to do your item move."))
+                completion?(.showAlert(AlertyHelper.alert(title: "Alert!", message: "There was an unknown error when trying to do your item move.")))
             }
-            
-            completion?(false)
         }
     }
 }
