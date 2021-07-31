@@ -399,6 +399,7 @@ class AlbumItemsViewModel: ObservableObject {
             let specifics = MoveItemsSpecifics(usersMakingComments: usersMakingComments, fileGroupsToMove: fileGroups, sourceSharingGroup: sharingGroupUUID, refreshAlbums: { [weak self] in
                 guard let self = self else { return }
                 self.objects = self.getItemsForAlbum(album: self.sharingGroupUUID)
+                self.changeMode = .none
             })
         
             sheetToShow = .moveItemsToAnotherAlbum(specifics)
