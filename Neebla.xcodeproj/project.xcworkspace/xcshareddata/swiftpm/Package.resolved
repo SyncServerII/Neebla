@@ -20,12 +20,39 @@
         }
       },
       {
+        "package": "AnyCodable",
+        "repositoryURL": "https://github.com/Flight-School/AnyCodable.git",
+        "state": {
+          "branch": null,
+          "revision": "69261f239f0fffaf51495dadc4f8483fbfe97025",
+          "version": "0.6.1"
+        }
+      },
+      {
         "package": "Cryptor",
         "repositoryURL": "https://github.com/Kitura/BlueCryptor.git",
         "state": {
           "branch": null,
           "revision": "ee5880e031da4c609f372cf7472476ab51d5dd19",
           "version": "1.0.200"
+        }
+      },
+      {
+        "package": "CryptorECC",
+        "repositoryURL": "https://github.com/Kitura/BlueECC.git",
+        "state": {
+          "branch": null,
+          "revision": "baf6ed3fc1a622675f0041b4aff7c02dd1a93818",
+          "version": "1.2.200"
+        }
+      },
+      {
+        "package": "CryptorRSA",
+        "repositoryURL": "https://github.com/Kitura/BlueRSA.git",
+        "state": {
+          "branch": null,
+          "revision": "440f78db26d8bb073f29590f1c7bd31004da09ae",
+          "version": "1.0.201"
         }
       },
       {
@@ -236,6 +263,24 @@
         }
       },
       {
+        "package": "iOSSolid",
+        "repositoryURL": "https://github.com/SyncServerII/iOSSolid.git",
+        "state": {
+          "branch": null,
+          "revision": "ac27e036331d593090ff1b6f3c94b613e8c6c54e",
+          "version": "0.0.4"
+        }
+      },
+      {
+        "package": "jwt-kit",
+        "repositoryURL": "https://github.com/vapor/jwt-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "df7955305940ea0fcd1626a0a6d1a1556623f95e",
+          "version": "4.2.3"
+        }
+      },
+      {
         "package": "KeychainAccess",
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
         "state": {
@@ -375,8 +420,8 @@
         "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
         "state": {
           "branch": null,
-          "revision": "2a035a156b75f689d386cda0d0816eddcd88f15e",
-          "version": "0.12.10"
+          "revision": "d45c95cffb0c792516c5a556ad7ddae709c6dc82",
+          "version": "0.13.1"
         }
       },
       {
@@ -407,6 +452,15 @@
         }
       },
       {
+        "package": "SolidAuthSwift",
+        "repositoryURL": "https://github.com/crspybits/SolidAuthSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "d26d14cbd768a56c48abc06d4f4fe0b5e266698f",
+          "version": "0.0.6"
+        }
+      },
+      {
         "package": "SQLite.swift",
         "repositoryURL": "https://github.com/SyncServerII/SQLite.swift",
         "state": {
@@ -422,6 +476,24 @@
           "branch": null,
           "revision": "375a2603e98c8b59c53c9d2096f5443d78861bff",
           "version": "1.1.5"
+        }
+      },
+      {
+        "package": "swift-crypto",
+        "repositoryURL": "https://github.com/apple/swift-crypto.git",
+        "state": {
+          "branch": null,
+          "revision": "3bea268b223651c4ab7b7b9ad62ef9b2d4143eb6",
+          "version": "1.1.6"
+        }
+      },
+      {
+        "package": "SwiftJWT2",
+        "repositoryURL": "https://github.com/crspybits/Swift-JWT2.git",
+        "state": {
+          "branch": null,
+          "revision": "2f928445272b8c7a567ab485c2a5a3c3d129eec5",
+          "version": "3.6.202"
         }
       },
       {

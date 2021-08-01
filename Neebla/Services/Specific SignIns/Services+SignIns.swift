@@ -6,6 +6,7 @@ import iOSFacebook
 import iOSDropbox
 import iOSGoogle
 import iOSApple
+import iOSSolid
 
 // For Google Sign In issues, see https://stackoverflow.com/questions/65469685/using-google-sign-in-for-ios-with-swift-package-manager
 /* See also these references for using Google Sign In in extensions in iOS:
@@ -81,6 +82,17 @@ extension Services {
             signIns += [(appleSignIn, appleSignInDescription)]
         }
         
+        let solidConfig = SolidSignInConfig(redirectURI: "biz.SpasticMuffin.Neebla.solidSignIn:/config", clientName: "Neebla")
+        let solidSignIn = SolidSignIn(config: solidConfig, delegate: self)
+        if let solidSignInButton = solidSignIn.signInButton(configuration: nil) {
+            let solidSignInDescription =
+                SignInDescription(
+                    signInName:solidSignIn.signInName,
+                    userType: solidSignIn.userType,
+                    button: solidSignInButton)
+            signIns += [(solidSignIn, solidSignInDescription)]
+        }
+        
         return SignInSetup(signIns: signIns)
     }
     
@@ -113,7 +125,7 @@ extension Services {
     }
 }
 
-extension Services: GoogleSignInDelegate {
+extension Services: GoogleSignInDelegate, SolidSignInDelegate {
     func getCurrentViewController() -> UIViewController? {
         return delegate?.getCurrentViewController()
     }

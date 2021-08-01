@@ -289,6 +289,8 @@
 		83DB334D2686D9E500D34D80 /* MediaItemMultipleBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB334C2686D9E500D34D80 /* MediaItemMultipleBadgeView.swift */; };
 		83DB33502686DB5200D34D80 /* MediaItemMultipleBadgeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB334F2686DB5200D34D80 /* MediaItemMultipleBadgeViewModel.swift */; };
 		83DB33522686DCDE00D34D80 /* MediaItemBadgesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB33512686DCDE00D34D80 /* MediaItemBadgesObserver.swift */; };
+		83DE99B026B5C6CB002466D2 /* iOSSolid in Frameworks */ = {isa = PBXBuildFile; productRef = 83DE99AF26B5C6CB002466D2 /* iOSSolid */; };
+		83DE99B726B5DE97002466D2 /* iOSSolid in Frameworks */ = {isa = PBXBuildFile; productRef = 83DE99B626B5DE97002466D2 /* iOSSolid */; };
 		83E0A10A267C64B9005A77CF /* MediaItemAttributes+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E0A109267C64B9005A77CF /* MediaItemAttributes+Extras.swift */; };
 		83E0A10B267C6BA8005A77CF /* MediaItemAttributes+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E0A109267C64B9005A77CF /* MediaItemAttributes+Extras.swift */; };
 		83E0A10D267D308A005A77CF /* CommentFile+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E0A10C267D308A005A77CF /* CommentFile+Extras.swift */; };
@@ -570,6 +572,7 @@
 		83DB334C2686D9E500D34D80 /* MediaItemMultipleBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemMultipleBadgeView.swift; sourceTree = "<group>"; };
 		83DB334F2686DB5200D34D80 /* MediaItemMultipleBadgeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemMultipleBadgeViewModel.swift; sourceTree = "<group>"; };
 		83DB33512686DCDE00D34D80 /* MediaItemBadgesObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaItemBadgesObserver.swift; sourceTree = "<group>"; };
+		83DE99B826B61B6D002466D2 /* iOSSolid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSSolid; path = ../../iOSSolid; sourceTree = "<group>"; };
 		83E0A109267C64B9005A77CF /* MediaItemAttributes+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaItemAttributes+Extras.swift"; sourceTree = "<group>"; };
 		83E0A10C267D308A005A77CF /* CommentFile+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommentFile+Extras.swift"; sourceTree = "<group>"; };
 		83E0A110267D5CD5005A77CF /* AnyLargeMediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyLargeMediaModel.swift; sourceTree = "<group>"; };
@@ -614,6 +617,7 @@
 				83A2DF7925FC881E0072A557 /* Gifu in Frameworks */,
 				83F1E0DB25C5189800DA4A80 /* SMLinkPreview in Frameworks */,
 				83F1E0D125C5185200DA4A80 /* iOSFacebook in Frameworks */,
+				83DE99B726B5DE97002466D2 /* iOSSolid in Frameworks */,
 				8367504A25E326D7003957BE /* Hyperconnectivity in Frameworks */,
 				83F1E0EF25C518E100DA4A80 /* iOSGoogle in Frameworks */,
 				83F1E0EA25C518D300DA4A80 /* iOSDropbox in Frameworks */,
@@ -640,6 +644,7 @@
 				832D342D25869E2D00FEF094 /* RadioGroup in Frameworks */,
 				834E4FF725E21942002C0ED2 /* iOSShared in Frameworks */,
 				83F1E0B225C50EE000DA4A80 /* GSignIn in Frameworks */,
+				83DE99B026B5C6CB002466D2 /* iOSSolid in Frameworks */,
 				83D8CC0425B956200069E3E5 /* SideMenu in Frameworks */,
 				83F7EBAE25C3A7C500528B33 /* PersistentValue in Frameworks */,
 				83D2FBE925C3A59500E378F7 /* iOSFacebook in Frameworks */,
@@ -890,6 +895,7 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
+				83DE99B826B61B6D002466D2 /* iOSSolid */,
 			);
 			path = "Local Packages";
 			sourceTree = "<group>";
@@ -1577,6 +1583,7 @@
 				83F1E0F825C518FE00DA4A80 /* Toucan */,
 				8367504925E326D7003957BE /* Hyperconnectivity */,
 				83A2DF7825FC881E0072A557 /* Gifu */,
+				83DE99B626B5DE97002466D2 /* iOSSolid */,
 			);
 			productName = "Share Extension";
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
@@ -1641,6 +1648,7 @@
 				83A2DF6925FC80860072A557 /* Gifu */,
 				83A2DF9925FD5C5E0072A557 /* SQLite */,
 				83BC889E26055CE300AE365D /* FirebaseCrashlytics */,
+				83DE99AF26B5C6CB002466D2 /* iOSSolid */,
 			);
 			productName = Neebla;
 			productReference = 83B657D5255B81320041B9DF /* Neebla.app */;
@@ -1701,6 +1709,7 @@
 				83A2DF6825FC80860072A557 /* XCRemoteSwiftPackageReference "Gifu" */,
 				83A2DF9825FD5C5B0072A557 /* XCRemoteSwiftPackageReference "SQLite" */,
 				83BC889D26055CE300AE365D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				83DE99AE26B5C6CA002466D2 /* XCRemoteSwiftPackageReference "iOSSolid" */,
 			);
 			productRefGroup = 83B657D6255B81320041B9DF /* Products */;
 			projectDirPath = "";
@@ -2611,6 +2620,14 @@
 				minimumVersion = 0.1.1;
 			};
 		};
+		83DE99AE26B5C6CA002466D2 /* XCRemoteSwiftPackageReference "iOSSolid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SyncServerII/iOSSolid.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
 		83F389C3259044ED00610C76 /* XCRemoteSwiftPackageReference "iOSApple" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/SyncServerII/iOSApple.git";
@@ -2734,6 +2751,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83D8CC0225B9561F0069E3E5 /* XCRemoteSwiftPackageReference "SideMenu" */;
 			productName = SideMenu;
+		};
+		83DE99AF26B5C6CB002466D2 /* iOSSolid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83DE99AE26B5C6CA002466D2 /* XCRemoteSwiftPackageReference "iOSSolid" */;
+			productName = iOSSolid;
+		};
+		83DE99B626B5DE97002466D2 /* iOSSolid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83DE99AE26B5C6CA002466D2 /* XCRemoteSwiftPackageReference "iOSSolid" */;
+			productName = iOSSolid;
 		};
 		83F1E0B125C50EE000DA4A80 /* GSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
