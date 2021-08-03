@@ -1,6 +1,7 @@
 Neebla
 
-Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0, 20210720.0, 20210721.0)
+Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0, 20210720.0, 20210721.0,
+									20210801.0)
 	* Added more detailed UI error messages back in, but only for dev builds.
 	* Add support for move file groups in the UI
 		- Generalized album list UI used in deletion
@@ -19,6 +20,7 @@ Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0, 20210720.0, 20210721.0
 	* Fixed an issue where download indicators would get not get reset properly
 		when a user had been removed from an album.
 	* Incorporated an iOSBasics fix which could have been causing an issue with deletions.
+	* Incorporated another iOSBasics fix (v0.30.4) to again allow redeeming sharing invitations when a user wasn't signed in. This had been broken since some relatively recent changes to not inappropriately cause users to be signed out.
 
 Version 2.0.6 (TestFlight Builds: 20210626.0, 20210627.0, 20210629.0, 20210701.0,
 								20210701.1, 20210702.0)
