@@ -1,5 +1,8 @@
 Neebla
 
+Version 2.0.8 (TestFlight Builds: 20210802.0)
+	* Added debugging output. Working to get information for https://github.com/SyncServerII/Neebla/issues/25
+	
 Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0, 20210720.0, 20210721.0,
 									20210801.0)
 	* Added more detailed UI error messages back in, but only for dev builds.
