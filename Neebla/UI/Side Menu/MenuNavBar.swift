@@ -10,12 +10,15 @@ struct MenuNavBar<Content: View>: View {
     let content: Content
     let rightNavbarButton:AnyView?
     let leftMenuNav:Bool
+    let leftMenuExtra:AnyView?
     
-    init(title: String, leftMenuNav:Bool = true, rightNavbarButton:AnyView? = nil, @ViewBuilder content: () -> Content) {
+    // `leftMenuExtra` is placed, if given, to the right of the leftMenuNav
+    init(title: String, leftMenuNav:Bool = true, leftMenuExtra:AnyView? = nil, rightNavbarButton:AnyView? = nil, @ViewBuilder content: () -> Content) {
         self.content = content()
         self.title = title
         self.rightNavbarButton = rightNavbarButton
         self.leftMenuNav = leftMenuNav
+        self.leftMenuExtra = leftMenuExtra
     }
 
     /* Debugging-- problem with background color of sign-in view.
@@ -58,24 +61,30 @@ struct MenuNavBar<Content: View>: View {
             // }
 
             ToolbarItemGroup(placement: .navigationBarLeading) {
-                VStack {
-                    if leftMenuNav {
-                        Button(action: {
-                            withAnimation {
-                                self.sideMenuLeftPanel.wrappedValue = !self.sideMenuLeftPanel.wrappedValue
-                                let open = self.sideMenuLeftPanel.wrappedValue
-                                
-                                // Sometimes keyboard is displayed when the user opens the menu. Best to hide the keyboard because it looks odd to have the keyboard there with the menu present.
-                                if open {
-                                    hideKeyboard()
+                HStack {
+                    VStack {
+                        if leftMenuNav {
+                            Button(action: {
+                                withAnimation {
+                                    self.sideMenuLeftPanel.wrappedValue = !self.sideMenuLeftPanel.wrappedValue
+                                    let open = self.sideMenuLeftPanel.wrappedValue
+                                    
+                                    // Sometimes keyboard is displayed when the user opens the menu. Best to hide the keyboard because it looks odd to have the keyboard there with the menu present.
+                                    if open {
+                                        hideKeyboard()
+                                    }
                                 }
-                            }
-                        }, label: {
-                            SFSymbolIcon(symbol: .lineHorizontal3)
-                        })
-                    }
-                    else {
-                        Rectangle().fill(Color.clear)
+                            }, label: {
+                                SFSymbolIcon(symbol: .lineHorizontal3)
+                            })
+                        }
+                        else {
+                            Rectangle().fill(Color.clear)
+                        }
+                    } // End VStack
+                    
+                    if let leftMenuExtra = leftMenuExtra {
+                        leftMenuExtra
                     }
                 }
             }

@@ -13,6 +13,9 @@ struct AlbumsScreen: View {
     
     var body: some View {
         MenuNavBar(title: "Albums",
+            leftMenuExtra:
+                viewModel.pendingUploads == nil ? nil :
+                    AnyView(UploadCount(count: "\(viewModel.pendingUploads!)")),
             rightNavbarButton:
                 AnyView(
                     RightNavBarIcons(viewModel: viewModel)
@@ -23,6 +26,30 @@ struct AlbumsScreen: View {
                 AlbumsScreenBody(viewModel: viewModel)
             }
         }
+    }
+}
+
+// This is mostly to deal with a situation where the user has a lot of pending uploads. Such as with https://github.com/SyncServerII/Neebla/issues/25
+private struct UploadCount: View {
+    let count: String
+    
+    var body: some View {
+            Button(
+                action: {
+                    showAlert(AlertyHelper.alert(title: "Pending Uploads", message: "You have pending uploads. Use a pull-down gesture on this screen to continue these uploads."))
+                },
+                label: {
+                    VStack {
+                        Icon(imageName: "Upload.Black",
+                            size: CGSize(width: 25, height: 25))
+                            .padding(.bottom, 0)
+                        Spacer().frame(height: 0)
+                        Text(count).font(.subheadline)
+                            .padding(.top, 0)
+                    }
+                }
+            )
+            .frame(width: Icon.dimension, height: Icon.dimension)
     }
 }
 

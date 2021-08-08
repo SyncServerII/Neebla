@@ -35,6 +35,9 @@ class AlbumsViewModel: ObservableObject {
     @Published var textInputActionButtonName: String?
     @Published var textInputNewAlbum: Bool = false
     @Published var textInputTitle: String?
+
+    @Published var pendingUploads: Int?
+    
     var textInputAction: (()->())?
     var textInputActionEnabled: (()->(Bool))?
     var textInputKeyPressed:((String?)->())?
