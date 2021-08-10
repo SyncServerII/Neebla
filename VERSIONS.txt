@@ -1,13 +1,22 @@
 Neebla
 
-Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0)
+Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2,
+								20210809.0, 20210809.1, 20210810.0)
 	* Improvements/changes for https://github.com/SyncServerII/Neebla/issues/25
 		- Added debugging output. 
 		- Added pending uploads count, with button/icon, to Albums screen.
 			Only appears when there are pending uploads.
 			Tapping on this button shows an alert-- 
 				and asks the user to do a pull-down refresh.
-		- Using updates to `iOSBasics`-- to improve upload retries.
+			This will dynamically update, after a pull-down-refresh.
+		- Using updates to `iOSBasics`-- to improve upload retries on the basis of expiry.
+	* Commenting out DeveloperScreen code, not using #if DEBUG-- seeing odd crashes, with
+		traces from Firebase.
+	* Cleaned up initialization code 
+		- In AppDelegate to better detect launch/initialization errors.
+		- Services code for the same issue.
+		- In MainView, to show a failure screen if Services initialization fails.
+	* Update to iOSBasics change to fix migration issue; See https://github.com/SyncServerII/Neebla/issues/26
 	
 Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0, 20210720.0, 20210721.0,
 									20210801.0)

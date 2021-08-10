@@ -8,11 +8,22 @@
 import SideMenu
 import SwiftUI
 
-// If no user is signed, show the LandingView for a moment.
+// If no user is signed in, show the LandingView for a moment.
 // After that interval, show albums if the user is signed in.
 // Or the sign in screen if not.
 
-struct MainView : View {
+struct MainView: View {
+    var body: some View {
+        if Services.setupState.isComplete && LocalServices.session?.initialized == true {
+            LandingAndMenu()
+        }
+        else {
+            FailedLaunchView()
+        }
+    }
+}
+
+private struct LandingAndMenu : View {
     @ObservedObject var viewModel = SignInViewModel()
     
     var body: some View {

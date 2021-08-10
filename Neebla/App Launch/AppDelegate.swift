@@ -21,20 +21,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         Services.setup(delegate: self)
+        
+        guard Services.setupState == .done(appLaunch: false) else {
+            logger.critical("Services.setup: Failed")
+            return false
+        }
+        
         Services.session.appLaunch(options: launchOptions)
+
+        guard Services.setupState.isComplete else {
+            logger.critical("Services.session.appLaunch: Failed")
+            return false
+        }
         
         do {
             try LocalServices.setup(db: Services.session.db)
         }
         catch let error {
-            logger.error("LocalServices: \(error)")
+            logger.critical("LocalServices: \(error)")
             return false
         }
         
         // Necessary with [1] below.
         UNUserNotificationCenter.current().delegate = self
         
-        return Services.setupState.isComplete
+        return Services.setupState.isComplete &&
+            LocalServices.session?.initialized == true
     }
     
     // Neither of these are called.

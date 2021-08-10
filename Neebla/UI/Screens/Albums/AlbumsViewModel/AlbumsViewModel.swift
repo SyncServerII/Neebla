@@ -45,6 +45,7 @@ class AlbumsViewModel: ObservableObject {
     private var syncSubscription:AnyCancellable!
     var userEventSubscriptionOther:AnyCancellable!
     var textInputSubscription:AnyCancellable!
+    var uploadQueueSubscription:AnyCancellable!
     
     var boundedCancel:BoundedCancel?
     private var appStateChanged: AnyObject?
@@ -71,6 +72,14 @@ class AlbumsViewModel: ObservableObject {
 
             if self.isShowingRefresh {
                 self.isShowingRefresh = false
+            }
+        }
+        
+        uploadQueueSubscription = Services.session.serverInterface.uploadQueue.sink { [weak self] event in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.updatePendingUploads()
             }
         }
         
@@ -283,5 +292,14 @@ class AlbumsViewModel: ObservableObject {
     
     static func getAlbum(sharingGroupUUID: UUID) throws -> AlbumModel? {
         return try AlbumModel.fetchSingleRow(db: Services.session.db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID)
+    }
+    
+    func updatePendingUploads() {
+        do {
+            let pendingUploads = try Services.session.syncServer.numberQueued(.upload)
+            self.pendingUploads = pendingUploads == 0 ? nil : pendingUploads
+        } catch let error {
+            logger.warning("sync: \(error)")
+        }
     }
 }
