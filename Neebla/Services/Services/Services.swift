@@ -19,6 +19,7 @@ class Services {
         case cloudFolderName
         case failoverMessageURL
         case bundleIdentifier
+        case cannotSetupLogging
     }
     
     // Not really confidential, but it's a key for the server, so storing it in the keychain. Storing as a string because I don't have Int64's in PersistentValue's. :(.
@@ -123,7 +124,12 @@ class Services {
     var userEvents = AlertyPublisher()
     private var updateObserver: AnyObject!
     
-    private init(delegate: ServicesDelegate?) throws {
+    // `Files.getDocumentsDirectory` depends on `SharedContainer.session?`. Make sure put the logging setup below the setup for that.
+    private func setupSharedLogging() throws {
+        guard let _ = SharedContainer.session?.documentsURL else {
+            throw ServicesError.cannotSetupLogging
+        }
+        
         let loggingDir = Files.getDocumentsDirectory().appendingPathComponent(
             LocalFiles.loggingDir)
         let logFile = loggingDir.appendingPathComponent(LocalFiles.loggingFile)
@@ -134,13 +140,18 @@ class Services {
         level = .notice
 #endif
         sharedLogging.setup(logFileURL: logFile, logLevel: level)
-        
+    }
+    
+    private init(delegate: ServicesDelegate?) throws {
         self.delegate = delegate
         
         try SharedContainer.appLaunchSetup(applicationGroupIdentifier: applicationGroupIdentifier)
         try LocalFiles.setup()
         
         logger.info("SharedContainer.session.sharedContainerURL: \(String(describing: SharedContainer.session?.sharedContainerURL))")
+        
+        // Must come after `SharedContainer.session` is setup.
+        try setupSharedLogging()
                 
         guard let documentsURL = SharedContainer.session?.documentsURL else {
             throw ServicesError.noDocumentsURL
@@ -194,7 +205,7 @@ class Services {
             logger.error("Could not get bundle identifier")
             throw ServicesError.bundleIdentifier
         }
-        
+                
         setupSignInServices(configPlist: configPlist, signIns: signIns, bundleIdentifier: bundleIdentifier, helper: self)
         
         var initialAppLaunch = true

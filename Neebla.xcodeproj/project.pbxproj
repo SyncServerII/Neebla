@@ -30,6 +30,7 @@
 		8309907F26798F3E00015EC4 /* ObjectDownloadHandler+MediaItemBadges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8309907E26798F3E00015EC4 /* ObjectDownloadHandler+MediaItemBadges.swift */; };
 		8309908026798F4800015EC4 /* ObjectDownloadHandler+MediaItemBadges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8309907E26798F3E00015EC4 /* ObjectDownloadHandler+MediaItemBadges.swift */; };
 		830990822679A7A500015EC4 /* MediaItemSingleBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830990812679A7A500015EC4 /* MediaItemSingleBadgeView.swift */; };
+		830ED92626C36EE4009F0D7F /* SettingsScreenModel+AddEmailAttachments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ED92526C36EE4009F0D7F /* SettingsScreenModel+AddEmailAttachments.swift */; };
 		8310188926C22FC300765DF0 /* FailedLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310188826C22FC300765DF0 /* FailedLaunchView.swift */; };
 		83152B0025FB1B7600A5439F /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152AFF25FB1B7600A5439F /* URL+Extras.swift */; };
 		83152B0725FB1C6200A5439F /* URL+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152AFF25FB1B7600A5439F /* URL+Extras.swift */; };
@@ -392,6 +393,7 @@
 		8309907B2679848D00015EC4 /* MediaItemBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemBadge.swift; sourceTree = "<group>"; };
 		8309907E26798F3E00015EC4 /* ObjectDownloadHandler+MediaItemBadges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectDownloadHandler+MediaItemBadges.swift"; sourceTree = "<group>"; };
 		830990812679A7A500015EC4 /* MediaItemSingleBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemSingleBadgeView.swift; sourceTree = "<group>"; };
+		830ED92526C36EE4009F0D7F /* SettingsScreenModel+AddEmailAttachments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsScreenModel+AddEmailAttachments.swift"; sourceTree = "<group>"; };
 		8310188826C22FC300765DF0 /* FailedLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedLaunchView.swift; sourceTree = "<group>"; };
 		83152AFF25FB1B7600A5439F /* URL+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extras.swift"; sourceTree = "<group>"; };
 		83152B1125FB2D3600A5439F /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
@@ -735,6 +737,15 @@
 			path = "Media Item Badges";
 			sourceTree = "<group>";
 		};
+		830ED92726C36EF0009F0D7F /* SettingsScreenModel */ = {
+			isa = PBXGroup;
+			children = (
+				8331F4C02560FFC70063A67D /* SettingsScreenModel.swift */,
+				830ED92526C36EE4009F0D7F /* SettingsScreenModel+AddEmailAttachments.swift */,
+			);
+			path = SettingsScreenModel;
+			sourceTree = "<group>";
+		};
 		83152B1925FB35FE00A5439F /* GIF Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1037,7 +1048,7 @@
 				8331F3FB255F82ED0063A67D /* SettingsScreen.swift */,
 				83F49B9226080C3B00814A2A /* SettingsTopContent.swift */,
 				83D346F1262BA8710084393D /* RemoveUserSheet.swift */,
-				8331F4C02560FFC70063A67D /* SettingsScreenModel.swift */,
+				830ED92726C36EF0009F0D7F /* SettingsScreenModel */,
 				839F1DFB25FEC6AF0089C13F /* AboutApp */,
 			);
 			path = Settings;
@@ -1959,6 +1970,7 @@
 				835104A4259FE91900C5A05E /* MediaPicker.swift in Sources */,
 				83F49B99260FE89400814A2A /* AlbumUnreadCount.swift in Sources */,
 				83A151D825B91F320094203B /* LandingView.swift in Sources */,
+				830ED92626C36EE4009F0D7F /* SettingsScreenModel+AddEmailAttachments.swift in Sources */,
 				83F2C54B25A1510500D0B710 /* AddressNavigation.swift in Sources */,
 				83A2E6B8266553AC009F0240 /* FileUpload+Extras.swift in Sources */,
 				8331F333255B8AFD0063A67D /* SignInScreen.swift in Sources */,
@@ -2161,7 +2173,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210810.0;
+				CURRENT_PROJECT_VERSION = 20210810.2;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2185,7 +2197,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210810.0;
+				CURRENT_PROJECT_VERSION = 20210810.2;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2372,7 +2384,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210810.0;
+				CURRENT_PROJECT_VERSION = 20210810.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
@@ -2402,7 +2414,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210810.0;
+				CURRENT_PROJECT_VERSION = 20210810.2;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;

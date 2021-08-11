@@ -76,7 +76,7 @@ class ServerInterface {
         
         let minimumServerVersion = Version("1.9.0")
     
-        let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: minimumServerVersion, currentClientAppVersion: currentClientAppVersion, failoverMessageURL: failoverMessageURL, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles)
+        let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: minimumServerVersion, currentClientAppVersion: currentClientAppVersion, failoverMessageURL: failoverMessageURL, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles, allowUploadDownload: false)
                 
         syncServer = try SyncServer(hashingManager: hashingManager, db: db, requestable: Requestablity(), configuration: config, signIns: signIns, backgroundAsssertable: Background.session.backgroundAsssertable)
         logger.info("SyncServer initialized!")
