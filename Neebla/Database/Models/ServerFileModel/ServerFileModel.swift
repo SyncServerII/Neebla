@@ -400,3 +400,68 @@ extension ServerFileModel {
         return mia.getKeywords(onlyThoseUsed: onlyThoseUsed)
     }
 }
+
+extension ServerFileModel {
+    func debug() -> String {
+        var canReadFile: Bool?
+        var nonRelativeURL: URL?
+                
+        if let url = url {
+            canReadFile = url.canReadFile()
+            nonRelativeURL = URL(fileURLWithPath: url.path)
+        }
+        
+        let result = """
+            ServerFileModel:
+                fileUUID: \(fileUUID);
+                url: \(String(describing: url));
+                nonRelativeURL: \(String(describing: nonRelativeURL));
+                canReadFile: \(String(describing: canReadFile))\n
+            """
+            
+        return result
+    }
+    
+    enum DebugOption {
+        // These are URL's that are nil, or that cannot be read.
+        case onlyMissingFiles
+        
+        case specificFiles(fileUUIDs: Set<UUID>)
+    }
+    
+    static func debug(option: DebugOption, db: Connection) throws -> String? {
+        let fileModels = try ServerFileModel.fetch(db: db)
+        
+        guard fileModels.count > 0 else {
+            return nil
+        }
+
+        var result = ""
+
+        for fileModel in fileModels {
+            switch option {
+            case .onlyMissingFiles:
+                if let url = fileModel.url {
+                    if !url.canReadFile() {
+                        result += fileModel.debug()
+                    }
+                }
+                else {
+                    // nil url
+                    result += fileModel.debug()
+                }
+                
+            case .specificFiles(let fileUUIDs):
+                if fileUUIDs.contains(fileModel.fileUUID) {
+                    result += fileModel.debug()
+                }
+            }
+        }
+        
+        guard result.count > 0 else {
+            return nil
+        }
+        
+        return result
+    }
+}

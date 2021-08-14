@@ -198,7 +198,7 @@ class Services {
         let signIns = SignIns(signInServicesHelper: self)
         signIns.delegate = self
         
-        serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName, failoverMessageURL: failoverMessageURL, db: db)
+        serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName, failoverMessageURL: failoverMessageURL, currentUserId: userId, db: db)
 
         // This is used to form the URL-type links used for sharing.
         guard let bundleIdentifier = Bundle.main.bundleIdentifier else {

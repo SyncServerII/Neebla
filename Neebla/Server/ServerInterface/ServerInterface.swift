@@ -43,7 +43,8 @@ class ServerInterface {
     let signIns: SignIns
     var observer: AnyObject!
     
-    init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String, failoverMessageURL: URL, db: Connection) throws {
+    // currentUserId is for some specific fixes in iOSBasics.
+    init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String, failoverMessageURL: URL, currentUserId: UserId?, db: Connection) throws {
         self.signIns = signIns
 
         if deviceUUIDString.value == nil {
@@ -78,7 +79,7 @@ class ServerInterface {
     
         let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: minimumServerVersion, currentClientAppVersion: currentClientAppVersion, failoverMessageURL: failoverMessageURL, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles, allowUploadDownload: false)
                 
-        syncServer = try SyncServer(hashingManager: hashingManager, db: db, requestable: Requestablity(), configuration: config, signIns: signIns, backgroundAsssertable: Background.session.backgroundAsssertable)
+        syncServer = try SyncServer(hashingManager: hashingManager, db: db, requestable: Requestablity(), configuration: config, signIns: signIns, backgroundAsssertable: Background.session.backgroundAsssertable, currentUserId: currentUserId)
         logger.info("SyncServer initialized!")
         
         try addHashingForCloudStorageSignIns(hashingManager: hashingManager)

@@ -2,7 +2,8 @@ Neebla
 
 Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2,
 								20210809.0, 20210809.1, 20210810.0, 20210810.1,
-								20210810.2)
+								20210810.2, 20210810.3, 20210811.0, 20210812.0,
+								20210813.0, 20210813.1)
 	* Improvements/changes for https://github.com/SyncServerII/Neebla/issues/25
 		- Added debugging output. 
 		- Added pending uploads count, with button/icon, to Albums screen.
@@ -17,9 +18,10 @@ Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2
 		- In AppDelegate to better detect launch/initialization errors.
 		- Services code for the same issue.
 		- In MainView, to show a failure screen if Services initialization fails.
-	* Update to iOSBasics change
+	* Update to iOSBasics changes
 		- To fix migration issue; See https://github.com/SyncServerII/Neebla/issues/26
 		- To add debugging information
+		- Constrain to not allow downloads when uploads for object.
 		- ******* allowUploadDownload: false ****** change this before final release.
 	
 Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0, 20210720.0, 20210721.0,
