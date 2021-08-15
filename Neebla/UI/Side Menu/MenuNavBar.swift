@@ -3,22 +3,24 @@ import SwiftUI
 import SFSafeSymbols
 import SideMenu
 
+
+
 // Contains a `NavigationView`. You can embed `NavigationLink`'s inside after you use it.
-struct MenuNavBar<Content: View>: View {
+struct MenuNavBar<Content: View, LeftMenuExtra: View>: View {
     @Environment(\.sideMenuLeftPanelKey) var sideMenuLeftPanel
     let title: String
     let content: Content
     let rightNavbarButton:AnyView?
     let leftMenuNav:Bool
-    let leftMenuExtra:AnyView?
+    let leftMenuExtra:LeftMenuExtra
     
     // `leftMenuExtra` is placed, if given, to the right of the leftMenuNav
-    init(title: String, leftMenuNav:Bool = true, leftMenuExtra:AnyView? = nil, rightNavbarButton:AnyView? = nil, @ViewBuilder content: () -> Content) {
+    init(title: String, leftMenuNav:Bool = true, @ViewBuilder leftMenuExtra: () -> LeftMenuExtra, rightNavbarButton:AnyView? = nil, @ViewBuilder content: () -> Content) {
         self.content = content()
         self.title = title
         self.rightNavbarButton = rightNavbarButton
         self.leftMenuNav = leftMenuNav
-        self.leftMenuExtra = leftMenuExtra
+        self.leftMenuExtra = leftMenuExtra()
     }
 
     /* Debugging-- problem with background color of sign-in view.
@@ -93,6 +95,13 @@ struct MenuNavBar<Content: View>: View {
                 rightNavbarButton
             }
         }
+    }
+}
+
+// Enable `LeftMenuExtra` to be optional. See https://stackoverflow.com/questions/60687912/optional-viewbuilder-closure
+extension MenuNavBar where LeftMenuExtra == EmptyView {
+    init(title: String, leftMenuNav:Bool = true, rightNavbarButton:AnyView? = nil, @ViewBuilder content: () -> Content) {
+        self.init(title: title, leftMenuNav: leftMenuNav, leftMenuExtra: { EmptyView() }, rightNavbarButton: rightNavbarButton, content: content)
     }
 }
 

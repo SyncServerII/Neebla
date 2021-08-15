@@ -374,7 +374,6 @@ extension ServerFileModel {
         let downloadsQueued = try Services.session.syncServer.numberQueued(.download)
         logger.notice("downloadsQueued: \(downloadsQueued)")
         try Services.session.syncServer.debug(fileUUID: fileUUID)
-        try Services.session.syncServer.debug(fileGroupUUID: fileGroupUUID)
         let needsDownload = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: fileGroupUUID, includeGone: true)
         logger.notice("objectNeedsDownload: \(String(describing: needsDownload))")
     }
@@ -423,8 +422,8 @@ extension ServerFileModel {
     }
     
     enum DebugOption {
-        // These are URL's that are nil, or that cannot be read.
-        case onlyMissingFiles
+        // These are URL's that are non-nil and that cannot be read.
+        case onlyUnreadableFiles
         
         case specificFiles(fileUUIDs: Set<UUID>)
     }
@@ -440,15 +439,11 @@ extension ServerFileModel {
 
         for fileModel in fileModels {
             switch option {
-            case .onlyMissingFiles:
+            case .onlyUnreadableFiles:
                 if let url = fileModel.url {
                     if !url.canReadFile() {
                         result += fileModel.debug()
                     }
-                }
-                else {
-                    // nil url
-                    result += fileModel.debug()
                 }
                 
             case .specificFiles(let fileUUIDs):

@@ -297,7 +297,9 @@ class AlbumsViewModel: ObservableObject {
     func updatePendingUploads() {
         do {
             let pendingUploads = try Services.session.syncServer.numberQueued(.upload)
-            self.pendingUploads = pendingUploads == 0 ? nil : pendingUploads
+            let pendingDeletions = try Services.session.syncServer.numberQueued(.deletion)
+            let pending = pendingDeletions + pendingUploads
+            self.pendingUploads = pending == 0 ? nil : pending
         } catch let error {
             logger.warning("sync: \(error)")
         }

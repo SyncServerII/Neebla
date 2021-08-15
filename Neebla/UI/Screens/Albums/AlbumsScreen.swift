@@ -13,9 +13,18 @@ struct AlbumsScreen: View {
     
     var body: some View {
         MenuNavBar(title: "Albums",
-            leftMenuExtra:
-                viewModel.pendingUploads == nil ? nil :
-                    AnyView(UploadCount(count: "\(viewModel.pendingUploads!)")),
+            leftMenuExtra: {
+                if viewModel.pendingUploads == nil {
+                    withAnimation {
+                        EmptyView()
+                    }
+                }
+                else {
+                    withAnimation {
+                        UploadCount(count: "\(viewModel.pendingUploads!)")
+                    }
+                }
+            },
             rightNavbarButton:
                 AnyView(
                     RightNavBarIcons(viewModel: viewModel)
@@ -36,6 +45,7 @@ private struct UploadCount: View {
     var body: some View {
             Button(
                 action: {
+                    // This reflects both uploads and upload deletions. Seems too much detail to put that in the message though.
                     showAlert(AlertyHelper.alert(title: "Pending Uploads", message: "You have pending uploads. Use a pull-down gesture on this screen to continue these uploads."))
                 },
                 label: {
