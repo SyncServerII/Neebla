@@ -10,11 +10,18 @@ import SQLiteObjc
 
 // These services are shared with the Share Extension
 
-enum ServicesError: Error {
-    case noDocumentDirectory
-}
-
 class Services {
+    enum ServicesError: Error {
+        case noDocumentsURL
+        case plistServerConfig
+        case configPlist
+        case serverURL
+        case cloudFolderName
+        case failoverMessageURL
+        case bundleIdentifier
+        case cannotSetupLogging
+    }
+    
     // Not really confidential, but it's a key for the server, so storing it in the keychain. Storing as a string because I don't have Int64's in PersistentValue's. :(.
     static let userIdString = try! PersistentValue<String>(name: "Services.userIdString", storage: .keyChain)
     var syncServerUserId: Int64? {
@@ -117,100 +124,10 @@ class Services {
     var userEvents = AlertyPublisher()
     private var updateObserver: AnyObject!
     
-    private init(delegate: ServicesDelegate?) {
-        self.delegate = delegate
-        
-        do {
-            try SharedContainer.appLaunchSetup(applicationGroupIdentifier: applicationGroupIdentifier)
-        } catch let error {
-            logger.error("\(error)")
-            Self.setupState = .failure
-            return
-        }
-        
-        do {
-            try LocalFiles.setup()
-        } catch let error {
-            logger.error("\(error)")
-            Self.setupState = .failure
-            return
-        }
-        
-        logger.info("SharedContainer.session.sharedContainerURL: \(String(describing: SharedContainer.session?.sharedContainerURL))")
-                
-        guard let documentsURL = SharedContainer.session?.documentsURL else {
-            logger.error("Could not get documentsURL")
-            Self.setupState = .failure
-            return
-        }
-
-        PersistentValueFile.alternativeDocumentsDirectory = documentsURL.path
-        PersistentValueKeychain.keychainService = keychainService
-        PersistentValueKeychain.accessGroup = keychainSharingGroup
-        
-        let dbURL = Files.getDocumentsDirectory().appendingPathComponent(
-            LocalFiles.database)
-        logger.info("SQLite db: \(dbURL.path)")
-
-        do {
-            // For rationale for flag: https://github.com/stephencelis/SQLite.swift/issues/1042
-            db = try Connection(dbURL.path, additionalFlags: SQLITE_OPEN_FILEPROTECTION_NONE)
-            // dbURL.enableAccessInBackground()
-            try SetupDatabase.setup(db: db)
-            let migrationController = try Migration(db: db)
-            try migrationController.run(migrations: Migration.all(db: db))
-        } catch let error {
-            logger.error("\(error)")
-            Self.setupState = .failure
-            return
-        }
-        
-        guard let path = Bundle.main.path(forResource: Self.plistServerConfig.0, ofType: Self.plistServerConfig.1) else {
-            Self.setupState = .failure
-            return
-        }
-        
-        guard let configPlist = ConfigPlist(filePath: path) else {
-            Self.setupState = .failure
-            return
-        }
-        
-        guard let urlString = configPlist.getValue(for: .serverURL),
-            let serverURL = URL(string: urlString) else {
-            logger.error("Cannot get server URL")
-            Self.setupState = .failure
-            return
-        }
-        
-        guard let cloudFolderName = configPlist.getValue(for: .cloudFolderName) else {
-            logger.error("Cannot get cloud folder name")
-            Self.setupState = .failure
-            return
-        }
-        
-        
-        guard let failoverMessageURLString = configPlist.getValue(for: .failoverMessageURL),
-            let failoverMessageURL = URL(string: failoverMessageURLString) else {
-            logger.error("Cannot get failover message URL")
-            Self.setupState = .failure
-            return
-        }
-        
-        let signIns = SignIns(signInServicesHelper: self)
-        signIns.delegate = self
-        
-        do {
-            serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName, failoverMessageURL: failoverMessageURL, db: db)
-        } catch let error {
-            logger.error("Could not start ServerInterface: \(error)")
-            Self.setupState = .failure
-        }
-        
-        // This is used to form the URL-type links used for sharing.
-        guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
-            logger.error("Could not get bundle identifier")
-            Self.setupState = .failure
-            return
+    // `Files.getDocumentsDirectory` depends on `SharedContainer.session?`. Make sure put the logging setup below the setup for that.
+    private func setupSharedLogging() throws {
+        guard let _ = SharedContainer.session?.documentsURL else {
+            throw ServicesError.cannotSetupLogging
         }
         
         let loggingDir = Files.getDocumentsDirectory().appendingPathComponent(
@@ -223,7 +140,72 @@ class Services {
         level = .notice
 #endif
         sharedLogging.setup(logFileURL: logFile, logLevel: level)
+    }
+    
+    private init(delegate: ServicesDelegate?) throws {
+        self.delegate = delegate
         
+        try SharedContainer.appLaunchSetup(applicationGroupIdentifier: applicationGroupIdentifier)
+        try LocalFiles.setup()
+        
+        logger.info("SharedContainer.session.sharedContainerURL: \(String(describing: SharedContainer.session?.sharedContainerURL))")
+        
+        // Must come after `SharedContainer.session` is setup.
+        try setupSharedLogging()
+                
+        guard let documentsURL = SharedContainer.session?.documentsURL else {
+            throw ServicesError.noDocumentsURL
+        }
+
+        PersistentValueFile.alternativeDocumentsDirectory = documentsURL.path
+        PersistentValueKeychain.keychainService = keychainService
+        PersistentValueKeychain.accessGroup = keychainSharingGroup
+        
+        let dbURL = Files.getDocumentsDirectory().appendingPathComponent(
+            LocalFiles.database)
+        logger.info("SQLite db: \(dbURL.path)")
+
+        // For rationale for flag: https://github.com/stephencelis/SQLite.swift/issues/1042
+        db = try Connection(dbURL.path, additionalFlags: SQLITE_OPEN_FILEPROTECTION_NONE)
+        // dbURL.enableAccessInBackground()
+        try SetupDatabase.setup(db: db)
+        let migrationController = try Migration(db: db)
+        try migrationController.run(migrations: Migration.metadata(db: db))
+        
+        guard let path = Bundle.main.path(forResource: Self.plistServerConfig.0, ofType: Self.plistServerConfig.1) else {
+            throw ServicesError.plistServerConfig
+        }
+        
+        guard let configPlist = ConfigPlist(filePath: path) else {
+            throw ServicesError.configPlist
+        }
+        
+        guard let urlString = configPlist.getValue(for: .serverURL),
+            let serverURL = URL(string: urlString) else {
+            logger.error("Cannot get server URL")
+            throw ServicesError.serverURL
+        }
+        
+        guard let cloudFolderName = configPlist.getValue(for: .cloudFolderName) else {
+            throw ServicesError.cloudFolderName
+        }
+        
+        guard let failoverMessageURLString = configPlist.getValue(for: .failoverMessageURL),
+            let failoverMessageURL = URL(string: failoverMessageURLString) else {
+            throw ServicesError.failoverMessageURL
+        }
+        
+        let signIns = SignIns(signInServicesHelper: self)
+        signIns.delegate = self
+        
+        serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName, failoverMessageURL: failoverMessageURL, currentUserId: userId, db: db)
+
+        // This is used to form the URL-type links used for sharing.
+        guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
+            logger.error("Could not get bundle identifier")
+            throw ServicesError.bundleIdentifier
+        }
+                
         setupSignInServices(configPlist: configPlist, signIns: signIns, bundleIdentifier: bundleIdentifier, helper: self)
         
         var initialAppLaunch = true
@@ -245,33 +227,36 @@ class Services {
             // Not doing this on initial app launch because of https://github.com/SyncServerII/Neebla/issues/17
             self.signInServices.manager.application(changes: state)
         }
+    }
+    
+    // This *must* be called prior to any uses of `session`.
+    static func setup(delegate: ServicesDelegate?) {
+        do {
+            session = try Services(delegate: delegate)
+        } catch let error {
+            logger.critical("Services: init failed: \(error)!")
+            Self.setupState = .failure
+            return
+        }
         
         logger.info("Services: init successful!")
         Self.setupState = .done(appLaunch: false)
     }
     
-    // This *must* be called prior to any uses of `session`.
-    static func setup(delegate: ServicesDelegate?) {
-        session = Services(delegate: delegate)
-    }
-    
     func appLaunch(options: [UIApplication.LaunchOptionsKey: Any]?) {
         do {
             try signInServices.manager.addSignIns(currentSignIns, launchOptions: options)
-        } catch let error {
-            logger.error("\(error)")
-        }
         
-        // I was previously doing this in `LocalServices`-- but then we can't handle downloads in the sharing extension. See https://github.com/SyncServerII/Neebla/issues/4
-        // But `AnyTypeManager.session.setup` uses `Services.session`, so do it after that initialization.
-        do {
-            try AnyTypeManager.session.setup()
+            // I was previously doing this in `LocalServices`-- but then we can't handle downloads in the sharing extension. See https://github.com/SyncServerII/Neebla/issues/4
+            // But `AnyTypeManager.session.setup` uses `syncServer`, so do it after that initialization.
+            try AnyTypeManager.session.setup(syncServer: syncServer)
         } catch let error {
-            logger.error("Could not initialize AnyTypeManager: \(error)")
+            logger.critical("appLaunch setup failed: \(error)")
             Self.setupState = .failure
             return
         }
-        
+
+        logger.info("appLaunch setup success")
         Self.setupState = .done(appLaunch: true)
     }
 }

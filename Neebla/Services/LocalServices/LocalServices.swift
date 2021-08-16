@@ -9,6 +9,7 @@ class LocalServices {
     static var session:LocalServices!
     
     let previewGenerator:URLPreviewGenerator
+    var initialized = false
     
     init() throws {
         previewGenerator = try URLPreviewGenerator()
@@ -17,5 +18,6 @@ class LocalServices {
     static func setup(db: Connection) throws {
         session = try LocalServices()
         try SetupLocalDatabase.setup(db: db)
+        session.initialized = true
     }
 }

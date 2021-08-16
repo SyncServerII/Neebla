@@ -374,7 +374,6 @@ extension ServerFileModel {
         let downloadsQueued = try Services.session.syncServer.numberQueued(.download)
         logger.notice("downloadsQueued: \(downloadsQueued)")
         try Services.session.syncServer.debug(fileUUID: fileUUID)
-        try Services.session.syncServer.debug(fileGroupUUID: fileGroupUUID)
         let needsDownload = try Services.session.syncServer.objectNeedsDownload(fileGroupUUID: fileGroupUUID, includeGone: true)
         logger.notice("objectNeedsDownload: \(String(describing: needsDownload))")
     }
@@ -398,5 +397,66 @@ extension ServerFileModel {
     func getKeywords(onlyThoseUsed: Bool = true) throws -> Set<String> {
         let mia = try getMediaItemAttributes()
         return mia.getKeywords(onlyThoseUsed: onlyThoseUsed)
+    }
+}
+
+extension ServerFileModel {
+    func debug() -> String {
+        var canReadFile: Bool?
+        var nonRelativeURL: URL?
+                
+        if let url = url {
+            canReadFile = url.canReadFile()
+            nonRelativeURL = URL(fileURLWithPath: url.path)
+        }
+        
+        let result = """
+            ServerFileModel:
+                fileUUID: \(fileUUID);
+                url: \(String(describing: url));
+                nonRelativeURL: \(String(describing: nonRelativeURL));
+                canReadFile: \(String(describing: canReadFile))\n
+            """
+            
+        return result
+    }
+    
+    enum DebugOption {
+        // These are URL's that are non-nil and that cannot be read.
+        case onlyUnreadableFiles
+        
+        case specificFiles(fileUUIDs: Set<UUID>)
+    }
+    
+    static func debug(option: DebugOption, db: Connection) throws -> String? {
+        let fileModels = try ServerFileModel.fetch(db: db)
+        
+        guard fileModels.count > 0 else {
+            return nil
+        }
+
+        var result = ""
+
+        for fileModel in fileModels {
+            switch option {
+            case .onlyUnreadableFiles:
+                if let url = fileModel.url {
+                    if !url.canReadFile() {
+                        result += fileModel.debug()
+                    }
+                }
+                
+            case .specificFiles(let fileUUIDs):
+                if fileUUIDs.contains(fileModel.fileUUID) {
+                    result += fileModel.debug()
+                }
+            }
+        }
+        
+        guard result.count > 0 else {
+            return nil
+        }
+        
+        return result
     }
 }

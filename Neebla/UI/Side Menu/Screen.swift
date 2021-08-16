@@ -13,9 +13,9 @@ enum ScreenType {
     case albumSharing
     case settings
     case signIn
-#if DEBUG
-    case developer
-#endif
+//#if DEBUG
+//    case developer
+//#endif
 }
 
 struct Screen: View {
@@ -35,10 +35,10 @@ struct Screen: View {
             SettingsScreen()
         case .signIn:
             SignInScreen()
-#if DEBUG
-        case .developer:
-            DeveloperScreen()
-#endif
+//#if DEBUG
+//        case .developer:
+//            DeveloperScreen()
+//#endif
         }
     }
 }

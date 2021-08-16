@@ -33,9 +33,9 @@ struct LeftMenuView: View {
             MenuButtonView(viewModel: viewModel, menuItemName: "Album Sharing", image: .envelope, topPadding: 30, screen: Screen(.albumSharing))
             MenuButtonView(viewModel: viewModel, menuItemName: "Settings", image: .gear, topPadding: 30, screen: Screen(.settings))
             MenuButtonView(viewModel: viewModel, menuItemName: "SignIn/Out", image: .person2, topPadding: 30, screen: Screen(.signIn), canDisable: false)
-#if DEBUG
-            MenuButtonView(viewModel: viewModel, menuItemName: "Developer", image: .eyeglasses, topPadding: 30, screen: Screen(.developer), canDisable: false)
-#endif
+//#if DEBUG
+//            MenuButtonView(viewModel: viewModel, menuItemName: "Developer", image: .eyeglasses, topPadding: 30, screen: Screen(.developer), canDisable: false)
+//#endif
             Spacer()
         }
         .padding()

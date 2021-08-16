@@ -13,6 +13,11 @@ struct AlbumsScreen: View {
     
     var body: some View {
         MenuNavBar(title: "Albums",
+            leftMenuExtra: {
+                withAnimation {
+                    Counts(uploadCount: $viewModel.pendingUploads, downloadCount: $viewModel.pendingDownloads)
+                }
+            },
             rightNavbarButton:
                 AnyView(
                     RightNavBarIcons(viewModel: viewModel)
@@ -23,6 +28,51 @@ struct AlbumsScreen: View {
                 AlbumsScreenBody(viewModel: viewModel)
             }
         }
+    }
+}
+
+// This is mostly to deal with a situation where the user has a lot of pending uploads or downloads. Such as with https://github.com/SyncServerII/Neebla/issues/25
+private struct Counts: View {
+    @Binding var uploadCount: Int?
+    @Binding var downloadCount: Int?
+    
+    var body: some View {
+        HStack {
+            if let uploadCount = uploadCount {
+                // This reflects both uploads and upload deletions. Seems too much detail to put that in the message though.
+                Count(count: "\(uploadCount)", alertTitle: "Pending Uploads", alertMessage: "You have pending uploads. Use a pull-down gesture on this screen to continue these uploads.", iconName: "Upload.Black")
+            }
+            
+            if let downloadCount = downloadCount {
+                Count(count: "\(downloadCount)", alertTitle: "Pending Downloads", alertMessage: "You have pending downloads. Use a pull-down gesture on this screen to continue these downloads.", iconName: "Download2.Black")
+            }
+        }
+    }
+}
+
+private struct Count: View {
+    let count: String
+    let alertTitle: String
+    let alertMessage: String
+    let iconName: String
+    
+    var body: some View {
+            Button(
+                action: {
+                    showAlert(AlertyHelper.alert(title: alertTitle, message: alertMessage))
+                },
+                label: {
+                    VStack {
+                        Icon(imageName: iconName,
+                            size: CGSize(width: 25, height: 25))
+                            .padding(.bottom, 0)
+                        Spacer().frame(height: 0)
+                        Text(count).font(.subheadline)
+                            .padding(.top, 0)
+                    }
+                }
+            )
+            .frame(width: Icon.dimension, height: Icon.dimension)
     }
 }
 

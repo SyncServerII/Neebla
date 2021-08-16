@@ -40,3 +40,13 @@ struct LocalFiles {
         try Files.createDirectoryIfNeeded(localObjectsDir)
     }
 }
+
+extension LocalFiles {
+    // For debugging
+    static func numberOfFilesInObjectsDir() throws -> Int {
+        let localObjectsDir = Files.getDocumentsDirectory().appendingPathComponent(
+            LocalFiles.objectsDir)
+        let dirContents = try FileManager.default.contentsOfDirectory(atPath: localObjectsDir.path)
+        return dirContents.count
+    }
+}

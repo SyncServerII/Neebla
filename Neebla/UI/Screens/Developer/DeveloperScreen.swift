@@ -1,6 +1,7 @@
 
 import SwiftUI
 
+/*
 struct DeveloperScreen: View {
     @ObservedObject var model = DeveloperScreenModel()
     
@@ -110,3 +111,4 @@ private struct DeveloperScreenFileRow: View {
         Text(filename)
     }
 }
+*/

@@ -36,11 +36,16 @@ class ServerInterface {
     
     // Subscribe to this to get fileGroupUUID's of objects deleted.
     let deletionCompleted = PassthroughSubject<UUID?, Never>()
+
+    // Subscribe to these to get events about uploads/downloads.
+    let uploadQueue = PassthroughSubject<UploadEvent, Never>()
+    let downloadQueue = PassthroughSubject<DownloadEvent, Never>()
     
     let signIns: SignIns
     var observer: AnyObject!
     
-    init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String, failoverMessageURL: URL, db: Connection) throws {
+    // currentUserId is for some specific fixes in iOSBasics.
+    init(signIns: SignIns, serverURL: URL, appGroupIdentifier: String, urlSessionBackgroundIdentifier: String, cloudFolderName: String, failoverMessageURL: URL, currentUserId: UserId?, db: Connection) throws {
         self.signIns = signIns
 
         if deviceUUIDString.value == nil {
@@ -73,9 +78,9 @@ class ServerInterface {
         
         let minimumServerVersion = Version("1.9.0")
     
-        let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: minimumServerVersion, currentClientAppVersion: currentClientAppVersion, failoverMessageURL: failoverMessageURL, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles)
+        let config = Configuration(appGroupIdentifier: appGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, serverURL: serverURL, minimumServerVersion: minimumServerVersion, currentClientAppVersion: currentClientAppVersion, failoverMessageURL: failoverMessageURL, cloudFolderName: cloudFolderName, deviceUUID: deviceUUID, temporaryFiles: Configuration.defaultTemporaryFiles, allowUploadDownload: true)
                 
-        syncServer = try SyncServer(hashingManager: hashingManager, db: db, requestable: Requestablity(), configuration: config, signIns: signIns, backgroundAsssertable: Background.session.backgroundAsssertable)
+        syncServer = try SyncServer(hashingManager: hashingManager, db: db, requestable: Requestablity(), configuration: config, signIns: signIns, backgroundAsssertable: Background.session.backgroundAsssertable, currentUserId: currentUserId)
         logger.info("SyncServer initialized!")
         
         try addHashingForCloudStorageSignIns(hashingManager: hashingManager)
@@ -196,10 +201,12 @@ extension ServerInterface: SyncServerDelegate {
     
     func uploadQueue(_ syncServer: SyncServer, event: UploadEvent) {
         logger.info("uploadQueue: \(event)")
+        uploadQueue.send(event)
     }
     
     func downloadQueue(_ syncServer: SyncServer, event: DownloadEvent) {
         logger.info("downloadQueue: \(event)")
+        downloadQueue.send(event)
     }
     
     func objectMarked(_ syncServer: SyncServer, withDownloadState state: DownloadState, fileGroupUUID: UUID) {

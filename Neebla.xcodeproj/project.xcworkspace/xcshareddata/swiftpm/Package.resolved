@@ -213,8 +213,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "219045ce2b56d3801dc94af80f322ec8b5e129e0",
-          "version": "0.30.3"
+          "revision": "b79779b6a5c6ca41d55d99b1f91084797faa4f7b",
+          "version": "0.31.13"
         }
       },
       {
@@ -249,8 +249,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "4b732b4915f51ab83d1c54ccb3ad6854a968084f",
-          "version": "0.15.0"
+          "revision": "5c96850acd62d4bfe589da96a7c2cadab8d4093b",
+          "version": "0.17.0"
         }
       },
       {
@@ -411,8 +411,8 @@
         "repositoryURL": "https://github.com/SyncServerII/ServerAccount.git",
         "state": {
           "branch": null,
-          "revision": "8dc5b24eb55f97c90bc989fac746302be53a1a0d",
-          "version": "0.0.8"
+          "revision": "37d7362d1348b7687db4bb77cb5bd510e17d89d9",
+          "version": "0.0.10"
         }
       },
       {
@@ -420,8 +420,8 @@
         "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
         "state": {
           "branch": null,
-          "revision": "d45c95cffb0c792516c5a556ad7ddae709c6dc82",
-          "version": "0.13.1"
+          "revision": "5f6ed0477e1eb33794fc52957aefecfc0cfa410f",
+          "version": "0.13.2"
         }
       },
       {

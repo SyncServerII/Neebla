@@ -1,10 +1,36 @@
 Neebla
 
-Version 2.0.8
+Version 2.1.0
 	* Adding Solid Pod support
 		https://github.com/SyncServerII/Neebla/issues/24
 
-Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0, 20210720.0, 20210721.0)
+Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2,
+								20210809.0, 20210809.1, 20210810.0, 20210810.1,
+								20210810.2, 20210810.3, 20210811.0, 20210812.0,
+								20210813.0, 20210813.1, 20210814.0, 20210815.0,
+								20210815.1)
+	* Improvements/changes for https://github.com/SyncServerII/Neebla/issues/25
+		- Added debugging output. 
+		- Added pending uploads count, with button/icon, to Albums screen.
+			Only appears when there are pending uploads.
+			Tapping on this button shows an alert-- 
+				and asks the user to do a pull-down refresh.
+			This will dynamically update, after a pull-down-refresh.
+		- Added analogous pending downloads count.
+		- Using updates to `iOSBasics`-- to improve upload retries on the basis of expiry.
+	* Commenting out DeveloperScreen code, not using #if DEBUG-- seeing odd crashes, with
+		traces from Firebase.
+	* Cleaned up initialization code 
+		- In AppDelegate to better detect launch/initialization errors.
+		- Services code for the same issue.
+		- In MainView, to show a failure screen if Services initialization fails.
+	* Update to iOSBasics changes
+		- To fix migration issue; See https://github.com/SyncServerII/Neebla/issues/26
+		- To add debugging information
+		- Have formalized the prioritization of deletions, uploads, and downloads. See https://github.com/SyncServerII/Neebla/issues/25#issuecomment-898940988
+
+Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0, 20210720.0, 20210721.0,
+									20210801.0)
 	* Added more detailed UI error messages back in, but only for dev builds.
 	* Add support for move file groups in the UI
 		- Generalized album list UI used in deletion
@@ -23,6 +49,7 @@ Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0, 20210720.0, 20210721.0
 	* Fixed an issue where download indicators would get not get reset properly
 		when a user had been removed from an album.
 	* Incorporated an iOSBasics fix which could have been causing an issue with deletions.
+	* Incorporated another iOSBasics fix (v0.30.4) to again allow redeeming sharing invitations when a user wasn't signed in. This had been broken since some relatively recent changes to not inappropriately cause users to be signed out.
 
 Version 2.0.6 (TestFlight Builds: 20210626.0, 20210627.0, 20210629.0, 20210701.0,
 								20210701.1, 20210702.0)

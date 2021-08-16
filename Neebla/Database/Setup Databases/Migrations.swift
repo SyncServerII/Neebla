@@ -56,7 +56,8 @@ class Migration: VersionedMigrationRunner {
         migrate()
     }
     
-    static func all(db: Connection) -> [iOSShared.Migration] {
+    // This must not have content changes, only column additions (and maybe deletions). See https://github.com/SyncServerII/Neebla/issues/26
+    static func metadata(db: Connection) -> [iOSShared.Migration] {
         return [
             MigrationObject(version: SpecificMigration.m2021_5_8, apply: {
                 try ServerFileModel.migration_2021_5_8(db: db)

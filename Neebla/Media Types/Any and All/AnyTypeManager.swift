@@ -20,14 +20,14 @@ class AnyTypeManager {
     ]
     
     // Call this at app launch, only once.
-    func setup() throws {
+    func setup(syncServer: SyncServer) throws {
         let allObjectTypes = objectTypes.map {$0.objectType}
         guard allObjectTypes.count == Set<String>(allObjectTypes).count else {
             throw ItemTypeManagerError.duplicateObjectType
         }
         
         for objectType in objectTypes {
-            try Services.session.syncServer.register(object: objectType)
+            try syncServer.register(object: objectType)
         }
     }
     

@@ -35,6 +35,10 @@ class AlbumsViewModel: ObservableObject {
     @Published var textInputActionButtonName: String?
     @Published var textInputNewAlbum: Bool = false
     @Published var textInputTitle: String?
+
+    @Published var pendingUploads: Int?
+    @Published var pendingDownloads: Int?
+    
     var textInputAction: (()->())?
     var textInputActionEnabled: (()->(Bool))?
     var textInputKeyPressed:((String?)->())?
@@ -42,6 +46,8 @@ class AlbumsViewModel: ObservableObject {
     private var syncSubscription:AnyCancellable!
     var userEventSubscriptionOther:AnyCancellable!
     var textInputSubscription:AnyCancellable!
+    var uploadQueueSubscription:AnyCancellable!
+    var downloadQueueSubscription:AnyCancellable!
     
     var boundedCancel:BoundedCancel?
     private var appStateChanged: AnyObject?
@@ -68,6 +74,22 @@ class AlbumsViewModel: ObservableObject {
 
             if self.isShowingRefresh {
                 self.isShowingRefresh = false
+            }
+        }
+        
+        uploadQueueSubscription = Services.session.serverInterface.uploadQueue.sink { [weak self] event in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.updatePendingUploads()
+            }
+        }
+        
+        downloadQueueSubscription = Services.session.serverInterface.downloadQueue.sink { [weak self] event in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.updatePendingDownloads()
             }
         }
         
@@ -280,5 +302,25 @@ class AlbumsViewModel: ObservableObject {
     
     static func getAlbum(sharingGroupUUID: UUID) throws -> AlbumModel? {
         return try AlbumModel.fetchSingleRow(db: Services.session.db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID)
+    }
+    
+    func updatePendingUploads() {
+        do {
+            let pendingUploads = try Services.session.syncServer.numberQueued(.upload)
+            let pendingDeletions = try Services.session.syncServer.numberQueued(.deletion)
+            let pending = pendingDeletions + pendingUploads
+            self.pendingUploads = pending == 0 ? nil : pending
+        } catch let error {
+            logger.warning("\(error)")
+        }
+    }
+
+    func updatePendingDownloads() {
+        do {
+            let pending = try Services.session.syncServer.numberQueued(.download)
+            self.pendingDownloads = pending == 0 ? nil : pending
+        } catch let error {
+            logger.warning("\(error)")
+        }
     }
 }
