@@ -10,8 +10,9 @@ import iOSShared
 
 extension AlbumsViewModel {
     func sync(userTriggered: Bool = false) {
-        // This is just a convenient place to update `pendingUploads`.
+        // This is just a convenient place to update these.
         updatePendingUploads()
+        updatePendingDownloads()
         
         if userTriggered && !Services.session.userIsSignedIn {
             showAlert(AlertyHelper.alert(title: "Alert!", message: "Please sign in to sync!"))

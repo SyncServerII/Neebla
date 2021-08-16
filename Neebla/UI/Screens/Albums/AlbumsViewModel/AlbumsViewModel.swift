@@ -37,6 +37,7 @@ class AlbumsViewModel: ObservableObject {
     @Published var textInputTitle: String?
 
     @Published var pendingUploads: Int?
+    @Published var pendingDownloads: Int?
     
     var textInputAction: (()->())?
     var textInputActionEnabled: (()->(Bool))?
@@ -46,6 +47,7 @@ class AlbumsViewModel: ObservableObject {
     var userEventSubscriptionOther:AnyCancellable!
     var textInputSubscription:AnyCancellable!
     var uploadQueueSubscription:AnyCancellable!
+    var downloadQueueSubscription:AnyCancellable!
     
     var boundedCancel:BoundedCancel?
     private var appStateChanged: AnyObject?
@@ -80,6 +82,14 @@ class AlbumsViewModel: ObservableObject {
             
             DispatchQueue.main.async {
                 self.updatePendingUploads()
+            }
+        }
+        
+        downloadQueueSubscription = Services.session.serverInterface.downloadQueue.sink { [weak self] event in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.updatePendingDownloads()
             }
         }
         
@@ -301,7 +311,16 @@ class AlbumsViewModel: ObservableObject {
             let pending = pendingDeletions + pendingUploads
             self.pendingUploads = pending == 0 ? nil : pending
         } catch let error {
-            logger.warning("sync: \(error)")
+            logger.warning("\(error)")
+        }
+    }
+
+    func updatePendingDownloads() {
+        do {
+            let pending = try Services.session.syncServer.numberQueued(.download)
+            self.pendingDownloads = pending == 0 ? nil : pending
+        } catch let error {
+            logger.warning("\(error)")
         }
     }
 }

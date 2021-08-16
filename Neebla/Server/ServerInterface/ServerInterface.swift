@@ -37,8 +37,9 @@ class ServerInterface {
     // Subscribe to this to get fileGroupUUID's of objects deleted.
     let deletionCompleted = PassthroughSubject<UUID?, Never>()
 
-    // Subscribe to this to get events about uploads.
+    // Subscribe to these to get events about uploads/downloads.
     let uploadQueue = PassthroughSubject<UploadEvent, Never>()
+    let downloadQueue = PassthroughSubject<DownloadEvent, Never>()
     
     let signIns: SignIns
     var observer: AnyObject!
@@ -200,11 +201,12 @@ extension ServerInterface: SyncServerDelegate {
     
     func uploadQueue(_ syncServer: SyncServer, event: UploadEvent) {
         logger.info("uploadQueue: \(event)")
-        self.uploadQueue.send(event)
+        uploadQueue.send(event)
     }
     
     func downloadQueue(_ syncServer: SyncServer, event: DownloadEvent) {
         logger.info("downloadQueue: \(event)")
+        downloadQueue.send(event)
     }
     
     func objectMarked(_ syncServer: SyncServer, withDownloadState state: DownloadState, fileGroupUUID: UUID) {
