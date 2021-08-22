@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "beb713a16b50a4df3162b3f3ecdeffa16b74b773",
-          "version": "7.5.0"
+          "revision": "2e364ff22e952c3bcb202263a9a0d26e46c1b172",
+          "version": "7.5.1"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "b79779b6a5c6ca41d55d99b1f91084797faa4f7b",
-          "version": "0.31.13"
+          "revision": "af0d0ecaecd414c1f8b7d9d6c28dfe7858570bd6",
+          "version": "0.31.15"
         }
       },
       {
@@ -375,8 +375,8 @@
         "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
         "state": {
           "branch": null,
-          "revision": "5f6ed0477e1eb33794fc52957aefecfc0cfa410f",
-          "version": "0.13.2"
+          "revision": "ccbda5590e84d8a1626a316902ce46a88bf0c1a3",
+          "version": "0.14.0"
         }
       },
       {
