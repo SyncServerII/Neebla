@@ -10,6 +10,8 @@ import Combine
 import Hyperconnectivity
 import iOSShared
 
+// Could go back to using Connectivity. See https://github.com/rwbutler/Connectivity/issues/57
+
 class Requestablity: ObservableObject, NetworkRequestable {
     var canMakeNetworkRequests: Bool {
         return isReachable && AppState.session.current == .foreground

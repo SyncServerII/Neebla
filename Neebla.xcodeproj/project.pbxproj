@@ -576,7 +576,6 @@
 		83DB334C2686D9E500D34D80 /* MediaItemMultipleBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemMultipleBadgeView.swift; sourceTree = "<group>"; };
 		83DB334F2686DB5200D34D80 /* MediaItemMultipleBadgeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemMultipleBadgeViewModel.swift; sourceTree = "<group>"; };
 		83DB33512686DCDE00D34D80 /* MediaItemBadgesObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaItemBadgesObserver.swift; sourceTree = "<group>"; };
-		83DE99B826B61B6D002466D2 /* iOSSolid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iOSSolid; path = ../../iOSSolid; sourceTree = "<group>"; };
 		83E0A109267C64B9005A77CF /* MediaItemAttributes+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaItemAttributes+Extras.swift"; sourceTree = "<group>"; };
 		83E0A10C267D308A005A77CF /* CommentFile+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommentFile+Extras.swift"; sourceTree = "<group>"; };
 		83E0A110267D5CD5005A77CF /* AnyLargeMediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyLargeMediaModel.swift; sourceTree = "<group>"; };
@@ -908,7 +907,6 @@
 		8331F3AD255BADDE0063A67D /* Local Packages */ = {
 			isa = PBXGroup;
 			children = (
-				83DE99B826B61B6D002466D2 /* iOSSolid */,
 			);
 			path = "Local Packages";
 			sourceTree = "<group>";
