@@ -16,7 +16,7 @@ class CommentCountsObserver {
     let object: ServerObjectModel
     private var observer: AnyObject?
     private var commentFileUUID: UUID!
-    var delegate: CommentCountsObserverDelegate!
+    weak var delegate: CommentCountsObserverDelegate!
     
     init(object: ServerObjectModel, delegate: CommentCountsObserverDelegate) {
         self.object = object
