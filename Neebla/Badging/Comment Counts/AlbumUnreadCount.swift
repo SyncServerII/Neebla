@@ -71,7 +71,7 @@ class AlbumUnreadCount {
         }
     }
     
-    func unreadCountFor(album sharingGroupUUID: UUID) throws -> Int {
+    private func unreadCountFor(album sharingGroupUUID: UUID) throws -> Int {
         // 1) Get the file groups for the album. Make sure those are not deleted.
         let objectModels = try ServerObjectModel.fetch(db: Services.session.db, where:
             ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&

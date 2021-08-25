@@ -179,7 +179,7 @@ struct AlbumsScreenEmptyState: View {
 }
 
 struct AlbumsScreenAlbumList: View {
-    @ObservedObject var viewModel:AlbumsViewModel
+    @StateObject var viewModel:AlbumsViewModel
 
     var body: some View {
         /* Action states per row:
@@ -194,7 +194,6 @@ struct AlbumsScreenAlbumList: View {
                 No rectangle shown.
                 Taps have no effect.
          */
-         
         List {
             // The `ForEach` appears needed to use the `listRowBackground`-- See https://stackoverflow.com/questions/56517904
             ForEach(viewModel.albums, id: \.sharingGroupUUID) { album in
@@ -208,20 +207,20 @@ struct AlbumsScreenAlbumList: View {
                                 // So when we come back from album sharing, the screen isn't in sharing mode.
                                 viewModel.sharingMode = false
                             }, label: {
-                                AlbumsScreenRow(sharingGroupUUID: album.sharingGroupUUID, viewModel: viewModel)
+                                AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album), album: album)
                             })
                         }
                         else {
-                            AlbumsScreenRow(sharingGroupUUID: album.sharingGroupUUID, viewModel: viewModel)
+                            AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album), album: album)
                         }
                     }
                     else {
                         Button(action: {
                         }, label: {
-                            AlbumsScreenRow(sharingGroupUUID: album.sharingGroupUUID, viewModel: viewModel)
+                            AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album), album: album)
                         })
                     }
-
+                    
                     // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
                     // Some hurdles here to get rid of the disclosure button at end of row: https://stackoverflow.com/questions/56516333
                     NavigationLink(destination:
