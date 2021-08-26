@@ -22,11 +22,9 @@ class AlbumScreenRowModel: ObservableObject, AlbumUnreadCountDelegate, AlbumDown
     private var albumUnreadCount:AlbumUnreadCount!
     private var albumDownloadIndicator:AlbumDownloadIndicator!
     
-    init(album:AlbumModel?) {
+    init(album:AlbumModel) {
         self.album = album
-        if let album = album {
-            albumUnreadCount = AlbumUnreadCount(album: album, delegate: self)
-        }
+        albumUnreadCount = AlbumUnreadCount(album: album, delegate: self)
         albumDownloadIndicator = AlbumDownloadIndicator(delegate: self)
     }
 }

@@ -31,7 +31,7 @@ class MediaItemBadgesObserver {
     let object: ServerObjectModel
     private var observer: AnyObject?
     private var mediaItemAttributesFileUUID: UUID!
-    var delegate: MediaItemBadgesObserverDelegate!
+    weak var delegate: MediaItemBadgesObserverDelegate!
     let maxNumberOthersBadges: Int
     
     init(object: ServerObjectModel, delegate: MediaItemBadgesObserverDelegate, maxNumberOthersBadges: Int) {

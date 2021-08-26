@@ -8,7 +8,7 @@ Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2
 								20210809.0, 20210809.1, 20210810.0, 20210810.1,
 								20210810.2, 20210810.3, 20210811.0, 20210812.0,
 								20210813.0, 20210813.1, 20210814.0, 20210815.0,
-								20210815.1)
+								20210815.1, 20210822.0, 20210824.0)
 	* Improvements/changes for https://github.com/SyncServerII/Neebla/issues/25
 		- Added debugging output. 
 		- Added pending uploads count, with button/icon, to Albums screen.
@@ -28,6 +28,9 @@ Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2
 		- To fix migration issue; See https://github.com/SyncServerII/Neebla/issues/26
 		- To add debugging information
 		- Have formalized the prioritization of deletions, uploads, and downloads. See https://github.com/SyncServerII/Neebla/issues/25#issuecomment-898940988
+	* Attempting to improve performance
+		- Fixed a few memory leaks
+		- Refactored AlbumScreenRow and AlbumsScreen.
 
 Version 2.0.7 (TestFlight Builds: 20210712.0, 20210717.0, 20210720.0, 20210721.0,
 									20210801.0)

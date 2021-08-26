@@ -12,25 +12,11 @@ import iOSSignIn
 import iOSShared
 
 struct AlbumsScreenRow: View {
-    @ObservedObject var viewModel:AlbumsViewModel
-    @ObservedObject var rowModel:AlbumScreenRowModel
+    @StateObject var viewModel:AlbumsViewModel
+    @StateObject var rowModel:AlbumScreenRowModel
+    @StateObject var album: AlbumModel
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var signInManager: SignInManager
-    var album: AlbumModel?
-    
-    // I'm passing in the sharingGroupUUID and loading the album, instead of passing in the album, to make sure the album updates if the view reloads. Otherwise, may have a problem with an incorrect value for the download indicator.
-    init(sharingGroupUUID:UUID, viewModel:AlbumsViewModel) {
-        signInManager = Services.session.signInServices.manager
-        self.viewModel = viewModel
-        
-        do {
-            album = try AlbumsViewModel.getAlbum(sharingGroupUUID: sharingGroupUUID)
-        } catch let error {
-            logger.error("\(error)")
-        }
-        
-        rowModel = AlbumScreenRowModel(album: album)
-    }
+    @StateObject var signInManager = Services.session.signInServices.manager
     
     var body: some View {
         HStack {

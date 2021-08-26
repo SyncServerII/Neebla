@@ -16,7 +16,7 @@ class MediaItemBadgeObserver {
     let object: ServerObjectModel
     private var observer: AnyObject?
     private var mediaItemAttributesFileUUID: UUID!
-    var delegate: MediaItemBadgeObserverDelegate!
+    weak var delegate: MediaItemBadgeObserverDelegate!
     
     init(object: ServerObjectModel, delegate: MediaItemBadgeObserverDelegate) {
         self.object = object
