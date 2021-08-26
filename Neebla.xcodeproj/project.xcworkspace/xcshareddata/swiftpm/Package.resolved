@@ -20,39 +20,12 @@
         }
       },
       {
-        "package": "AnyCodable",
-        "repositoryURL": "https://github.com/Flight-School/AnyCodable.git",
-        "state": {
-          "branch": null,
-          "revision": "69261f239f0fffaf51495dadc4f8483fbfe97025",
-          "version": "0.6.1"
-        }
-      },
-      {
         "package": "Cryptor",
         "repositoryURL": "https://github.com/Kitura/BlueCryptor.git",
         "state": {
           "branch": null,
           "revision": "ee5880e031da4c609f372cf7472476ab51d5dd19",
           "version": "1.0.200"
-        }
-      },
-      {
-        "package": "CryptorECC",
-        "repositoryURL": "https://github.com/Kitura/BlueECC.git",
-        "state": {
-          "branch": null,
-          "revision": "baf6ed3fc1a622675f0041b4aff7c02dd1a93818",
-          "version": "1.2.200"
-        }
-      },
-      {
-        "package": "CryptorRSA",
-        "repositoryURL": "https://github.com/Kitura/BlueRSA.git",
-        "state": {
-          "branch": null,
-          "revision": "440f78db26d8bb073f29590f1c7bd31004da09ae",
-          "version": "1.0.201"
         }
       },
       {
@@ -150,8 +123,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "beb713a16b50a4df3162b3f3ecdeffa16b74b773",
-          "version": "7.5.0"
+          "revision": "2e364ff22e952c3bcb202263a9a0d26e46c1b172",
+          "version": "7.5.1"
         }
       },
       {
@@ -213,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "b79779b6a5c6ca41d55d99b1f91084797faa4f7b",
-          "version": "0.31.13"
+          "revision": "af0d0ecaecd414c1f8b7d9d6c28dfe7858570bd6",
+          "version": "0.31.15"
         }
       },
       {
@@ -260,24 +233,6 @@
           "branch": null,
           "revision": "fc4cd030e21f224c4bab721ceaedef984dc82b4c",
           "version": "0.5.0"
-        }
-      },
-      {
-        "package": "iOSSolid",
-        "repositoryURL": "https://github.com/SyncServerII/iOSSolid.git",
-        "state": {
-          "branch": null,
-          "revision": "ac27e036331d593090ff1b6f3c94b613e8c6c54e",
-          "version": "0.0.4"
-        }
-      },
-      {
-        "package": "jwt-kit",
-        "repositoryURL": "https://github.com/vapor/jwt-kit.git",
-        "state": {
-          "branch": null,
-          "revision": "df7955305940ea0fcd1626a0a6d1a1556623f95e",
-          "version": "4.2.3"
         }
       },
       {
@@ -420,8 +375,8 @@
         "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
         "state": {
           "branch": null,
-          "revision": "5f6ed0477e1eb33794fc52957aefecfc0cfa410f",
-          "version": "0.13.2"
+          "revision": "ccbda5590e84d8a1626a316902ce46a88bf0c1a3",
+          "version": "0.14.0"
         }
       },
       {
@@ -452,15 +407,6 @@
         }
       },
       {
-        "package": "SolidAuthSwift",
-        "repositoryURL": "https://github.com/crspybits/SolidAuthSwift.git",
-        "state": {
-          "branch": null,
-          "revision": "0f01acda6b4446efd47964e595bd66d3b8a1964b",
-          "version": "0.0.9"
-        }
-      },
-      {
         "package": "SQLite.swift",
         "repositoryURL": "https://github.com/SyncServerII/SQLite.swift",
         "state": {
@@ -476,24 +422,6 @@
           "branch": null,
           "revision": "375a2603e98c8b59c53c9d2096f5443d78861bff",
           "version": "1.1.5"
-        }
-      },
-      {
-        "package": "swift-crypto",
-        "repositoryURL": "https://github.com/apple/swift-crypto.git",
-        "state": {
-          "branch": null,
-          "revision": "3bea268b223651c4ab7b7b9ad62ef9b2d4143eb6",
-          "version": "1.1.6"
-        }
-      },
-      {
-        "package": "SwiftJWT2",
-        "repositoryURL": "https://github.com/crspybits/Swift-JWT2.git",
-        "state": {
-          "branch": null,
-          "revision": "2f928445272b8c7a567ab485c2a5a3c3d129eec5",
-          "version": "3.6.202"
         }
       },
       {
