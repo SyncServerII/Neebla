@@ -1,5 +1,21 @@
 Neebla
 
+Version 2.0.9
+	* Adding new sorting/filter options
+		- Sort by modification date
+		- Filter by new items
+	* Added lower left "New" icon on items in album item screen
+		- Used when items haven't yet been downloaded, but not viewed in details screen;
+		Don't mark it as "New" if the user has already comments on the item.
+		- If an item has been viewed by a user on any device, it shouldn't be marked
+		again as new (e.g., if they start using Neebla on a new device). To implement this, 
+		utilizing a `new` media item attributes value that I've added to the 
+		MediaItemAttributes in the ChangeResolvers. Not relying on read counts because some 
+		media items don't have comments, and yet we don't want them to show up as new on new 
+		devices.
+	* Changing menu option "Mark as read" to "Mark as read/not new"
+		- Also going to mark items as not new if they are not already.
+
 Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2,
 								20210809.0, 20210809.1, 20210810.0, 20210810.1,
 								20210810.2, 20210810.3, 20210811.0, 20210812.0,

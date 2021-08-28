@@ -18,10 +18,12 @@ class SortFilterSettings: DatabaseModel, SingletonModel, ObservableObject {
     
     enum SortBy: String, Codable {
         case creationDate
+        case updateDate
     }
     
     static let sortByField = Field("sortBy", \M.sortBy)
     @Published var sortBy: SortBy
+    let sortByChanged = PassthroughSubject<SortBy, Never>()
     
     static let sortByOrderAscendingField = Field("sortByOrderAscending", \M.sortByOrderAscending)
     // Ascending if true; descending if false.
@@ -31,12 +33,15 @@ class SortFilterSettings: DatabaseModel, SingletonModel, ObservableObject {
     enum DiscussionFilterBy: String, Codable, CaseIterable {
         case none // no filtering; show all
         case onlyUnread
+        case onlyNew
+        case newOrUnread
     }
     
+    // 8/26/21; This is now generally filtering of media items on the media items screen. It's not just about filtering discussions. But am leaving it called `discussionFilterBy`.
     static let discussionFilterByField = Field("discussionFilterBy", \M.discussionFilterBy)
     var discussionFilterBy: DiscussionFilterBy
     let discussionFilterByChanged = PassthroughSubject<DiscussionFilterBy, Never>()
-    
+
     init(db: Connection,
         id: Int64! = nil,
         sortBy: SortBy = .creationDate,
@@ -58,7 +63,7 @@ class SortFilterSettings: DatabaseModel, SingletonModel, ObservableObject {
         switch discussionFilterBy {
         case .none:
             return false
-        case .onlyUnread:
+        case .onlyUnread, .newOrUnread, .onlyNew:
             return true
         }
     }

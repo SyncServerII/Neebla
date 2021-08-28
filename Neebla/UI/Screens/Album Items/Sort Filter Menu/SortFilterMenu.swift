@@ -40,11 +40,38 @@ private struct SortFilterMenu: ViewModifier {
     }
 }
 
+private struct FilterPickerItem: View {
+    let text: String
+    let filter: SortFilterSettings.DiscussionFilterBy
+    
+    var body: some View {
+        HStack {
+            Text(text)
+        }.tag(filter)
+    }
+}
+
+private struct SortByItem: View {
+    let text: String
+    let sort: SortFilterSettings.SortBy
+    @ObservedObject var model:SortFilterMenuModel
+    
+    var body: some View {
+        HStack {
+            Text(text)
+            if model.sort == sort {
+                SFSymbolIcon(symbol: model.sortOrderChevron)
+            }
+        }.tag(sort)
+    }
+}
+
 private struct SortFilter: View {
     @EnvironmentObject var appEnv: AppEnv
     @ObservedObject var model:SortFilterMenuModel
     let title: String
-    
+    @State var value: SortFilterSettings.SortBy = .creationDate
+
     init(title: String, sortFilterModel: SortFilterSettings?) {
         self.title = title
         model = SortFilterMenuModel(sortFilterModel: sortFilterModel)
@@ -55,36 +82,20 @@ private struct SortFilter: View {
             Section {
                 Text("Sort By")
 
-                // Getting no animation here: https://stackoverflow.com/questions/65766781
-                Button(action: {
-                    model.toggleSortOrder()
-                }) {
-                    HStack {
-                        Text("Creation Date")
-                        SFSymbolIcon(symbol: model.sortOrderChevron)
-                    }
+                Picker(selection: $model.sort, label: Text("Sort By")) {
+                    SortByItem(text: "Creation Date", sort: .creationDate, model: model)
+                    SortByItem(text: "Modification Date", sort: .updateDate, model: model)
                 }
             }
             
             Section {
-                Text("Discussion Filter")
+                Text("Filter")
 
-                Button(action: {
-                    model.select(filter: .none)
-                }) {
-                    HStack {
-                        Text("Show All")
-                        SFSymbolIcon(symbol: model.showAllIcon)
-                    }
-                }
-
-                Button(action: {
-                    model.select(filter: .onlyUnread)
-                }) {
-                    HStack {
-                        Text("Show Only Unread")
-                        SFSymbolIcon(symbol: model.showOnlyUnreadIcon)
-                    }
+                Picker(selection: $model.filter, label: Text("Sort By")) {
+                    FilterPickerItem(text: "Show All", filter: .none)
+                    FilterPickerItem(text: "Show Only Unread Comments", filter: .onlyUnread)
+                    FilterPickerItem(text: "Show Only New Items", filter: .onlyNew)
+                    FilterPickerItem(text: "Show New Items or Unread Comments", filter: .newOrUnread)
                 }
             }
         } label: {

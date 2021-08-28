@@ -13,7 +13,7 @@ class ObjectDetailsModel: ObservableObject {
     var mediaTitle: String?
     @Published var modelInitialized: Bool
     @Published var badgeSelected: MediaItemBadge = .none
-    var badgeModel: ServerFileModel?
+    var mediaItemAttributesFileModel: ServerFileModel?
     
     init(object: ServerObjectModel) {
         try? object.debugOutput()
@@ -46,11 +46,11 @@ class ObjectDetailsModel: ObservableObject {
             }
         }
         
-        badgeModel = try? ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: object.fileGroupUUID)
-        badgeSelected = badgeModel?.badge ?? .none
+        mediaItemAttributesFileModel = try? ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: object.fileGroupUUID)
+        badgeSelected = mediaItemAttributesFileModel?.badge ?? .none
 
         // Create a new media attribute items file on demand. https://github.com/SyncServerII/Neebla/issues/16
-        if badgeModel == nil {
+        if mediaItemAttributesFileModel == nil {
             // Do our best to make sure that this means we actually don't yet have a media item attributes file.
             do {
                 guard let fileGroupAttr = try Services.session.syncServer.fileGroupAttributes(forFileGroupUUID: object.fileGroupUUID) else {
@@ -69,7 +69,7 @@ class ObjectDetailsModel: ObservableObject {
                 if filter.count == 0 {
                     let fileUUID = UUID()
                     let fileModel = try MediaItemAttributes.queueUpload(fileUUID: fileUUID, fileGroupUUID: object.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, objectType: objectType)
-                    badgeModel = fileModel
+                    mediaItemAttributesFileModel = fileModel
                 }
                 // Else: We have it. Don't create it.
             } catch let error {
@@ -80,19 +80,53 @@ class ObjectDetailsModel: ObservableObject {
         }
         
         modelInitialized = success
+        
+        if success && object.new {
+            do {
+                try markAsNotNew(object: object)
+            } catch let error {
+                logger.error("\(error)")
+                success = false
+            }
+        }
+    }
+    
+    // Assumes that `object.new` is true
+    private func markAsNotNew(object: ServerObjectModel) throws {
+        guard let mediaItemAttributesFileModel = mediaItemAttributesFileModel else {
+            return
+        }
+        
+        object.new = false
+        try object.update(setters: ServerObjectModel.newField.description <- false)
+        object.postNewUpdateNotification()
+        
+        guard let userId = Services.session.userId else {
+            return
+        }
+        
+        let encoder = JSONEncoder()
+        let keyValue = KeyValue.notNew(userId: "\(userId)", used: true)
+        let data = try encoder.encode(keyValue)
+
+        // No one else needs to be informed about this user having seen a media item.
+        let file = FileUpload.informNoOne(fileLabel: FileLabels.mediaItemAttributes, dataSource: .data(data), uuid: mediaItemAttributesFileModel.fileUUID)
+        
+        let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: mediaItemAttributesFileModel.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, uploads: [file])
+        try Services.session.syncServer.queue(upload: upload)        
     }
     
     func selectBadge(newBadgeSelection: MediaItemBadge) throws {
         guard badgeSelected != newBadgeSelection,
-            let badgeModel = badgeModel else {
+            let mediaItemAttributesFileModel = mediaItemAttributesFileModel else {
             return
         }
 
         badgeSelected = newBadgeSelection
         
-        try badgeModel.update(setters: ServerFileModel.badgeField.description <- badgeSelected)
-        badgeModel.badge = badgeSelected
-        badgeModel.postBadgeUpdateNotification()
+        try mediaItemAttributesFileModel.update(setters: ServerFileModel.badgeField.description <- badgeSelected)
+        mediaItemAttributesFileModel.badge = badgeSelected
+        mediaItemAttributesFileModel.postBadgeUpdateNotification()
         
         guard let userId = Services.session.userId else {
             return
@@ -103,10 +137,10 @@ class ObjectDetailsModel: ObservableObject {
         let data = try encoder.encode(keyValue)
 
         // I was using `forOthers` because the UI allows others to see self's badges. See https://github.com/SyncServerII/Neebla/issues/19. However, testers didn't like this! So, using `informNoOne` now.
-        let file = FileUpload.informNoOne(fileLabel: FileLabels.mediaItemAttributes, dataSource: .data(data), uuid: badgeModel.fileUUID)
+        let file = FileUpload.informNoOne(fileLabel: FileLabels.mediaItemAttributes, dataSource: .data(data), uuid: mediaItemAttributesFileModel.fileUUID)
         
-        let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: badgeModel.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, uploads: [file])
-        try Services.session.syncServer.queue(upload: upload)        
+        let upload = ObjectUpload(objectType: object.objectType, fileGroupUUID: mediaItemAttributesFileModel.fileGroupUUID, sharingGroupUUID: object.sharingGroupUUID, uploads: [file])
+        try Services.session.syncServer.queue(upload: upload)
     }
     
     private func deleteObject() -> Bool {

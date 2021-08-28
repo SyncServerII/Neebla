@@ -19,7 +19,7 @@ struct ObjectDetailsScreenNavButtons: View {
         HStack(spacing: 0) {
             // Having both a Button and a Menu (perhaps with sections?) in this tool bar causes some bad looking movement of the items on the toolbar when displayed. But with two menus, you don't get that!
 
-            if model.badgeModel != nil {
+            if model.mediaItemAttributesFileModel != nil {
                 Menu {
                     BadgePickerMenu(model: model)
                 } label: {

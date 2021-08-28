@@ -76,6 +76,9 @@ struct AnyIcon<Content: View>: View {
         .if(model.unreadCountBadgeText != nil) {
             $0.upperLeftBadge(model.unreadCountBadgeText!)
         }
+        .if(model.newItem) {
+            $0.lowerLeftIcon("New")
+        }
         .onAppear() {
             Downloader.session.objectAccessed(object: model.object)
         }

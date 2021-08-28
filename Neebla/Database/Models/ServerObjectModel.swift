@@ -31,9 +31,11 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
     static let updateCreationDateField = Field("updateCreationDate", \M.updateCreationDate)
     var updateCreationDate: Bool
     
-    // Set as the max update date of all files in the object when object updates downloaded, and when an index/sync is done.
+    // Before 8/27/21, this was set as the max update date of all files in the object when object updates downloaded, and when an index/sync is done.
+    // After this, I'm using it more specifically. It's going to reflect only the update date of comment files in the object. This is so I can use this for a user-observable modification date in the album items screen. i.e., not all file changes are user observable.
     static let updateDateField = Field("updateDate", \M.updateDate)
     var updateDate: Date?
+    static let updateDateChanged = NSNotification.Name("ServerObjectModel.updateDate.changed")
     
     static let deletedField = Field("deleted", \M.deleted)
     var deleted: Bool
@@ -49,6 +51,12 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
     // Fires when the keywords of a ServerObjectModel changes.
     static let keywordsUpdate = NSNotification.Name("ServerObjectModel.keywords.update")
     
+    // Migration, 8/26/21
+    // Has the object ever been viewed? This can only ever transition from false to true.
+    static let newField = Field("new", \M.new)
+    var new: Bool
+    static let newUpdate = NSNotification.Name("ServerObjectModel.new.update")
+    
     init(db: Connection,
         id: Int64! = nil,
         sharingGroupUUID: UUID,
@@ -59,7 +67,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
         updateDate: Date? = nil,
         deleted: Bool = false,
         unreadCount:Int = 0,
-        keywords: String? = nil) throws {
+        keywords: String? = nil,
+        new: Bool = false) throws {
 
         self.db = db
         self.id = id
@@ -72,6 +81,7 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
         self.deleted = deleted
         self.unreadCount = unreadCount
         self.keywords = keywords
+        self.new = new
     }
     
     func hash(into hasher: inout Hasher) {
@@ -92,12 +102,41 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
         return fileGroupUUID == other.fileGroupUUID
     }
     
-    // MARK: Migrations
+    // MARK: Meta data migrations
     
     static func migration_2021_7_1(db: Connection) throws {
         try addColumn(db: db, column: keywordsField.description)
     }
     
+    static func migration_2021_8_26(db: Connection) throws {
+        // Defaulting `new` to false so that people don't have existing items showing up as `new`.
+        try addColumn(db: db, column: newField.description, defaultValue: false)
+    }
+
+    // MARK: Content migrations
+
+    // Bring all objects up to date in terms of their `updateDateField`.
+    static func migration_2021_8_27(db: Connection, syncServer: SyncServer) throws {
+        let objects = try ServerObjectModel.fetch(db: db)
+        for object in objects {
+            do {
+                guard let commentFileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileGroupUUIDField.description == object.fileGroupUUID &&
+                    ServerFileModel.fileLabelField.description == FileLabels.comments) else {
+                    continue
+                }
+                
+                guard let fileAttributes = try syncServer.fileAttributes(forFileUUID: commentFileModel.fileUUID) else {
+                    logger.error("migration_2021_8_27: Could not get attributes for fileUUID: \(commentFileModel.fileUUID)")
+                    continue
+                }
+                
+                try object.update(setters: ServerObjectModel.updateDateField.description <- fileAttributes.updateDate)
+            } catch let error {
+                logger.error("migration_2021_8_27: \(error)")
+            }
+        }
+    }
+
     // MARK: DatabaseModel
     
     static func createTable(db: Connection) throws {
@@ -114,6 +153,9 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             
             // Migration
             // t.column(keywordsField.description)
+            
+            // Migration
+            // t.column(newField.description)
         }
     }
     
@@ -128,7 +170,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             updateDate: row[Self.updateDateField.description],
             deleted: row[Self.deletedField.description],
             unreadCount: row[Self.unreadCountField.description],
-            keywords: row[Self.keywordsField.description]
+            keywords: row[Self.keywordsField.description],
+            new: row[Self.newField.description]
         )
     }
     
@@ -142,7 +185,8 @@ class ServerObjectModel: DatabaseModel, ObservableObject, BasicEquatable, Equata
             Self.updateDateField.description <- updateDate,
             Self.deletedField.description <- deleted,
             Self.unreadCountField.description <- unreadCount,
-            Self.keywordsField.description <- keywords
+            Self.keywordsField.description <- keywords,
+            Self.newField.description <- new
         )
     }
 }
@@ -180,10 +224,11 @@ extension ServerObjectModel {
             
             logger.debug("model.deleted: \(model.deleted)")
             
-            if let updateDate = indexObject.updateDate {
-                try model.update(setters:
-                    ServerObjectModel.updateDateField.description <- updateDate)
-            }
+            // See comment in `updateDateField` in ServerObjectModel dated 8/27/21
+            // if let updateDate = indexObject.updateDate {
+            //    try model.update(setters:
+            //        ServerObjectModel.updateDateField.description <- updateDate)
+            // }
             
             // See https://github.com/SyncServerII/Neebla/issues/23
             if indexObject.sharingGroupUUID != model.sharingGroupUUID {
@@ -192,7 +237,7 @@ extension ServerObjectModel {
             }
         }
         else {
-            let model = try ServerObjectModel(db: db, sharingGroupUUID: indexObject.sharingGroupUUID, fileGroupUUID: indexObject.fileGroupUUID, objectType: indexObject.objectType, creationDate: indexObject.creationDate, updateCreationDate: false, deleted: indexObject.deleted)
+            let model = try ServerObjectModel(db: db, sharingGroupUUID: indexObject.sharingGroupUUID, fileGroupUUID: indexObject.fileGroupUUID, objectType: indexObject.objectType, creationDate: indexObject.creationDate, updateCreationDate: false, deleted: indexObject.deleted, new: true)
             try model.insert()
         }
         
@@ -233,13 +278,17 @@ extension DownloadedObject {
                     ServerObjectModel.updateCreationDateField.description <- false)
             }
             
-            if let updateDate = (downloads.compactMap {$0.updateDate}).max() {
+            // Only updating the object model updateDateField based on comment files. See comment in ServerObjectModel on 8/27/21.
+            let commentDownload = downloads.filter {$0.fileLabel == FileLabels.comments}
+            if commentDownload.count == 1 {
+                let commentUpdateDate = commentDownload[0].updateDate
                 try model.update(setters:
-                    ServerObjectModel.updateDateField.description <- updateDate)
+                    ServerObjectModel.updateDateField.description <- commentUpdateDate)
+                model.postUpdateDateChangedNotification()
             }
         }
         else {
-            let objectModel = try ServerObjectModel(db: db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: itemType.objectType, creationDate: creationDate, updateCreationDate: false)
+            let objectModel = try ServerObjectModel(db: db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: itemType.objectType, creationDate: creationDate, updateCreationDate: false, new: true)
             try objectModel.insert()
         }
         
@@ -284,6 +333,35 @@ extension ServerObjectModel {
         let keywords = notification.userInfo?[ServerObjectModel.keywordsField.fieldName] as? String
         
         return (fileGroupUUID, keywords)
+    }
+
+    func postNewUpdateNotification() {
+        guard AppState.session.current == .foreground else {
+            return
+        }
+        
+        NotificationCenter.default.post(name: Self.newUpdate, object: nil, userInfo: [
+            ServerObjectModel.fileGroupUUIDField.fieldName : fileGroupUUID
+        ])
+    }
+    
+    static func getFileGroupUUID(from notification: Notification) -> UUID? {
+        guard let value = notification.userInfo?[ServerObjectModel.fileGroupUUIDField.fieldName],
+            let fileGroupUUID = value as? UUID else {
+            return nil
+        }
+        
+        return fileGroupUUID
+    }
+    
+    func postUpdateDateChangedNotification() {
+        guard AppState.session.current == .foreground else {
+            return
+        }
+        
+        NotificationCenter.default.post(name: Self.updateDateChanged, object: nil, userInfo: [
+            ServerObjectModel.fileGroupUUIDField.fieldName : fileGroupUUID
+        ])
     }
     
     // See https://github.com/SyncServerII/Neebla/issues/23
