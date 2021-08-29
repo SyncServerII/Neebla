@@ -9,10 +9,11 @@ import Foundation
 import SQLite
 import iOSShared
 
-class AlbumScreenRowModel: ObservableObject, AlbumUnreadCountDelegate, AlbumDownloadIndicatorDelegate {
+class AlbumScreenRowModel: ObservableObject, AlbumUnreadCountDelegate, AlbumDownloadIndicatorDelegate, AlbumNewCountDelegate {
 
     private var unreadCountUpdateObserver: AnyObject?
     @Published var albumUnreadCountBadgeText:String?
+    @Published var albumNewCountBadgeText:String?
     
     var album:AlbumModel?
     
@@ -21,10 +22,12 @@ class AlbumScreenRowModel: ObservableObject, AlbumUnreadCountDelegate, AlbumDown
     
     private var albumUnreadCount:AlbumUnreadCount!
     private var albumDownloadIndicator:AlbumDownloadIndicator!
+    private var albumNewCount:AlbumNewCount!
     
     init(album:AlbumModel) {
         self.album = album
         albumUnreadCount = AlbumUnreadCount(album: album, delegate: self)
         albumDownloadIndicator = AlbumDownloadIndicator(delegate: self)
+        albumNewCount = AlbumNewCount(album: album, delegate: self)
     }
 }

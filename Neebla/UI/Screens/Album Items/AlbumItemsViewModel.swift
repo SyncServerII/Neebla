@@ -404,10 +404,16 @@ class AlbumItemsViewModel: ObservableObject {
         return result
     }
     
-    func markAllRead() {
+    func markAllReadAndNotNew() {
         // It seems odd to stay in sharing mode if user triggers a "Mark all read".
         if changeMode != .none {
             changeMode = .none
+        }
+        
+        do {
+            try NewItemBadges.markAllNotNew(for: objects)
+        } catch let error {
+            logger.error("\(error)")
         }
         
         CommentCountsObserver.markAllRead(for: objects)

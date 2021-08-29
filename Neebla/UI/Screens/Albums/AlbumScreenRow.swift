@@ -29,6 +29,10 @@ struct AlbumsScreenRow: View {
 
             Spacer()
             
+            if let newCountText = rowModel.albumNewCountBadgeText {
+                Badge(newCountText, backgroundColor: .blue)
+            }
+            
             if let badgeText = rowModel.albumUnreadCountBadgeText {
                 Badge(badgeText)
             }

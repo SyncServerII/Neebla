@@ -239,6 +239,7 @@ extension ServerObjectModel {
         else {
             let model = try ServerObjectModel(db: db, sharingGroupUUID: indexObject.sharingGroupUUID, fileGroupUUID: indexObject.fileGroupUUID, objectType: indexObject.objectType, creationDate: indexObject.creationDate, updateCreationDate: false, deleted: indexObject.deleted, new: true)
             try model.insert()
+            model.postNewUpdateNotification()
         }
         
         return result
@@ -290,6 +291,7 @@ extension DownloadedObject {
         else {
             let objectModel = try ServerObjectModel(db: db, sharingGroupUUID: sharingGroupUUID, fileGroupUUID: fileGroupUUID, objectType: itemType.objectType, creationDate: creationDate, updateCreationDate: false, new: true)
             try objectModel.insert()
+            objectModel.postNewUpdateNotification()
         }
         
         // Independent of whether this was a new object or an existing object, do upsert for the files.

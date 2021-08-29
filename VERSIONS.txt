@@ -1,6 +1,6 @@
 Neebla
 
-Version 2.0.9
+Version 2.0.9 (TestFlight Builds: 20210828.0)
 	* Adding new sorting/filter options
 		- Sort by modification date
 		- Filter by new items
@@ -15,6 +15,8 @@ Version 2.0.9
 		devices.
 	* Changing menu option "Mark as read" to "Mark as read/not new"
 		- Also going to mark items as not new if they are not already.
+	* Added a new kind of badges on albums in album list.
+		- Has a count of new items
 
 Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2,
 								20210809.0, 20210809.1, 20210810.0, 20210810.1,

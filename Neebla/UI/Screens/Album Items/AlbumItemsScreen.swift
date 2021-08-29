@@ -304,9 +304,9 @@ private struct AlbumItemsScreenNavButtons: View {
                     }
                     
                     Button(action: {
-                        viewModel.markAllRead()
+                        viewModel.markAllReadAndNotNew()
                     }) {
-                        Label("Mark all read", systemImage: "scissors")
+                        Label("Mark all read/not new", systemImage: "scissors")
                     }.enabled(viewModel.objects.count > 0)
                 } label: {
                     SFSymbolIcon(symbol: .ellipsis)

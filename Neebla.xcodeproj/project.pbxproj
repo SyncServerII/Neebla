@@ -123,6 +123,8 @@
 		83383B6625A186BF009CA87F /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83383B6525A186BF009CA87F /* Badge.swift */; };
 		833E25C026D897CA00A00952 /* LowerLeftIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833E25BF26D897CA00A00952 /* LowerLeftIcon.swift */; };
 		833E25C326D9CB3D00A00952 /* NewItemBadgeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833E25C226D9CB3C00A00952 /* NewItemBadgeObserver.swift */; };
+		833E310026DB02F900A00952 /* NewItemBadges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833E30FF26DB02F900A00952 /* NewItemBadges.swift */; };
+		833E310226DB075100A00952 /* AlbumNewCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833E310126DB075100A00952 /* AlbumNewCount.swift */; };
 		8341DAD526A4D0FF00E49F65 /* ServerFileModel+Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341DAD426A4D0FF00E49F65 /* ServerFileModel+Comments.swift */; };
 		834407DF2661BAE5007D62F2 /* LiveImageViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834407DE2661BAE5007D62F2 /* LiveImageViewState.swift */; };
 		834B259E258C5FC900F653BC /* ServerInterface+CloudHashing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834B259D258C5FC900F653BC /* ServerInterface+CloudHashing.swift */; };
@@ -473,6 +475,8 @@
 		83383B6525A186BF009CA87F /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		833E25BF26D897CA00A00952 /* LowerLeftIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerLeftIcon.swift; sourceTree = "<group>"; };
 		833E25C226D9CB3C00A00952 /* NewItemBadgeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemBadgeObserver.swift; sourceTree = "<group>"; };
+		833E30FF26DB02F900A00952 /* NewItemBadges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemBadges.swift; sourceTree = "<group>"; };
+		833E310126DB075100A00952 /* AlbumNewCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumNewCount.swift; sourceTree = "<group>"; };
 		8341DAD426A4D0FF00E49F65 /* ServerFileModel+Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServerFileModel+Comments.swift"; sourceTree = "<group>"; };
 		834407DE2661BAE5007D62F2 /* LiveImageViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageViewState.swift; sourceTree = "<group>"; };
 		834B259D258C5FC900F653BC /* ServerInterface+CloudHashing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServerInterface+CloudHashing.swift"; sourceTree = "<group>"; };
@@ -1098,6 +1102,8 @@
 			isa = PBXGroup;
 			children = (
 				833E25C226D9CB3C00A00952 /* NewItemBadgeObserver.swift */,
+				833E30FF26DB02F900A00952 /* NewItemBadges.swift */,
+				833E310126DB075100A00952 /* AlbumNewCount.swift */,
 			);
 			path = "New Item Badges";
 			sourceTree = "<group>";
@@ -2021,8 +2027,10 @@
 				83E5EC3A268952A1003E1FEE /* TextFieldWithAccessory.swift in Sources */,
 				839F1DF725FEC59E0089C13F /* HTMLViewer.swift in Sources */,
 				83BF7C6A2584595C000E0B37 /* LiveImageObjectType+Image.swift in Sources */,
+				833E310226DB075100A00952 /* AlbumNewCount.swift in Sources */,
 				8308B738256B6EF6007F0CEB /* URLModel.swift in Sources */,
 				8331F4672560BE0E0063A67D /* AlbumItemsViewModel.swift in Sources */,
+				833E310026DB02F900A00952 /* NewItemBadges.swift in Sources */,
 				83E5EC36268949DC003E1FEE /* EditKeywordsView.swift in Sources */,
 				8331F4BA2560F7300063A67D /* ImageObjectType.swift in Sources */,
 				8320A6FA256CC64700819377 /* URLLargeMedia.swift in Sources */,
@@ -2189,7 +2197,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210824.0;
+				CURRENT_PROJECT_VERSION = 20210828.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2197,7 +2205,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.8;
+				MARKETING_VERSION = 2.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages.Share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2213,7 +2221,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210824.0;
+				CURRENT_PROJECT_VERSION = 20210828.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2221,7 +2229,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.8;
+				MARKETING_VERSION = 2.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages.Share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2400,7 +2408,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210824.0;
+				CURRENT_PROJECT_VERSION = 20210828.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
@@ -2410,7 +2418,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.8;
+				MARKETING_VERSION = 2.0.9;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages;
@@ -2430,7 +2438,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210824.0;
+				CURRENT_PROJECT_VERSION = 20210828.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
@@ -2439,7 +2447,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.8;
+				MARKETING_VERSION = 2.0.9;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = biz.SpasticMuffin.SharedImages;
