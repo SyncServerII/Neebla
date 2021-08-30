@@ -1108,6 +1108,17 @@
 			path = "New Item Badges";
 			sourceTree = "<group>";
 		};
+		833E310326DB110300A00952 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8367503425E31F0C003957BE /* Requestablity.swift */,
+				83BC88C22605748200AE365D /* Background.swift */,
+				839F1E2E26006BF00089C13F /* AppState.swift */,
+				83B8B7F42638ED260006F9A5 /* DetectV1.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		8341DAD326A4D0E300E49F65 /* ServerFileModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1316,8 +1327,6 @@
 				8331F40D255F84920063A67D /* App Launch */,
 				8331F3C5255E4CE30063A67D /* Database */,
 				83BC88C1260573D000AE365D /* Environment */,
-				8331F3C2255E45550063A67D /* Server */,
-				835AC8E3255B83D100375084 /* Services */,
 				8320A75C256F56CF00819377 /* Media Types */,
 				83F49B97260FE86E00814A2A /* Badging */,
 				8331F3B7255E428C0063A67D /* UI */,
@@ -1342,10 +1351,9 @@
 		83BC88C1260573D000AE365D /* Environment */ = {
 			isa = PBXGroup;
 			children = (
-				8367503425E31F0C003957BE /* Requestablity.swift */,
-				83BC88C22605748200AE365D /* Background.swift */,
-				839F1E2E26006BF00089C13F /* AppState.swift */,
-				83B8B7F42638ED260006F9A5 /* DetectV1.swift */,
+				8331F3C2255E45550063A67D /* Server */,
+				835AC8E3255B83D100375084 /* Services */,
+				833E310326DB110300A00952 /* Utilities */,
 			);
 			path = Environment;
 			sourceTree = "<group>";

@@ -9,7 +9,7 @@ struct AlbumItemsScreenCell: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        AnyIcon(object: object, config: config,
+        AnyIcon(model: AnyIconModel(object: object), config: config,
             emptyUpperRightView: viewModel.changeMode == .none,
             upperRightView: {
                 UpperRightChangeIcon(object: object, viewModel: viewModel)

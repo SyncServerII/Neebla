@@ -5,28 +5,27 @@ import SFSafeSymbols
 import iOSShared
 
 struct GenericImageIcon: View {
-    @ObservedObject var model:GenericImageModel
+    @StateObject var model:GenericImageModel
+    let config: IconConfig
+    
     @Environment(\.colorScheme) var colorScheme
     static let loadingImageIcon = "ImageLoading" // From Asset catalog
     static let loadingImageIconDarkMode = "ImageLoadingDarkMode" // From Asset catalog
 
-    let config: IconConfig
-    
     enum ModelSetup {
         case object(fileLabel:String, object: ServerObjectModel)
         case url(URL)
         case model(GenericImageModel)
     }
     
-    init(_ modelSetup: ModelSetup, config: IconConfig) {
-        self.config = config
+    static func setupModel(_ modelSetup: ModelSetup, iconSize: CGSize) -> GenericImageModel {
         switch modelSetup {
         case .model(let model):
-            self.model = model
+            return model
         case .object(fileLabel: let fileLabel, object: let object):
-            model = GenericImageModel(fileLabel: fileLabel, fileGroupUUID: object.fileGroupUUID, imageScale: config.iconSize)
+            return GenericImageModel(fileLabel: fileLabel, fileGroupUUID: object.fileGroupUUID, imageScale: iconSize)
         case .url(let url):
-            model = GenericImageModel(fullSizeImageURL: url, imageScale: config.iconSize)
+            return GenericImageModel(fullSizeImageURL: url, imageScale: iconSize)
         }
     }
     

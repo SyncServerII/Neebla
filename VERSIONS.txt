@@ -17,6 +17,8 @@ Version 2.0.9 (TestFlight Builds: 20210828.0)
 		- Also going to mark items as not new if they are not already.
 	* Added a new kind of badges on albums in album list.
 		- Has a count of new items
+	* Changing more @ObservedObject's to @StateObject's
+		- For performances improvement reasons
 
 Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2,
 								20210809.0, 20210809.1, 20210810.0, 20210810.1,

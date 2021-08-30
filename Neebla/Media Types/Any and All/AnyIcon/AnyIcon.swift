@@ -5,7 +5,7 @@ import SwiftUI
 // None of the icon's should have specific content in the upper right when normally rendered. This is so that `AnyIcon` can put `upperRightView` there.
 
 struct AnyIconMain: View {
-    @ObservedObject var model:AnyIconModel
+    @StateObject var model:AnyIconModel
     let config: IconConfig
     
     var body: some View {
@@ -30,19 +30,14 @@ struct AnyIconMain: View {
 }
 
 struct AnyIcon<Content: View>: View {
-    @ObservedObject var model:AnyIconModel
-    let upperRightView: () -> Content
+    @StateObject var model:AnyIconModel
     let config: IconConfig
-    let badgeSize = CGSize(width: 20, height: 20)
-    let emptyUpperRightView: Bool
     
     // If emptyUpperRightView is true, then upperRightView is ignored.
-    init(object: ServerObjectModel, config: IconConfig, emptyUpperRightView: Bool = false, @ViewBuilder upperRightView: @escaping () -> Content) {
-        model = AnyIconModel(object: object)
-        self.upperRightView = upperRightView
-        self.config = config
-        self.emptyUpperRightView = emptyUpperRightView
-    }
+    let emptyUpperRightView: Bool
+    
+    let upperRightView: () -> Content
+    let badgeSize = CGSize(width: 20, height: 20)
     
     var body: some View {
         ZStack {

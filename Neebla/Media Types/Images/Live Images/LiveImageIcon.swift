@@ -13,7 +13,9 @@ struct LiveImageIcon: View {
     
     var body: some View {
         ZStack {
-            GenericImageIcon(modelSetup, config: config)
+            GenericImageIcon(model:
+                GenericImageIcon.setupModel(modelSetup, iconSize: config.iconSize),
+                    config: config)
                 .lowerRightText("live")
         }
     }

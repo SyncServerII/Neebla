@@ -20,7 +20,9 @@ struct GIFIcon: View {
     
     var body: some View {
         ZStack {
-            GenericImageIcon(.object(fileLabel: iconFileLabel, object: object), config: config)
+            GenericImageIcon(model:
+                GenericImageIcon.setupModel(.object(fileLabel: iconFileLabel, object: object), iconSize: config.iconSize),
+                    config: config)
                 .lowerRightText("gif")
         }
     }

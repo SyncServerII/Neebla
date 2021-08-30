@@ -14,7 +14,9 @@ struct ImageIcon: View {
     
     var body: some View {
         ZStack {
-            GenericImageIcon(.object(fileLabel: imageFileLabel, object: object), config: config)
+            GenericImageIcon(model:
+                GenericImageIcon.setupModel(.object(fileLabel: imageFileLabel, object: object), iconSize: config.iconSize),
+                    config: config)
         }
     }
 }
