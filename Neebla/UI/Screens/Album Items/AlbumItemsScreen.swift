@@ -18,21 +18,16 @@ struct AlbumItemsScreen: View {
     
     var body: some View {
         // Not using `iPadConditionalScreenBodySizer` here because we use the larger screen to show larger "icons". And on smaller screen, we just show smaller icons.
-        AlbumItemsScreenBody(album: sharingGroupUUID, albumName: albumName)
+        AlbumItemsScreenBody(viewModel: AlbumItemsViewModel(album: sharingGroupUUID), albumName: albumName)
             .background(Color.screenBackground)
     }
 }
 
 struct AlbumItemsScreenBody: View {
-    @ObservedObject var viewModel:AlbumItemsViewModel
-    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
+    @StateObject var viewModel:AlbumItemsViewModel
     let albumName: String
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     @State var alert: SwiftUI.Alert?
-    
-    init(album sharingGroupUUID: UUID, albumName: String) {
-        self.viewModel = AlbumItemsViewModel(album: sharingGroupUUID)
-        self.albumName = albumName
-    }
 
     var body: some View {
         VStack {
@@ -184,7 +179,7 @@ struct AlbumItemsScreenBodyWithContent: View {
                 // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
                 NavigationLink(
                     destination:
-                        ObjectDetailsView(object: object),
+                        ObjectDetailsView(object: object, model: ObjectDetailsModel(object: object)),
                     isActive:
                         $viewModel.showCellDetails) {
                     EmptyView()

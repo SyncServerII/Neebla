@@ -15,15 +15,10 @@ enum ObjectDetailsViewActiveSheet: Identifiable {
 
 struct ObjectDetailsView: View {
     let object:ServerObjectModel
-    @ObservedObject var model:ObjectDetailsModel
-    @State var menuShown = false
+    @StateObject var model:ObjectDetailsModel
     @StateObject var alerty = AlertySubscriber(debugMessage: "ObjectDetailsView", publisher: Services.session.userEvents)
     @State var activeSheet:ObjectDetailsViewActiveSheet?
-    
-    init(object:ServerObjectModel) {
-        self.object = object
-        model = ObjectDetailsModel(object: object)
-    }
+    @State var menuShown = false
     
     var body: some View {
         VStack {
@@ -31,8 +26,8 @@ struct ObjectDetailsView: View {
                 Text(title)
                     .padding(.top, 10)
             }
-            
-            AnyLargeMedia(object: object, tapOnLargeMedia: {
+
+            AnyLargeMedia(object: object, model: AnyLargeMediaModel(object: object), tapOnLargeMedia: {
                 // A bit of a hack due to [1]. 
                 if menuShown {
                     menuShown = false
