@@ -4,13 +4,8 @@ import SwiftUI
 
 struct ImageIcon: View {
     let imageFileLabel = ImageObjectType.imageDeclaration.fileLabel
-    let object: ServerObjectModel
+    @StateObject var object: ServerObjectModel
     let config: IconConfig
-    
-    init(object: ServerObjectModel, config: IconConfig) {
-        self.object = object
-        self.config = config
-    }
     
     var body: some View {
         ZStack {

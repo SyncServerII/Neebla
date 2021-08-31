@@ -7,7 +7,6 @@ import iOSShared
 struct GenericImageIcon: View {
     @StateObject var model:GenericImageModel
     let config: IconConfig
-    
     @Environment(\.colorScheme) var colorScheme
     static let loadingImageIcon = "ImageLoading" // From Asset catalog
     static let loadingImageIconDarkMode = "ImageLoadingDarkMode" // From Asset catalog

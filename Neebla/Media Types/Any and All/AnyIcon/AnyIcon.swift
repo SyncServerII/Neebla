@@ -13,12 +13,12 @@ struct AnyIconMain: View {
         
         case ImageObjectType.objectType:
             ImageIcon(object: model.object, config: config)
-        
+
         case URLObjectType.objectType:
-            URLIcon(object: model.object, config: config)
+            URLIcon(model: URLModel(urlObject: model.object), imageModel: GenericImageModel(fileLabel: URLObjectType.previewImageDeclaration.fileLabel, fileGroupUUID: model.object.fileGroupUUID, imageScale: config.iconSize), config: config)
             
         case LiveImageObjectType.objectType:
-            LiveImageIcon(.object(fileLabel: LiveImageObjectType.imageDeclaration.fileLabel, object:  model.object), config: config)
+            LiveImageIcon(modelSetup: .object(fileLabel: LiveImageObjectType.imageDeclaration.fileLabel, object:  model.object), config: config)
             
         case GIFObjectType.objectType:
             GIFIcon(object: model.object, config: config)

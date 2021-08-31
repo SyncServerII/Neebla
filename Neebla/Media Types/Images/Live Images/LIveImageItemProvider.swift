@@ -216,7 +216,7 @@ class LiveImageItemProvider: SXItemProvider {
 
     func preview(for config: IconConfig) -> AnyView {
         return AnyView(
-            LiveImageIcon(.url(liveImageAssets.imageFile), config: config)
+            LiveImageIcon(modelSetup: .url(liveImageAssets.imageFile), config: config)
         )
     }
     

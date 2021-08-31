@@ -3,8 +3,8 @@ import SwiftUI
 import Combine
 
 struct AlbumItemsScreenCell: View {
-    @ObservedObject var object:ServerObjectModel
-    @ObservedObject var viewModel:AlbumItemsViewModel
+    @StateObject var object:ServerObjectModel
+    @StateObject var viewModel:AlbumItemsViewModel
     let config: IconConfig
     @Environment(\.colorScheme) var colorScheme
 
@@ -18,8 +18,8 @@ struct AlbumItemsScreenCell: View {
 }
 
 private struct UpperRightChangeIcon: View {
-    @ObservedObject var object:ServerObjectModel
-    @ObservedObject var viewModel:AlbumItemsViewModel
+    @StateObject var object:ServerObjectModel
+    @StateObject var viewModel:AlbumItemsViewModel
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
