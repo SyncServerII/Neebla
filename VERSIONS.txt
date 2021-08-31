@@ -1,6 +1,6 @@
 Neebla
 
-Version 2.0.9 (TestFlight Builds: 20210828.0)
+Version 2.0.9 (TestFlight Builds: 20210828.0, 20210830.0)
 	* Adding new sorting/filter options
 		- Sort by modification date
 		- Filter by new items
