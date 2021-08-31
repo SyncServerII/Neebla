@@ -24,8 +24,8 @@ class NewItemBadgeObserver {
         
         delegate.newItem = object.new
 
-        // Only need to add the observer if the object is not new
-        guard !object.new else {
+        // Only need to add the observer if the object *is* new. i.e., we're waiting for transitions from new to not new.
+        guard object.new else {
             return
         }
         

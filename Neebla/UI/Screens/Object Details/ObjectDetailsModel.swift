@@ -83,7 +83,11 @@ class ObjectDetailsModel: ObservableObject {
         
         if success && object.new {
             do {
-                try markAsNotNew(object: object)
+                // This is a bit tricky. The object is new, but if the user can't view the related files we probably shouldn't mark it as not new.
+                if try object.allFilesDownloaded() {
+                    try markAsNotNew(object: object)
+                }
+                // Else: Some files remain to be downloaded. I'm just going to take the simple route for now let the user try viewing the item again to reset the `new` flag.
             } catch let error {
                 logger.error("\(error)")
                 success = false

@@ -255,6 +255,17 @@ extension ServerObjectModel {
         return try ServerFileModel.fetch(db: Services.session.db, where: ServerFileModel.fileGroupUUIDField.description == fileGroupUUID)
     }
     
+    // Returns a count of the number of files of the object that have a nil `url` property.
+    func filesNotDownloaded() throws -> Int {
+        let files = try fileModels()
+        let notDownloaded = files.filter { $0.url == nil }
+        return notDownloaded.count
+    }
+    
+    func allFilesDownloaded() throws -> Bool {
+        return try filesNotDownloaded() == 0
+    }
+    
     static func albumFor(fileGroupUUID: UUID, db: Connection) throws -> AlbumModel {
         guard let objectModel = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) else {
             throw DatabaseModelError.notExactlyOneRow
@@ -337,6 +348,7 @@ extension ServerObjectModel {
         return (fileGroupUUID, keywords)
     }
 
+    // This is called exactly when the `new` field of the ServerObjectModel changes. (It does not reflect specifics about the download state of the object's models, such as the download state of the main media item file of the object).
     func postNewUpdateNotification() {
         guard AppState.session.current == .foreground else {
             return

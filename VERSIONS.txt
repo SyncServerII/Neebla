@@ -13,6 +13,8 @@ Version 2.0.9 (TestFlight Builds: 20210828.0)
 		MediaItemAttributes in the ChangeResolvers. Not relying on read counts because some 
 		media items don't have comments, and yet we don't want them to show up as new on new 
 		devices.
+		- Only remove "New" when user views the item and all the files associated
+		with the object have been downloaded.
 	* Changing menu option "Mark as read" to "Mark as read/not new"
 		- Also going to mark items as not new if they are not already.
 	* Added a new kind of badges on albums in album list.
