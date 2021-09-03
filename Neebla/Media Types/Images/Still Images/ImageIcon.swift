@@ -4,7 +4,7 @@ import SwiftUI
 
 struct ImageIcon: View {
     let imageFileLabel = ImageObjectType.imageDeclaration.fileLabel
-    @StateObject var object: ServerObjectModel
+    @ObservedObject var object: ServerObjectModel
     let config: IconConfig
     
     var body: some View {

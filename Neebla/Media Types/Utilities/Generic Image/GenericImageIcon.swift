@@ -5,7 +5,7 @@ import SFSafeSymbols
 import iOSShared
 
 struct GenericImageIcon: View {
-    @StateObject var model:GenericImageModel
+    @ObservedObject var model:GenericImageModel
     let config: IconConfig
     @Environment(\.colorScheme) var colorScheme
     static let loadingImageIcon = "ImageLoading" // From Asset catalog

@@ -1,11 +1,12 @@
 
 import Foundation
 import SwiftUI
+import iOSShared
 
 // None of the icon's should have specific content in the upper right when normally rendered. This is so that `AnyIcon` can put `upperRightView` there.
 
 struct AnyIconMain: View {
-    @StateObject var model:AnyIconModel
+    @ObservedObject var model:AnyIconModel
     let config: IconConfig
     
     var body: some View {
@@ -15,10 +16,10 @@ struct AnyIconMain: View {
             ImageIcon(object: model.object, config: config)
 
         case URLObjectType.objectType:
-            URLIcon(model: URLModel(urlObject: model.object), imageModel: GenericImageModel(fileLabel: URLObjectType.previewImageDeclaration.fileLabel, fileGroupUUID: model.object.fileGroupUUID, imageScale: config.iconSize), config: config)
+            URLIcon(object: model.object, config: config)
             
         case LiveImageObjectType.objectType:
-            LiveImageIcon(modelSetup: .object(fileLabel: LiveImageObjectType.imageDeclaration.fileLabel, object:  model.object), config: config)
+            LiveImageIcon(object: model.object, config: config)
             
         case GIFObjectType.objectType:
             GIFIcon(object: model.object, config: config)
