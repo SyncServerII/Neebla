@@ -9,24 +9,22 @@ import Foundation
 import iOSShared
 
 protocol AlbumDownloadIndicatorDelegate: AnyObject {
-    // These get updated when its `needsDownload` field changes.
-    var album: AlbumModel? { get set }
+    // Gets updated when the album `needsDownload` field changes.
     var albumNeedsDownload: Bool { get set }
 }
 
 class AlbumDownloadIndicator {
     private var needsDownloadUpdateObserver: AnyObject?
     private var delegate: AlbumDownloadIndicatorDelegate!
-    
-    init(delegate: AlbumDownloadIndicatorDelegate) {
+    private let album:AlbumModel
+    init(album:AlbumModel, delegate: AlbumDownloadIndicatorDelegate) {
         self.delegate = delegate
+        self.album = album
         
         needsDownloadUpdateObserver = NotificationCenter.default.addObserver(forName: AlbumModel.needsDownloadUpdate, object: nil, queue: nil) { [weak self] notification in
             guard let self = self else { return }
             
-            guard let sharingGroupUUID = delegate.album?.sharingGroupUUID else {
-                return
-            }
+            let sharingGroupUUID = album.sharingGroupUUID
             
             do {
                 if let album = try AlbumModel.getAlbumModel(db: Services.session.db, from: notification, expectingSharingGroupUUID: sharingGroupUUID) {
@@ -34,7 +32,7 @@ class AlbumDownloadIndicator {
                     logger.debug("album.needsDownload: \(album.needsDownload)")
                     
                     if self.delegate.albumNeedsDownload != album.needsDownload {
-                        self.delegate.album = album
+                        self.album.needsDownload = album.needsDownload
                         self.delegate.albumNeedsDownload = album.needsDownload
                     }
                 }
@@ -45,9 +43,7 @@ class AlbumDownloadIndicator {
         
         // Trying to deal with crashes. See https://github.com/SyncServerII/Neebla/issues/7 and in particular see https://github.com/SyncServerII/Neebla/issues/7#issuecomment-802978539
         if AppState.session.current == .foreground  {
-            guard let needsDownload = self.delegate.album?.needsDownload else {
-                return
-            }
+            let needsDownload = self.album.needsDownload
             
             if self.delegate?.albumNeedsDownload != needsDownload {
                 self.delegate?.albumNeedsDownload = needsDownload

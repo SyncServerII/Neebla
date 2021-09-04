@@ -1,6 +1,6 @@
 Neebla
 
-Version 2.0.9 (TestFlight Builds: 20210828.0, 20210830.0, 20210902.0)
+Version 2.0.9 (TestFlight Builds: 20210828.0, 20210830.0, 20210902.0, 20210904.0)
 	* Adding new sorting/filter options
 		- Sort by modification date
 		- Filter by new items
@@ -21,10 +21,12 @@ Version 2.0.9 (TestFlight Builds: 20210828.0, 20210830.0, 20210902.0)
 		- Has a count of new items
 	* Changing more @ObservedObject's to @StateObject's
 		- For performances improvement reasons
-		BUT: I had to revert some of these changes because I started getting models/views
-		 being refreshed for no apparent reason, causing the app to crash when it went
-		 into the background and spiked the CPU. 
-		 See https://github.com/SyncServerII/Neebla/issues/27
+		- BUT: I had to revert some of these changes because I started getting models/views
+		being refreshed for no apparent reason, causing the app to crash when it went
+		into the background and spiked the CPU. 
+		See https://github.com/SyncServerII/Neebla/issues/27
+	* Getting rid of AlbumModel redundancy across AlbumScreenRow and AlbumScreenRowModel
+		- Because the download indicator on the album screen wasn't getting updated properly.
 
 Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2,
 								20210809.0, 20210809.1, 20210810.0, 20210810.1,

@@ -6,6 +6,7 @@ import iOSShared
 // None of the icon's should have specific content in the upper right when normally rendered. This is so that `AnyIcon` can put `upperRightView` there.
 
 struct AnyIconMain: View {
+    // 9/3/21; Change this to a @StateObject and I see the issue described here: https://github.com/SyncServerII/Neebla/issues/27
     @ObservedObject var model:AnyIconModel
     let config: IconConfig
     
