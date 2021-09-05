@@ -3,19 +3,9 @@ import Foundation
 import SwiftUI
 
 struct URLLargeMedia: View {
-    let object: ServerObjectModel
-    static let imageFileLabel = URLObjectType.previewImageDeclaration.fileLabel
-    @ObservedObject var model:GenericImageModel
-    @ObservedObject var urlModel:URLModel
+    @StateObject var model:GenericImageModel
+    @StateObject var urlModel:URLModel
     let tapOnLargeMedia: ()->()
-
-    init(object: ServerObjectModel, tapOnLargeMedia: @escaping ()->()) {
-        self.object = object
-        self.tapOnLargeMedia = tapOnLargeMedia
-        model = GenericImageModel(fileLabel: Self.imageFileLabel, fileGroupUUID: object.fileGroupUUID)
-        urlModel = URLModel(urlObject: object)
-        urlModel.getContents()
-    }
     
     var body: some View {
         VStack {
@@ -48,6 +38,8 @@ struct URLLargeMedia: View {
                 
                 Spacer()
             }
+        }.onAppear() {
+            urlModel.getContents()
         }
     }
 }

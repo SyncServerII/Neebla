@@ -9,18 +9,14 @@ import Foundation
 import SwiftUI
 
 struct GIFIcon: View {
-    let iconFileLabel = GIFObjectType.iconDeclaration.fileLabel
-    let object: ServerObjectModel
+    @ObservedObject var object: ServerObjectModel
     let config: IconConfig
-    
-    init(object: ServerObjectModel, config: IconConfig) {
-        self.object = object
-        self.config = config
-    }
     
     var body: some View {
         ZStack {
-            GenericImageIcon(.object(fileLabel: iconFileLabel, object: object), config: config)
+            GenericImageIcon(model:
+                GenericImageIcon.setupModel(.object(fileLabel: GIFObjectType.iconDeclaration.fileLabel, object: object), iconSize: config.iconSize),
+                    config: config)
                 .lowerRightText("gif")
         }
     }

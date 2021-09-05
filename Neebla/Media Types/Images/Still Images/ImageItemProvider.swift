@@ -174,7 +174,9 @@ class ImageItemProvider: SXItemProvider {
     
     func preview(for config: IconConfig) -> AnyView {
         AnyView(
-            GenericImageIcon(.url(imageAssets.imageURL), config: config)
+            GenericImageIcon(model:
+                GenericImageIcon.setupModel(.url(self.imageAssets.imageURL), iconSize: config.iconSize),
+                    config: config)
         )
     }
     

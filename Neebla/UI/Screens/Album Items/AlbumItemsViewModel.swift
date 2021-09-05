@@ -119,7 +119,9 @@ class AlbumItemsViewModel: ObservableObject {
     private var userEventSubscriptionOther:AnyCancellable!
     private var objectDeletedSubscription:AnyCancellable!
     private var settingsDiscussionFilterSubscription:AnyCancellable!
-    private var settingsSortBySubscription:AnyCancellable!
+    private var settingsSortByOrderSubscription:AnyCancellable!
+    private var settingsSortOrderSubscription:AnyCancellable!
+    private var updateDateListener: AnyObject!
     
     // Not quite sure why this is needed, but seemingly after navigating away from the album items screen for an album, the screen/model isn't necessarily deallocated. Retain cycle? Darn if I can see it though.
     var screenDisplayed = false
@@ -139,11 +141,17 @@ class AlbumItemsViewModel: ObservableObject {
                 self.updateIfNeeded(self.getItemsForAlbum(album: sharingGroupUUID, discussionFilterBy: value))
             }
             
-            settingsSortBySubscription = sortFilterSettings.sortByOrderAscendingChanged.sink { [weak self] value in
+            settingsSortByOrderSubscription = sortFilterSettings.sortByOrderAscendingChanged.sink { [weak self] value in
                 guard let self = self else { return }
                 
                 // Don't use `updateIfNeeded`-- that doesn't respect the order of the values returned in `getItemsForAlbum`.
                 self.objects = self.getItemsForAlbum(album: sharingGroupUUID, sortByOrderAscending: value)
+            }
+            
+            settingsSortOrderSubscription = sortFilterSettings.sortByChanged.sink { [weak self] value in
+                guard let self = self else { return }
+                
+                self.objects = self.getItemsForAlbum(album: sharingGroupUUID, sortBy: value)
             }
         } catch let error {
             logger.error("SortFilterSettings.getSingleton: \(error)")
@@ -195,6 +203,29 @@ class AlbumItemsViewModel: ObservableObject {
                 self.updateIfNeeded(self.getItemsForAlbum(album: sharingGroupUUID))
             }
         }
+
+        updateDateListener = NotificationCenter.default.addObserver(forName: ServerObjectModel.updateDateChanged, object: nil, queue: nil) { [weak self] notification in
+            guard let self = self else { return }
+            
+            /* Before we update, check:
+                1) Are we sorting currently by modification date? If not, disregard this change.
+                2) Is the object that changed actually being displayed on the screen?
+            */
+
+            guard self.sortFilterSettings?.sortBy == .updateDate else {
+                return
+            }
+            
+            guard let fileGroupUUID = ServerObjectModel.getFileGroupUUID(from: notification) else {
+                return
+            }
+            
+            guard let _ = try? ServerObjectModel.fetchSingleRow(db: Services.session.db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) else {
+                return
+            }
+            
+            self.objects = self.getItemsForAlbum(album: sharingGroupUUID)
+        }
         
         userEventSubscriptionOther = Services.session.userEvents.alerty.sink { [weak self] _ in
             self?.loading = false
@@ -232,11 +263,13 @@ class AlbumItemsViewModel: ObservableObject {
     }
     
     // If force is true, doesn't check if the model values have changed.
-    private func getItemsForAlbum(album sharingGroupUUID: UUID, sortByOrderAscending: Bool? = nil, discussionFilterBy: SortFilterSettings.DiscussionFilterBy? = nil) -> [ServerObjectModel] {
+    private func getItemsForAlbum(album sharingGroupUUID: UUID, sortBy: SortFilterSettings.SortBy? = nil, sortByOrderAscending: Bool? = nil, discussionFilterBy: SortFilterSettings.DiscussionFilterBy? = nil) -> [ServerObjectModel] {
     
         logger.debug("getItemsForAlbum")
         
         var ascending: Bool = true
+        var sortByOrder: SortFilterSettings.SortBy = .creationDate
+        
         var fetchConstraint: SQLite.Expression<Bool> =
             ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
             ServerObjectModel.deletedField.description == false
@@ -250,10 +283,25 @@ class AlbumItemsViewModel: ObservableObject {
         
         if let settings = sortFilterSettings {
             ascending = sortByOrderAscending ?? settings.sortByOrderAscending
+            sortByOrder = sortBy ?? settings.sortBy
             
             switch (discussionFilterBy ?? settings.discussionFilterBy) {
             case .none:
                 break
+
+            case .newOrUnread:
+                fetchConstraint =
+                    ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
+                    ServerObjectModel.deletedField.description == false &&
+                    (ServerObjectModel.newField.description ||
+                    ServerObjectModel.unreadCountField.description > 0)
+                    
+            case .onlyNew:
+                fetchConstraint =
+                    ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
+                    ServerObjectModel.deletedField.description == false &&
+                    ServerObjectModel.newField.description
+                    
             case .onlyUnread:
                 fetchConstraint =
                     ServerObjectModel.sharingGroupUUIDField.description == sharingGroupUUID &&
@@ -263,11 +311,22 @@ class AlbumItemsViewModel: ObservableObject {
         }
                 
         func sortObjects(_ o1:ServerObjectModel, _ o2: ServerObjectModel) -> Bool {
-            if ascending {
-                return o1.creationDate < o2.creationDate
-            }
-            else {
-                return o1.creationDate > o2.creationDate
+            switch sortByOrder {
+            case .creationDate:
+                if ascending {
+                    return o1.creationDate < o2.creationDate
+                }
+                else {
+                    return o1.creationDate > o2.creationDate
+                }
+            
+            case .updateDate:
+                if ascending {
+                    return (o1.updateDate ?? o1.creationDate) < (o2.updateDate ?? o2.creationDate)
+                }
+                else {
+                    return (o1.updateDate ?? o1.creationDate) > (o2.updateDate ?? o2.creationDate)
+                }
             }
         }
         
@@ -345,10 +404,16 @@ class AlbumItemsViewModel: ObservableObject {
         return result
     }
     
-    func markAllRead() {
+    func markAllReadAndNotNew() {
         // It seems odd to stay in sharing mode if user triggers a "Mark all read".
         if changeMode != .none {
             changeMode = .none
+        }
+        
+        do {
+            try NewItemBadges.markAllNotNew(for: objects)
+        } catch let error {
+            logger.error("\(error)")
         }
         
         CommentCountsObserver.markAllRead(for: objects)

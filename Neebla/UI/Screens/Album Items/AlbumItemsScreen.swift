@@ -18,21 +18,16 @@ struct AlbumItemsScreen: View {
     
     var body: some View {
         // Not using `iPadConditionalScreenBodySizer` here because we use the larger screen to show larger "icons". And on smaller screen, we just show smaller icons.
-        AlbumItemsScreenBody(album: sharingGroupUUID, albumName: albumName)
+        AlbumItemsScreenBody(viewModel: AlbumItemsViewModel(album: sharingGroupUUID), albumName: albumName)
             .background(Color.screenBackground)
     }
 }
 
 struct AlbumItemsScreenBody: View {
-    @ObservedObject var viewModel:AlbumItemsViewModel
-    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
+    @StateObject var viewModel:AlbumItemsViewModel
     let albumName: String
+    @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     @State var alert: SwiftUI.Alert?
-    
-    init(album sharingGroupUUID: UUID, albumName: String) {
-        self.viewModel = AlbumItemsViewModel(album: sharingGroupUUID)
-        self.albumName = albumName
-    }
 
     var body: some View {
         VStack {
@@ -82,15 +77,9 @@ struct AlbumItemsScreenBody: View {
 }
 
 struct AlbumItemsScreenBodyEmptyState: View {
-    @ObservedObject var viewModel:AlbumItemsViewModel
-    @StateObject var signInManager = Services.session.signInServices.manager
-
+    @StateObject var viewModel:AlbumItemsViewModel
     let albumName: String
-
-    init(viewModel:AlbumItemsViewModel, albumName: String) {
-        self.viewModel = viewModel
-        self.albumName = albumName
-    }
+    @StateObject var signInManager = Services.session.signInServices.manager
     
     var body: some View {
         VStack(spacing: 20) {
@@ -127,7 +116,7 @@ struct AlbumItemsScreenBodyEmptyState: View {
 }
 
 struct AlbumItemsScreenBodyWithContent: View {
-    @ObservedObject var viewModel:AlbumItemsViewModel
+    @StateObject var viewModel:AlbumItemsViewModel
     
     /* It seems hard to get the spacing to work out reasonably. At first, it looked OK on iPhone 11 but not on iPhone 8-- on iPhone 8 there was no spacing. In this case I was using:
     
@@ -137,29 +126,20 @@ struct AlbumItemsScreenBodyWithContent: View {
       
       What's helping is to use the image dimension as the minimum. This is looking OK on iPhone 8 and iPhone 11.
     */
-    let gridItemLayout: [GridItem]
+    let gridItemLayout: [GridItem] = [
+        GridItem(.adaptive(minimum: Self.config.dimension), spacing: 5)
+    ]
     
     @State var object: ServerObjectModel?
     let albumName: String
-    let config: IconConfig
-
-    init(viewModel:AlbumItemsViewModel, albumName: String) {
-        self.viewModel = viewModel
-        self.albumName = albumName
-        
-        config = UIDevice.isPad ? .large : .small
-        
-        gridItemLayout = [
-            GridItem(.adaptive(minimum: config.dimension), spacing: 5)
-        ]
-    }
+    static let config: IconConfig = UIDevice.isPad ? .large : .small
     
     var body: some View {
         VStack {            
             RefreshableScrollView(refreshing: $viewModel.loading) {
                 LazyVGrid(columns: gridItemLayout) {
                     ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
-                        AlbumItemsScreenCell(object: item, viewModel: viewModel, config: config)
+                        AlbumItemsScreenCell(object: item, viewModel: viewModel, config: Self.config)
                             .onTapGesture {
                                 switch viewModel.changeMode {
                                 case .moving, .sharing, .moveAll:
@@ -184,7 +164,7 @@ struct AlbumItemsScreenBodyWithContent: View {
                 // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
                 NavigationLink(
                     destination:
-                        ObjectDetailsView(object: object),
+                        ObjectDetailsView(object: object, model: ObjectDetailsModel(object: object)),
                     isActive:
                         $viewModel.showCellDetails) {
                     EmptyView()
@@ -304,9 +284,9 @@ private struct AlbumItemsScreenNavButtons: View {
                     }
                     
                     Button(action: {
-                        viewModel.markAllRead()
+                        viewModel.markAllReadAndNotNew()
                     }) {
-                        Label("Mark all read", systemImage: "scissors")
+                        Label("Mark all read/not new", systemImage: "scissors")
                     }.enabled(viewModel.objects.count > 0)
                 } label: {
                     SFSymbolIcon(symbol: .ellipsis)

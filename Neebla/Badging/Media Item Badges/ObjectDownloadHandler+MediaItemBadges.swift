@@ -18,6 +18,11 @@ extension ObjectDownloadHandler {
             return
         }
 
+        // We have the file model. We *must* have the object model as well.
+        guard let objectModel = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == object.fileGroupUUID) else {
+            throw DatabaseModelError.notExactlyOneRow
+        }
+        
         // Read the media item attributes file and update the model
         
         guard let url = mediaItemAttributesFileModel.url else {
@@ -47,13 +52,21 @@ extension ObjectDownloadHandler {
             logger.debug("Could not get badge from media item attributess file")
         }
         
-        try mia.addKeywordsToKeywordModelsIfNeeded(sharingGroupUUID: object.sharingGroupUUID, db: db)
+        let notNew = mia.get(type: .notNew, key: "\(userId)")
+        switch notNew {
+        case .notNew(userId: _, used: let used):
+            if let used = used, used {
+                if objectModel.new {
+                    try objectModel.update(setters: ServerObjectModel.newField.description <- false)
+                    objectModel.postNewUpdateNotification()
+                }
+            }
         
-        // We have the file model. We *must* have the object model as well.
-        guard let objectModel = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == object.fileGroupUUID) else {
-            throw DatabaseModelError.notExactlyOneRow
+        default:
+            logger.debug("Could not get notNew from media item attributess file")
         }
         
+        try mia.addKeywordsToKeywordModelsIfNeeded(sharingGroupUUID: object.sharingGroupUUID, db: db)
         try mia.updateKeywords(objectModel: objectModel)
     }
 }

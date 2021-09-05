@@ -110,7 +110,9 @@ class GIFItemProvider: SXItemProvider {
     
     func preview(for config: IconConfig) -> AnyView {
         AnyView(
-            GenericImageIcon(.url(gifAssets.iconFile), config: config)
+            GenericImageIcon(model:
+                GenericImageIcon.setupModel(.url(self.gifAssets.iconFile), iconSize: config.iconSize),
+                    config: config)
         )
     }
     

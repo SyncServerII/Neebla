@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/SyncServerII/ChangeResolvers.git",
         "state": {
           "branch": null,
-          "revision": "1c321ab41688c92c57525c5063ff9a2e8d3473ac",
-          "version": "0.2.5"
+          "revision": "fd99e75d0f2cdbe5506ff8f659c999817f7cc397",
+          "version": "0.3.4"
         }
       },
       {
@@ -213,8 +213,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "af0d0ecaecd414c1f8b7d9d6c28dfe7858570bd6",
-          "version": "0.31.15"
+          "revision": "639099bcf57d42e2d72bb29ea3537682294a4745",
+          "version": "0.32.1"
         }
       },
       {

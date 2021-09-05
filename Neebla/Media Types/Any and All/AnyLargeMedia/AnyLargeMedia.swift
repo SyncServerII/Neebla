@@ -10,12 +10,12 @@ struct AnyLargeMediaMain: View {
         // Each large media view needs to deal with zooming. When I take care of it at this top level, with URL media, when I return from the browser with a URL, it's showing a comment.
         switch object.objectType {
         case ImageObjectType.objectType:
-            ImageLargeMedia(object: object, tapOnLargeMedia: {
+            ImageLargeMedia(model: GenericImageModel(fileLabel: ImageObjectType.imageDeclaration.fileLabel, fileGroupUUID: object.fileGroupUUID), tapOnLargeMedia: {
                 tapOnLargeMedia()
             })
 
         case URLObjectType.objectType:
-            URLLargeMedia(object: object, tapOnLargeMedia: {
+            URLLargeMedia(model: GenericImageModel(fileLabel: URLObjectType.previewImageDeclaration.fileLabel, fileGroupUUID: object.fileGroupUUID), urlModel: URLModel(urlObject: object), tapOnLargeMedia: {
                 tapOnLargeMedia()
             })
                 
@@ -37,17 +37,11 @@ struct AnyLargeMediaMain: View {
 
 struct AnyLargeMedia: View {
     let object: ServerObjectModel
+    @StateObject var model:AnyLargeMediaModel
     let tapOnLargeMedia: ()->()
     let tapOnKeywordIcon: ()->()
-    @ObservedObject var model:AnyLargeMediaModel
+
     let badgeSize = CGSize(width: 40, height: 40)
-    
-    init(object: ServerObjectModel, tapOnLargeMedia: @escaping ()->(), tapOnKeywordIcon: @escaping ()->()) {
-        self.object = object
-        self.tapOnLargeMedia = tapOnLargeMedia
-        self.tapOnKeywordIcon = tapOnKeywordIcon
-        model = AnyLargeMediaModel(object: object)
-    }
     
     var body: some View {
         VStack {

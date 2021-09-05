@@ -4,17 +4,14 @@ import SwiftUI
 
 struct ImageIcon: View {
     let imageFileLabel = ImageObjectType.imageDeclaration.fileLabel
-    let object: ServerObjectModel
+    @ObservedObject var object: ServerObjectModel
     let config: IconConfig
-    
-    init(object: ServerObjectModel, config: IconConfig) {
-        self.object = object
-        self.config = config
-    }
     
     var body: some View {
         ZStack {
-            GenericImageIcon(.object(fileLabel: imageFileLabel, object: object), config: config)
+            GenericImageIcon(model:
+                GenericImageIcon.setupModel(.object(fileLabel: imageFileLabel, object: object), iconSize: config.iconSize),
+                    config: config)
         }
     }
 }

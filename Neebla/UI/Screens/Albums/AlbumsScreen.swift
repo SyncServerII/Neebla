@@ -207,17 +207,17 @@ struct AlbumsScreenAlbumList: View {
                                 // So when we come back from album sharing, the screen isn't in sharing mode.
                                 viewModel.sharingMode = false
                             }, label: {
-                                AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album), album: album)
+                                AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album))
                             })
                         }
                         else {
-                            AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album), album: album)
+                            AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album))
                         }
                     }
                     else {
                         Button(action: {
                         }, label: {
-                            AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album), album: album)
+                            AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album))
                         })
                     }
                     

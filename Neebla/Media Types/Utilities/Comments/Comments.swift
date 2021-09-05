@@ -52,6 +52,11 @@ class Comments {
         let mediaItemAttributesFileModel = try? ServerFileModel.getFileFor(fileLabel: FileLabels.mediaItemAttributes, withFileGroupUUID: commentFileModel.fileGroupUUID)
         let commentCounts = try CommentCounts(commentFileModel: commentFileModel, commentFile: commentFile, mediaItemAttributesFileModel: mediaItemAttributesFileModel, userId: Services.session.userId)
         try commentCounts.markAllRead(object: object)
+        
+        let commentUpdateDate = Date()
+        try object.update(setters:
+            ServerObjectModel.updateDateField.description <- commentUpdateDate)
+        object.postUpdateDateChangedNotification()
     }
     
     // The UI-displayable title of media objects are stored in their associated comment file.

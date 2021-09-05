@@ -1,10 +1,12 @@
 
 import Foundation
 import SwiftUI
+import iOSShared
 
 // None of the icon's should have specific content in the upper right when normally rendered. This is so that `AnyIcon` can put `upperRightView` there.
 
 struct AnyIconMain: View {
+    // 9/3/21; Change this to a @StateObject and I see the issue described here: https://github.com/SyncServerII/Neebla/issues/27
     @ObservedObject var model:AnyIconModel
     let config: IconConfig
     
@@ -13,12 +15,12 @@ struct AnyIconMain: View {
         
         case ImageObjectType.objectType:
             ImageIcon(object: model.object, config: config)
-        
+
         case URLObjectType.objectType:
             URLIcon(object: model.object, config: config)
             
         case LiveImageObjectType.objectType:
-            LiveImageIcon(.object(fileLabel: LiveImageObjectType.imageDeclaration.fileLabel, object:  model.object), config: config)
+            LiveImageIcon(object: model.object, config: config)
             
         case GIFObjectType.objectType:
             GIFIcon(object: model.object, config: config)
@@ -30,19 +32,14 @@ struct AnyIconMain: View {
 }
 
 struct AnyIcon<Content: View>: View {
-    @ObservedObject var model:AnyIconModel
-    let upperRightView: () -> Content
+    @StateObject var model:AnyIconModel
     let config: IconConfig
-    let badgeSize = CGSize(width: 20, height: 20)
-    let emptyUpperRightView: Bool
     
     // If emptyUpperRightView is true, then upperRightView is ignored.
-    init(object: ServerObjectModel, config: IconConfig, emptyUpperRightView: Bool = false, @ViewBuilder upperRightView: @escaping () -> Content) {
-        model = AnyIconModel(object: object)
-        self.upperRightView = upperRightView
-        self.config = config
-        self.emptyUpperRightView = emptyUpperRightView
-    }
+    let emptyUpperRightView: Bool
+    
+    let upperRightView: () -> Content
+    let badgeSize = CGSize(width: 20, height: 20)
     
     var body: some View {
         ZStack {
@@ -75,6 +72,9 @@ struct AnyIcon<Content: View>: View {
         }
         .if(model.unreadCountBadgeText != nil) {
             $0.upperLeftBadge(model.unreadCountBadgeText!)
+        }
+        .if(model.newItem) {
+            $0.lowerLeftIcon("New")
         }
         .onAppear() {
             Downloader.session.objectAccessed(object: model.object)

@@ -9,21 +9,57 @@ import Foundation
 import iOSShared
 import SFSafeSymbols
 import SQLite
+import Combine
 
 class SortFilterMenuModel: ObservableObject {
     let sortFilterModel: SortFilterSettings?
     @Published var sortOrderChevron: SFSymbol = .chevronUp
-    @Published var showAllIcon: SFSymbol = .rectangle
-    @Published var showOnlyUnreadIcon: SFSymbol = .rectangle
     @Published var filtersEnabled: Bool = true
+    
+    @Published var sort: SortFilterSettings.SortBy = .creationDate {
+        didSet {
+            guard let model = sortFilterModel else {
+                return
+            }
+        
+            if sort == model.sortBy {
+                // There was no change in type of sort. Just toggle ascending/descending.
+                self.toggleSortOrder()
+            }
+            else {
+                self.select(sort: sort)
+            }
+        }
+    }
+    
+    @Published var filter: SortFilterSettings.DiscussionFilterBy = .none {
+        didSet {
+            guard let model = sortFilterModel else {
+                return
+            }
+            
+            guard model.discussionFilterBy != filter else {
+                return
+            }
+            
+            self.select(filter: filter)
+        }
+    }
     
     init(sortFilterModel: SortFilterSettings?) {
         self.sortFilterModel = sortFilterModel
-        setSortOrder()
-        setFilterIcons()
+        setSortOrderChevron()
         updateFiltersEnabled()
+        
+        guard let model = sortFilterModel else {
+            return
+        }
+        
+        // Initialize the published values without triggering them.
+        _filter = .init(initialValue: model.discussionFilterBy)
+        _sort = .init(initialValue: model.sortBy)
     }
-    
+
     func toggleSortOrder() {
         guard let model = sortFilterModel else {
             return
@@ -35,7 +71,21 @@ class SortFilterMenuModel: ObservableObject {
             model.sortByOrderAscending = update
             try model.update(setters: SortFilterSettings.sortByOrderAscendingField.description <- update)
             model.sortByOrderAscendingChanged.send(update)
-            setSortOrder()
+            setSortOrderChevron()
+        } catch let error {
+            logger.error("\(error)")
+        }
+    }
+
+    func select(sort: SortFilterSettings.SortBy) {
+        guard let model = sortFilterModel else {
+            return
+        }
+        
+        do {
+            model.sortBy = sort
+            try model.update(setters: SortFilterSettings.sortByField.description <- sort)
+            model.sortByChanged.send(sort)
         } catch let error {
             logger.error("\(error)")
         }
@@ -50,44 +100,17 @@ class SortFilterMenuModel: ObservableObject {
             model.discussionFilterBy = filter
             try model.update(setters: SortFilterSettings.discussionFilterByField.description <- filter)
             model.discussionFilterByChanged.send(filter)
-            setFilterIcons()
             updateFiltersEnabled()
         } catch let error {
             logger.error("\(error)")
         }
     }
     
-    private func setSortOrder() {
+    private func setSortOrderChevron() {
         guard let model = sortFilterModel else {
             return
         }
-        
         sortOrderChevron = model.sortByOrderAscending ? .chevronUp : .chevronDown
-    }
-    
-    private func setFilterIcons() {
-        guard let model = sortFilterModel else {
-            return
-        }
-        
-        func getIcon(filter: SortFilterSettings.DiscussionFilterBy) -> SFSymbol {
-            if model.discussionFilterBy == filter {
-                return .checkmarkRectangle
-            }
-            else {
-                return .rectangle
-            }
-        }
-        
-        for filterBy in SortFilterSettings.DiscussionFilterBy.allCases {
-            switch filterBy {
-            case .none:
-                showAllIcon = getIcon(filter: filterBy)
-                
-            case .onlyUnread:
-                showOnlyUnreadIcon = getIcon(filter: filterBy)
-            }
-        }
     }
     
     // If the screen isn't showing all media, I want a visual indication of that.

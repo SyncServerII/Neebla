@@ -169,8 +169,6 @@ class Services {
         db = try Connection(dbURL.path, additionalFlags: SQLITE_OPEN_FILEPROTECTION_NONE)
         // dbURL.enableAccessInBackground()
         try SetupDatabase.setup(db: db)
-        let migrationController = try Migration(db: db)
-        try migrationController.run(migrations: Migration.metadata(db: db))
         
         guard let path = Bundle.main.path(forResource: Self.plistServerConfig.0, ofType: Self.plistServerConfig.1) else {
             throw ServicesError.plistServerConfig
@@ -199,6 +197,10 @@ class Services {
         signIns.delegate = self
         
         serverInterface = try ServerInterface(signIns: signIns, serverURL: serverURL, appGroupIdentifier: applicationGroupIdentifier, urlSessionBackgroundIdentifier: urlSessionBackgroundIdentifier, cloudFolderName: cloudFolderName, failoverMessageURL: failoverMessageURL, currentUserId: userId, db: db)
+        
+        // Running these migrations *after* initializing ServerInterface, because some of them need iOSBasics/SyncServer access-- which is initialized there.
+        let migrationController = try Migration(db: db)
+        try migrationController.run(migrations: Migration.metadata(db: db), contentChanges: Migration.content(db: db, syncServer: syncServer))
 
         // This is used to form the URL-type links used for sharing.
         guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
