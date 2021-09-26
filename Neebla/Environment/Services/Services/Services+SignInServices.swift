@@ -6,11 +6,11 @@ import iOSBasics
 import iOSShared
 
 extension Services {
-    func setupSignInServices(configPlist: ConfigPlist, signIns: SignIns, bundleIdentifier: String, helper: SharingInvitationHelper) {
+    func setupSignInServices(configPlist: ConfigPlist, signIns: SignIns, bundleIdentifier: String, defaultCloudFolderName: String, helper: SharingInvitationHelper) {
     
         var signInDescriptions = [SignInDescription]()
 
-        let signInSetup = getSignIns(configPlist: configPlist)
+        let signInSetup = getSignIns(configPlist: configPlist, defaultCloudFolderName: defaultCloudFolderName)
         
         for signIn in signInSetup.signIns {
             signInDescriptions += [signIn.1]

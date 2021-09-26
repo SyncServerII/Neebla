@@ -110,7 +110,6 @@
 		8331F4C5256110520063A67D /* FileInfo+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C4256110520063A67D /* FileInfo+Extras.swift */; };
 		8331F4CE2561168B0063A67D /* ServerFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F46C2560BE8A0063A67D /* ServerFileModel.swift */; };
 		8331F4D92561B1D50063A67D /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4B32560F5B90063A67D /* ItemType.swift */; };
-		8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4DC2561EDA50063A67D /* Binding+Extras.swift */; };
 		8331F4E02561F8160063A67D /* ServerInterface+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AC8F0255B848300375084 /* ServerInterface+Helpers.swift */; };
 		8331F4E32561F9250063A67D /* FileInfo+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4C4256110520063A67D /* FileInfo+Extras.swift */; };
 		8331F4E72561FAEF0063A67D /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4E62561FAEF0063A67D /* ShareViewModel.swift */; };
@@ -155,6 +154,7 @@
 		8367503925E31FD6003957BE /* Requestablity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8367503425E31F0C003957BE /* Requestablity.swift */; };
 		8367503F25E320CE003957BE /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 8367503E25E320CE003957BE /* Hyperconnectivity */; };
 		8367504A25E326D7003957BE /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 8367504925E326D7003957BE /* Hyperconnectivity */; };
+		83756D6D26EEB80F00EAFCEC /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 83756D6C26EEB80F00EAFCEC /* SFSafeSymbols */; };
 		8377335826649217009852C3 /* DownloadIndicator+Arrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8377335726649217009852C3 /* DownloadIndicator+Arrays.swift */; };
 		8377335926649217009852C3 /* DownloadIndicator+Arrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8377335726649217009852C3 /* DownloadIndicator+Arrays.swift */; };
 		837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46B325D8D02100CAC322 /* CGSize+Extras.swift */; };
@@ -466,7 +466,6 @@
 		8331F4B92560F7300063A67D /* ImageObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageObjectType.swift; sourceTree = "<group>"; };
 		8331F4C02560FFC70063A67D /* SettingsScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenModel.swift; sourceTree = "<group>"; };
 		8331F4C4256110520063A67D /* FileInfo+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileInfo+Extras.swift"; sourceTree = "<group>"; };
-		8331F4DC2561EDA50063A67D /* Binding+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extras.swift"; sourceTree = "<group>"; };
 		8331F4E62561FAEF0063A67D /* ShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
 		8331F4F2256208320063A67D /* GenericImageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericImageIcon.swift; sourceTree = "<group>"; };
 		8331F517256220670063A67D /* GenericImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericImageModel.swift; sourceTree = "<group>"; };
@@ -628,6 +627,7 @@
 				83A2DF7925FC881E0072A557 /* Gifu in Frameworks */,
 				83F1E0DB25C5189800DA4A80 /* SMLinkPreview in Frameworks */,
 				83F1E0D125C5185200DA4A80 /* iOSFacebook in Frameworks */,
+				83756D6D26EEB80F00EAFCEC /* SFSafeSymbols in Frameworks */,
 				83DE99B726B5DE97002466D2 /* iOSSolid in Frameworks */,
 				8367504A25E326D7003957BE /* Hyperconnectivity in Frameworks */,
 				83F1E0EF25C518E100DA4A80 /* iOSGoogle in Frameworks */,
@@ -1013,7 +1013,6 @@
 			isa = PBXGroup;
 			children = (
 				83B1F0B5259ED81B006E00FF /* Mail */,
-				8331F4DC2561EDA50063A67D /* Binding+Extras.swift */,
 				8331F52F25623A170063A67D /* RefreshableScrollView.swift */,
 				8320A754256F530C00819377 /* SFSymbolIcon.swift */,
 				83BF80812585F9D3000E0B37 /* Icon.swift */,
@@ -1624,6 +1623,7 @@
 				8367504925E326D7003957BE /* Hyperconnectivity */,
 				83A2DF7825FC881E0072A557 /* Gifu */,
 				83DE99B626B5DE97002466D2 /* iOSSolid */,
+				83756D6C26EEB80F00EAFCEC /* SFSafeSymbols */,
 			);
 			productName = "Share Extension";
 			productReference = 8331F347255B8CC50063A67D /* Share Extension.appex */;
@@ -2052,7 +2052,6 @@
 				83B8B7F52638ED260006F9A5 /* DetectV1.swift in Sources */,
 				83C4365C258F2E3200F34628 /* ConfigPlist.swift in Sources */,
 				833E25C326D9CB3D00A00952 /* NewItemBadgeObserver.swift in Sources */,
-				8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */,
 				8377335826649217009852C3 /* DownloadIndicator+Arrays.swift in Sources */,
 				8308B724256B4B73007F0CEB /* ImageIcon.swift in Sources */,
 				83B0CB8325B4DB1200D53B58 /* SortFilterSettings.swift in Sources */,
@@ -2742,6 +2741,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8367503D25E320CE003957BE /* XCRemoteSwiftPackageReference "Hyperconnectivity" */;
 			productName = Hyperconnectivity;
+		};
+		83756D6C26EEB80F00EAFCEC /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 835AC8DB255B833A00375084 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
 		};
 		8385709225C3EDA800F872E3 /* iOSGoogle */ = {
 			isa = XCSwiftPackageProductDependency;

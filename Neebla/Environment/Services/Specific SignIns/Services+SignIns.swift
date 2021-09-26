@@ -22,7 +22,7 @@ extension Services {
     
     // Gets (GenericSignIn, SignInDescription) pairs for each sign in type.
     // Also sets up text that is used in an email when inviting others to an album.
-    func getSignIns(configPlist: ConfigPlist) -> SignInSetup {
+    func getSignIns(configPlist: ConfigPlist, defaultCloudFolderName: String) -> SignInSetup {
         var signIns = [(GenericSignIn, SignInDescription)]()
 
         // The `SignInDescription`'s get sorted by `signInName` before being presented in the sign-in UI, so the order they are added to `result` here doesn't really matter.
@@ -82,7 +82,7 @@ extension Services {
             signIns += [(appleSignIn, appleSignInDescription)]
         }
         
-        let solidConfig = SolidSignInConfig(redirectURI: "biz.SpasticMuffin.Neebla.solidSignIn:/config", clientName: "Neebla")
+        let solidConfig = SolidSignInConfig(redirectURI: "biz.SpasticMuffin.Neebla.solidSignIn:/config", clientName: "Neebla", defaultCloudFolderName: defaultCloudFolderName)
         let solidSignIn = SolidSignIn(config: solidConfig, delegate: self)
         if let solidSignInButton = solidSignIn.signInButton(configuration: nil) {
             let solidSignInDescription =

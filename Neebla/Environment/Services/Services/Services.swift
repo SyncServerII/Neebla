@@ -208,7 +208,7 @@ class Services {
             throw ServicesError.bundleIdentifier
         }
                 
-        setupSignInServices(configPlist: configPlist, signIns: signIns, bundleIdentifier: bundleIdentifier, helper: self)
+        setupSignInServices(configPlist: configPlist, signIns: signIns, bundleIdentifier: bundleIdentifier, defaultCloudFolderName: cloudFolderName, helper: self)
         
         var initialAppLaunch = true
         
