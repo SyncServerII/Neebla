@@ -196,40 +196,10 @@ struct AlbumsScreenAlbumList: View {
          */
         List {
             // The `ForEach` appears needed to use the `listRowBackground`-- See https://stackoverflow.com/questions/56517904
-            ForEach(viewModel.albums, id: \.sharingGroupUUID) { album in
+            // See https://stackoverflow.com/questions/65107436/swiftui-list-not-updating-after-data-change-needs-switching-the-view for the use of viewModel.albums.indices-- this was to get around an issue where the rows would not update after an album name change.
+            ForEach(viewModel.albums.indices, id: \.self) { index in
                 VStack {
-                    if viewModel.sharingMode {
-                        if album.permission.hasMinimumPermission(.admin) {
-                            Button(action: {
-                                viewModel.albumToShare = album
-                                viewModel.activeSheet = .albumSharing
-                                
-                                // So when we come back from album sharing, the screen isn't in sharing mode.
-                                viewModel.sharingMode = false
-                            }, label: {
-                                AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album))
-                            })
-                        }
-                        else {
-                            AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album))
-                        }
-                    }
-                    else {
-                        Button(action: {
-                        }, label: {
-                            AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album))
-                        })
-                    }
-                    
-                    // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
-                    // Some hurdles here to get rid of the disclosure button at end of row: https://stackoverflow.com/questions/56516333
-                    NavigationLink(destination:
-                        AlbumItemsScreen(album: album.sharingGroupUUID, albumName: album.albumName ?? AlbumModel.untitledAlbumName)) {
-                        EmptyView()
-                    }
-                    .frame(width: 0)
-                    .opacity(0)
-                    .enabled(!viewModel.sharingMode)
+                    Row(viewModel: viewModel, album: $viewModel.albums[index])
                 }
                 .listRowBackground(AlbumsScreen.background)
             }
@@ -238,6 +208,46 @@ struct AlbumsScreenAlbumList: View {
         .if(!UIDevice.isPad) {
             $0.padding(10)
         }
+    }
+}
+
+private struct Row: View {
+    @StateObject var viewModel:AlbumsViewModel
+    @Binding var album: AlbumModel
+
+    var body: some View {
+        if viewModel.sharingMode {
+            if album.permission.hasMinimumPermission(.admin) {
+                Button(action: {
+                    viewModel.albumToShare = album
+                    viewModel.activeSheet = .albumSharing
+                    
+                    // So when we come back from album sharing, the screen isn't in sharing mode.
+                    viewModel.sharingMode = false
+                }, label: {
+                    AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album), album: $album)
+                })
+            }
+            else {
+                AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album), album: $album)
+            }
+        }
+        else {
+            Button(action: {
+            }, label: {
+                AlbumsScreenRow(viewModel: viewModel, rowModel: AlbumScreenRowModel(album: album), album: $album)
+            })
+        }
+        
+        // The `NavigationLink` works here because the `MenuNavBar` contains a `NavigationView`.
+        // Some hurdles here to get rid of the disclosure button at end of row: https://stackoverflow.com/questions/56516333
+        NavigationLink(destination:
+            AlbumItemsScreen(album: album.sharingGroupUUID, albumName: album.albumName ?? AlbumModel.untitledAlbumName)) {
+            EmptyView()
+        }
+        .frame(width: 0)
+        .opacity(0)
+        .enabled(!viewModel.sharingMode)
     }
 }
 

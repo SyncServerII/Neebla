@@ -6,7 +6,7 @@ import iOSShared
 import iOSBasics
 import ChangeResolvers
 
-class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable {
+class AlbumModel: DatabaseModel, ObservableObject, Equatable, Hashable, Identifiable {
     enum AlbumModelError: Error {
         case noSharingGroupUUID
         case noObject

@@ -14,12 +14,13 @@ import iOSShared
 struct AlbumsScreenRow: View {
     @StateObject var viewModel:AlbumsViewModel
     @StateObject var rowModel:AlbumScreenRowModel
+    @Binding var album: AlbumModel
     @Environment(\.colorScheme) var colorScheme
     @StateObject var signInManager = Services.session.signInServices.manager
     
     var body: some View {
         HStack {
-            if let albumName = rowModel.album.albumName {
+            if let albumName = album.albumName {
                 Text(albumName)
             }
             else {
@@ -45,7 +46,7 @@ struct AlbumsScreenRow: View {
             }
             
             // To change an album name and to share an album, you must have .admin permissions.
-            if rowModel.album.permission.hasMinimumPermission(.admin) {
+            if album.permission.hasMinimumPermission(.admin) {
                 if viewModel.sharingMode {
                     Icon(imageName:
                         Images.shareIcon(lightMode:colorScheme == .light),
@@ -53,7 +54,7 @@ struct AlbumsScreenRow: View {
                 }
                 else {
                     Button(action: {
-                        viewModel.startChangeExistingAlbumName(sharingGroupUUID: rowModel.album.sharingGroupUUID, currentAlbumName: rowModel.album.albumName)
+                        viewModel.startChangeExistingAlbumName(sharingGroupUUID: album.sharingGroupUUID, currentAlbumName: album.albumName)
                     }, label: {
                         Image(systemName: SFSymbol.pencil.rawValue)
                     }).buttonStyle(PlainButtonStyle())
