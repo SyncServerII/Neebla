@@ -27,6 +27,7 @@ Version 2.0.9 (TestFlight Builds: 20210828.0, 20210830.0, 20210902.0, 20210904.0
 		See https://github.com/SyncServerII/Neebla/issues/27
 	* Getting rid of AlbumModel redundancy across AlbumScreenRow and AlbumScreenRowModel
 		- Because the download indicator on the album screen wasn't getting updated properly.
+	* Fixed issue with sharing extension not working with Quora
 
 Version 2.0.8 (TestFlight Builds: 20210802.0, 20210808.0, 20210808.1, 20210808.2,
 								20210809.0, 20210809.1, 20210810.0, 20210810.1,

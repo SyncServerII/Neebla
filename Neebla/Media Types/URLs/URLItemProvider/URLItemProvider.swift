@@ -95,6 +95,9 @@ class URLItemProvider: SXItemProvider {
         return support
     }
 
+    // See also https://stackoverflow.com/questions/42503727/nsdictionary-loading-binary-plist-on-linux-swift for binary plist format.
+    // And see https://gist.github.com/ngbaanh/7c437d99bea75161a59f5af25be99de4
+    // For Quora, sometimes this method fails despite `plainTextUTI` apparently being in the item. I have re-written the way the sharing extensions calls the providers to work around this.
     private static func getMediaAssetsForBinaryPlist(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
 
         guard let generator = try? URLPreviewGenerator() else {
@@ -117,7 +120,7 @@ class URLItemProvider: SXItemProvider {
                 completion(.failure(URLItemProviderError.cannotGetPlainTextURL("No data")))
                 return
             }
-            
+
             let string = String(data: data, encoding: .utf8)
             logger.debug("plainTextUTI: string: \(String(describing: string))")
             

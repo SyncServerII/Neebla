@@ -168,8 +168,8 @@
         "repositoryURL": "https://github.com/nathantannar4/InputBarAccessoryView",
         "state": {
           "branch": null,
-          "revision": "f5e21ad31f7e747ae08eae91b6fc6d2348bb750d",
-          "version": "5.3.1"
+          "revision": "6d3d205f29b80f8fa9a9616ad801c488293242bf",
+          "version": "5.4.0"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSBasics.git",
         "state": {
           "branch": null,
-          "revision": "639099bcf57d42e2d72bb29ea3537682294a4745",
-          "version": "0.32.1"
+          "revision": "ae7b7fe931d90c017921614a333781cf64f45eec",
+          "version": "0.32.2"
         }
       },
       {
@@ -222,8 +222,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "5c96850acd62d4bfe589da96a7c2cadab8d4093b",
-          "version": "0.17.0"
+          "revision": "1795da58d2cde2e92710e9ca9f514b7d5e1d54ea",
+          "version": "0.17.1"
         }
       },
       {
@@ -231,8 +231,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSSIgnIn.git",
         "state": {
           "branch": null,
-          "revision": "fc4cd030e21f224c4bab721ceaedef984dc82b4c",
-          "version": "0.5.0"
+          "revision": "6219dc141c4bc8aeeddd71fd40be4062cd678634",
+          "version": "0.5.1"
         }
       },
       {
@@ -321,8 +321,8 @@
         "repositoryURL": "https://github.com/MessageKit/MessageKit",
         "state": {
           "branch": null,
-          "revision": "7ec2a9680af3af0eee06d503362f48ef79374db1",
-          "version": "3.6.1"
+          "revision": "771ffe946acc495a79a122ded921f3460686ee04",
+          "version": "3.7.0"
         }
       },
       {
@@ -375,8 +375,8 @@
         "repositoryURL": "https://github.com/SyncServerII/ServerShared.git",
         "state": {
           "branch": null,
-          "revision": "ccbda5590e84d8a1626a316902ce46a88bf0c1a3",
-          "version": "0.14.0"
+          "revision": "44fb423bac86c9c32ff0febdbb95cefe039bf75f",
+          "version": "0.14.1"
         }
       },
       {

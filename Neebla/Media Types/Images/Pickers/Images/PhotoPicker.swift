@@ -93,38 +93,30 @@ struct PhotoPicker: UIViewControllerRepresentable {
         // TODO: Not reporting errors properly from this. I tried putting an .alert on this picker, but didn't get that working.
         // See https://docs.google.com/document/d/190FBElJHbzCqvI9-pZGuHOg4jC2gbMh3lB6INCaiQcs/edit#bookmark=id.m29y98rl7vw8
         func addImage(result: PHPickerResult) {
-            do {
-                try itemProviderFactory.create(using: result.itemProvider) { [weak self] result in
-                    guard let self = self else { return }
-                    
-                    switch result {
-                    case .success(let itemProvider):
-                        logger.debug("liveImage: pickedImage: \(itemProvider)")
-                        DispatchQueue.main.async {
-                            self.parent.completion(.success(itemProvider.assets))
-                            self.parent.isPresented.wrappedValue.dismiss()
-                        }
-                        
-                    case .failure(let error):
-                        logger.error("error: \(error)")
-                        if let displayableError = error as? UserDisplayable,
-                            let displayable = displayableError.userDisplayableMessage {
-                            self.parent.showError(title: displayable.title, message: displayable.message)
-                        }
-                        else {
-                            self.parent.showError(title: "Alert!", message: "Could not add that image.")
-                        }
-                        
-                        DispatchQueue.main.async {
-                            self.parent.completion(.failure(error))
-                        }
+            itemProviderFactory.create(using: [result.itemProvider]) { [weak self] result in
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let itemProvider):
+                    logger.debug("liveImage: pickedImage: \(itemProvider)")
+                    DispatchQueue.main.async {
+                        self.parent.completion(.success(itemProvider.assets))
+                        self.parent.isPresented.wrappedValue.dismiss()
                     }
-                }
-            } catch let error {
-                parent.showError(title: "Alert!", message: "Could not add that image.")
-                logger.error("error: \(error)")
-                DispatchQueue.main.async {
-                    self.parent.completion(.failure(error))
+                    
+                case .failure(let error):
+                    logger.error("error: \(error)")
+                    if let displayableError = error as? UserDisplayable,
+                        let displayable = displayableError.userDisplayableMessage {
+                        self.parent.showError(title: displayable.title, message: displayable.message)
+                    }
+                    else {
+                        self.parent.showError(title: "Alert!", message: "Could not add that image.")
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.parent.completion(.failure(error))
+                    }
                 }
             }
         }

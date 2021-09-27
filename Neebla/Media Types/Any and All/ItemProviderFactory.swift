@@ -11,7 +11,7 @@ class ItemProviderFactory {
     var handle: Any?
     
     enum ItemProviderFactoryError: Error {
-        case noMatchingTypeIdentifiers
+        case couldNotHandleItem
         case couldNotGetURL
     }
     
@@ -25,15 +25,40 @@ class ItemProviderFactory {
         GIFItemProvider.self
     ]
     
-    func create(using attachment: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>)->()) throws {
+    func create(using attachments: [NSItemProvider], completion: @escaping (Result<SXItemProvider, Error>)->()) {
+        
+        // `canHandle` can have false positives. May have to try more than one.
+        let dispatchGroup = DispatchGroup()
+        var success = false
         
         for provider in Self.providers {
-            if provider.canHandle(item: attachment) {
-                handle = provider.create(item: attachment, completion: completion)
-                return
+            for attachment in attachments {
+                if provider.canHandle(item: attachment) {
+                    dispatchGroup.enter()
+                    
+                    handle = provider.create(item: attachment) { result in
+                        dispatchGroup.leave()
+                        
+                        switch result {
+                        case .success(let provider):
+                            success = true
+                            completion(.success(provider))
+                            return
+                            
+                        case .failure:
+                            // Continue in loop
+                            break
+                        }
+                    }
+                }
             }
         }
         
-        throw ItemProviderFactoryError.noMatchingTypeIdentifiers
+        dispatchGroup.notify(queue: .main) {
+            guard success else {
+                completion(.failure(ItemProviderFactoryError.couldNotHandleItem))
+                return
+            }
+        }
     }
 }
