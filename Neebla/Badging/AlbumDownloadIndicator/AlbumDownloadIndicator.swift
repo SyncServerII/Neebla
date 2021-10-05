@@ -33,7 +33,12 @@ class AlbumDownloadIndicator {
                     
                     if self.delegate.albumNeedsDownload != album.needsDownload {
                         self.album.needsDownload = album.needsDownload
-                        self.delegate.albumNeedsDownload = album.needsDownload
+                        
+                        // Needs to be on main queue-- updates UI.
+                        DispatchQueue.main.async {
+                            self.delegate.albumNeedsDownload = album.needsDownload
+                            logger.debug("self.delegate.albumNeedsDownload: \(self.delegate.albumNeedsDownload)")
+                        }
                     }
                 }
             } catch let error {
