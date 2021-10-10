@@ -1,5 +1,10 @@
 Neebla
 
+Version 2.0.10
+	* Another attempt to fix download indicators
+		- They don't get updated always after you enter an album and come back
+		to the list of albums.
+
 Version 2.0.9 (TestFlight Builds: 20210828.0, 20210830.0, 20210902.0, 20210904.0,
 								20210926.0, 20211004.0)
 	* Adding new sorting/filter options

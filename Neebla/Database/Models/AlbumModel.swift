@@ -243,21 +243,12 @@ extension AlbumModel {
     }
     
     // Use this when receiving a `needsDownloadUpdate` notification.
-    // If the sharingGroupUUID of the received notification doesn't match that given in the expectingSharingGroupUUID, nil is returned.
-    static func getAlbumModel(db: Connection, from notification: Notification, expectingSharingGroupUUID: UUID) throws -> AlbumModel? {
+    static func getSharingGroupUUID(db: Connection, from notification: Notification) throws -> UUID {
         guard let sharingGroupUUID = notification.userInfo?[sharingGroupUUIDField.fieldName] as? UUID else {
             throw AlbumModelError.noSharingGroupUUID
         }
         
-        guard expectingSharingGroupUUID == sharingGroupUUID else {
-            return nil
-        }
-        
-        guard let albumModel = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == sharingGroupUUID) else {
-            throw AlbumModelError.noObject
-        }
-        
-        return albumModel
+        return sharingGroupUUID
     }
     
     // Don't use this for general filtering. Intended only for an exact match.
