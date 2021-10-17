@@ -192,24 +192,19 @@ extension ShareViewController {
     }
 
     enum HandleSharedFileError: Error {
-        case notJustOneFile
+        case noFiles
     }
 
     func getSharedFile(completion: @escaping (Result<SXItemProvider, Error>)->()) {
         let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
         
-        guard attachments.count == 1 else {
-            completion(.failure(HandleSharedFileError.notJustOneFile))
+        // As of 9/26/21, coincident with iOS 15, I'm finding that Quora will sometimes give the sharing extension > 1 item. I used to have a check here for exactly one attachment, but that's no longer appropriate.
+        guard attachments.count > 0 else {
+            completion(.failure(HandleSharedFileError.noFiles))
             return
         }
 
-        do {
-            try itemProviderFactory.create(using: attachments[0]) { result in
-                completion(result)
-            }
-        } catch let error {
-            completion(.failure(error))
-        }
+        itemProviderFactory.create(using: attachments, completion: completion)
     }
 }
 
