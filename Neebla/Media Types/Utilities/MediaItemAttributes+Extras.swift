@@ -12,13 +12,28 @@ import iOSShared
 import SQLite
 
 extension MediaItemAttributes {
+    private enum MediaTypesError: Error {
+        case cannotGetUserId
+    }
+    
     static var declaration:FileDeclaration { FileDeclaration(fileLabel: FileLabels.mediaItemAttributes, mimeTypes: [.text], changeResolverName: MediaItemAttributes.changeResolverName)
     }
     
     // This for a new MediaItemsAttributes file.
     // Also returns the new `ServerFileModel` locally representing the `MediaItemAttributes`
+    // Sets the `notNew` property of the `MediaItemsAttributes` file for this user because this is the creating user-- the media item is not new to them because they just created it.
     static func createUpload(fileUUID: UUID, fileGroupUUID: UUID) throws -> (FileUpload, ServerFileModel) {
-        let data = try MediaItemAttributes.emptyFile()
+        var data = try MediaItemAttributes.emptyFile()
+        let mia = try MediaItemAttributes(with: data)
+        
+        guard let userId = Services.session.userId else {
+            throw MediaTypesError.cannotGetUserId
+        }
+        
+        let keyValue = KeyValue.notNew(userId: "\(userId)", used: true)
+        try mia.add(keyValue: keyValue)
+        data = try mia.getData()
+        
         let url = try ItemTypeFiles.createNewMediaItemAttributesFile()
         try data.write(to: url)
 

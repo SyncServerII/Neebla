@@ -49,7 +49,7 @@ extension ObjectDownloadHandler {
             }
         
         default:
-            logger.debug("Could not get badge from media item attributess file")
+            logger.debug("Could not get badge from media item attributes file")
         }
         
         let notNew = mia.get(type: .notNew, key: "\(userId)")

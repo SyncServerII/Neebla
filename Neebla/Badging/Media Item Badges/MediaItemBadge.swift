@@ -11,6 +11,7 @@ import Foundation
 enum MediaItemBadge: String, CaseIterable, Codable {
     case favorite
     case hide
+    case watch
     case none
 }
 
@@ -21,6 +22,8 @@ extension MediaItemBadge {
             return "Favorite"
         case .hide:
             return "Hide"
+        case .watch:
+            return "Watch"
         case .none:
             return "No Badge"
         }
@@ -34,8 +37,27 @@ extension MediaItemBadge {
         case .favorite:
             return "Favorite"
             
+        case .watch:
+            return "Watch"
+            
         case .none:
             return nil
+        }
+    }
+    
+    var showIfOtherUserBadge: Bool {
+        switch self {
+        case .hide:
+            return true
+            
+        case .favorite:
+            return true
+            
+        case .watch:
+            return false
+        
+        case .none:
+            return false
         }
     }
 }

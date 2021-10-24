@@ -1,9 +1,15 @@
 Neebla
 
-Version 2.0.10
+Version 2.0.10 (20211023.0, 20211023.1)
 	* Another attempt to fix download indicators
 		- They don't get updated always after you enter an album and come back
 		to the list of albums.
+	* Added "Watch" badge-- so you can mark a media item as something you want to
+		come back later and look at. Others can't see that you've marked it as "Watch".
+	* Added a fix for the .notNew media item attribute. Up until this point when a user
+		first added an item, the item was not being set as not new *for them*.
+		(So, if they used a different device, with the same account the item was marked
+		as "not new" for them.)
 
 Version 2.0.9 (TestFlight Builds: 20210828.0, 20210830.0, 20210902.0, 20210904.0,
 								20210926.0, 20211004.0)

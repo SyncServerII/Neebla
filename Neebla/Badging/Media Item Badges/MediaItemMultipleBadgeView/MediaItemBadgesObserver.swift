@@ -107,6 +107,10 @@ class MediaItemBadgesObserver {
                 continue
             }
             
+            if !otherUserBadge.showIfOtherUserBadge {
+                continue
+            }
+            
             logger.debug("otherUserId: \(otherUserId); badge: \(otherUserBadge)")
 
             let userBadge = Badges.UserBadge(userId: otherUserId, badge: otherUserBadge)
