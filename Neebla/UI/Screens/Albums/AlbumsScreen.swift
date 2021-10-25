@@ -204,9 +204,11 @@ struct AlbumsScreenAlbumList: View {
                 .listRowBackground(AlbumsScreen.background)
             }
         }
+        .listStyle(PlainListStyle())
         .cornerRadius(5, antialiased: true)
         .if(!UIDevice.isPad) {
-            $0.padding(10)
+            $0.padding([.top, .bottom], 10)
+              .padding([.leading, .trailing], 5)
         }
     }
 }

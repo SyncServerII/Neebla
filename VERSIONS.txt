@@ -10,6 +10,7 @@ Version 2.0.10 (20211023.0, 20211023.1)
 		first added an item, the item was not being set as not new *for them*.
 		(So, if they used a different device, with the same account the item was marked
 		as "not new" for them.)
+	* Fixed iOS 15 issues with Album screen.
 
 Version 2.0.9 (TestFlight Builds: 20210828.0, 20210830.0, 20210902.0, 20210904.0,
 								20210926.0, 20211004.0)
