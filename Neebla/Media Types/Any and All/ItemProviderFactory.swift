@@ -29,7 +29,7 @@ class ItemProviderFactory {
     
     func create(using attachments: [NSItemProvider], completion: @escaping (Result<SXItemProvider, Error>)->()) {
     
-        // 10/27/21; This is ugly. It is serializing the calls to the different `provider.create` methods. I thought I had this working before with DispatchGroup, but really it did it all in parallel! Not what I wanted. Maybe change to using the new Swift `await` primitive (iOS 15 only I think)?
+        // 10/27/21; This is ugly. It is serializing the calls to the different `provider.create` methods. I thought I had this working before with DispatchGroup, but really it did it all in parallel! Not what I wanted. Maybe change to using the new Swift `await` primitive (iOS 15 only I think)? The current solution is based off https://betterprogramming.pub/synchronizing-async-code-with-dispatchgroup-dispatchsemaphore-de814e485e82
         
         // `canHandle` can have false positives. May have to try more than one.
         var success = false
