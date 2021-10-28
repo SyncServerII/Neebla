@@ -19,8 +19,8 @@ struct CameraMediaPicker: MediaPicker {
 
     var mediaPicker: AnyView {
         AnyView(
-            CameraPickerView() { imageAsset in
-                itemPicked(imageAsset)
+            CameraPickerView() { assets in
+                itemPicked(assets)
             }
         )
     }

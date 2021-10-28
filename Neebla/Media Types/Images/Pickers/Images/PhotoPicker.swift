@@ -16,8 +16,6 @@ import iOSShared
 
 // https://github.com/timonus/UIImageHEIC
 
-#warning("TODO: Need to either filter as to not allow PNG's or include public.png in my still image processing. I just got a failure on an image selection due to this.")
-
 enum PhotoPickerError: Error {
     case failedCreatingURL
     case couldNotGetImage
@@ -29,7 +27,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
     
     var configuration: PHPickerConfiguration {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-        config.filter = .any(of: [.livePhotos, .images])
+        config.filter = .any(of: [.livePhotos, .images, .videos])
         config.selectionLimit = 1
         
         return config
@@ -81,7 +79,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
             
             logger.debug("results: \(results)")
             
-            let alert = UIAlertController(title: "Add image?", message: "Is this the image you want to add to album?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Add media?", message: "Is this the media you want to add to the album?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
                 self.addImage(result: results[0])
             }))
@@ -111,7 +109,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
                         self.parent.showError(title: displayable.title, message: displayable.message)
                     }
                     else {
-                        self.parent.showError(title: "Alert!", message: "Could not add that image.")
+                        self.parent.showError(title: "Alert!", message: "Could not add that media.")
                     }
                     
                     DispatchQueue.main.async {

@@ -91,41 +91,50 @@ class ImageItemProvider: SXItemProvider {
                 return
             }
             
-            guard image.size.isOK() else {
-                completion(.failure(SXItemProviderError.badSize))
-                return
-            }
+            completion(getMediaAsset(from: image))
+        }
+    }
+    
+    static func create(from content: ItemProviderContent) -> Result<UploadableMediaAssets, Error>? {
+        guard case .image(let image) = content else {
+            return nil
+        }
+        
+        return getMediaAsset(from: image)
+    }
+    
+    static func getMediaAsset(from image: UIImage) -> Result<UploadableMediaAssets, Error> {
 
-            guard let jpegQuality = try? SettingsModel.jpegQuality(db: Services.session.db) else {
-                logger.error("Could not get settings.")
-                completion(.failure(ImageItemProviderError.couldNotGetSettings))
-                return
-            }
-            
-            guard let jpegData = image.jpegData(compressionQuality: jpegQuality) else {
-                completion(.failure(ImageItemProviderError.couldNotConvertToJPEG))
-                return
-            }
+        guard image.size.isOK() else {
+            return .failure(SXItemProviderError.badSize)
+        }
 
-            let tempDir = Files.getDocumentsDirectory().appendingPathComponent(LocalFiles.temporary)
-            let tempImageFile: URL
-            do {
-                tempImageFile = try Files.createTemporary(withPrefix: "temp", andExtension: MimeType.jpeg.fileNameExtension, inDirectory: tempDir, create: false)
-                try jpegData.write(to: tempImageFile)
-            } catch let error {
-                logger.error("Could not create new file for image: \(error)")
-                completion(.failure(ImageItemProviderError.cannotGetImage))
-                return
-            }
-            
-            do {
-                let assets = try ImageObjectTypeAssets(mimeType: MimeType.jpeg, imageURL: tempImageFile)
-                completion(.success(assets))
-            }
-            catch let error {
-                logger.error("\(error)")
-                completion(.failure(ImageItemProviderError.cannotGetImage))
-            }
+        guard let jpegQuality = try? SettingsModel.jpegQuality(db: Services.session.db) else {
+            logger.error("Could not get settings.")
+            return .failure(ImageItemProviderError.couldNotGetSettings)
+        }
+        
+        guard let jpegData = image.jpegData(compressionQuality: jpegQuality) else {
+            return .failure(ImageItemProviderError.couldNotConvertToJPEG)
+        }
+
+        let tempDir = Files.getDocumentsDirectory().appendingPathComponent(LocalFiles.temporary)
+        let tempImageFile: URL
+        do {
+            tempImageFile = try Files.createTemporary(withPrefix: "temp", andExtension: MimeType.jpeg.fileNameExtension, inDirectory: tempDir, create: false)
+            try jpegData.write(to: tempImageFile)
+        } catch let error {
+            logger.error("Could not create new file for image: \(error)")
+            return .failure(ImageItemProviderError.cannotGetImage)
+        }
+        
+        do {
+            let assets = try ImageObjectTypeAssets(mimeType: MimeType.jpeg, imageURL: tempImageFile)
+            return .success(assets)
+        }
+        catch let error {
+            logger.error("\(error)")
+            return .failure(ImageItemProviderError.cannotGetImage)
         }
     }
     

@@ -28,6 +28,11 @@ struct AnyLargeMediaMain: View {
             GIFLargeMedia(object: object, tapOnLargeMedia: {
                 tapOnLargeMedia()
             })
+            
+        case MovieObjectType.objectType:
+            MovieLargeMedia(object: object) {
+                tapOnLargeMedia()
+            }
                 
         default:
             EmptyView()

@@ -89,6 +89,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>to take photos to store in your cloud storage.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>to take videos to store in your cloud storage.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>to save a copy of your image from your album.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

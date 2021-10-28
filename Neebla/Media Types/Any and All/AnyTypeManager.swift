@@ -16,7 +16,8 @@ class AnyTypeManager {
         ImageObjectType(),
         URLObjectType(),
         LiveImageObjectType(),
-        GIFObjectType()
+        GIFObjectType(),
+        MovieObjectType()
     ]
     
     // Call this at app launch, only once.

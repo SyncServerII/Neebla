@@ -157,6 +157,15 @@
 		8367504A25E326D7003957BE /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 8367504925E326D7003957BE /* Hyperconnectivity */; };
 		8377335826649217009852C3 /* DownloadIndicator+Arrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8377335726649217009852C3 /* DownloadIndicator+Arrays.swift */; };
 		8377335926649217009852C3 /* DownloadIndicator+Arrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8377335726649217009852C3 /* DownloadIndicator+Arrays.swift */; };
+		83776D95272671A5006E44D3 /* MovieObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83776D94272671A5006E44D3 /* MovieObjectType.swift */; };
+		83776D972726734D006E44D3 /* MovieObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83776D962726734D006E44D3 /* MovieObjectType+Uploadable.swift */; };
+		83776D992727A7BC006E44D3 /* MovieItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83776D982727A7BC006E44D3 /* MovieItemProvider.swift */; };
+		83776D9A2727AE4C006E44D3 /* MovieObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83776D94272671A5006E44D3 /* MovieObjectType.swift */; };
+		83776D9B2727AE52006E44D3 /* MovieObjectType+Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83776D962726734D006E44D3 /* MovieObjectType+Uploadable.swift */; };
+		83776D9C2727AE56006E44D3 /* MovieItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83776D982727A7BC006E44D3 /* MovieItemProvider.swift */; };
+		83776D9E2728E696006E44D3 /* MovieIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83776D9D2728E696006E44D3 /* MovieIcon.swift */; };
+		83776DA02728E901006E44D3 /* MovieLargeMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83776D9F2728E901006E44D3 /* MovieLargeMedia.swift */; };
+		83776DA32728E973006E44D3 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83776DA22728E973006E44D3 /* MovieViewModel.swift */; };
 		837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46B325D8D02100CAC322 /* CGSize+Extras.swift */; };
 		837A46D225D8D30E00CAC322 /* PriorityQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46D125D8D30E00CAC322 /* PriorityQueueTests.swift */; };
 		837A46D725D8D40D00CAC322 /* MediaTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A46D625D8D40D00CAC322 /* MediaTypeTests.swift */; };
@@ -499,6 +508,12 @@
 		835AC8F1255B848300375084 /* ServerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInterface.swift; sourceTree = "<group>"; };
 		8367503425E31F0C003957BE /* Requestablity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestablity.swift; sourceTree = "<group>"; };
 		8377335726649217009852C3 /* DownloadIndicator+Arrays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadIndicator+Arrays.swift"; sourceTree = "<group>"; };
+		83776D94272671A5006E44D3 /* MovieObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieObjectType.swift; sourceTree = "<group>"; };
+		83776D962726734D006E44D3 /* MovieObjectType+Uploadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieObjectType+Uploadable.swift"; sourceTree = "<group>"; };
+		83776D982727A7BC006E44D3 /* MovieItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieItemProvider.swift; sourceTree = "<group>"; };
+		83776D9D2728E696006E44D3 /* MovieIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieIcon.swift; sourceTree = "<group>"; };
+		83776D9F2728E901006E44D3 /* MovieLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieLargeMedia.swift; sourceTree = "<group>"; };
+		83776DA22728E973006E44D3 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		837A46B325D8D02100CAC322 /* CGSize+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extras.swift"; sourceTree = "<group>"; };
 		837A46C425D8D2DA00CAC322 /* NeeblaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeeblaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		837A46C825D8D2DB00CAC322 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -796,6 +811,7 @@
 				8308B714256B4983007F0CEB /* Utilities */,
 				83E7B2D7257CA7BD008EE363 /* Images */,
 				8320A75E256F56F700819377 /* URLs */,
+				83776D9227267097006E44D3 /* Movies */,
 				8320A75F256F571000819377 /* Any and All */,
 			);
 			path = "Media Types";
@@ -1188,6 +1204,43 @@
 				83A2EA7026670750009F0240 /* DownloadIndicator.swift */,
 			);
 			path = AlbumDownloadIndicator;
+			sourceTree = "<group>";
+		};
+		83776D9227267097006E44D3 /* Movies */ = {
+			isa = PBXGroup;
+			children = (
+				83776D9327267166006E44D3 /* MovieObjectType */,
+				83776D982727A7BC006E44D3 /* MovieItemProvider.swift */,
+				83776D9D2728E696006E44D3 /* MovieIcon.swift */,
+				83776DA12728E91A006E44D3 /* MovieLargeMedia */,
+				83776DA42728FC8C006E44D3 /* Movie Picker */,
+			);
+			path = Movies;
+			sourceTree = "<group>";
+		};
+		83776D9327267166006E44D3 /* MovieObjectType */ = {
+			isa = PBXGroup;
+			children = (
+				83776D94272671A5006E44D3 /* MovieObjectType.swift */,
+				83776D962726734D006E44D3 /* MovieObjectType+Uploadable.swift */,
+			);
+			path = MovieObjectType;
+			sourceTree = "<group>";
+		};
+		83776DA12728E91A006E44D3 /* MovieLargeMedia */ = {
+			isa = PBXGroup;
+			children = (
+				83776D9F2728E901006E44D3 /* MovieLargeMedia.swift */,
+				83776DA22728E973006E44D3 /* MovieViewModel.swift */,
+			);
+			path = MovieLargeMedia;
+			sourceTree = "<group>";
+		};
+		83776DA42728FC8C006E44D3 /* Movie Picker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Movie Picker";
 			sourceTree = "<group>";
 		};
 		837A46C525D8D2DB00CAC322 /* NeeblaTests */ = {
@@ -1910,6 +1963,7 @@
 				8331F364255B8DD10063A67D /* ButtonBar.swift in Sources */,
 				83F41682259C20D5003C7200 /* UIDevice+Extras.swift in Sources */,
 				83BF7CCA258575F3000E0B37 /* URLObjectType+Uploadable.swift in Sources */,
+				83776D9C2727AE56006E44D3 /* MovieItemProvider.swift in Sources */,
 				83C7348425986F970073788A /* ImageIcon.swift in Sources */,
 				8322303B25CD0AA5006FC3EC /* View+Extras.swift in Sources */,
 				8331F4E32561F9250063A67D /* FileInfo+Extras.swift in Sources */,
@@ -1923,6 +1977,7 @@
 				83D8CC2B25BA89660069E3E5 /* LowerRightText.swift in Sources */,
 				83F416CF259E7D4E003C7200 /* Services+SignInServicesHelper.swift in Sources */,
 				83C7345E25986DBE0073788A /* SXItemProvider.swift in Sources */,
+				83776D9B2727AE52006E44D3 /* MovieObjectType+Uploadable.swift in Sources */,
 				83E0A10E267D308A005A77CF /* CommentFile+Extras.swift in Sources */,
 				8331F4E72561FAEF0063A67D /* ShareViewModel.swift in Sources */,
 				839F1E3326006E3F0089C13F /* AppState.swift in Sources */,
@@ -1941,6 +1996,7 @@
 				83A2DF7D25FC88A20072A557 /* GIFIcon.swift in Sources */,
 				83BF7CA6258543B4000E0B37 /* Comments+Keys.swift in Sources */,
 				8309908026798F4800015EC4 /* ObjectDownloadHandler+MediaItemBadges.swift in Sources */,
+				83776D9A2727AE4C006E44D3 /* MovieObjectType.swift in Sources */,
 				8367503925E31FD6003957BE /* Requestablity.swift in Sources */,
 				83A2EA722667076E009F0240 /* DownloadIndicator.swift in Sources */,
 				83F416BA259D83B7003C7200 /* MediaTypeActivityItems.swift in Sources */,
@@ -1995,6 +2051,7 @@
 				83152B1225FB2D3600A5439F /* ZoomableScrollView.swift in Sources */,
 				83A2EA7126670750009F0240 /* DownloadIndicator.swift in Sources */,
 				8341DAD526A4D0FF00E49F65 /* ServerFileModel+Comments.swift in Sources */,
+				83776D9E2728E696006E44D3 /* MovieIcon.swift in Sources */,
 				8309907926788DB200015EC4 /* ObjectDetailsScreenNavButtons.swift in Sources */,
 				8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */,
 				833E25C026D897CA00A00952 /* LowerLeftIcon.swift in Sources */,
@@ -2015,6 +2072,7 @@
 				83B0C79925B29B1500D53B58 /* PushNotificationMessage.swift in Sources */,
 				8331F4852560D7100063A67D /* AnyPicker.swift in Sources */,
 				8320A73C256E170900819377 /* MessagesView.swift in Sources */,
+				83776DA32728E973006E44D3 /* MovieViewModel.swift in Sources */,
 				83F49B6E26070F6B00814A2A /* BoundedCancel.swift in Sources */,
 				83BF7824257DCFBD000E0B37 /* URLObjectType+Uploadable.swift in Sources */,
 				83BF7C7A25846A46000E0B37 /* LiveImageView.swift in Sources */,
@@ -2046,6 +2104,7 @@
 				8331F4BA2560F7300063A67D /* ImageObjectType.swift in Sources */,
 				8320A6FA256CC64700819377 /* URLLargeMedia.swift in Sources */,
 				83B8B7F52638ED260006F9A5 /* DetectV1.swift in Sources */,
+				83776DA02728E901006E44D3 /* MovieLargeMedia.swift in Sources */,
 				83C4365C258F2E3200F34628 /* ConfigPlist.swift in Sources */,
 				833E25C326D9CB3D00A00952 /* NewItemBadgeObserver.swift in Sources */,
 				8331F4DD2561EDA50063A67D /* Binding+Extras.swift in Sources */,
@@ -2085,6 +2144,7 @@
 				837A46B425D8D02100CAC322 /* CGSize+Extras.swift in Sources */,
 				83F41687259C21EC003C7200 /* View+iPad.swift in Sources */,
 				8320A6EC256CB56800819377 /* AnyLargeMedia.swift in Sources */,
+				83776D972726734D006E44D3 /* MovieObjectType+Uploadable.swift in Sources */,
 				83B0CB7225B3FDBE00D53B58 /* SortFilterMenu.swift in Sources */,
 				83C7352425992CAD0073788A /* ItemProviderFactory.swift in Sources */,
 				8331F47E2560CE540063A67D /* AnyTypeManager.swift in Sources */,
@@ -2131,6 +2191,7 @@
 				83BF7CE42585B915000E0B37 /* AlbumSharingScreen.swift in Sources */,
 				834B259E258C5FC900F653BC /* ServerInterface+CloudHashing.swift in Sources */,
 				83BC88B926056FEC00AE365D /* ObjectDownloadHandler+Extras.swift in Sources */,
+				83776D95272671A5006E44D3 /* MovieObjectType.swift in Sources */,
 				839ADC3125EB09DD00618581 /* MutableDownloads.swift in Sources */,
 				83D8CC3425BA8BC80069E3E5 /* UpperLeftBadge.swift in Sources */,
 				83DB33522686DCDE00D34D80 /* MediaItemBadgesObserver.swift in Sources */,
@@ -2143,6 +2204,7 @@
 				832D346425871B8800FEF094 /* AlbumListModalModel.swift in Sources */,
 				835AC8ED255B842E00375084 /* Services.swift in Sources */,
 				834B25AD258C613700F653BC /* Services+SignIns.swift in Sources */,
+				83776D992727A7BC006E44D3 /* MovieItemProvider.swift in Sources */,
 				839ADC1225E3869A00618581 /* AlbumsViewModel+Index.swift in Sources */,
 				83B657DB255B81320041B9DF /* SceneDelegate.swift in Sources */,
 				8331F415255F857E0063A67D /* AlbumModel.swift in Sources */,
@@ -2209,7 +2271,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20211023.1;
+				CURRENT_PROJECT_VERSION = 20211027.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2233,7 +2295,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20211023.1;
+				CURRENT_PROJECT_VERSION = 20211027.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2420,7 +2482,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20211023.1;
+				CURRENT_PROJECT_VERSION = 20211027.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
@@ -2450,7 +2512,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20211023.1;
+				CURRENT_PROJECT_VERSION = 20211027.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;

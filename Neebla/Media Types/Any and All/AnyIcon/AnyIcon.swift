@@ -24,6 +24,9 @@ struct AnyIconMain: View {
             
         case GIFObjectType.objectType:
             GIFIcon(object: model.object, config: config)
+
+        case MovieObjectType.objectType:
+            MovieIcon(object: model.object, config: config)
         
         default:
             EmptyView()

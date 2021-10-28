@@ -14,4 +14,5 @@ enum ObjectType: String {
     case image
     case liveImage
     case url
+    case movie
 }

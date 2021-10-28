@@ -28,10 +28,5 @@ struct LiveImageLargeMedia: View {
         .onTapGesture {
             tapOnLargeMedia()
         }
-        
-//        HStack {
-//            Spacer()
-//            CheckBoxView(checked: $checked, text: "Repeat")
-//        }
     }
 }

@@ -13,17 +13,23 @@ import ServerShared
 struct CameraPickerView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var isPresented
     let sourceType: UIImagePickerController.SourceType = .camera
-    let picked: (ImageObjectTypeAssets) -> Void
+    let picked: (UploadableMediaAssets) -> Void
     
-    init(picked: @escaping (ImageObjectTypeAssets) -> Void) {
+    init(picked: @escaping (UploadableMediaAssets) -> Void) {
         self.picked = picked
     }
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = self.sourceType
-        imagePicker.mediaTypes = [kUTTypeLivePhoto as String, kUTTypeImage as String]
+        imagePicker.mediaTypes = [
+            kUTTypeLivePhoto as String,
+            kUTTypeImage as String,
+            kUTTypeMovie as String
+        ]
+        
         imagePicker.allowsEditing = true
+
         imagePicker.delegate = context.coordinator // confirming the delegate
         return imagePicker
     }
@@ -39,6 +45,7 @@ struct CameraPickerView: UIViewControllerRepresentable {
 
 class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     let picker: CameraPickerView
+    let itemProviderFactory = ItemProviderFactory()
 
     init(picker: CameraPickerView) {
         self.picker = picker
@@ -49,46 +56,34 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let selectedImage = info[.originalImage] as? UIImage else { return }
+    
+        // Dealing with: a) image or b) video result.
+        // For a movie, info[.originalImage] is nil; info[.mediaType] is "public.movie", and info[.mediaURL] has a URL for the movie. (Presumably a temporary URL that goes away after this delegate returns.)
         
-        let tempDir = Files.getDocumentsDirectory().appendingPathComponent( LocalFiles.temporary)
-        
-        let tempImageFile: URL
-        do {
-            tempImageFile = try Files.createTemporary(withPrefix: "temp", andExtension: MimeType.jpeg.fileNameExtension, inDirectory: tempDir, create: false)
-        } catch let error {
-            logger.error("Could not create new file for image: \(error)")
+        // From: https://developer.apple.com/documentation/uikit/uiimagepickercontroller/infokey/1619119-livephoto
+        // When the user picks or captures a Live Photo, the editingInfo dictionary contains the livePhoto key, with a PHLivePhoto representation of the photo as the corresponding value.
+        // However: I've not been able to get this working.
+ 
+        let content: ItemProviderContent
+        if let image = info[.originalImage] as? UIImage {
+            content = .image(image)
+        }
+        else if info[.mediaType] as? String == "public.movie",
+            let url = info[.mediaURL] as? URL {
+            content = .movie(url)
+        }
+        else {
+            logger.error("Could not get content")
             return
         }
         
-        let jpegQuality: CGFloat
-        do {
-            jpegQuality = try SettingsModel.jpegQuality(db: Services.session.db)
-        } catch let error {
-            logger.error("Could not get settings: \(error)")
-            return
-        }
-        
-        guard let data = selectedImage.jpegData(compressionQuality: jpegQuality) else {
-            logger.error("Could not get jpeg data for image.")
-            return
-        }
-        
-        do {
-            try data.write(to: tempImageFile)
-        } catch let error {
-            logger.error("Could not write image file: \(error)")
-            return
-        }
-        
-        do {
-            let asset = try ImageObjectTypeAssets(mimeType: .jpeg, imageURL: tempImageFile)
-            self.picker.picked(asset)
+        let result = itemProviderFactory.create(from: content)
+        switch result {
+        case .success(let assets):
+            self.picker.picked(assets)
             self.picker.isPresented.wrappedValue.dismiss()
-        } catch let error {
-            logger.error("Could not return image file: \(error)")
-            return
+        case .failure(let error):
+            logger.error("Could not get content: \(error)")
         }
-        
     }
 }
