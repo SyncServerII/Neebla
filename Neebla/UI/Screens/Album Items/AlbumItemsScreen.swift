@@ -134,9 +134,11 @@ struct AlbumItemsScreenBodyWithContent: View {
     let albumName: String
     static let config: IconConfig = UIDevice.isPad ? .large : .small
     
+    // 10/28/21; I had been using an outer ScrollView below, but that caused some nasty scrolling performance problems on iPad with iOS 15. There was lots of apparent movement of cells from top to bottom when scrolling. Switching to a List improves the situation greatly. See also https://stackoverflow.com/questions/57345712/scrollview-how-to-handle-large-amount-of-content
+
     var body: some View {
         VStack {            
-            RefreshableScrollView(refreshing: $viewModel.loading) {
+            List {
                 LazyVGrid(columns: gridItemLayout) {
                     ForEach(viewModel.objects, id: \.fileGroupUUID) { item in
                         AlbumItemsScreenCell(object: item, viewModel: viewModel, config: Self.config)
@@ -154,7 +156,12 @@ struct AlbumItemsScreenBodyWithContent: View {
                             }
                     } // end ForEach
                 } // end LazyVGrid
-            }.padding(5)
+            }
+            .listStyle(PlainListStyle())
+            .refreshable {
+                viewModel.refresh()
+            }
+            .padding(5)
             // Mostly this is to animate updates from the menu. E.g., the sorting order.
             .animation(.easeInOut)
             
@@ -172,7 +179,7 @@ struct AlbumItemsScreenBodyWithContent: View {
                 .frame(width: 0, height: 0)
                 .disabled(true)
             } // end if
-        }
+        } // end VStack
         .sortyFilterMenu(title: albumName, sortFilterModel: viewModel.sortFilterSettings)
     }
 }

@@ -117,7 +117,6 @@
 		8331F4F3256208320063A67D /* GenericImageIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F4F2256208320063A67D /* GenericImageIcon.swift */; };
 		8331F518256220670063A67D /* GenericImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F517256220670063A67D /* GenericImageModel.swift */; };
 		8331F5262562301F0063A67D /* AnyIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F5252562301F0063A67D /* AnyIcon.swift */; };
-		8331F53025623A170063A67D /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331F52F25623A170063A67D /* RefreshableScrollView.swift */; };
 		8333E19F2567AE0200A5F79E /* URLPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8333E19E2567AE0200A5F79E /* URLPickerView.swift */; };
 		8333E1A72567B06D00A5F79E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8333E1A62567B06D00A5F79E /* SearchBar.swift */; };
 		83383B6625A186BF009CA87F /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83383B6525A186BF009CA87F /* Badge.swift */; };
@@ -479,7 +478,6 @@
 		8331F4F2256208320063A67D /* GenericImageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericImageIcon.swift; sourceTree = "<group>"; };
 		8331F517256220670063A67D /* GenericImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericImageModel.swift; sourceTree = "<group>"; };
 		8331F5252562301F0063A67D /* AnyIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyIcon.swift; sourceTree = "<group>"; };
-		8331F52F25623A170063A67D /* RefreshableScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		8333E19E2567AE0200A5F79E /* URLPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPickerView.swift; sourceTree = "<group>"; };
 		8333E1A62567B06D00A5F79E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		83383B6525A186BF009CA87F /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
@@ -1028,7 +1026,6 @@
 			children = (
 				83B1F0B5259ED81B006E00FF /* Mail */,
 				8331F4DC2561EDA50063A67D /* Binding+Extras.swift */,
-				8331F52F25623A170063A67D /* RefreshableScrollView.swift */,
 				8320A754256F530C00819377 /* SFSymbolIcon.swift */,
 				83BF80812585F9D3000E0B37 /* Icon.swift */,
 				837A472625DA37DA00CAC322 /* Images.swift */,
@@ -2028,7 +2025,6 @@
 				839F1DFD25FEC6C60089C13F /* AboutAppModel.swift in Sources */,
 				8331F42F255F96AB0063A67D /* LocalFiles.swift in Sources */,
 				83E0A10A267C64B9005A77CF /* MediaItemAttributes+Extras.swift in Sources */,
-				8331F53025623A170063A67D /* RefreshableScrollView.swift in Sources */,
 				83F4167B259C2074003C7200 /* UIDevice+Extras.swift in Sources */,
 				83E1A98D2599A36F004D4029 /* URLPreviewItemProvider.swift in Sources */,
 				8331F337255B8AFD0063A67D /* MainView.swift in Sources */,
@@ -2274,6 +2270,7 @@
 				CURRENT_PROJECT_VERSION = 20211027.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2298,6 +2295,7 @@
 				CURRENT_PROJECT_VERSION = 20211027.0;
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				INFOPLIST_FILE = "Share Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2488,6 +2486,7 @@
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Neebla/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2517,6 +2516,7 @@
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Neebla/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

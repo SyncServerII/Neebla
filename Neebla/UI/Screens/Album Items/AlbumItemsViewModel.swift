@@ -27,32 +27,7 @@ class AlbumItemsViewModel: ObservableObject {
     
     @Published var sheetToShow: SheetToShow?
     @Published var showCellDetails: Bool = false
-    
-    private var boundedCancel:BoundedCancel?
-    
-    @Published var loading: Bool = false {
-        didSet {
-            if oldValue == false && loading == true {
-                if !Services.session.userIsSignedIn {
-                    showAlert(AlertyHelper.alert(title: "Alert!", message: "Please sign in to sync!"))
-                    loading = false
-                    return
-                }
-                
-                boundedCancel = BoundedCancel { [weak self] in
-                    guard let self = self else { return }
-                    
-                    if self.loading {
-                        self.loading = false
-                    }
-                }
-                
-                // Calling this user triggered. User initiated the pull to refresh.
-                self.sync(userTriggered: true)
-            }
-        }
-    }
-    
+        
     @Published var objects = [ServerObjectModel]()
     @Published var unfilteredNumberObjects: Int = 0
     
@@ -116,7 +91,6 @@ class AlbumItemsViewModel: ObservableObject {
     
     private var syncSubscription:AnyCancellable!
     private var markAsDownloadedSubscription:AnyCancellable!
-    private var userEventSubscriptionOther:AnyCancellable!
     private var objectDeletedSubscription:AnyCancellable!
     private var settingsDiscussionFilterSubscription:AnyCancellable!
     private var settingsSortByOrderSubscription:AnyCancellable!
@@ -164,8 +138,6 @@ class AlbumItemsViewModel: ObservableObject {
                 sharingGroupUUID == self.sharingGroupUUID else {
                 return
             }
-
-            self.boundedCancel?.minimumCancel()
 
             do {
                 // Reset the `needsDownload` field, if needed, after a successful sync.
@@ -225,10 +197,6 @@ class AlbumItemsViewModel: ObservableObject {
             }
             
             self.objects = self.getItemsForAlbum(album: sharingGroupUUID)
-        }
-        
-        userEventSubscriptionOther = Services.session.userEvents.alerty.sink { [weak self] _ in
-            self?.loading = false
         }
         
         if Services.session.userIsSignedIn {
@@ -340,6 +308,16 @@ class AlbumItemsViewModel: ObservableObject {
         }
     }
 
+    func refresh() {
+        if !Services.session.userIsSignedIn {
+            showAlert(AlertyHelper.alert(title: "Alert!", message: "Please sign in to sync!"))
+            return
+        }
+        
+        // Calling this user triggered. User initiated the pull to refresh.
+        self.sync(userTriggered: true)
+    }
+    
     func sync(userTriggered: Bool = false) {
         // It seems odd to stay in a changing mode if user triggers a sync.
         if changeMode != .none {
@@ -350,7 +328,6 @@ class AlbumItemsViewModel: ObservableObject {
             try Services.session.syncServer.sync(sharingGroupUUID: sharingGroupUUID)
         } catch let error {
             logger.error("\(error)")
-            loading = false
 
             if let networkError = error as? Errors, networkError.networkIsNotReachable {
                 if userTriggered {

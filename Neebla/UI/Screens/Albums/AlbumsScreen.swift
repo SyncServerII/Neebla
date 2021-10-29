@@ -204,6 +204,7 @@ struct AlbumsScreenAlbumList: View {
                 .listRowBackground(AlbumsScreen.background)
             }
         }
+        // See https://stackoverflow.com/questions/69419699/styling-differences-in-swiftui-button-in-list-context-ios-15-vs-earlier/69763199#69763199
         .listStyle(PlainListStyle())
         .cornerRadius(5, antialiased: true)
         .if(!UIDevice.isPad) {
