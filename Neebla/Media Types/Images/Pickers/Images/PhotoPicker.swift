@@ -52,6 +52,8 @@ struct PhotoPicker: UIViewControllerRepresentable {
     
     // Use a Coordinator to act as your PHPickerViewControllerDelegate
     class Coordinator: PHPickerViewControllerDelegate {
+        let spinner = UIActivityIndicatorView(style: .large)
+
         let tempDir = Files.getDocumentsDirectory().appendingPathComponent(LocalFiles.temporary)
         var progress:Progress?
       
@@ -60,6 +62,24 @@ struct PhotoPicker: UIViewControllerRepresentable {
         
         init(_ parent: PhotoPicker) {
             self.parent = parent
+        }
+        
+        private func addSpinner() {
+            guard spinner.superview == nil else {
+                spinner.startAnimating()
+                return
+            }
+            
+            spinner.translatesAutoresizingMaskIntoConstraints = false
+            
+            guard let view = parent.controller.view else {
+                return
+            }
+            
+            view.addSubview(spinner)
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+            spinner.startAnimating()
         }
         
         // This gets called on a cancel, and when finished picking.
@@ -87,12 +107,16 @@ struct PhotoPicker: UIViewControllerRepresentable {
             }))
             parent.controller.present(alert, animated: true)
         }
-    
+
         // TODO: Not reporting errors properly from this. I tried putting an .alert on this picker, but didn't get that working.
         // See https://docs.google.com/document/d/190FBElJHbzCqvI9-pZGuHOg4jC2gbMh3lB6INCaiQcs/edit#bookmark=id.m29y98rl7vw8
-        func addImage(result: PHPickerResult) {
+        private func addImage(result: PHPickerResult) {
+            addSpinner()
+            
             itemProviderFactory.create(using: [result.itemProvider]) { [weak self] result in
                 guard let self = self else { return }
+                
+                self.spinner.stopAnimating()
                 
                 switch result {
                 case .success(let itemProvider):

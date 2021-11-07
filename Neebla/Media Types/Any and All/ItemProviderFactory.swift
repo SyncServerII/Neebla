@@ -27,6 +27,7 @@ class ItemProviderFactory {
         GIFItemProvider.self
     ]
     
+    // Calls completion handler on the main queue.
     func create(using attachments: [NSItemProvider], completion: @escaping (Result<SXItemProvider, Error>)->()) {
     
         // 10/27/21; This is ugly. It is serializing the calls to the different `provider.create` methods. I thought I had this working before with DispatchGroup, but really it did it all in parallel! Not what I wanted. Maybe change to using the new Swift `await` primitive (iOS 15 only I think)? The current solution is based off https://betterprogramming.pub/synchronizing-async-code-with-dispatchgroup-dispatchsemaphore-de814e485e82
@@ -34,9 +35,9 @@ class ItemProviderFactory {
         // `canHandle` can have false positives. May have to try more than one.
         var success = false
         var possibleFinalError: Error?
-        let createQueue = DispatchQueue(label: "ItemProviderFactory")
+        let createQueue = DispatchQueue(label: "ItemProviderFactory", qos: .userInteractive)
         
-        DispatchQueue.global().async {
+        DispatchQueue.global(qos: .userInteractive).async {
             let semaphore = DispatchSemaphore(value: 0)
             
             for provider in Self.providers {
@@ -48,7 +49,9 @@ class ItemProviderFactory {
                                 switch result {
                                 case .success(let provider):
                                     success = true
-                                    completion(.success(provider))
+                                    DispatchQueue.main.async {
+                                        completion(.success(provider))
+                                    }
                                     semaphore.signal()
                                     return
                                     
@@ -73,7 +76,9 @@ class ItemProviderFactory {
             } // end for
             
             guard success else {
-                completion(.failure(possibleFinalError ?? ItemProviderFactoryError.couldNotHandleItem))
+                DispatchQueue.main.async {
+                    completion(.failure(possibleFinalError ?? ItemProviderFactoryError.couldNotHandleItem))
+                }
                 return
             }
         } // end DispatchQueue.global().async
