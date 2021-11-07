@@ -20,7 +20,7 @@ struct MovieIcon: View {
     var body: some View {
         ZStack {
             GenericImageIcon(model: model, config: config)
-                .lowerRightText("movie")
+                .lowerRightText("video")
         }
     }
 }

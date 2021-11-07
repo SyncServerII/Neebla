@@ -5,28 +5,28 @@ import iOSShared
 
 // None of the icon's should have specific content in the upper right when normally rendered. This is so that `AnyIcon` can put `upperRightView` there.
 
-struct AnyIconMain: View {
-    // 9/3/21; Change this to a @StateObject and I see the issue described here: https://github.com/SyncServerII/Neebla/issues/27
-    @ObservedObject var model:AnyIconModel
+struct AnyIconMain: View {s
+    @StateObject var object: ServerObjectModel
+    let objectType:String
     let config: IconConfig
     
     var body: some View {
-        switch model.object.objectType {
+        switch objectType {
         
         case ImageObjectType.objectType:
-            ImageIcon(object: model.object, config: config)
+            ImageIcon(object: object, config: config)
 
         case URLObjectType.objectType:
-            URLIcon(object: model.object, config: config)
+            URLIcon(object: object, config: config)
             
         case LiveImageObjectType.objectType:
-            LiveImageIcon(object: model.object, config: config)
+            LiveImageIcon(object: object, config: config)
             
         case GIFObjectType.objectType:
-            GIFIcon(object: model.object, config: config)
+            GIFIcon(object: object, config: config)
 
         case MovieObjectType.objectType:
-            MovieIcon(object: model.object, config: config)
+            MovieIcon(object: object, config: config)
         
         default:
             EmptyView()
@@ -54,7 +54,7 @@ struct AnyIcon<Content: View>: View {
                         .cornerRadius(ImageSizer.cornerRadius)
                 }
                 else {
-                    AnyIconMain(model: model, config: config)
+                    AnyIconMain(object: model.object, objectType: model.object.objectType, config: config)
                 }
             }
         }
@@ -73,9 +73,10 @@ struct AnyIcon<Content: View>: View {
                 }
             })
         }
-        .if(model.unreadCountBadgeText != nil) {
-            $0.upperLeftBadge(model.unreadCountBadgeText!)
-        }
+        
+        // Using the `.if` modifier here caused problems. Changing it to be more specific solved the problem. https://stackoverflow.com/questions/69783232/
+        .upperLeftBadge(model.unreadCountBadgeText)
+        
         .if(model.newItem) {
             $0.lowerLeftIcon("New")
         }

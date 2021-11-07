@@ -13,10 +13,13 @@ Version 2.0.10 (20211023.0, 20211023.1, 20211027.0, 20211028.0)
 	* Fixed iOS 15 issues with Album screen. The default List styling had changed.
 		See https://stackoverflow.com/questions/69419699/styling-differences-in-swiftui-button-in-list-context-ios-15-vs-earlier/69763199#69763199
 	* Added a movie media type-- limited to a max of 10MB file size.
+		Using name "video" here (not "movie") given a suggestion of Rod's.
 	* Fixed an issue with ItemProviderFactory-- had not been serializing async
 		calls correctly. Yark.
 	* Fixed a nasty performance issue on the Album Items screen with iPad.
 	* Updated to iOS 15 to use a `refreshable` method-- pull to refresh on a List.
+	* Fixed problem with album item screen item going blank.
+		See https://stackoverflow.com/questions/69783232/
 
 Version 2.0.9 (TestFlight Builds: 20210828.0, 20210830.0, 20210902.0, 20210904.0,
 								20210926.0, 20211004.0)

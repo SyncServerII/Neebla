@@ -27,7 +27,7 @@ class MovieObjectType: ItemType, DeclarableObject {
     }
     
     let displayNameArticle = "a"
-    let displayName = "movie"
+    let displayName = "video"
 
     // Object declaration
     static let objectType = ObjectType.movie.rawValue

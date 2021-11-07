@@ -4,7 +4,7 @@ import Combine
 
 struct AlbumItemsScreenCell: View {
     @StateObject var object:ServerObjectModel
-    @StateObject var viewModel:AlbumItemsViewModel
+    @ObservedObject var viewModel:AlbumItemsViewModel
     let config: IconConfig
     @Environment(\.colorScheme) var colorScheme
 

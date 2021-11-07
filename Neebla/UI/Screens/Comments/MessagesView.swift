@@ -64,7 +64,7 @@ struct MessagesView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> MessagesViewController {
         let messagesVC = MessageSwiftUIVC()
         
-        // If user is signed in, allowing user to view but not send messages.
+        // If user is not signed in, allowing user to view but not send messages.
         messagesVC.messageInputBar.sendButton.isUserInteractionEnabled = model.allowingSending
         messagesVC.messageInputBar.inputTextView.isUserInteractionEnabled = model.allowingSending
         
