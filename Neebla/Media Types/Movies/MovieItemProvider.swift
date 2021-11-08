@@ -74,6 +74,7 @@ class MovieItemProvider: SXItemProvider {
         return nil
     }
     
+    // This takes a long time, and it may be for nothing since the video may be too large. But I don't have a better way to get the size of the video. See https://stackoverflow.com/questions/69878125
     static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
         
         return item.loadFileRepresentation(forTypeIdentifier: movieUTI) { (url, error) in
