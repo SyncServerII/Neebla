@@ -6,7 +6,7 @@ import iOSShared
 // None of the icon's should have specific content in the upper right when normally rendered. This is so that `AnyIcon` can put `upperRightView` there.
 
 struct AnyIconMain: View {
-    @StateObject var object: ServerObjectModel
+    @ObservedObject var object: ServerObjectModel
     let objectType:String
     let config: IconConfig
     
