@@ -28,7 +28,7 @@ class ItemProviderFactory {
     ]
     
     // Calls completion handler on the main queue.
-    func create(using attachments: [NSItemProvider], completion: @escaping (Result<SXItemProvider, Error>)->()) {
+    func create(using specs: [ItemSpecification], completion: @escaping (Result<SXItemProvider, Error>)->()) {
     
         // 10/27/21; This is ugly. It is serializing the calls to the different `provider.create` methods. I thought I had this working before with DispatchGroup, but really it did it all in parallel! Not what I wanted. Maybe change to using the new Swift `await` primitive (iOS 15 only I think)? The current solution is based off https://betterprogramming.pub/synchronizing-async-code-with-dispatchgroup-dispatchsemaphore-de814e485e82
         
@@ -41,11 +41,11 @@ class ItemProviderFactory {
             let semaphore = DispatchSemaphore(value: 0)
             
             for provider in Self.providers {
-                for attachment in attachments {
-                    if provider.canHandle(item: attachment) {
+                for spec in specs {
+                    if provider.canHandle(item: spec.item) {
                         
                         createQueue.async {
-                            self.handle = provider.create(item: attachment) { result in
+                            self.handle = provider.create(from: spec) { result in
                                 switch result {
                                 case .success(let provider):
                                     success = true

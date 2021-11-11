@@ -204,7 +204,8 @@ extension ShareViewController {
             return
         }
 
-        itemProviderFactory.create(using: attachments, completion: completion)
+        let specs = attachments.map { ItemSpecification(assetIdentifier: nil, item: $0)}
+        itemProviderFactory.create(using: specs, completion: completion)
     }
 }
 

@@ -68,8 +68,8 @@ class LiveImageItemProvider: SXItemProvider {
         return canHandle
     }
     
-    static func create(item: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
-        _ = getMediaAssets(item: item) { result in
+    static func create(from spec: ItemSpecification, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
+        _ = getMediaAssets(item: spec.item) { result in
             switch result {
             case .success(let assets):
                 guard let assets = assets as? LiveImageObjectTypeAssets else {

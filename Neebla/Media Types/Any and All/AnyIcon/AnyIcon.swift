@@ -75,6 +75,7 @@ struct AnyIcon<Content: View>: View {
         }
         
         // Using the `.if` modifier here caused problems. Changing it to be more specific solved the problem. https://stackoverflow.com/questions/69783232/
+        // See also https://www.objc.io/blog/2021/08/24/conditional-view-modifiers/
         .upperLeftBadge(model.unreadCountBadgeText)
         
         .if(model.newItem) {

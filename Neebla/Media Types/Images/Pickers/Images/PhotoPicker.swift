@@ -107,13 +107,33 @@ struct PhotoPicker: UIViewControllerRepresentable {
             }))
             parent.controller.present(alert, animated: true)
         }
-
+        
+        private func addImage(result: PHPickerResult) {
+            // Checking `authorizationStatus` because I want to allow for PHAsset.fetchAssets usage.
+            if PHPhotoLibrary.authorizationStatus() == .authorized {
+                // Access has been granted.
+                addImageAux(result: result)
+            } else {
+                PHPhotoLibrary.requestAuthorization{ newStatus in
+                    if newStatus == .authorized {
+                        self.addImageAux(result: result)
+                    } else {
+                        logger.error("User didn't authorize PHPhotoLibrary access.")
+                        // Not going to fail. The fetchAssets is just used to improve performance. e.g., to get size of video.
+                        self.addImageAux(result: result)
+                    }
+                }
+            }
+        }
+        
         // TODO: Not reporting errors properly from this. I tried putting an .alert on this picker, but didn't get that working.
         // See https://docs.google.com/document/d/190FBElJHbzCqvI9-pZGuHOg4jC2gbMh3lB6INCaiQcs/edit#bookmark=id.m29y98rl7vw8
-        private func addImage(result: PHPickerResult) {
+        private func addImageAux(result: PHPickerResult) {
             addSpinner()
             
-            itemProviderFactory.create(using: [result.itemProvider]) { [weak self] result in
+            let spec = ItemSpecification(assetIdentifier: result.assetIdentifier, item: result.itemProvider)
+            
+            itemProviderFactory.create(using: [spec]) { [weak self] result in
                 guard let self = self else { return }
                 
                 self.spinner.stopAnimating()

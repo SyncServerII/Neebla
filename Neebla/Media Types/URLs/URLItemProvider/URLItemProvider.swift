@@ -186,8 +186,8 @@ class URLItemProvider: SXItemProvider {
         return support
     }
     
-    static func create(item: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
-        let handle = getMediaAssets(item: item) { result in
+    static func create(from spec: ItemSpecification, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
+        let handle = getMediaAssets(item: spec.item) { result in
             switch result {
             case .success(let assets):
                 guard let assets = assets as? URLObjectTypeAssets else {

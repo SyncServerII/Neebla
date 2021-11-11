@@ -9,10 +9,11 @@ import SwiftUI
 import ServerShared
 import iOSShared
 import AVKit
+import Photos
+import PhotosUI
 
 class MovieItemProvider: SXItemProvider {
     enum MovieItemProviderError: Error, UserDisplayable {
-        case cannotGetLivePhoto
         case failedCreatingURL
         case couldNotGetMovie
         case bizzareWrongType
@@ -20,6 +21,9 @@ class MovieItemProvider: SXItemProvider {
         case badSize
         case movieIsTooBig
         case couldNotGetSettings
+        case cannotGetPHAsset
+        case cannotGetAVURLAsset
+        case cannotGetSize
         
         var userDisplayableMessage: (title: String, message: String)? {
             if self == .badSize {
@@ -52,9 +56,55 @@ class MovieItemProvider: SXItemProvider {
         return canHandle
     }
     
-    static func create(item: NSItemProvider, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
+    static func create(from spec: ItemSpecification, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
+    
+        if let assetIdentifier = spec.assetIdentifier {
+            return create(from: assetIdentifier, completion: completion)
+        }
 
-        _ = getMediaAssets(item: item) { result in
+        return createAux(from:spec, completion: completion)
+    }
+    
+    private static func create(from assetIdentifier: String, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
+        let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil)
+        guard let asset = fetchResult.firstObject else {
+            completion(.failure(MovieItemProviderError.cannotGetPHAsset))
+            return nil
+        }
+             
+        let options = PHVideoRequestOptions()
+        options.version = .original
+        options.deliveryMode = .fastFormat
+        
+        PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
+            // Could be AVComposition class
+            guard let urlAsset = avAsset as? AVURLAsset else {
+                completion(.failure(MovieItemProviderError.cannotGetAVURLAsset))
+                return
+            }
+            
+            switch getMediaAssets(from: urlAsset.url) {
+            case .success(let uploadableAssets):
+                guard let assets = uploadableAssets as? MovieObjectTypeAssets else {
+                    // Should *not* get here. Just for safekeeping.
+                    completion(.failure(MovieItemProviderError.bizzareWrongType))
+                    return
+                }
+                
+                let obj = Self.init(assets: assets)
+                completion(.success(obj))
+
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+        return nil
+    }
+
+    private static func createAux(from spec: ItemSpecification, completion: @escaping (Result<SXItemProvider, Error>) -> ()) -> Any? {
+
+        _ = getMediaAssets(item: spec.item) { result in
             switch result {
             case .success(let assets):
                 guard let assets = assets as? MovieObjectTypeAssets else {
@@ -73,8 +123,8 @@ class MovieItemProvider: SXItemProvider {
         
         return nil
     }
-    
-    // This takes a long time, and it may be for nothing since the video may be too large. But I don't have a better way to get the size of the video. See https://stackoverflow.com/questions/69878125
+        
+    // This takes far longer than `PHImageManager.default().requestAVAsset`. See https://stackoverflow.com/questions/69878125
     static func getMediaAssets(item: NSItemProvider, completion: @escaping (Result<UploadableMediaAssets, Error>) -> ()) -> Any? {
         
         return item.loadFileRepresentation(forTypeIdentifier: movieUTI) { (url, error) in
@@ -82,7 +132,7 @@ class MovieItemProvider: SXItemProvider {
                 completion(.failure(error))
                 return
             }
-            
+
             guard let url = url else {
                 completion(.failure(MovieItemProviderError.couldNotGetMovie))
                 return
@@ -115,6 +165,8 @@ class MovieItemProvider: SXItemProvider {
             return .failure(MovieItemProviderError.badSize)
         }
         
+        logger.debug("getMediaAssets: fileSize: \(fileSize)")
+
         guard fileSize <= Services.session.serverInterface.config.maxFileSizeBytes else {
             return .failure(MovieItemProviderError.movieIsTooBig)
         }
