@@ -14,7 +14,6 @@ struct SettingsScreen: View {
 }
 
 struct SettingsScreenBody: View {
-    let emailDeveloper = EmailContents(subject: "Question or comment for developer of Neebla", to: "chris@SpasticMuffin.biz")
     @ObservedObject var settingsModel = SettingsScreenModel()
     @StateObject var alerty = AlertySubscriber(publisher: Services.session.userEvents)
     @State var alert: SwiftUI.Alert?
@@ -61,7 +60,7 @@ struct SettingsScreenBody: View {
             case .albumList:
                 AlbumListModal(specifics: settingsModel.deletionSpecifics, alert: $alert)
             case .emailDeveloper(let addAttachments):
-                MailView(emailContents: emailDeveloper, addAttachments: addAttachments, result: $settingsModel.sendMailResult)
+                MailView(emailContents: EmailDeveloper.developer, addAttachments: addAttachments, result: $settingsModel.sendMailResult)
             case .aboutApp:
                 AboutApp()
             case .removeUser:

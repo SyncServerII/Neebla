@@ -54,18 +54,6 @@ extension SettingsScreenModel: AddEmailAttachments {
             logger.error("\(error)")
         }
         
-        let archivedFileURLs = sharedLogging.archivedFileURLs
-        guard archivedFileURLs.count > 0 else {
-            return
-        }
-        
-        for logFileURL in archivedFileURLs {
-            guard let logFileData = try? Data(contentsOf: logFileURL, options: NSData.ReadingOptions()) else {
-                continue
-            }
-            
-            let fileName = logFileURL.lastPathComponent
-            vc.addAttachmentData(logFileData, mimeType: "text/plain", fileName: fileName)
-        }
+        EmailDeveloper.addLogs(vc: vc)
     }
 }

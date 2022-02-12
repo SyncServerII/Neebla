@@ -39,6 +39,8 @@
 		83152B2325FB366700A5439F /* GIFLargeMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2225FB366700A5439F /* GIFLargeMedia.swift */; };
 		83152B2825FB368700A5439F /* GIFObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2725FB368700A5439F /* GIFObjectType.swift */; };
 		83152B2D25FB36AD00A5439F /* GIFItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83152B2C25FB36AD00A5439F /* GIFItemProvider.swift */; };
+		831B989127B85BC600A273CA /* FailedLaunchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B989027B85BC600A273CA /* FailedLaunchViewModel.swift */; };
+		831B989327B85F1D00A273CA /* EmailDeveloper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B989227B85F1D00A273CA /* EmailDeveloper.swift */; };
 		8320A6D9256CA0DE00819377 /* AlbumItemsScreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A6D8256CA0DE00819377 /* AlbumItemsScreenCell.swift */; };
 		8320A6E3256CB2F400819377 /* ObjectDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A6E2256CB2F400819377 /* ObjectDetailsView.swift */; };
 		8320A6EC256CB56800819377 /* AnyLargeMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8320A6EB256CB56800819377 /* AnyLargeMedia.swift */; };
@@ -414,6 +416,8 @@
 		83152B2225FB366700A5439F /* GIFLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFLargeMedia.swift; sourceTree = "<group>"; };
 		83152B2725FB368700A5439F /* GIFObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFObjectType.swift; sourceTree = "<group>"; };
 		83152B2C25FB36AD00A5439F /* GIFItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFItemProvider.swift; sourceTree = "<group>"; };
+		831B989027B85BC600A273CA /* FailedLaunchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedLaunchViewModel.swift; sourceTree = "<group>"; };
+		831B989227B85F1D00A273CA /* EmailDeveloper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailDeveloper.swift; sourceTree = "<group>"; };
 		8320A6D8256CA0DE00819377 /* AlbumItemsScreenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumItemsScreenCell.swift; sourceTree = "<group>"; };
 		8320A6E2256CB2F400819377 /* ObjectDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsView.swift; sourceTree = "<group>"; };
 		8320A6EB256CB56800819377 /* AnyLargeMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyLargeMedia.swift; sourceTree = "<group>"; };
@@ -780,6 +784,15 @@
 			path = "GIF Images";
 			sourceTree = "<group>";
 		};
+		831B988F27B85BA600A273CA /* FailedLaunchView */ = {
+			isa = PBXGroup;
+			children = (
+				8310188826C22FC300765DF0 /* FailedLaunchView.swift */,
+				831B989027B85BC600A273CA /* FailedLaunchViewModel.swift */,
+			);
+			path = FailedLaunchView;
+			sourceTree = "<group>";
+		};
 		831CF122259B031200A6475A /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -995,7 +1008,7 @@
 			children = (
 				8331F32F255B8AFD0063A67D /* MainView.swift */,
 				83A151D725B91F320094203B /* LandingView.swift */,
-				8310188826C22FC300765DF0 /* FailedLaunchView.swift */,
+				831B988F27B85BA600A273CA /* FailedLaunchView */,
 				8331F33E255B8B8F0063A67D /* SignInViewModel.swift */,
 			);
 			path = "App Launch";
@@ -1347,6 +1360,7 @@
 			children = (
 				8331F327255B8AFD0063A67D /* MailView.swift */,
 				83B1F0B6259ED836006E00FF /* EmailContents.swift */,
+				831B989227B85F1D00A273CA /* EmailDeveloper.swift */,
 			);
 			path = Mail;
 			sourceTree = "<group>";
@@ -2051,6 +2065,7 @@
 				8309907926788DB200015EC4 /* ObjectDetailsScreenNavButtons.swift in Sources */,
 				8331F46D2560BE8A0063A67D /* ServerFileModel.swift in Sources */,
 				833E25C026D897CA00A00952 /* LowerLeftIcon.swift in Sources */,
+				831B989127B85BC600A273CA /* FailedLaunchViewModel.swift in Sources */,
 				8308B706256A3A53007F0CEB /* URLFile.swift in Sources */,
 				835104A4259FE91900C5A05E /* MediaPicker.swift in Sources */,
 				83F49B99260FE89400814A2A /* AlbumUnreadCount.swift in Sources */,
@@ -2141,6 +2156,7 @@
 				83F41687259C21EC003C7200 /* View+iPad.swift in Sources */,
 				8320A6EC256CB56800819377 /* AnyLargeMedia.swift in Sources */,
 				83776D972726734D006E44D3 /* MovieObjectType+Uploadable.swift in Sources */,
+				831B989327B85F1D00A273CA /* EmailDeveloper.swift in Sources */,
 				83B0CB7225B3FDBE00D53B58 /* SortFilterMenu.swift in Sources */,
 				83C7352425992CAD0073788A /* ItemProviderFactory.swift in Sources */,
 				8331F47E2560CE540063A67D /* AnyTypeManager.swift in Sources */,
@@ -2480,7 +2496,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20211110.0;
+				CURRENT_PROJECT_VERSION = 20220212.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
@@ -2511,7 +2527,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Neebla/Neebla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20211110.0;
+				CURRENT_PROJECT_VERSION = 20220212.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Neebla/Preview Content\"";
 				DEVELOPMENT_TEAM = BH68R29JBE;
 				ENABLE_PREVIEWS = YES;

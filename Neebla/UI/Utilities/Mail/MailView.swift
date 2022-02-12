@@ -12,6 +12,7 @@ import MessageUI
 // Adapted from https://stackoverflow.com/questions/56784722/swiftui-send-email
 
 struct MailView: UIViewControllerRepresentable {
+    static let canSendMail = MFMailComposeViewController.canSendMail()
     @Environment(\.presentationMode) var presentation
     @Binding var result: Result<MFMailComposeResult, Error>?
     let emailContents: EmailContents

@@ -23,7 +23,7 @@ class AlbumsViewModel: ObservableObject {
     @Published var activeSheet:AlbumsScreenActiveSheet?
     @Published var sharingMode = false
     @Published var albumToShare: AlbumModel?
-    @Published var canSendMail: Bool = MFMailComposeViewController.canSendMail()
+    @Published var canSendMail: Bool = MailView.canSendMail
     @Published var sendMailResult: Swift.Result<MFMailComposeResult, Error>? = nil
     @Published var emailMessage: EmailContents?
 
