@@ -268,11 +268,11 @@ extension ServerObjectModel {
     
     static func albumFor(fileGroupUUID: UUID, db: Connection) throws -> AlbumModel {
         guard let objectModel = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroupUUID) else {
-            throw DatabaseModelError.notExactlyOneRow
+            throw DatabaseModelError.notExactlyOneRow(message: "albumFor: ServerObjectModel.fetchSingleRow")
         }
         
         guard let albumModel = try AlbumModel.fetchSingleRow(db: db, where: AlbumModel.sharingGroupUUIDField.description == objectModel.sharingGroupUUID) else {
-            throw DatabaseModelError.notExactlyOneRow
+            throw DatabaseModelError.notExactlyOneRow(message: "albumFor: AlbumModel.fetchSingleRow")
         }
         
         return albumModel
@@ -383,7 +383,7 @@ extension ServerObjectModel {
         
         for fileGroup in fileGroups {
             guard let object = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == fileGroup) else {
-                throw DatabaseModelError.notExactlyOneRow
+                throw DatabaseModelError.notExactlyOneRow(message: "updateSharingGroups")
             }
             
             try object.update(setters: ServerObjectModel.sharingGroupUUIDField.description <- destinationSharinGroup)

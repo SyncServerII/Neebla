@@ -109,7 +109,7 @@ extension MediaItemAttributes {
         
         for keyword in intersection {
             guard let keywordModel = try KeywordModel.fetchSingleRow(db: db, where: KeywordModel.keywordField.description == keyword) else {
-                throw DatabaseModelError.notExactlyOneRow
+                throw DatabaseModelError.notExactlyOneRow(message: "addKeywordsToKeywordModelsIfNeeded")
             }
             
             try keywordModel.update(setters: KeywordModel.deletedField.description <- false)

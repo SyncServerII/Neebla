@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "797005ad8a1f0614063933e2fa010a5d13cb09d0",
-          "version": "7.6.0"
+          "revision": "b3bb0c5551fb3f80ca939829639ab5b093edd14f",
+          "version": "7.7.0"
         }
       },
       {
@@ -222,8 +222,8 @@
         "repositoryURL": "http://github.com/SyncServerII/iOSShared.git",
         "state": {
           "branch": null,
-          "revision": "1795da58d2cde2e92710e9ca9f514b7d5e1d54ea",
-          "version": "0.17.1"
+          "revision": "b09226f3e67748ed0b039c8edfd4c75a9fd4b301",
+          "version": "0.17.2"
         }
       },
       {
@@ -294,8 +294,8 @@
         "repositoryURL": "https://github.com/Kitura/KituraContracts.git",
         "state": {
           "branch": null,
-          "revision": "8418006e39e2efae9b31ae92721cb597ac29c617",
-          "version": "1.2.200"
+          "revision": "8a4778c3aa7833e9e1af884e8819d436c237cd70",
+          "version": "1.2.201"
         }
       },
       {
@@ -420,8 +420,8 @@
         "repositoryURL": "https://github.com/yonat/SweeterSwift",
         "state": {
           "branch": null,
-          "revision": "375a2603e98c8b59c53c9d2096f5443d78861bff",
-          "version": "1.1.5"
+          "revision": "23997b3f33cc213a9fb15064c609bf29787c0653",
+          "version": "1.2.0"
         }
       },
       {
@@ -456,8 +456,8 @@
         "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
         "state": {
           "branch": null,
-          "revision": "2e09be8af614401bc9f87d40093ec19ce56ccaf2",
-          "version": "0.1.3"
+          "revision": "f2616860a41f9d9932da412a8978fec79c06fe24",
+          "version": "0.1.4"
         }
       },
       {

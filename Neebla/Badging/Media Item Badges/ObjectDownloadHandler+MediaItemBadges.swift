@@ -20,7 +20,7 @@ extension ObjectDownloadHandler {
 
         // We have the file model. We *must* have the object model as well.
         guard let objectModel = try ServerObjectModel.fetchSingleRow(db: db, where: ServerObjectModel.fileGroupUUIDField.description == object.fileGroupUUID) else {
-            throw DatabaseModelError.notExactlyOneRow
+            throw DatabaseModelError.notExactlyOneRow(message: "updateMediaItemBadge: ServerObjectModel.fetchSingleRow")
         }
         
         // Read the media item attributes file and update the model

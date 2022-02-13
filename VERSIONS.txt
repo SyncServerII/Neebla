@@ -1,7 +1,7 @@
 Neebla
 
 Version 2.0.10 (20211023.0, 20211023.1, 20211027.0, 20211028.0, 20211107.0,
-				20211110.0, 20220212.0)
+				20211110.0, 20220212.0, 20220212.1)
 	* Another attempt to fix download indicators
 		- They don't get updated always after you enter an album and come back
 		to the list of albums.
@@ -27,6 +27,8 @@ Version 2.0.10 (20211023.0, 20211023.1, 20211027.0, 20211028.0, 20211107.0,
 		when selecting a video.
 	* Added option to send logs to developer if app launches in failure mode.
 		i.e., added this option to the FailedLaunchView screen.
+	* Added debugging for Rod's issue:
+	  - notExactlyOneRow messages
 
 Version 2.0.9 (TestFlight Builds: 20210828.0, 20210830.0, 20210902.0, 20210904.0,
 								20210926.0, 20211004.0)

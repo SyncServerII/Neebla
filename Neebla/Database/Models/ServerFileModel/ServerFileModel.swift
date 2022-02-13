@@ -355,7 +355,7 @@ extension Array where Element == DownloadedFile {
             }
             
             guard let fileModel = try ServerFileModel.fetchSingleRow(db: db, where: ServerFileModel.fileUUIDField.description == file.uuid) else {
-                throw DatabaseModelError.notExactlyOneRow
+                throw DatabaseModelError.notExactlyOneRow(message: "update: ServerFileModel.fetchSingleRow")
             }
             
             try fileModel.update(setters: ServerFileModel.downloadStatusField.description <- downloadStatus,
